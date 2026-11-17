@@ -11,6 +11,24 @@
   if (W.__ergenekonEk) return;
   W.__ergenekonEk = true;
 
+  /* ---------- 0) Dünya haritası sunucusuz da çalışsın ----------
+     /api/world yoksa (GitHub Pages) haritayı kendi obanla yerel kur:
+     oba, kaynaklar, canavarlar ve kafileler oyunun kendi verisinden çizilir. */
+  (function () {
+    var nf0 = W.fetch && W.fetch.bind(W);
+    if (!nf0) return;
+    function local() {
+      var s = W.s || {}, l = s.l || {};
+      var body = { self: 'yerel', serverTime: Date.now(), players: [{ id: 'yerel', name: s.boyName || 'Boyun', level: l.ocak || 1, obaLevel: l.oba || 0, wallLevel: l.sur || 0, x: 0, z: 0, updatedAt: Date.now() }] };
+      return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+    W.fetch = function (input, init) {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      if (!/\/api\/world(\?|$)/.test(url)) return nf0(input, init);
+      return nf0(input, init).then(function (r) { return r.ok ? r : local(); }, function (e) { if (e && e.name === 'AbortError') throw e; return local(); });
+    };
+  })();
+
   var RES = ['et', 'odun', 'komur', 'demir', 'celik'];
   var RNAME = { et: 'Et', odun: 'Odun', komur: 'Kömür', demir: 'Demir', celik: 'Çelik' };
   var TIER = {
@@ -647,10 +665,38 @@
     for (var i = 0; i < list.length; i++) { var o = list[i]; if (o.offsetWidth > 0 && o.offsetHeight > 0 && getComputedStyle(o).display !== 'none') { open = true; break; } }
     if (open !== lastWin) { lastWin = open; document.body.classList.toggle('ek-win', open); }
   }
+  /* ---------- 3c) harita kamerası: WOS gibi sabit açı, sınırlı kaydırma/yakınlaşma ---------- */
+  var camDone = false;
+  function tuneWorld() {
+    var w = W.world3d; if (!w || !w.controls || !w.camera) return;
+    var c = w.controls, cam = w.camera;
+    if (!camDone) {
+      camDone = true;
+      c.enableRotate = false;                 // döndürme ve yatırma kapalı
+      c.minPolarAngle = c.maxPolarAngle = 0.95;
+      c.touches = { ONE: 1, TWO: 2 };         // tek parmak kaydır, iki parmak yakınlaş + kaydır
+      c.mouseButtons = { LEFT: 2, MIDDLE: 1, RIGHT: 2 };  // fare: sürükle = kaydır, tekerlek = yakınlaş
+      c.minZoom = 0.3; c.maxZoom = 3;
+      c.dampingFactor = 0.14;
+      try { if (W.innerWidth <= 760 && w.renderer) w.renderer.setPixelRatio(Math.min(W.devicePixelRatio || 1, 1.25)); } catch (e) {}
+    }
+    var j = document.querySelector('#tm .map-journal');
+    if (j && !j.querySelector('#ek-jclose')) {
+      var x = document.createElement('button'); x.id = 'ek-jclose'; x.type = 'button'; x.textContent = '✕'; x.setAttribute('aria-label', 'Hedef bilgisini kapat');
+      x.addEventListener('click', function () { var tm = document.getElementById('tm'); if (tm) tm.classList.remove('world-detail-open'); var b = document.querySelector('[data-world-action="details"]'); if (b) b.textContent = 'Hedef bilgisi'; });
+      j.appendChild(x);
+    }
+    // kaydırmayı obanın çevresiyle sınırla
+    var home = w.selfPosition; if (!home) return;
+    var R = 260, t = c.target, dx = t.x - home.x, dz = t.z - home.z, d = Math.hypot(dx, dz);
+    if (d > R) { var k = R / d, nx = home.x + dx * k, nz = home.z + dz * k, ox = nx - t.x, oz = nz - t.z; t.x = nx; t.z = nz; cam.position.x += ox; cam.position.z += oz; }
+    if (cam.zoom < c.minZoom || cam.zoom > c.maxZoom) { cam.zoom = Math.min(c.maxZoom, Math.max(c.minZoom, cam.zoom)); cam.updateProjectionMatrix(); }
+  }
   function frame() {
     requestAnimationFrame(frame);
     if (document.hidden) return;
     try { winMode(); } catch (e) {}
+    try { if (W.tab === 'm') tuneWorld(); } catch (e) {}
     try { tickVisual(); placeMarks(Date.now()); } catch (e) {}
   }
   function start() {

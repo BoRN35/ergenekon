@@ -338,3 +338,30 @@ body:not(.ek-nav7) #ek-world { display: none; }
   html body #mapv #ek-world { bottom: 14px !important; top: auto !important; right: 12px !important; left: auto !important; }
   html body #mapv #ek-find { bottom: 18px !important; left: 12px !important; }
 }
+/* harita: "Dünya" genel bakışı şimdilik gereksiz; kuyruk çubuğu mobilde ince */
+html body .world-map-tools button[aria-label="Ortak dünyayı göster"] { display: none !important; }
+@media (max-width: 760px) {
+  html body #tm #qp .card { padding: 0 !important; margin: 4px 6px !important; background: none !important; border: 0 !important; box-shadow: none !important; }
+  html body #tm #qp .card > button { height: 34px !important; min-height: 0 !important; font-size: 13px !important; padding: 0 12px !important; }
+  html body #tm.map-workspace > #mapv, html body #tm.map-workspace > #mapv.has3d, html body #tm.map-workspace > #mapv.has-world3d { height: calc(100dvh - var(--top, 50px) - 44px - 64px - env(safe-area-inset-bottom)) !important; }
+}
+/* mobil harita: hedefe dokununca bilgi alttan açılır panel olsun */
+@media (max-width: 760px) {
+  html body #tm .map-journal { display: none !important; }
+  html body #tm.world-detail-open .map-journal {
+    display: block !important; position: fixed !important; left: 0 !important; right: 0 !important; top: auto !important;
+    bottom: calc(58px + env(safe-area-inset-bottom)) !important; max-height: 56vh !important; overflow: auto !important; z-index: 55 !important;
+    border-radius: 16px 16px 0 0 !important; border-top: 2px solid #b8894a !important; box-shadow: 0 -10px 30px rgba(0,0,0,.6) !important;
+    background: linear-gradient(180deg, #1a2b2e, #0f1c1f) !important; padding: 34px 10px 12px !important; margin: 0 !important; width: auto !important;
+  }
+  html body #tm .map-journal-header, html body #tm .map-route-status, html body #tm .map-journal-legend { display: none !important; }
+  html body #tm .map-journal-tabs { margin: 0 0 8px !important; }
+  html body #tm .map-journal-tabs button { height: 34px !important; min-height: 0 !important; font-size: 13px !important; }
+}
+#ek-jclose { display: none; }
+@media (max-width: 760px) {
+  html body #tm.world-detail-open #ek-jclose { display: flex; position: absolute; top: 6px; right: 8px; width: 30px; height: 30px; min-height: 0 !important; padding: 0 !important;
+    align-items: center; justify-content: center; border-radius: 8px !important; border: 1px solid #c99a4e !important; background: #1d2e30 !important; color: #f2e2bf !important; font-size: 16px; z-index: 2; }
+  html body #tm.world-detail-open .map-journal::before { content: ''; position: absolute; top: 10px; left: 50%; width: 46px; height: 5px; margin-left: -23px; border-radius: 3px; background: #6b5434; }
+}
+html body #mapi .row:has(> button[data-mz]) { display: none !important; }

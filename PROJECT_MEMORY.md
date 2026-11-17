@@ -116,3 +116,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Çevrim dışı kazanç üst sınırı 8 sa → 12 sa (WOS gibi); tarla üretimi de 12 sa.
 - Haritada "ARA" düğmesi: WOS kaynak arama (tür, seviye kaydırıcı, sadece dolu, en yakın düğüm, Kafile gönder).
 - Mobil: alt menü çubuğu, tam ekran oba/harita, pencere (.ovp) açıkken `body.ek-win` ile üst bar gizli + pencere tam ekran.
+- Harita (17 Kasım, 3): /api/world yoksa (GitHub Pages) ergenekon-ek.js fetch'i yerel tek oyunculu dünya döndürür → oba, kaynak, canavar, kafile çizilir. Kamera: döndürme/yatırma kapalı (sabit açı 0.95), zoom 0.3–3, kaydırma obadan 260 birim ile sınırlı, mobilde pixelRatio ≤1.25. Mobilde hedef bilgisi alttan açılan panel (#tm.world-detail-open). Hedef panelindeki verim artık gerçek toplama hızını (3x + araştırmalar) gösterir.
