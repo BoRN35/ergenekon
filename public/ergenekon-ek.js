@@ -142,6 +142,16 @@
       dock.innerHTML = gsvg(toMap ? ICON.globe : ICON.yurt, 34) + '<span>' + (toMap ? 'DÜNYA' : 'OBA') + '</span>';
       dock.setAttribute('aria-label', toMap ? 'Dünya haritasına geç' : 'Obaya dön');
     }
+    var find = document.getElementById('ek-find'), mapv = document.getElementById('mapv');
+    if (tab === 'm' && mapv) {
+      if (!find) {
+        find = document.createElement('button'); find.id = 'ek-find'; find.type = 'button'; find.setAttribute('aria-label', 'Kaynak ara');
+        find.innerHTML = '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg><span>ARA</span>';
+        find.addEventListener('click', openFind);
+      }
+      if (find.parentNode !== mapv) mapv.appendChild(find);
+      find.hidden = false;
+    } else if (find) find.hidden = true;
     var mBtn = tabBtn('m');
     dock.hidden = !(tab === 'c' || tab === 'm') || !mBtn;
     // Arena: Sefer Otağı'nın "Yolunu seç" listesinde bir sekme olarak
@@ -290,6 +300,61 @@
     log('🎁 ' + k + ' × ' + packName(r, t) + ' açıldı: +' + nf(k * amt) + ' ' + RNAME[r] + '.');
     if (!e.pk[r][t]) bagSel = null;
     persist(); rerender();
+  }
+
+  /* ---------- 3b) haritada kaynak arama (WOS: tür + seviye + sadece dolu) ---------- */
+  var FS = { t: 'odun', lv: 1, full: true, hit: null, msg: '' };
+  var FIND_T = [['et', 'Et'], ['odun', 'Odun'], ['komur', 'Kömür'], ['demir', 'Demir']];
+  function maxL() { try { return Math.max(1, W.maxLv()); } catch (e) { return 10; } }
+  function nodeLevels(t) { var s = S(), m = maxL(), out = {}; (s.nodes || []).forEach(function (n) { if (n && n.t === t && n.lv <= m) out[n.lv] = 1; }); return Object.keys(out).map(Number).sort(function (a, b) { return a - b; }); }
+  function freeQueue() { var s = S(); return (s.sq || []).some(function (q) { return q.st === 0; }); }
+  function search() {
+    var s = S(), busy = {}, best = null, bestT = Infinity;
+    (s.sq || []).forEach(function (q) { if (q.st && q.n >= 0) busy[q.n] = 1; });
+    (s.nodes || []).forEach(function (n, i) {
+      if (!n || n.t !== FS.t || n.lv !== FS.lv || n.rg > 0 || n.res <= 0 || busy[i]) return;
+      if (FS.full && n.res < n.max * 0.999) return;
+      var t = 0; try { t = W.mt(i); } catch (e) {}
+      if (t < bestT) { bestT = t; best = i; }
+    });
+    FS.hit = best; FS.msg = best === null ? 'Bu seviyede ' + (FS.full ? 'dolu ' : '') + 'kaynak bulunamadı.' : '';
+  }
+  function findHtml() {
+    var lv = nodeLevels(FS.t); if (lv.length && lv.indexOf(FS.lv) < 0) FS.lv = lv.reduce(function (a, b) { return Math.abs(b - FS.lv) < Math.abs(a - FS.lv) ? b : a; });
+    var chips = FIND_T.map(function (x) { return '<button type="button" class="ek-fchip' + (FS.t === x[0] ? ' on' : '') + '" data-ek-ft="' + x[0] + '">' + rsvg(x[0], 34) + '<span>' + x[1] + '</span></button>'; }).join('');
+    var res = '';
+    if (FS.hit !== null && FS.hit !== undefined) {
+      var n = S().nodes[FS.hit], t = 0, cap = 0; try { t = W.mt(FS.hit); cap = W.marchCapacity(); } catch (e) {}
+      res = '<div class="ek-detail"><div class="ek-dt">' + rsvg(n.t, 40) + '<span><b>' + RNAME[n.t] + ' · Sv ' + n.lv + '</b><small>Kalan ' + nf(n.res) + ' · yol ' + W.ft(t) + ' · kafile yükü ' + nf(cap) + '</small></span></div>' +
+        '<div class="ek-acts"><button type="button" class="ek-btn gold" data-ek-send="' + FS.hit + '"' + (freeQueue() ? '' : ' disabled') + '>' + (freeQueue() ? 'Kafile gönder' : 'Boş kafile yok') + '</button></div></div>';
+    } else if (FS.msg) res = '<div class="ek-detail ek-empty-d"><p>' + esc(FS.msg) + '</p></div>';
+    var range = lv.length ? '<input type="range" min="0" max="' + (lv.length - 1) + '" step="1" value="' + Math.max(0, lv.indexOf(FS.lv)) + '" data-ek-flv="' + lv.join(',') + '" aria-label="Seviye">' : '';
+    return '<div class="ek-modal ek-small" role="dialog" aria-modal="true" aria-label="Kaynak ara">' +
+      '<div class="ek-mh"><span class="ek-cap">BOZKIRI TARA</span><h2>Kaynak Ara</h2><button type="button" class="ek-x" data-ek-close="1" aria-label="Kapat">✕</button></div>' +
+      '<div class="ek-fchips">' + chips + '</div>' +
+      '<div class="ek-flv"><b>Sv ' + FS.lv + '</b>' + range + '</div>' +
+      '<label class="ek-fchk"><input type="checkbox" data-ek-ffull="1"' + (FS.full ? ' checked' : '') + '> Sadece dolu kaynakları ara</label>' +
+      '<div class="ek-acts ek-fgo"><button type="button" class="ek-btn" data-ek-fsearch="1">Ara</button></div>' + res + '</div>';
+  }
+  function openFind() {
+    var o = document.getElementById('ek-findov');
+    if (!o) {
+      o = document.createElement('div'); o.id = 'ek-findov'; o.className = 'ek-ov ek-sheet'; document.body.appendChild(o);
+      o.addEventListener('click', function (ev) {
+        var t = ev.target;
+        if (t === o || t.closest('[data-ek-close]')) { o.remove(); return; }
+        var c = t.closest('[data-ek-ft]'); if (c) { FS.t = c.getAttribute('data-ek-ft'); FS.hit = null; FS.msg = ''; o.innerHTML = findHtml(); return; }
+        if (t.closest('[data-ek-fsearch]')) { search(); o.innerHTML = findHtml(); return; }
+        var sd = t.closest('[data-ek-send]');
+        if (sd && !sd.disabled) { try { W.send(+sd.getAttribute('data-ek-send')); } catch (e) {} o.remove(); try { persist(); rerender(); } catch (e) {} }
+      });
+      o.addEventListener('input', function (ev) {
+        var t = ev.target;
+        if (t.hasAttribute('data-ek-flv')) { var l = t.getAttribute('data-ek-flv').split(',').map(Number); FS.lv = l[+t.value]; FS.hit = null; FS.msg = ''; var b = o.querySelector('.ek-flv b'); if (b) b.textContent = 'Sv ' + FS.lv; var r = o.querySelector('.ek-modal > .ek-detail'); if (r) r.remove(); }
+        if (t.hasAttribute('data-ek-ffull')) { FS.full = t.checked; FS.hit = null; FS.msg = ''; }
+      });
+    }
+    o.innerHTML = findHtml();
   }
 
   /* ---------- 4) orman → kütük → tarla ---------- */
@@ -471,7 +536,7 @@
   }
   function offlineCatchUp() {
     var e = ek(); if (!e) return;
-    var dt = Math.min(Math.max(0, (Date.now() - (e.lt || Date.now())) / 1000), 28800);
+    var dt = Math.min(Math.max(0, (Date.now() - (e.lt || Date.now())) / 1000), 43200);
     if (dt > 60) { var g = produce(dt); if (g >= 1) log('🌾 Tarlalar sen yokken +' + nf(g) + ' Et verdi.'); }
     e.lt = Date.now();
   }
@@ -575,9 +640,17 @@
     var op = document.getElementById('ek-parcel');
     if (op && op.dataset.p && now % 1000 < 40) { var p = F.parcels.filter(function (x) { return x.id === op.dataset.p; })[0]; if (p) op.innerHTML = parcelHtml(p); }
   }
+  // Mobilde bir pencere (.ovp) açıkken üst bar gizlenir, pencere tam ekran olur.
+  var lastWin = null;
+  function winMode() {
+    var open = false, list = document.querySelectorAll('.ovp');
+    for (var i = 0; i < list.length; i++) { var o = list[i]; if (o.offsetWidth > 0 && o.offsetHeight > 0 && getComputedStyle(o).display !== 'none') { open = true; break; } }
+    if (open !== lastWin) { lastWin = open; document.body.classList.toggle('ek-win', open); }
+  }
   function frame() {
     requestAnimationFrame(frame);
     if (document.hidden) return;
+    try { winMode(); } catch (e) {}
     try { tickVisual(); placeMarks(Date.now()); } catch (e) {}
   }
   function start() {
@@ -592,7 +665,7 @@
     });
     document.addEventListener('keydown', function (ev) {
       if (ev.key !== 'Escape') return;
-      ['ek-bag', 'ek-parcel'].forEach(function (id) { var o = document.getElementById(id); if (o) o.remove(); });
+      ['ek-bag', 'ek-parcel', 'ek-findov'].forEach(function (id) { var o = document.getElementById(id); if (o) o.remove(); });
     });
     afterRender();
     requestAnimationFrame(frame);

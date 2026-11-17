@@ -281,3 +281,60 @@ body:not(.ek-nav7) #ek-world { display: none; }
 @media (max-width: 760px) {
   html body .world-build { top: auto !important; bottom: 62px !important; right: 10px !important; display: flex !important; flex-direction: column !important; gap: 6px !important; }
 }
+
+/* ===== Mobil: pencere açıkken tam ekran (üst kaynak barı gizli) ===== */
+@media (max-width: 760px) {
+  body.ek-win #top, body.ek-win #tabs > #pfb { display: none !important; }
+  body.ek-win .ovp {
+    top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; max-width: none !important;
+    bottom: calc(58px + env(safe-area-inset-bottom)) !important; height: auto !important; max-height: none !important;
+    margin: 0 !important; border-radius: 0 !important;
+  }
+  body.ek-win .research-header { padding: 8px 52px 8px 12px !important; min-height: 0 !important; }
+  body.ek-win .research-header h1, body.ek-win .ovp > header h1, body.ek-win .ovp > header h2 { font-size: 17px !important; letter-spacing: .04em !important; text-align: left !important; }
+  /* araştırma sekmeleri: tek satır, küçük */
+  body.ek-win .research-branches, body.ek-win .research-tabs { gap: 6px !important; padding: 6px 8px !important; }
+  body.ek-win .research-branches button, body.ek-win .research-tabs button { min-height: 0 !important; padding: 6px 4px !important; font-size: 12px !important; }
+  body.ek-win .research-branches button svg, body.ek-win .research-tabs button svg { width: 22px !important; height: 22px !important; }
+}
+
+/* ===== Haritada kaynak arama ===== */
+#ek-find { position: absolute; left: 14px; bottom: 96px; z-index: 30; width: 58px; height: 58px; border-radius: 50%; cursor: pointer; padding: 0 !important; min-height: 0 !important;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; color: #f3d58f !important;
+  background: radial-gradient(circle at 50% 35%, #3a2814, #1b1209) !important; border: 2px solid #c99a4e !important;
+  box-shadow: 0 0 0 2px #1b130a, 0 4px 12px rgba(0,0,0,.6) !important; font: 800 9px 'Cinzel', Georgia, serif; letter-spacing: .08em; }
+#ek-find[hidden] { display: none !important; }
+#ek-find svg { width: 24px !important; height: 24px !important; }
+.ek-fchips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 14px 16px 4px; }
+.ek-ov .ek-fchip { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 2px !important; min-height: 0 !important; border-radius: 10px !important; cursor: pointer;
+  border: 1px solid #4d3b22 !important; background: linear-gradient(180deg, #1b2d30, #132326) !important; color: #ead9b4 !important; font: 700 12px 'Alegreya Sans', system-ui, sans-serif; }
+.ek-ov .ek-fchip.on { background: linear-gradient(180deg, #1f6e68, #134a47) !important; border-color: #4fd1c3 !important; color: #fff !important; box-shadow: 0 0 12px rgba(79,209,195,.35) !important; }
+.ek-flv { display: flex; align-items: center; gap: 12px; padding: 12px 18px 4px; }
+.ek-flv b { min-width: 52px; font: 800 16px 'Cinzel', Georgia, serif; color: #f2d58e; }
+.ek-flv input { flex: 1; accent-color: #4fd1c3; }
+.ek-fchk { display: flex; align-items: center; gap: 8px; padding: 8px 18px; font-size: 14px; color: #d8cbae; }
+.ek-fchk input { width: 18px; height: 18px; accent-color: #4fd1c3; }
+.ek-fgo { padding: 4px 16px 14px; }
+.ek-fgo .ek-btn { width: 100%; height: 44px; font-size: 16px; }
+@media (max-width: 760px) {
+  .ek-ov.ek-sheet { align-items: flex-end; padding: 0 0 calc(58px + env(safe-area-inset-bottom)); }
+  .ek-ov.ek-sheet .ek-modal { width: 100%; border-radius: 14px 14px 0 0; max-height: 80vh; }
+  .ek-ov.ek-sheet .ek-mh { padding: 10px 52px 8px; }
+  .ek-ov.ek-sheet .ek-mh h2 { font-size: 20px; }
+  .ek-ov.ek-sheet .ek-x { top: 8px; width: 36px; height: 36px; }
+  #ek-find { bottom: 92px; left: 12px; }
+}
+@media (max-width: 760px) { html body .world-map-head { display: none !important; } }
+/* ===== Mobil harita: tam ekran, az yazı ===== */
+@media (max-width: 760px) {
+  html body #tm.map-workspace > #mapv, html body #tm.map-workspace > #mapv.has3d, html body #tm.map-workspace > #mapv.has-world3d { height: calc(100dvh - var(--top, 50px) - 56px - 64px - env(safe-area-inset-bottom)) !important; min-height: 360px !important; }
+  html body #mapv .world-map3d { height: 100% !important; }
+  html body .world-map-help, html body .map-journal-header,
+  html body .world-map-tools button[aria-label="Yakınlaş"], html body .world-map-tools button[aria-label="Uzaklaş"],
+  html body .world-map-tools button[aria-label="Boyunun adını değiştir"] { display: none !important; }
+  html body .world-map-tools { top: 8px !important; bottom: auto !important; left: 8px !important; right: 8px !important; width: auto !important; height: auto !important;
+    display: flex !important; flex-wrap: nowrap !important; gap: 6px !important; overflow-x: auto !important; scrollbar-width: none; background: none !important; padding: 0 !important; }
+  html body .world-map-tools button { flex: none !important; height: 32px !important; min-height: 0 !important; padding: 0 10px !important; font-size: 12px !important; }
+  html body #mapv #ek-world { bottom: 14px !important; top: auto !important; right: 12px !important; left: auto !important; }
+  html body #mapv #ek-find { bottom: 18px !important; left: 12px !important; }
+}

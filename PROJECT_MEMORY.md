@@ -109,3 +109,10 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - **Sol menü 7 simge:** Harita (`m`), Arena (`y`), Ayarlar (`g`) ve açıklama (`data-ex`) düğmeleri CSS ile gizlenir (silinmez). Harita için şehir/haritada yuvarlak **DÜNYA / OBA** düğmesi; Bahadır Meydanı Sefer Otağı’nın “Yolunu seç” listesinde sekme; Açıklamalar Oba Düzeni listesinde; Ayarlar üst barda.
 - **Canavar ganimet paketleri:** Kazanılan her canavar dövüşünde yeşil %6 (1000), mavi %2 Sv6+ (5000), mor %0,5 Sv15+ (10000); Çelik paketleri 100/500/1000 ve diğer kaynakların yarı ağırlığında. Paketler `s.ek.pk` içinde; Çanta penceresinden tek tek ya da toplu açılır, depo sınırına uyar (Çelik sınırsız).
 - **Orman → kütük → tarla:** Şehir sahnesindeki 291 ağaç açı/halka dilimlerine göre parsellere ayrılır (en az 4 ağaç). Açık parsel sayısı `2 + floor(Ocak/2)`; aynı anda 1 iş (Odunluk Sv10’da 2). Kesim 20 dk × 1,25^n, sürme 15 dk × 1,25^n. Kesim `ağaç × nrate(Ocak) × 0,4` Odun verir; her tarla saatte `nrate(Ocak) × 1,5` Et üretir (çevrim dışı en fazla 8 sa). Durumlar `s.ek.ps[parselId]` = cut/stump/plow/field. Ağaçlar instanced matrislerle kütüğe döner, tarla toprak + ekin örnekleriyle çizilir.
+
+## 17 Kasım 2026 (2) — Toplama, araştırma, mobil
+- Haritada kafile toplama hızı 3x (index.html tick: `*3*dt/3600`).
+- Yeni araştırma `wos_bozkir-toplayicilari` (Ekonomi, 5 sv × %10 = +%50 tüm toplama hızı, efekt etiketi `Gathering Speed`), public/ergenekon-research-ek.js; tick formülüne `+wosBonus('Gathering Speed')` eklendi.
+- Çevrim dışı kazanç üst sınırı 8 sa → 12 sa (WOS gibi); tarla üretimi de 12 sa.
+- Haritada "ARA" düğmesi: WOS kaynak arama (tür, seviye kaydırıcı, sadece dolu, en yakın düğüm, Kafile gönder).
+- Mobil: alt menü çubuğu, tam ekran oba/harita, pencere (.ovp) açıkken `body.ek-win` ile üst bar gizli + pencere tam ekran.
