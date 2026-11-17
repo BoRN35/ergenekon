@@ -300,7 +300,7 @@
     put(Cy(.45, .3, .5, 8), iron, root, -3.0, 1.05, 1.9);
     var coals = put(Cy(.38, .38, .12, 8), coal, root, -3.0, 1.33, 1.9);
     // usta (örse bakar: -x yönü)
-    var smith = new C.Group(); smith.position.set(2.75, .8, .25); smith.rotation.y = -Math.PI / 2; root.add(smith);
+    var smith = new C.Group(); smith.position.set(2.75, .8, .25); smith.rotation.y = -Math.PI / 2; root.add(smith); smith.visible = false;
     for (var lg = -1; lg <= 1; lg += 2) put(Cy(.17, .15, 1.1, 7), dark, smith, lg * .24, .55, 0);
     put(Cy(.45, .38, 1.25, 10), cloth, smith, 0, 1.7, 0);
     put(B(.75, 1.15, .1), apron, smith, 0, 1.55, .38);
@@ -336,15 +336,15 @@
     var a = cyc < .7 ? -2.3 * (cyc / .7) : cyc < .8 ? -2.3 + 2.6 * ((cyc - .7) / .1) : .3 - .3 * ((cyc - .8) / .2);
     G.arm.rotation.x = a;
     var hitNow = cyc >= .78 && cyc < .83;
-    if (hitNow && !G.hit) { G.hit = 1; spark(G.burst ? 8 : 4); G.burst = 0; } else if (!hitNow) G.hit = 0;
+    if (hitNow && !G.hit) { G.hit = 1; if (G.burst) { spark(8); G.burst = 0; } } else if (!hitNow) G.hit = 0;
     var fl = .85 + Math.sin(t * 11) * .08 + Math.sin(t * 23) * .05;
-    if (G.light) G.light.intensity = 2.0 * fl + (hitNow ? 1.2 : 0);
+    if (G.light) G.light.intensity = 1.4 * fl;
     G.coals.material.emissiveIntensity = 1.1 * fl;
     G.crystals.forEach(function (c, i) { c.rotation.y = t * 1.2 + i; c.position.y = 3.85 + Math.sin(t * 1.6 + i * 1.3) * .14; });
     G.rune.emissiveIntensity = 1.1 + Math.sin(t * 2.2) * .45 + (G.flash || 0);
     if (G.cyan) G.cyan.intensity = 2.0 + Math.sin(t * 2.2) * .5 + (G.flash || 0) * 3;
     if (G.flash) G.flash = Math.max(0, G.flash - 1 / 50);
-    G.bar.material.emissiveIntensity = 1.4 + (hitNow ? .8 : 0);
+    G.bar.material.emissiveIntensity = 1.3 + Math.sin(t * 3) * .2;
     G.sparks.forEach(function (s) {
       if (s.t <= 0) { s.m.visible = false; return; }
       s.t -= 1 / 60; s.v[1] -= .012; s.m.position.x += s.v[0]; s.m.position.y += s.v[1]; s.m.position.z += s.v[2]; s.m.visible = true;
