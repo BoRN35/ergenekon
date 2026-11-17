@@ -23,7 +23,7 @@ root.installWhiteoutResearch=function(){
  Object.assign(root.B,{bilgelik:{n:'Bilgelik Ocağı',i:'📚',d:'Boyların ilim merkezi. Büyüme, ekonomi ve savaş araştırmalarını açar.',c:{odun:105},t:2,g:1,gt:1,u:9},komurluk:{n:'Kömürlük',i:'🪨',d:'Kömür üretir. İlim ve ileri yapı çalışmaları için kullanılır.',c:{},t:2,g:1,gt:1,u:1},harpakademi:{n:'Harp Ocağı',i:'⚔️',d:'Kor teknolojileri ve ileri birlik talimleri.',c:{},t:2,g:1,gt:1,u:31}});
  root.BS.komurluk=[12,56,14];root.BS.bilgelik=[16,68,14];root.BS.harpakademi=[83,68,14];
  function ensure(){for(var k in currencies)if(!Number.isFinite(s.r[k]))s.r[k]=0;for(var k in buildings)if(!Number.isInteger(s.l[k]))s.l[k]=0;}
- var oldNodes=root.mkNodes,oldPosition=root.pos;root.mkNodes=function(){var nodes=oldNodes();[1,1,3,5,10,15].forEach(function(lv){var amount=nrate(lv)*8;nodes.push({t:'komur',lv:lv,res:amount,max:amount,rg:0})});return nodes};root.pos=function(i){return i>=108&&i<114?[40.123+(i-108)*2.4,55.456+(i-108)*1.8]:oldPosition(i)};
+ var oldNodes=root.mkNodes,oldPosition=root.pos;root.mkNodes=function(){var nodes=oldNodes();[1,1,3,5,10,15].forEach(function(lv){var amount=nrate(lv)*80;nodes.push({t:'komur',lv:lv,res:amount,max:amount,rg:0})});return nodes};root.pos=function(i){return i>=108&&i<114?[40.123+(i-108)*2.4,55.456+(i-108)*1.8]:oldPosition(i)};
  root.RI.komur='🪨';root.RC.komur='#58606b';root.RT.komur='Kömür madeni';
  root.mig=function(){var tiers=s.ttiers?.slice();oldMig();if(tiers)s.ttiers=tiers.map(function(v){return Math.max(1,Math.min(11,Math.floor(Number(v)||1)))});ensure()};
  function fc(){var row=buildings.harpakademi.levels[(s.l.harpakademi||0)-1],m=row&&row.label.match(/FC\s*(\d+)/);return m?Number(m[1]):0}

@@ -51,6 +51,7 @@
     RES.forEach(function (r) { e.pk[r] = e.pk[r] || { g: 0, b: 0, p: 0 }; });
     e.ps = e.ps || {};
     if (!e.lt) e.lt = Date.now();
+    if (!e.res10 && s.nodes) { s.nodes.forEach(function (n) { if (n && n.max && W.nrate && n.max < W.nrate(n.lv) * 40) { n.max *= 10; n.res = Math.min(n.max, (n.res || 0) * 10); } }); e.res10 = 1; }
     return e;
   }
   function persist() { try { W.save && W.save(); } catch (e) {} }
