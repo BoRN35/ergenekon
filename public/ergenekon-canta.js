@@ -92,15 +92,39 @@
     if (it.h) return cardIcon(it.h.e);
     return dustIcon();
   }
+  function glowClass(it) {
+    if (it.cat !== 'eq') return it.r >= 3 ? ' gl1' : '';
+    var p = it.x.p || 0, r = it.x.r || 0, g = p >= 11 ? 3 : p >= 8 ? 2 : p >= 5 ? 1 : 0;
+    if (r >= 3) g = Math.max(g, 1); if (r >= 4 && p >= 5) g = Math.max(g, 2);
+    return g ? ' gl' + g : '';
+  }
   function tileHtml(it, opts) {
     opts = opts || {};
     var col = RCOL[Math.min(4, it.r || 0)], badge = '';
-    if (it.cat === 'eq') badge = '<b class="ci-plus' + ((it.x.p || 0) >= 8 ? ' hi' : '') + '">+' + (it.x.p || 0) + '</b><small class="ci-lv">Sv ' + (it.x.L || 1) + '</small>' + (it.worn ? '<i class="ci-worn" title="Kuşanılmış">✓</i>' : '');
+    if (it.cat === 'eq') badge = ((it.x.p || 0) > 0 ? '<b class="ci-plus' + ((it.x.p || 0) >= 8 ? ' hi' : '') + '">+' + it.x.p + '</b>' : '') + (it.worn && !opts.doll ? '<i class="ci-worn" title="Kuşanılmış">✓</i>' : '');
     else if (it.cat === 'res') badge = '<b class="ci-amt">' + nf(W.ergenekonEk ? W.ergenekonEk.packAmount(it.res, it.tier) : 0) + '</b><span class="ci-n">' + nf(it.n) + '</span>';
     else badge = '<span class="ci-n">' + nf(it.n) + '</span>';
-    if (opts.dis) return '<div class="ci-tile ci-static" style="--rc:' + col + '">' + iconOf(it) + badge + '</div>';
-    return '<button type="button" class="ci-tile' + (opts.on ? ' on' : '') + '" data-ci="' + it.id + '" style="--rc:' + col + '">' + iconOf(it) + badge + '</button>';
+    var cls = 'ci-tile r' + Math.min(4, it.r || 0) + glowClass(it) + (opts.on ? ' on' : '');
+    if (opts.dis) return '<div class="' + cls + ' ci-static" style="--rc:' + col + '">' + iconOf(it) + badge + '</div>';
+    return '<button type="button" class="' + cls + '" data-ci="' + it.id + '" style="--rc:' + col + '">' + iconOf(it) + badge + '</button>';
   }
+  // boş kuşanma yuvası silueti
+  function ghost(slot) {
+    var s = slot.replace(/\d/, ''), base = { s: s === 'w' ? 'w' : s, n: s === 'w' ? 'Demir Kılıç' : '', r: 0 };
+    return '<div class="ci-tile ci-ghost" title="' + EQK[slot] + '">' + eqIcon(base) + '</div>';
+  }
+  var DOLL = [['e0', 'b', 'e1'], ['y0', 'g', 'k'], ['w', 'l', 'y1'], [null, 'f', null]];
+  function dollHtml(selId) {
+    var eq = (S() && S().ch && S().ch.eq) || {};
+    return '<div class="ci-doll">' + DOLL.map(function (row) {
+      return row.map(function (k) {
+        if (!k) return '<div class="ci-dempty"></div>';
+        var x = eq[k];
+        return x ? tileHtml({ id: 'q:' + k, cat: 'eq', x: x, worn: true, r: x.r || 0 }, { on: selId === 'q:' + k, doll: true }) : ghost(k);
+      }).join('');
+    }).join('') + '</div>';
+  }
+  W.ekDollHtml = dollHtml;
   W.ekTileHtml = tileHtml; W.ekItems = items;
 
   /* ---------- Çanta penceresi ---------- */
@@ -132,20 +156,28 @@
     }
     return h + '</div></div>' + (acts ? '<div class="ci-acts">' + acts + '</div>' : '') + '</div>';
   }
+  var SORT = 0;
+  function sortList(l) {
+    if (!SORT) return l;
+    return l.slice().sort(function (a, b) { return (b.r || 0) - (a.r || 0) || ((b.x && b.x.p) || 0) - ((a.x && a.x.p) || 0); });
+  }
   function cantaHtml() {
-    var all = items(), list = UI.tab === 'all' ? all : all.filter(function (it) { return it.cat === UI.tab; });
+    var all = items(), bag = all.filter(function (it) { return !it.worn; });
+    var list = sortList(UI.tab === 'all' ? bag : bag.filter(function (it) { return it.cat === UI.tab; }));
     var sel = all.filter(function (it) { return it.id === UI.sel; })[0] || null;
-    var tabs = TABS.map(function (t) { var n = t[0] === 'all' ? all.length : all.filter(function (it) { return it.cat === t[0]; }).length; return '<button type="button" data-ci-tab="' + t[0] + '" class="' + (UI.tab === t[0] ? 'on' : '') + '">' + t[1] + '<small>' + n + '</small></button>'; }).join('');
-    return '<div class="ek-modal ci-modal" role="dialog" aria-modal="true" aria-label="Çanta">' +
+    var tabs = TABS.map(function (t) { return '<button type="button" data-ci-tab="' + t[0] + '" class="' + (UI.tab === t[0] ? 'on' : '') + '">' + t[1] + '</button>'; }).join('');
+    var slots = Math.max(40, Math.ceil((list.length + 4) / 8) * 8), cells = list.map(function (it) { return tileHtml(it, { on: sel && sel.id === it.id }); });
+    for (var i = list.length; i < slots; i++) cells.push('<div class="ci-tile ci-slot"></div>');
+    return '<div class="ek-modal ci-modal ci-kadim" role="dialog" aria-modal="true" aria-label="Çanta">' +
       '<div class="ek-mh"><span class="ek-cap">ALPİN HEYBESİ</span><h2>Çanta</h2><button type="button" class="ek-x" data-ci-close="1" aria-label="Kapat">✕</button></div>' +
-      '<div class="ek-tabs ci-tabs">' + tabs + '</div>' +
-      '<div class="ci-grid">' + (list.length ? list.map(function (it) { return tileHtml(it, { on: sel && sel.id === it.id }); }).join('') : '<div class="ci-none">Burada eşya yok.</div>') + '</div>' +
-      detailHtml(sel) + '</div>';
+      '<div class="ci-body"><div class="ci-left"><div class="ci-sec">KUŞANILMIŞ</div>' + dollHtml(UI.sel) + '<div class="ci-detwrap">' + detailHtml(sel) + '</div></div>' +
+      '<div class="ci-right"><div class="ci-bar"><div class="ek-tabs ci-tabs">' + tabs + '</div><button type="button" class="ci-sort' + (SORT ? ' on' : '') + '" data-ci-sort="1">⇅ Sırala</button></div>' +
+      '<div class="ci-grid ci-g8">' + cells.join('') + '</div><div class="ci-foot"><span>' + bag.length + ' eşya</span><button type="button" class="ci-forge" data-ci-act="forge">⚒️ Demirci</button></div></div></div></div>';
   }
   function find(id) { return items().filter(function (it) { return it.id === id; })[0]; }
   function refresh() { var o = document.getElementById('ek-canta'); if (o) o.innerHTML = cantaHtml(); }
   function act(a) {
-    var it = find(UI.sel); if (!it) return;
+    var it = find(UI.sel); if (!it && a === 'forge') { var o0 = document.getElementById('ek-canta'); if (o0) o0.remove(); if (W.openDemirci) W.openDemirci('bas'); return; } if (!it) return;
     try {
       if (a === 'eq' && it.cat === 'eq' && !it.worn) { W.eq(it.inv); UI.sel = null; }
       else if (a === 'melt' && it.cat === 'eq' && !it.worn) { W.sell(it.inv); UI.sel = null; }
@@ -164,6 +196,7 @@
         var t = ev.target, b;
         if (t === o || t.closest('[data-ci-close]')) { o.remove(); return; }
         if ((b = t.closest('[data-ci-tab]'))) { UI.tab = b.getAttribute('data-ci-tab'); refresh(); return; }
+        if (t.closest('[data-ci-sort]')) { SORT = SORT ? 0 : 1; refresh(); return; }
         if ((b = t.closest('[data-ci]'))) { UI.sel = b.getAttribute('data-ci'); refresh(); return; }
         if ((b = t.closest('[data-ci-act]')) && !b.disabled) act(b.getAttribute('data-ci-act'));
       });

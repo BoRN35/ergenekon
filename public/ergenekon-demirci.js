@@ -138,32 +138,58 @@
     return '<div class="dm-mats">' + Object.keys(MAT).map(function (k) { return '<span class="dm-mat" style="--mc:' + MAT[k].c + '"><i>' + MAT[k].e + '</i><b>' + nf(m[k] || 0) + '</b><small>' + MAT[k].n + '</small></span>'; }).join('') + '</div>';
   }
   function tile(it, extra) { return W.ekTileHtml ? W.ekTileHtml(it, extra) : ''; }
+  var RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+  function anvilSvg() {
+    var ring = '', n = 22;
+    for (var i = 0; i < n; i++) { var a = i / n * Math.PI * 2, x = 160 + Math.cos(a) * 112, y = 112 + Math.sin(a) * 46; ring += '<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" class="dm-rune" style="animation-delay:' + (i * .09).toFixed(2) + 's">' + RUNES[i % RUNES.length] + '</text>'; }
+    return '<svg viewBox="0 0 320 230" class="dm-anvsvg" aria-hidden="true"><defs>' +
+      '<linearGradient id="dmSteel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d6f8c"/><stop offset=".5" stop-color="#2c3850"/><stop offset="1" stop-color="#151b28"/></linearGradient>' +
+      '<linearGradient id="dmStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d96a6"/><stop offset="1" stop-color="#3b4250"/></linearGradient>' +
+      '<radialGradient id="dmGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#7fe6ff" stop-opacity=".55"/><stop offset="1" stop-color="#7fe6ff" stop-opacity="0"/></radialGradient></defs>' +
+      '<ellipse cx="160" cy="112" rx="132" ry="58" fill="url(#dmGlow)" class="dm-halo"/>' +
+      '<ellipse cx="160" cy="112" rx="124" ry="54" fill="none" stroke="#6fd8ff" stroke-opacity=".55" stroke-width="2"/><ellipse cx="160" cy="112" rx="100" ry="40" fill="none" stroke="#6fd8ff" stroke-opacity=".35" stroke-width="1.4"/>' + ring +
+      '<path d="M108 214h104l-10-22H118z" fill="url(#dmStone)" stroke="#11151c" stroke-width="2"/><path d="M118 192h84l-6-40h-72z" fill="url(#dmStone)" stroke="#11151c" stroke-width="2"/>' +
+      '<path d="M132 176h56M128 164h64" stroke="#7fe6ff" stroke-width="2.4" class="dm-glowline"/>' +
+      '<path d="M64 112c18 0 30-4 46-12h118c16 0 30 4 40 10l18 4c-10 4-28 8-44 8l-8 8H116c-10 0-14-6-24-10-10-3-18-4-28-8z" fill="url(#dmSteel)" stroke="#0b0f17" stroke-width="2.4"/>' +
+      '<path d="M112 100h116v12H112z" fill="#3d4d6a" stroke="#0b0f17" stroke-width="1.6"/>' +
+      '<g class="dm-glowline" font-size="13" fill="#9ff0ff" font-family="serif"><text x="122" y="111">ᛏᛖᛗᛁᚱ</text><text x="182" y="111">ᛞᚨᚷ</text></g>' +
+      '<path d="M120 124h80l-6 28h-68z" fill="#222b3c" stroke="#0b0f17" stroke-width="2"/><path d="M156 128l4-8 4 8-4 10z" fill="#9ff0ff" class="dm-gem"/>' +
+      '<g class="dm-hammer"><path d="M36 196L84 128" stroke="#7a5232" stroke-width="7" stroke-linecap="round"/><path d="M36 196L84 128" stroke="#1b1108" stroke-width="1" opacity=".5"/>' +
+      '<path d="M66 118l30 20 10-14-30-20z" fill="url(#dmSteel)" stroke="#0b0f17" stroke-width="2"/><path d="M74 120l20 13" stroke="#9ff0ff" stroke-width="1.6" class="dm-glowline"/></g>' +
+      '<g class="dm-burst"><circle cx="160" cy="70" r="20" fill="none" stroke="var(--fx,#ffd76a)" stroke-width="5"/>' +
+      [0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { var a = i / 8 * Math.PI * 2; return '<path d="M' + (160 + Math.cos(a) * 26).toFixed(1) + ' ' + (70 + Math.sin(a) * 26).toFixed(1) + 'L' + (160 + Math.cos(a) * 70).toFixed(1) + ' ' + (70 + Math.sin(a) * 70).toFixed(1) + '" stroke="var(--fx,#ffd76a)" stroke-width="3" stroke-linecap="round"/>'; }).join('') + '</g></svg>';
+  }
   function basHtml() {
     var s = S(), d = dm();
     if (d.lv < 1) return '<div class="dm-empty">Eşya basmak için önce Demirci’yi inşa et.<br><button type="button" class="ek-btn gold" data-dm-tab="yapi">Demirci’ye git</button></div>';
     var o = itemById(UI.sel); if (!o) UI.sel = null;
-    var slot = o ? tile({ id: UI.sel, cat: 'eq', x: o.x, worn: o.worn, r: o.x.r || 0 }) : '<button type="button" class="ci-tile dm-emptyslot" data-dm-pick="1"><span>+</span><small>Eşya seç</small></button>';
-    var p = o ? (o.x.p || 0) : 0, mc = matCost(p), max = W.UPM || 12;
+    var p = o ? (o.x.p || 0) : 0, mc = matCost(p), max = W.UPM || 12, r = o ? Math.min(4, o.x.r || 0) : 0;
+    var cur = o ? tile({ id: UI.sel, cat: 'eq', x: o.x, worn: o.worn, r: o.x.r || 0 }, { dis: true }) : '<div class="ci-tile ci-slot dm-ph"><svg viewBox="0 0 64 64" class="ci-svg"><path d="M32 8l18 8v14c0 12-8 20-18 26-10-6-18-14-18-26V16z" fill="none" stroke="#6b5636" stroke-width="3"/><path d="M22 40l20-20" stroke="#6b5636" stroke-width="3"/></svg></div>';
+    var nxt = o && p < max ? tile({ id: 'nx', cat: 'eq', x: Object.assign({}, o.x, { p: p + 1 }), r: o.x.r || 0 }, { dis: true }) : '<div class="ci-tile ci-slot"></div>';
     var mats = Object.keys(MAT).map(function (k) {
-      var have = d.mat[k] || 0, need = o ? mc[k] : 0, it = { id: 'm:' + k, cat: 'mat', mat: k, n: have, r: { kagit: 1, safir: 2, opal: 3 }[k] };
-      return '<div class="dm-ms' + (need > 0 ? (have >= need ? ' ok' : ' no') : ' off') + '">' + tile(it, { dis: true }) + '<small>' + (need > 0 ? nf(have) + ' / ' + need : MAT[k].n) + '</small></div>';
+      var have = d.mat[k] || 0, need = o && p < max ? mc[k] : 0, it = { id: 'm:' + k, cat: 'mat', mat: k, n: have, r: { kagit: 1, safir: 2, opal: 3 }[k] };
+      return '<div class="dm-ms' + (need > 0 ? (have >= need ? ' ok' : ' no') : ' off') + '">' + tile(it, { dis: true }) + '<small>' + (need > 0 ? nf(have) + ' / ' + need : '—') + '</small></div>';
     }).join('');
-    var info = '', btn = '';
-    if (!o) info = '<p class="dm-note dm-center">Örse koymak için yukarıdaki kutuya dokun; çantadaki eşyaların açılır.</p>';
-    else if (p >= max) info = '<p class="dm-ok dm-center">En yüksek basma seviyesi (+' + max + ').</p>';
-    else {
-      var dem = 0, ch = 0; try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {}
-      var can = (s.r.demir || 0) >= dem && haveMat(mc);
-      var risk = p >= 5 ? (protect(d.lv) >= 1 ? 'Tutmazsa seviye düşmez (Demirci Sv 10).' : protect(d.lv) > 0 ? 'Tutmazsa seviye düşebilir; usta %50 ihtimalle önler.' : 'Dikkat: tutmazsa seviye 1 düşer.') : 'Tutmazsa seviye düşmez.';
-      var L = W.__dmLast && W.__dmLast.id === UI.sel ? ({ ok: '<p class="dm-res ok">✅ Başarılı! +' + W.__dmLast.p + '</p>', fail: '<p class="dm-res no">❌ Tutmadı, malzeme harcandı.</p>', drop: '<p class="dm-res no">❌ Tutmadı, +' + W.__dmLast.p + ' seviyesine düştü.</p>', kept: '<p class="dm-res ok">🛡️ Tutmadı ama usta düşüşü önledi.</p>' })[W.__dmLast.res] || '' : '';
-      info = '<div class="dm-arrow"><b>+' + p + '</b><i>→</i><b class="nx">+' + (p + 1) + '</b></div>' +
-        '<div class="dm-chance"><span>Başarı şansı</span><b>%' + (ch * 100).toFixed(ch < 0.01 ? 2 : 1) + '</b><i><u style="width:' + Math.min(100, ch * 100).toFixed(1) + '%"></u></i></div>' +
-        '<div class="dm-costs">' + rc('⛓️ Demir', dem, s.r.demir || 0) + '</div><p class="dm-note">' + risk + '</p>' + L;
-      btn = '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + UI.sel + '"' + (can ? '' : ' disabled') + '>⚒️ Bas</button>';
-    }
-    return '<div class="dm-anvil"><div class="dm-slotwrap">' + slot + (o ? '<button type="button" class="dm-swap" data-dm-pick="1">Değiştir</button>' : '') + '</div>' +
-      (o ? '<div class="dm-iname" style="color:' + (['#8a97a3', '#3fae6b', '#8b6cff', '#f0a033', '#ef4f42'][Math.min(4, o.x.r || 0)]) + '">' + esc(o.x.n) + '</div>' : '') +
-      '<div class="dm-mrow">' + mats + '</div>' + info + btn + '</div>';
+    var dem = 0, ch = 0, can = false, info;
+    if (o && p < max) { try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {} can = (s.r.demir || 0) >= dem && haveMat(mc); }
+    if (!o) info = 'Çantandaki bir parçaya dokun, sonra Yükselt.';
+    else if (p >= max) info = '<span class="dm-ok">En yüksek basma seviyesi (+' + max + ').</span>';
+    else info = '<b style="color:' + ['#c9d2da', '#7be0a2', '#a8b8ff', '#ffc070', '#ff8a7a'][r] + '">' + esc(o.x.n) + '</b> · şans <b>%' + (ch * 100).toFixed(ch < 0.01 ? 2 : 1) + '</b> · ' + (p >= 5 ? (protect(d.lv) >= 1 ? 'düşmez' : protect(d.lv) > 0 ? 'düşebilir (usta %50 korur)' : '<span class="dm-warn">tutmazsa −1</span>') : 'düşmez');
+    var L = W.__dmLast && W.__dmLast.id === UI.sel ? W.__dmLast : null;
+    var fx = L ? ' fx-' + L.res : '';
+    var res = L ? ({ ok: '<p class="dm-res ok">✅ Başarılı! +' + L.p + '</p>', fail: '<p class="dm-res no">❌ Tutmadı, malzeme harcandı.</p>', drop: '<p class="dm-res no">❌ Tutmadı, +' + L.p + ' seviyesine düştü.</p>', kept: '<p class="dm-res ok">🛡️ Tutmadı ama usta düşüşü önledi.</p>' })[L.res] || '' : '';
+    var bag = (W.ekItems ? W.ekItems() : []).filter(function (it) { return it.cat === 'eq'; });
+    var grid = bag.map(function (it) { return tile(it, { on: it.id === UI.sel }); }), slots = Math.max(24, Math.ceil(bag.length / 6) * 6);
+    for (var i = bag.length; i < slots; i++) grid.push('<div class="ci-tile ci-slot"></div>');
+    return '<div class="dm-forge">' +
+      '<div class="dm-stage' + fx + '" style="--fx:' + ['#cfe3f0', '#7bf0a8', '#9db4ff', '#ffc45a', '#ff7a6a'][r] + '">' +
+        '<div class="dm-scene">' + anvilSvg() + '<div class="dm-on">' + cur + '</div><div class="dm-nx">' + nxt + '<i>➜</i></div></div>' +
+        '<p class="dm-cap">' + info + '</p>' + res + '</div>' +
+      '<div class="dm-side"><div class="dm-sec">MALZEMELER</div><div class="dm-mcol">' + mats + '</div>' +
+        '<div class="dm-fee"><span>ÜCRET</span>' + (o && p < max ? rc('⛓️', dem, s.r.demir || 0) : '<b>—</b>') + '</div>' +
+        '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + (UI.sel || '') + '"' + (can ? '' : ' disabled') + '>YÜKSELT</button>' +
+        '<button type="button" class="ek-btn dm-clear" data-dm-clear="1"' + (o ? '' : ' disabled') + '>BOŞALT</button></div>' +
+      '<div class="dm-bag"><div class="dm-sec">ÇANTA · EKİPMAN</div><div class="ci-grid dm-grid6">' + grid.join('') + '</div></div></div>';
   }
   function yapiHtml() {
     var d = dm(), l = d.lv, nx = l + 1, s = S(), mx = maxLv();
@@ -184,9 +210,9 @@
   }
   function winHtml() {
     var l = lv();
-    return '<div class="ek-modal dm-modal" role="dialog" aria-modal="true" aria-label="Demirci">' +
+    return '<div class="ek-modal dm-modal ci-kadim" role="dialog" aria-modal="true" aria-label="Demirci">' +
       '<div class="ek-mh"><span class="ek-cap">OBANIN ÖRSÜ</span><h2>Demirci <small>Sv ' + l + '</small></h2><button type="button" class="ek-x" data-dm-close="1" aria-label="Kapat">✕</button></div>' +
-      '<div class="ek-tabs"><button type="button" data-dm-tab="bas" class="' + (UI.tab === 'bas' ? 'on' : '') + '">Eşya Bas</button><button type="button" data-dm-tab="yapi" class="' + (UI.tab === 'yapi' ? 'on' : '') + '">Demirci</button></div>' +
+      '<div class="ek-tabs"><button type="button" data-dm-tab="bas" class="' + (UI.tab === 'bas' ? 'on' : '') + '">⚒️ Yükseltme</button><button type="button" data-dm-tab="yapi" class="' + (UI.tab === 'yapi' ? 'on' : '') + '">🏛️ Demirci</button></div>' +
       '<div class="dm-body">' + (UI.tab === 'bas' ? basHtml() : yapiHtml()) + '</div></div>';
   }
   function refreshWin() { var o = document.getElementById('ek-forge'); if (o) o.innerHTML = winHtml(); }
@@ -201,6 +227,8 @@
         if (t === o || t.closest('[data-dm-close]')) { o.remove(); return; }
         var b;
         if ((b = t.closest('[data-dm-tab]'))) { UI.tab = b.getAttribute('data-dm-tab'); refreshWin(); return; }
+        if ((b = t.closest('[data-ci]')) && o.contains(b)) { UI.sel = b.getAttribute('data-ci'); W.__dmLast = null; refreshWin(); return; }
+        if (t.closest('[data-dm-clear]')) { UI.sel = null; W.__dmLast = null; refreshWin(); return; }
         if ((b = t.closest('[data-dm-pick]'))) { if (W.ekPickItem) W.ekPickItem({ title: 'Örse koy', sel: UI.sel, filter: function (it) { return it.cat === 'eq'; } }, function (id) { UI.sel = id; W.__dmLast = null; refreshWin(); }); return; }
         if ((b = t.closest('[data-dm-up]')) && !b.disabled) { enhance(b.getAttribute('data-dm-up')); return; }
         if ((b = t.closest('[data-dm-build]')) && !b.disabled) { startBuild(); return; }
@@ -237,25 +265,42 @@
     var wood = mat('#7a5232'), dark = mat('#4a3020'), stone = mat('#8d8a82'), felt = mat('#cdb991'), bronze = mat('#b48a3c', { metalness: .6, roughness: .4 }), iron = mat('#4b4f55', { metalness: .7, roughness: .45 });
     var hot = mat('#ff6a1a', { emissive: '#ff5a10', emissiveIntensity: 1.6 }), coal = mat('#ff8a2a', { emissive: '#ff4a00', emissiveIntensity: 1.2 });
     var skin = mat('#c08a62'), apron = mat('#5a3a22'), cloth = mat('#7b2f22'), fur = mat('#6b5440');
-    // zemin ve yapı
-    put(B(7.2, .45, 5.6), stone, root, 0, .22, 0);
-    for (var sx = -1; sx <= 1; sx += 2) for (var sz = -1; sz <= 1; sz += 2) put(Cy(.17, .2, 3.4, 6), wood, root, sx * 3.1, 2.1, sz * 2.3);
-    put(B(6.6, 2.6, .25), wood, root, 0, 1.75, -2.4);
-    for (var s2 = -1; s2 <= 1; s2 += 2) { var rf = put(B(3.9, .18, 5.6), felt, root, s2 * 1.75, 4.05, 0); rf.rotation.z = s2 * -.38; }
-    put(B(.25, .25, 5.8), dark, root, 0, 4.72, 0);
-    // hilal amblemi
-    if (C.TorusGeometry) { var cr = put(new C.TorusGeometry(.45, .09, 6, 18, Math.PI * 1.45), bronze, root, 0, 3.55, 2.45); cr.rotation.z = .9; }
-    // ocak / körük
-    put(B(2.2, 1.6, 1.6), stone, root, -1.9, 1.25, -1.4);
-    var coals = put(B(1.6, .25, 1.1), coal, root, -1.9, 2.1, -1.4);
-    put(Cy(.35, .5, 2.4, 6), stone, root, -1.9, 3.3, -1.7);
-    // örs
-    put(B(.8, .7, .6), stone, root, .9, .8, .9);
-    put(B(1.3, .3, .5), iron, root, .9, 1.3, .9);
-    put(Co(.25, .5, 4), iron, root, 1.65, 1.3, .9).rotation.z = -Math.PI / 2;
-    var bar = put(B(.9, .1, .12), hot, root, .8, 1.5, .9);
+    // Sihirli Örs platformu: sekizgen taş, rün çemberi, kristalli dört dikme
+    var rune = mat('#7fe6ff', { emissive: '#3fd0ff', emissiveIntensity: 1.4 }), steel = mat('#46597e', { metalness: .45, roughness: .38 }), capm = mat('#c99a4e', { metalness: .6, roughness: .35 }), pillar = mat('#2a2622');
+    put(Cy(5.4, 5.8, .5, 8), stone, root, 0, .25, 0);
+    put(Cy(4.7, 4.9, .3, 8), mat('#6f6a62'), root, 0, .62, 0);
+    put(Cy(4.1, 4.1, .06, 40), mat('#1f2a3a'), root, 0, .79, 0);
+    if (C.TorusGeometry) {
+      var r1 = put(new C.TorusGeometry(3.95, .06, 4, 64), capm, root, 0, .84, 0); r1.rotation.x = Math.PI / 2;
+      var r2 = put(new C.TorusGeometry(2.6, .05, 4, 64), rune, root, 0, .84, 0); r2.rotation.x = Math.PI / 2;
+      var r3 = put(new C.TorusGeometry(3.45, .04, 4, 64), rune, root, 0, .84, 0); r3.rotation.x = Math.PI / 2;
+    }
+    var runes = [];
+    for (var ri = 0; ri < 24; ri++) { var ra = ri / 24 * Math.PI * 2, rb = put(B(.32, .04, ri % 3 ? .12 : .22), rune, root, Math.cos(ra) * 3.03, .84, Math.sin(ra) * 3.03); rb.rotation.y = -ra + (ri % 2 ? .6 : -.4); runes.push(rb); }
+    var crystals = [];
+    [[1, 1], [-1, 1], [1, -1], [-1, -1]].forEach(function (q) {
+      var px = q[0] * 3.55, pz = q[1] * 3.55;
+      put(B(.55, 2.3, .55), pillar, root, px, 1.9, pz);
+      put(B(.75, .22, .75), capm, root, px, 3.1, pz);
+      var cg = new C.Group(); cg.position.set(px, 3.85, pz); root.add(cg);
+      put(Co(.28, .45, 4), rune, cg, 0, .22, 0); var lo = put(Co(.28, .45, 4), rune, cg, 0, -.22, 0); lo.rotation.x = Math.PI;
+      crystals.push(cg);
+    });
+    // örs (kaidesi ve rünlü gövdesi)
+    var anv = new C.Group(); anv.scale.setScalar(1.35); anv.position.set(0, -.28, 0); root.add(anv);
+    put(B(1.6, .5, 1.3), steel, anv, 0, 1.05, 0);
+    put(B(1.0, .9, .8), steel, anv, 0, 1.75, 0);
+    put(B(2.6, .5, 1.1), steel, anv, 0, 2.45, 0);
+    put(Co(.42, 1.1, 4), steel, anv, 1.75, 2.45, 0).rotation.z = -Math.PI / 2;
+    put(B(.6, .45, 1.0), steel, anv, -1.45, 2.45, 0);
+    put(B(2.3, .06, .08), rune, anv, 0, 2.47, .56); put(B(.7, .06, .06), rune, anv, 0, 1.75, .41);
+    put(B(.18, .3, .06), rune, anv, 0, 1.75, .42).rotation.z = Math.PI / 4;
+    var bar = put(B(.9, .1, .14), hot, anv, -.1, 2.76, 0);
+    // küçük kor mangalı (ustanın ışığı)
+    put(Cy(.45, .3, .5, 8), iron, root, -3.0, 1.05, 1.9);
+    var coals = put(Cy(.38, .38, .12, 8), coal, root, -3.0, 1.33, 1.9);
     // usta (örse bakar: -x yönü)
-    var smith = new C.Group(); smith.position.set(2.35, .45, .9); smith.rotation.y = -Math.PI / 2; root.add(smith);
+    var smith = new C.Group(); smith.position.set(2.75, .8, .25); smith.rotation.y = -Math.PI / 2; root.add(smith);
     for (var lg = -1; lg <= 1; lg += 2) put(Cy(.17, .15, 1.1, 7), dark, smith, lg * .24, .55, 0);
     put(Cy(.45, .38, 1.25, 10), cloth, smith, 0, 1.7, 0);
     put(B(.75, 1.15, .1), apron, smith, 0, 1.55, .38);
@@ -269,18 +314,18 @@
     put(Cy(.05, .05, .9, 5), wood, hammer, 0, 0, .35).rotation.x = Math.PI / 2;
     put(B(.28, .28, .45), iron, hammer, 0, 0, .8);
     // ışık ve kıvılcımlar
-    var light = null; if (C.PL) { light = new C.PL('#ff8a3a', 2.2, 14, 1.8); light.position.set(-.6, 2.4, 0); root.add(light); }
-    var sparks = []; for (var i = 0; i < 8; i++) { var sp = put(Sp(.06), hot, root, .8, 1.6, .9); sp.visible = false; sparks.push({ m: sp, v: [0, 0, 0], t: 0 }); }
+    var light = null, cyan = null; if (C.PL) { light = new C.PL('#ff9a4a', 1.6, 12, 1.8); light.position.set(-.2, 3.2, .8); root.add(light); cyan = new C.PL('#5fd8ff', 2.2, 16, 1.6); cyan.position.set(0, 2.2, 0); root.add(cyan); }
+    var sparks = []; for (var i = 0; i < 8; i++) { var sp = put(Sp(.06), hot, root, -.1, 3.5, 0); sp.visible = false; sparks.push({ m: sp, v: [0, 0, 0], t: 0 }); }
     // inşa alanı (henüz yokken)
     var plot = new C.Group(); root.add(plot);
     for (var px = -1; px <= 1; px += 2) for (var pz = -1; pz <= 1; pz += 2) put(B(.14, .5, .14), wood, plot, px * 3, .25, pz * 2.2);
     put(B(6.2, .06, 4.6), mat('#a48d63'), plot, 0, .03, 0);
     var built = new C.Group(); root.children.slice().forEach(function (o) { if (o !== plot) { root.remove(o); built.add(o); } }); root.add(built);
     scene.add(root);
-    G = { ready: true, root: root, built: built, plot: plot, arm: arm, bar: bar, coals: coals, light: light, sparks: sparks, smith: smith, t0: performance.now(), hit: 0 };
+    G = { ready: true, root: root, built: built, plot: plot, arm: arm, bar: bar, coals: coals, light: light, cyan: cyan, crystals: crystals, runes: runes, rune: rune, sparks: sparks, smith: smith, t0: performance.now(), hit: 0 };
     return true;
   }
-  function hammerHit(big) { if (!G.ready) return; G.burst = big ? 2 : 1; }
+  function hammerHit(big) { if (!G.ready) return; G.burst = big ? 2 : 1; if (big) G.flash = 1.6; }
   function animate(now) {
     if (!G.ready) return;
     var d = dm(), l = d ? d.lv : 0;
@@ -295,6 +340,10 @@
     var fl = .85 + Math.sin(t * 11) * .08 + Math.sin(t * 23) * .05;
     if (G.light) G.light.intensity = 2.0 * fl + (hitNow ? 1.2 : 0);
     G.coals.material.emissiveIntensity = 1.1 * fl;
+    G.crystals.forEach(function (c, i) { c.rotation.y = t * 1.2 + i; c.position.y = 3.85 + Math.sin(t * 1.6 + i * 1.3) * .14; });
+    G.rune.emissiveIntensity = 1.1 + Math.sin(t * 2.2) * .45 + (G.flash || 0);
+    if (G.cyan) G.cyan.intensity = 2.0 + Math.sin(t * 2.2) * .5 + (G.flash || 0) * 3;
+    if (G.flash) G.flash = Math.max(0, G.flash - 1 / 50);
     G.bar.material.emissiveIntensity = 1.4 + (hitNow ? .8 : 0);
     G.sparks.forEach(function (s) {
       if (s.t <= 0) { s.m.visible = false; return; }
@@ -303,7 +352,7 @@
   }
   function spark(n) {
     var k = 0;
-    G.sparks.forEach(function (s) { if (k >= n || s.t > 0) return; k++; s.t = .45 + Math.random() * .3; s.m.position.set(.8, 1.6, .9); s.v = [(Math.random() - .5) * .08, .05 + Math.random() * .06, (Math.random() - .5) * .08]; });
+    G.sparks.forEach(function (s) { if (k >= n || s.t > 0) return; k++; s.t = .45 + Math.random() * .3; s.m.position.set(-.1, 3.5, 0); s.v = [(Math.random() - .5) * .08, .05 + Math.random() * .06, (Math.random() - .5) * .08]; });
   }
 
   /* ---------- sahnedeki işaret ---------- */
