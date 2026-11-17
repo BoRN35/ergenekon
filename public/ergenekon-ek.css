@@ -365,3 +365,16 @@ html body .world-map-tools button[aria-label="Ortak dünyayı göster"] { displa
   html body #tm.world-detail-open .map-journal::before { content: ''; position: absolute; top: 10px; left: 50%; width: 46px; height: 5px; margin-left: -23px; border-radius: 3px; background: #6b5434; }
 }
 html body #mapi .row:has(> button[data-mz]) { display: none !important; }
+/* ===== Harita seviye rozetleri ===== */
+#ek-lvl { position: absolute; inset: 0; pointer-events: none; z-index: 3; overflow: hidden; }
+.ek-lb { position: absolute; left: 0; top: 0; margin: -11px 0 0 -11px; min-width: 22px; height: 22px; padding: 0 4px; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center; border-radius: 11px; font: 800 12px/1 system-ui, sans-serif; color: #fff;
+  text-shadow: 0 1px 1px #000; border: 1.5px solid #f2d58e; background: linear-gradient(180deg, #a2402c, #5e1d12); box-shadow: 0 2px 4px rgba(0,0,0,.55); will-change: transform; }
+.ek-lb[hidden] { display: none; }
+.ek-lb.n { border-color: #bfe8dc; background: linear-gradient(180deg, #2c7f74, #134a44); }
+.ek-lb.n.odun { background: linear-gradient(180deg, #4e8a3a, #23501b); }
+.ek-lb.n.et { background: linear-gradient(180deg, #b0763a, #6a3f16); }
+.ek-lb.n.demir { background: linear-gradient(180deg, #7d8a92, #3c464c); }
+.ek-lb.n.komur { background: linear-gradient(180deg, #4a4f57, #1d2025); }
+.ek-lb.az { border-color: #ffe08a; background: linear-gradient(180deg, #d79b2a, #7a4a08); }
+.ek-lb.lk { filter: grayscale(.85) brightness(.75); }

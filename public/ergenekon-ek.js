@@ -249,6 +249,7 @@
       try {
         s = S();
         if (s && s.stat && s.stat.kills > k0 && W.M && W.M[m]) {
+          setTimeout(function () { closeTargetAfterKill(); rerender(); }, 900);
           var az = W.X6 && W.X6.isAz ? W.X6.isAz(m) : false;
           var got = rollPack(W.M[m][2] + (az ? 2 : 0));
           if (got) {
@@ -692,11 +693,54 @@
     if (d > R) { var k = R / d, nx = home.x + dx * k, nz = home.z + dz * k, ox = nx - t.x, oz = nz - t.z; t.x = nx; t.z = nz; cam.position.x += ox; cam.position.z += oz; }
     if (cam.zoom < c.minZoom || cam.zoom > c.maxZoom) { cam.zoom = Math.min(c.maxZoom, Math.max(c.minZoom, cam.zoom)); cam.updateProjectionMatrix(); }
   }
+  /* ---------- 3d) haritada seviye rozetleri ---------- */
+  var LB = { el: null, pool: {}, v: null, last: 0 };
+  function badges(now) {
+    var w = W.world3d, mapv = document.getElementById('mapv');
+    if (!w || !w.camera || !w.renderer || !mapv || !w.pveTargets) return;
+    if (now - LB.last < 60) return; LB.last = now;
+    if (!LB.el || !LB.el.isConnected) { LB.el = document.createElement('div'); LB.el.id = 'ek-lvl'; LB.pool = {}; }
+    if (LB.el.parentNode !== mapv) mapv.appendChild(LB.el);
+    if (!LB.v) LB.v = new w.camera.position.constructor();
+    var s = S(), M = W.M || [], cv = w.renderer.domElement.getBoundingClientRect(), mb = mapv.getBoundingClientRect();
+    var ocakLv = (s.l && s.l.ocak) || 1, mx = 1; try { mx = W.maxLv(); } catch (e) {}
+    var far = w.camera.zoom < 0.42, seen = {};
+    w.pveTargets.forEach(function (t) {
+      if (!t.visible || (t.kind !== 'monster' && t.kind !== 'node')) return;
+      var lv, cls, hid = false;
+      if (t.kind === 'monster') {
+        var m = M[t.index]; if (!m) return;
+        var az = W.X6 && W.X6.isAz ? W.X6.isAz(t.index) : false;
+        lv = m[2] + (az ? 2 : 0); hid = s.mk && s.mk[t.index] > 0;
+        cls = 'm' + (lv > ocakLv ? ' lk' : '') + (az ? ' az' : '');
+      } else {
+        var n = s.nodes && s.nodes[t.index]; if (!n) return;
+        lv = n.lv; hid = n.rg > 0 || n.res <= 0;
+        cls = 'n ' + n.t + (lv > mx ? ' lk' : '');
+      }
+      if (hid || (far && t.kind === 'node')) return;
+      LB.v.set(t.worldX, 6.2, t.worldZ).project(w.camera);
+      if (LB.v.z > 1 || LB.v.x < -1.1 || LB.v.x > 1.1 || LB.v.y < -1.1 || LB.v.y > 1.1) return;
+      var x = cv.left - mb.left + (LB.v.x + 1) / 2 * cv.width, y = cv.top - mb.top + (1 - LB.v.y) / 2 * cv.height;
+      var b = LB.pool[t.id];
+      if (!b) { b = LB.pool[t.id] = document.createElement('span'); LB.el.appendChild(b); }
+      if (b.dataset.k !== cls + lv) { b.dataset.k = cls + lv; b.className = 'ek-lb ' + cls; b.textContent = lv; }
+      b.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      b.hidden = false; seen[t.id] = 1;
+    });
+    for (var id in LB.pool) if (!seen[id] && !LB.pool[id].hidden) LB.pool[id].hidden = true;
+  }
+  function closeTargetAfterKill() {
+    if (W.tab !== 'm') return;
+    var tm = document.getElementById('tm'); if (tm) tm.classList.remove('world-detail-open');
+    var b = document.querySelector('[data-world-action="details"]'); if (b) b.textContent = 'Hedef bilgisi';
+    try { W.selM = -1; } catch (e) {}
+  }
   function frame() {
     requestAnimationFrame(frame);
     if (document.hidden) return;
     try { winMode(); } catch (e) {}
-    try { if (W.tab === 'm') tuneWorld(); } catch (e) {}
+    try { if (W.tab === 'm') { tuneWorld(); badges(Date.now()); } } catch (e) {}
     try { tickVisual(); placeMarks(Date.now()); } catch (e) {}
   }
   function start() {
