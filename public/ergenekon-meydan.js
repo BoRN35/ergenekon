@@ -48,6 +48,7 @@
       if (o.isMesh && o.geometry) { C[o.geometry.type] = C[o.geometry.type] || o.geometry.constructor; if (!C.Mesh) C.Mesh = o.constructor; if (o.material && o.material.type === 'MeshStandardMaterial' && !C.Mat) C.Mat = o.material.constructor; }
       if (o.isPointLight && !C.PL) C.PL = o.constructor;
       if (o.type === 'Group' && !C.Group) C.Group = o.constructor;
+      if (o.isInstancedMesh && !C.IM) C.IM = o.constructor;
       if (o.isSprite && o.material && o.material.map && !C.Tex) C.Tex = o.material.map.constructor;
     });
     if (!C.Mesh || !C.Mat || !C.Group || !C.CylinderGeometry || !C.BoxGeometry || !C.ConeGeometry || !C.SphereGeometry) return false;
@@ -106,23 +107,74 @@
       for (var k = 0; k < 4; k++) put(B(.5, .35, .5), goods[(k + i) % 4], g, -1.05 + k * .7, 1.08, 0);
     });
     // 6) Demir Dağ (arka planda, damarları parlayan)
-    var mount = new C.Group(); mount.position.set(40, -10, -165); mount.scale.setScalar(.75); root.add(mount);
+    var mount = new C.Group(); mount.position.set(-70, -6, -118); mount.scale.setScalar(.62); root.add(mount);
     var rock = mat('#4b4f59', { roughness: 1 }), rock2 = mat('#5d6470', { roughness: 1 }), snow = mat('#eef1f3'), vein = mat('#ff6a2a', { emissive: '#ff4a10', emissiveIntensity: 1.6 });
     var peak = put(Co(70, 150, 7), rock, mount, 0, 75, 0); peak.rotation.y = .3;
     put(Co(46, 92, 6), rock2, mount, 62, 46, 26).rotation.y = 1.1;
     put(Co(40, 80, 6), rock2, mount, -60, 40, 30).rotation.y = .6;
     put(Co(22, 34, 7), snow, mount, 0, 136, 0).rotation.y = .3;
     var veins = [];
-    [[6, 60, 62, .25], [-14, 92, 44, -.35], [18, 30, 70, .1], [-4, 118, 24, .5]].forEach(function (v) {
-      var m = put(B(2.2, 34, 2.2), vein, mount, v[0], v[1], v[2]); m.rotation.z = v[3]; m.rotation.x = -.42; m.castShadow = false; veins.push(m);
+    // kızıl damarlar: yamaçtan inen ince ışık hatları
+    [[0, 95, 1], [-.55, 80, .8], [.5, 70, .85], [.2, 112, .55]].forEach(function (v) {
+      var ang = v[0], y = v[1], L = 46 * v[2], r = 70 * (1 - y / 150) + .8;
+      var m = put(B(1.3, L, 1.3), vein, mount, Math.sin(ang) * r, y, Math.cos(ang) * r);
+      m.rotation.order = 'YXZ'; m.rotation.y = ang; m.rotation.x = .435; m.castShadow = false; veins.push(m);
     });
     var glow = null; if (C.PL) { glow = new C.PL('#ff7a3a', 2.5, 260, 1.4); glow.position.set(0, 70, 60); mount.add(glow); }
     scene.add(root);
-    M = { ready: true, group: root, flags: flags, veins: veins, vein: vein, glow: glow, lamp: lampMat, t0: performance.now(), hidden: M.hidden || [] };
+    M.C = C; M.mat = mat; M.put = put; M.B = B; M.Cy = Cy; M.Co = Co;
+    M = Object.assign(M, { ready: true, group: root, flags: flags, veins: veins, vein: vein, glow: glow, lamp: lampMat, t0: performance.now(), hidden: M.hidden || [] });
+    buildWall();
     hideGrass(true);
     apply();
     return true;
   }
+  /* ---------- taş sur ve kuleler (Sur seviyesine göre büyür) ---------- */
+  var WX = 46, WZ = 41, GATE = Math.PI / 2;
+  function surLv() { var s = S(); return (s && s.l && s.l.sur) || 0; }
+  function buildWall() {
+    var C = M.C; if (!C || !C.IM) return;
+    var lv = surLv(), key = lv;
+    if (M.wallKey === key && M.wall) return;
+    if (M.wall) { M.group.remove(M.wall); M.wall.traverse(function (o) { if (o.geometry) o.geometry.dispose(); }); }
+    M.wallKey = key;
+    var g = new C.Group(); M.wall = g; M.group.add(g);
+    var h = 2.6 + Math.min(40, lv) * .12, stone = M.mat('#b9ab8c'), stone2 = M.mat('#a39478'), roof = M.mat('#7a3b2a'), wood = M.mat('#5a4630'), gold = M.mat('#e3b54f', { metalness: .5, roughness: .4 });
+    var N = 150, segs = [], dummy = new C.Group();
+    for (var i = 0; i < N; i++) { var a = i / N * Math.PI * 2; if (Math.abs(a - GATE) < .12) continue; segs.push(a); }
+    var segLen = 2 * Math.PI * Math.sqrt((WX * WX + WZ * WZ) / 2) / N + .15;
+    var body = new C.IM(new C.BoxGeometry(segLen, h, 1.3), stone, segs.length), mer = new C.IM(new C.BoxGeometry(segLen * .45, .6, 1.4), stone2, segs.length);
+    segs.forEach(function (a, i) {
+      var x = Math.cos(a) * WX, z = Math.sin(a) * WZ, ang = Math.atan2(WZ * Math.cos(a), -WX * Math.sin(a));
+      dummy.position.set(x, h / 2, z); dummy.rotation.set(0, -ang, 0); dummy.updateMatrix(); body.setMatrixAt(i, dummy.matrix);
+      dummy.position.set(x, h + .3, z); dummy.updateMatrix(); mer.setMatrixAt(i, dummy.matrix);
+    });
+    body.castShadow = body.receiveShadow = true; mer.castShadow = true; g.add(body); g.add(mer);
+    // kapı kulesi
+    var gz = WZ + .2;
+    [-4.3, 4.3].forEach(function (x) {
+      M.put(M.B(3, h + 3, 3), stone, g, x, (h + 3) / 2, gz);
+      M.put(M.Co(2.4, 2.4, 4), roof, g, x, h + 4.2, gz).rotation.y = Math.PI / 4;
+      M.put(M.Cy(.06, .06, 2.2, 5), wood, g, x, h + 6.4, gz);
+    });
+    M.put(M.B(5.6, 1.4, 2.2), stone2, g, 0, h + 1.2, gz);
+    var arch = M.put(M.B(5.6, .5, 2.4), wood, g, 0, h + .3, gz);
+    if (C.TorusGeometry) { var cr = M.put(new C.TorusGeometry(.55, .12, 6, 18, Math.PI * 1.45), gold, g, 0, h + 1.3, gz + 1.15); cr.rotation.z = .9; }
+    // kuleler: sur seviyesine göre 4 / 6 / 8 / 10
+    var nt = lv >= 20 ? 10 : lv >= 12 ? 8 : lv >= 6 ? 6 : 4;
+    for (var t = 0; t < nt; t++) {
+      var ta = t / nt * Math.PI * 2 - Math.PI / 2 + Math.PI / nt; if (Math.abs(((ta % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI) - GATE) < .35) ta += .4;
+      var tx = Math.cos(ta) * WX, tz = Math.sin(ta) * WZ, th = h + 3.4;
+      M.put(M.Cy(2, 2.3, th, 10), stone, g, tx, th / 2, tz);
+      M.put(M.Cy(2.35, 2.35, .6, 10), stone2, g, tx, th + .3, tz);
+      M.put(M.Co(2.6, 3, 10), roof, g, tx, th + 2.1, tz);
+      M.put(M.Cy(.05, .05, 2, 5), wood, g, tx, th + 4.4, tz);
+      var fl = M.put(M.B(1.1, .65, .04), t % 2 ? M.mat('#a8322a') : M.mat('#2e6db5'), g, tx + .58, th + 4.95, tz); M.flags.push(fl);
+    }
+    syncCastle();
+  }
+  function syncCastle() { var c = W.city3d && W.city3d.castle; if (c) c.visible = !(M.ready && M.group.visible); }
+
   // meydanın içindeki çimleri gizle (döşemeyi delmesin)
   var GR = null;
   function hideGrass(on) {
@@ -149,7 +201,7 @@
   function apply() {
     if (!M.ready) return;
     var o = off();
-    M.group.visible = !o; hideGrass(!o);
+    M.group.visible = !o; hideGrass(!o); syncCastle();
   }
   function animate(now) {
     if (!M.ready || !M.group.visible) return;
@@ -163,7 +215,7 @@
   function settingsRow() {
     var tg = document.getElementById('tg'); if (!tg || W.tab !== 'g' || tg.querySelector('#ek-meydan-opt')) return;
     var row = document.createElement('div'); row.id = 'ek-meydan-opt'; row.className = 'card ek-optrow';
-    row.innerHTML = '<div><b>Kurultay Meydanı</b><small>Taş meydan, tuğlar, pazar ve Demir Dağ görünümü (deneme)</small></div><button type="button" data-ek-meydan="1"></button>';
+    row.innerHTML = '<div><b>Kurultay Meydanı</b><small>Taş meydan, sur ve kuleler, tuğlar, pazar ve Demir Dağ (deneme)</small></div><button type="button" data-ek-meydan="1"></button>';
     tg.insertBefore(row, tg.firstChild);
     row.querySelector('button').addEventListener('click', function () { var s = S(); s.ek = s.ek || {}; s.ek.meydanOff = !s.ek.meydanOff; try { W.save(); } catch (e) {} apply(); label(); });
     label();
@@ -174,7 +226,7 @@
     requestAnimationFrame(frame);
     if (document.hidden) return;
     try { if (!M.ready) build(); if (W.tab === 'c') animate(now); } catch (e) {}
-    if (now - last > 800) { last = now; try { settingsRow(); if (M.ready && M.group.visible === off()) apply(); } catch (e) {} }
+    if (now - last > 800) { last = now; try { settingsRow(); if (M.ready && M.group.visible === off()) apply(); if (M.ready) { buildWall(); syncCastle(); } } catch (e) {} }
   }
   function start() { if (!S() || !W.city3d) { setTimeout(start, 400); return; } requestAnimationFrame(frame); }
   start();
