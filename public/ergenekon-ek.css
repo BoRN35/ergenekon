@@ -211,3 +211,36 @@ body:not(.ek-nav7) #ek-world { display: none; }
   #ek-marks .ek-mk svg { width: 19px !important; height: 19px !important; }
   #ek-marks .ek-mk.ek-field { width: 26px !important; height: 26px !important; }
 }
+
+/* Yardımcı yüzen düğmeler (Bozkurt döndü / Hepsini yap / Günlük) kaldırıldı */
+#nxtg { display: none !important; }
+
+/* --- Mobil: sade, tek satır üst bar --- */
+@media (max-width: 760px) {
+  #top {
+    flex-wrap: nowrap !important; overflow-x: auto !important; overflow-y: hidden !important;
+    min-height: 0 !important; height: auto !important; padding: 4px 6px !important; gap: 4px !important;
+    align-items: center !important; scrollbar-width: none;
+  }
+  #top::-webkit-scrollbar { display: none; }
+  #top > .mt1, #top > .pwr, #top > .heat, #top > .infb { display: none !important; }
+  #res { flex-wrap: nowrap !important; gap: 4px !important; }
+  #res > div { flex: none !important; height: 30px !important; min-height: 0 !important; padding: 0 7px 0 3px !important; gap: 3px !important; font-size: 12px !important; }
+  #res > div b { font-size: 12px !important; }
+  #res .reference-resource-art, #res .painted-game-icon { width: 20px !important; height: 20px !important; min-width: 0 !important; }
+  #res > div img { height: 18px !important; }
+  #res button { min-height: 0 !important; height: 28px !important; padding: 0 7px !important; font-size: 12px !important; }
+  .ek-topbtns { order: -1; margin: 0 !important; gap: 4px !important; flex: none; }
+  #top .ek-rbtn { width: 32px !important; height: 32px !important; }
+  #top .ek-rbtn svg { width: 18px !important; height: 18px !important; }
+  #top .ek-badge { top: -3px; right: -3px; min-width: 15px; height: 15px; font-size: 9px; line-height: 12px; }
+
+  /* Pencere başlıkları daha kısa */
+  .research-header, .ovp > header, .ovp header:first-child { padding-top: 6px !important; padding-bottom: 6px !important; min-height: 0 !important; }
+  .research-header h1, .ovp header h1, .ovp header h2 { font-size: 18px !important; margin: 0 !important; line-height: 1.15 !important; }
+  .research-header p, .ovp header p, .ovp header small { display: none !important; }
+}
+@media (max-width: 760px) {
+  html body #top #res { flex-wrap: nowrap !important; display: flex !important; flex: none !important; width: auto !important; max-width: none !important; grid-template-columns: none !important; }
+  html body #top { justify-content: flex-start !important; }
+}
