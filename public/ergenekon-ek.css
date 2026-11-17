@@ -442,3 +442,56 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
   .dm-mat small { display: none; }
   .dm-body { padding: 10px 12px 12px; }
 }
+
+/* ===== Çanta: görsel eşya kutuları ===== */
+.ci-modal { width: min(760px, 100%); }
+.ci-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.ek-ov .ci-tabs button { flex: 1 0 auto; padding: 0 10px !important; font-size: 13px; }
+.ci-tabs button small { margin-left: 5px; font: 700 11px system-ui, sans-serif; opacity: .7; }
+.ci-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 10px; padding: 14px 16px; max-height: 46vh; overflow-y: auto; }
+.ci-none { grid-column: 1 / -1; text-align: center; color: #b3bdb6; padding: 24px 0; }
+.ek-ov .ci-tile, .ci-tile { position: relative; aspect-ratio: 1; width: 100%; padding: 6px !important; min-height: 0 !important; cursor: pointer; border-radius: 12px !important;
+  border: 2px solid var(--rc) !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,.6), inset 0 0 18px color-mix(in srgb, var(--rc) 45%, transparent), 0 3px 8px rgba(0,0,0,.5) !important;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--rc) 38%, #1e2a2c) 0%, #121b1d 72%) !important; display: flex; align-items: center; justify-content: center; }
+.ek-ov .ci-tile.on, .ci-tile.on { outline: 3px solid #f3d58f; outline-offset: 2px; }
+.ek-ov .ci-tile[disabled] { cursor: default; opacity: 1; }
+.ci-tile .ci-svg { width: 82%; height: 82%; filter: drop-shadow(0 2px 2px rgba(0,0,0,.6)); }
+.ci-plus { position: absolute; right: 4px; top: 3px; font: 900 16px/1 system-ui, sans-serif; color: #fff; text-shadow: 0 0 3px #000, 0 1px 2px #000, 0 0 6px #000; }
+.ci-plus.hi { color: #ffe08a; }
+.ci-lv { position: absolute; left: 5px; bottom: 3px; font: 700 10px system-ui, sans-serif; color: #e6dcc4; text-shadow: 0 1px 2px #000; }
+.ci-n { position: absolute; right: 5px; bottom: 3px; font: 900 14px system-ui, sans-serif; color: #fff; text-shadow: 0 0 3px #000, 0 1px 2px #000; }
+.ci-amt { position: absolute; left: 0; right: 0; top: 3px; text-align: center; font: 800 11px system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000; }
+.ci-worn { position: absolute; left: 4px; top: 3px; width: 17px; height: 17px; border-radius: 50%; background: #2f8f5b; color: #fff; font: 900 11px/17px system-ui; font-style: normal; text-align: center; box-shadow: 0 0 0 1.5px #0d1a10; }
+.ci-det { margin: 0 16px 16px; padding: 12px; border-radius: 12px; border: 1px solid #6b5434; background: rgba(0,0,0,.28); }
+.ci-det.ci-empty { color: #9fb3ad; text-align: center; }
+.ci-dhead { display: flex; gap: 12px; align-items: flex-start; }
+.ci-big { position: relative; flex: none; width: 76px; height: 76px; border-radius: 14px; border: 2px solid var(--rc); display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--rc) 40%, #1e2a2c) 0%, #121b1d 72%); box-shadow: inset 0 0 18px color-mix(in srgb, var(--rc) 45%, transparent); }
+.ci-big .ci-svg { width: 84%; height: 84%; }
+.ci-det h3 { margin: 0 0 4px; font: 700 17px 'Cinzel', Georgia, serif; color: #f2d58e; }
+.ci-det p { margin: 2px 0; font-size: 13px; color: #d8cbae; } .ci-det em { color: #7be0a2; font-style: normal; }
+.ci-hint { color: #9fb3ad !important; } .ci-warn { color: #ff9b85 !important; }
+.ci-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ek-ov .ci-acts .ek-btn { flex: 1; height: 40px; }
+/* Demirci örs ekranı */
+.dm-anvil { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 6px 0; }
+.dm-slotwrap { position: relative; width: 120px; }
+.dm-slotwrap .ci-tile .ci-plus { font-size: 22px; }
+.ek-ov .dm-emptyslot { --rc: #6b5434; flex-direction: column; gap: 2px; border-style: dashed !important; background: rgba(0,0,0,.3) !important; color: #c9a96a !important; }
+.dm-emptyslot span { font: 300 44px/1 system-ui; } .dm-emptyslot small { font-size: 12px; }
+.ek-ov .dm-swap { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); height: 24px; min-height: 0 !important; padding: 0 10px !important; border-radius: 12px !important; font-size: 11.5px; background: #1d2e30 !important; border: 1px solid #c99a4e !important; color: #f2e2bf !important; }
+.dm-iname { margin-top: 8px; font: 700 16px 'Cinzel', Georgia, serif; text-align: center; }
+.dm-mrow { display: flex; gap: 14px; justify-content: center; }
+.dm-ms { width: 70px; text-align: center; }
+.dm-ms small { display: block; margin-top: 4px; font: 800 12px system-ui, sans-serif; color: #c9bc9c; }
+.dm-ms.ok small { color: #7be0a2; } .dm-ms.no small { color: #ff9b85; } .dm-ms.off { opacity: .55; }
+.dm-ms .ci-tile .ci-n { font-size: 12px; }
+.dm-arrow { display: flex; align-items: center; gap: 10px; font: 900 26px system-ui, sans-serif; color: #fff; }
+.dm-arrow i { font-style: normal; color: #c9a96a; font-size: 20px; } .dm-arrow .nx { color: #ffe08a; }
+.dm-anvil .dm-chance, .dm-anvil .dm-costs, .dm-anvil .dm-note, .dm-anvil .dm-go { width: min(420px, 100%); }
+.dm-center { text-align: center; }
+@media (max-width: 760px) { .ci-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 10px 12px; } .ci-plus { font-size: 14px; } }
+.ek-ov .ci-tabs button { flex: 1 1 0 !important; min-width: 0 !important; padding: 0 4px !important; font-size: 12.5px !important; white-space: nowrap; }
+.ek-ov .ci-tabs button.on { background: linear-gradient(180deg, #1f6e68, #134a47) !important; }
+@media (max-width: 760px) { .ci-tabs button small { display: none; } .ek-ov .ci-tabs { gap: 5px; padding: 10px 12px 0; } }
+.ci-tile.ci-static { cursor: default; box-sizing: border-box; }

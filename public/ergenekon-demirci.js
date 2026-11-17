@@ -50,8 +50,8 @@
   /* ---------- canavar ganimeti ---------- */
   function rollMats(L) {
     var got = [], d = dm(); if (!d) return got;
-    if (Math.random() < 0.3) { var n = 1 + (L >= 10 ? 1 : 0) + (L >= 20 ? 1 : 0); d.mat.kagit += n; got.push(n + ' ' + MAT.kagit.n); }
-    if (L >= 4 && Math.random() < 0.07) { d.mat.safir += 1; got.push('1 ' + MAT.safir.n); }
+    if (Math.random() < 0.05) { var n = 1 + (L >= 10 ? 1 : 0) + (L >= 20 ? 1 : 0); d.mat.kagit += n; got.push(n + ' ' + MAT.kagit.n); }
+    if (L >= 4 && Math.random() < 0.025) { d.mat.safir += 1; got.push('1 ' + MAT.safir.n); }
     if (L >= 8 && Math.random() < 0.025) { d.mat.opal += 1; got.push('1 ' + MAT.opal.n); }
     return got;
   }
@@ -102,20 +102,32 @@
   }
 
   /* ---------- basma ---------- */
-  function enhance(k) {
-    var s = S(), d = dm(), x = s && s.ch && s.ch.eq && s.ch.eq[k]; if (!x || !d || d.lv < 1) return;
-    var p = x.p || 0; if (p >= (W.UPM || 12)) return;
-    var dem = 0; try { dem = W.ucost(x); } catch (e) { return; }
+  function itemById(id) {
+    var s = S(); if (!s || !s.ch || !id) return null;
+    var p = id.split(':');
+    if (p[0] === 'q') return s.ch.eq[p[1]] ? { x: s.ch.eq[p[1]], worn: true } : null;
+    if (p[0] === 'i') return s.ch.inv[+p[1]] ? { x: s.ch.inv[+p[1]], worn: false } : null;
+    return null;
+  }
+  function enhance(id) {
+    var s = S(), d = dm(), o = itemById(id); if (!o || !d || d.lv < 1) return;
+    var x = o.x, p = x.p || 0, max = W.UPM || 12; if (p >= max) return;
+    var dem = 0, ch = 0; try { dem = W.ucost(x); ch = W.upch(x); } catch (e) { return; }
     var mc = matCost(p); if ((s.r.demir || 0) < dem || !haveMat(mc)) return;
     for (var m in mc) d.mat[m] -= mc[m];
-    W.__dmForge = true;
-    try { W.upg(k); } finally { W.__dmForge = false; }
-    x = s.ch.eq[k];
-    var np = (x && x.p) || 0, res;
-    if (np > p) { res = 'ok'; hammerHit(true); }
-    else if (np < p && Math.random() < protect(d.lv)) { x.p = p; res = 'kept'; log('🛡️ Demirci ustası düşüşü önledi: ' + x.n + ' +' + p + ' olarak kaldı.'); hammerHit(false); }
-    else { res = np < p ? 'drop' : 'fail'; hammerHit(false); }
-    W.__dmLast = { k: k, res: res, p: (x && x.p) || 0 };
+    s.r.demir -= dem;
+    var res;
+    if (Math.random() < ch) {
+      x.p = p + 1; res = 'ok'; log('✅ ' + x.n + ' +' + x.p + ' oldu.');
+      try { if (x.p >= 8) W.X6.ann('✦ ' + x.n + ' +' + x.p + ' yapıldı'); W.snd(620, .12); } catch (e) {}
+      hammerHit(true);
+    } else if (p >= 5) {
+      if (Math.random() < protect(d.lv)) { res = 'kept'; log('🛡️ Demirci ustası düşüşü önledi: ' + x.n + ' +' + p + ' olarak kaldı.'); }
+      else { x.p = p - 1; res = 'drop'; log('❌ ' + x.n + ' basması tutmadı, +' + x.p + ' seviyesine düştü.'); }
+      try { W.snd(180, .15); } catch (e) {} hammerHit(false);
+    } else { res = 'fail'; log('❌ ' + x.n + ' basması tutmadı (malzeme harcandı).'); try { W.snd(180, .15); } catch (e) {} hammerHit(false); }
+    if (o.worn) try { s.ch.hp = Math.min(s.ch.hp, W.cs().hp); } catch (e) {}
+    W.__dmLast = { id: id, res: res, p: x.p || 0 };
     persist(); rerender(); refreshWin();
   }
 
@@ -125,29 +137,33 @@
     var m = dm().mat;
     return '<div class="dm-mats">' + Object.keys(MAT).map(function (k) { return '<span class="dm-mat" style="--mc:' + MAT[k].c + '"><i>' + MAT[k].e + '</i><b>' + nf(m[k] || 0) + '</b><small>' + MAT[k].n + '</small></span>'; }).join('') + '</div>';
   }
+  function tile(it, extra) { return W.ekTileHtml ? W.ekTileHtml(it, extra) : ''; }
   function basHtml() {
-    var s = S(), d = dm(), eq = (s.ch && s.ch.eq) || {}, keys = Object.keys(SLOTN).filter(function (k) { return eq[k]; });
-    if (d.lv < 1) return matRow() + '<div class="dm-empty">Eşya basmak için önce Demirci’yi inşa et.<br><button type="button" class="ek-btn gold" data-dm-tab="yapi">Demirci’ye git</button></div>';
-    if (!keys.length) return matRow() + '<div class="dm-empty">Kuşanılmış eşya yok. Canavarlardan eşya düşür, profilden kuşan.</div>';
-    if (!UI.sel || !eq[UI.sel]) UI.sel = keys[0];
-    var list = keys.map(function (k) {
-      var x = eq[k], col = RCOL[x.r || 0] || RCOL[0];
-      return '<button type="button" class="dm-it' + (k === UI.sel ? ' on' : '') + '" data-dm-sel="' + k + '" style="--rc:' + col + '"><small>' + SLOTN[k] + '</small><b>' + esc(x.n) + '</b><em>+' + (x.p || 0) + '</em></button>';
+    var s = S(), d = dm();
+    if (d.lv < 1) return '<div class="dm-empty">Eşya basmak için önce Demirci’yi inşa et.<br><button type="button" class="ek-btn gold" data-dm-tab="yapi">Demirci’ye git</button></div>';
+    var o = itemById(UI.sel); if (!o) UI.sel = null;
+    var slot = o ? tile({ id: UI.sel, cat: 'eq', x: o.x, worn: o.worn, r: o.x.r || 0 }) : '<button type="button" class="ci-tile dm-emptyslot" data-dm-pick="1"><span>+</span><small>Eşya seç</small></button>';
+    var p = o ? (o.x.p || 0) : 0, mc = matCost(p), max = W.UPM || 12;
+    var mats = Object.keys(MAT).map(function (k) {
+      var have = d.mat[k] || 0, need = o ? mc[k] : 0, it = { id: 'm:' + k, cat: 'mat', mat: k, n: have, r: { kagit: 1, safir: 2, opal: 3 }[k] };
+      return '<div class="dm-ms' + (need > 0 ? (have >= need ? ' ok' : ' no') : ' off') + '">' + tile(it, { dis: true }) + '<small>' + (need > 0 ? nf(have) + ' / ' + need : MAT[k].n) + '</small></div>';
     }).join('');
-    var x = eq[UI.sel], p = x.p || 0, max = W.UPM || 12, det;
-    if (p >= max) det = '<div class="dm-det"><h3>' + esc(x.n) + ' <em>+' + p + '</em></h3><p class="dm-ok">En yüksek basma seviyesine ulaştı.</p></div>';
+    var info = '', btn = '';
+    if (!o) info = '<p class="dm-note dm-center">Örse koymak için yukarıdaki kutuya dokun; çantadaki eşyaların açılır.</p>';
+    else if (p >= max) info = '<p class="dm-ok dm-center">En yüksek basma seviyesi (+' + max + ').</p>';
     else {
-      var dem = 0, ch = 0; try { dem = W.ucost(x); ch = W.upch(x); } catch (e) {}
-      var mc = matCost(p), m = d.mat, can = (s.r.demir || 0) >= dem && haveMat(mc);
-      var costs = rc('⛓️ Demir', dem, s.r.demir || 0) + Object.keys(mc).filter(function (k) { return mc[k] > 0; }).map(function (k) { return rc(MAT[k].e + ' ' + MAT[k].n, mc[k], m[k] || 0); }).join('');
-      var risk = p >= 5 ? (protect(d.lv) >= 1 ? 'Başarısız olursa seviye düşmez (Demirci Sv 10 koruması).' : protect(d.lv) > 0 ? 'Başarısız olursa seviye düşebilir; Demirci koruması %50 ihtimalle önler.' : 'Dikkat: +5’ten sonra başarısız basma seviyeyi 1 düşürür.') : 'Başarısız olursa seviye düşmez.';
-      var last = W.__dmLast && W.__dmLast.k === UI.sel ? ({ ok: '<p class="dm-res ok">✅ Başarılı! +' + W.__dmLast.p + '</p>', fail: '<p class="dm-res no">❌ Tutmadı, malzeme harcandı.</p>', drop: '<p class="dm-res no">❌ Tutmadı, +' + W.__dmLast.p + ' seviyesine düştü.</p>', kept: '<p class="dm-res ok">🛡️ Tutmadı ama usta düşüşü önledi.</p>' })[W.__dmLast.res] || '' : '';
-      det = '<div class="dm-det"><h3>' + esc(x.n) + ' <em>+' + p + ' → +' + (p + 1) + '</em></h3>' +
+      var dem = 0, ch = 0; try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {}
+      var can = (s.r.demir || 0) >= dem && haveMat(mc);
+      var risk = p >= 5 ? (protect(d.lv) >= 1 ? 'Tutmazsa seviye düşmez (Demirci Sv 10).' : protect(d.lv) > 0 ? 'Tutmazsa seviye düşebilir; usta %50 ihtimalle önler.' : 'Dikkat: tutmazsa seviye 1 düşer.') : 'Tutmazsa seviye düşmez.';
+      var L = W.__dmLast && W.__dmLast.id === UI.sel ? ({ ok: '<p class="dm-res ok">✅ Başarılı! +' + W.__dmLast.p + '</p>', fail: '<p class="dm-res no">❌ Tutmadı, malzeme harcandı.</p>', drop: '<p class="dm-res no">❌ Tutmadı, +' + W.__dmLast.p + ' seviyesine düştü.</p>', kept: '<p class="dm-res ok">🛡️ Tutmadı ama usta düşüşü önledi.</p>' })[W.__dmLast.res] || '' : '';
+      info = '<div class="dm-arrow"><b>+' + p + '</b><i>→</i><b class="nx">+' + (p + 1) + '</b></div>' +
         '<div class="dm-chance"><span>Başarı şansı</span><b>%' + (ch * 100).toFixed(ch < 0.01 ? 2 : 1) + '</b><i><u style="width:' + Math.min(100, ch * 100).toFixed(1) + '%"></u></i></div>' +
-        '<div class="dm-costs">' + costs + '</div><p class="dm-note">' + risk + '</p>' + last +
-        '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + UI.sel + '"' + (can ? '' : ' disabled') + '>⚒️ Bas</button></div>';
+        '<div class="dm-costs">' + rc('⛓️ Demir', dem, s.r.demir || 0) + '</div><p class="dm-note">' + risk + '</p>' + L;
+      btn = '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + UI.sel + '"' + (can ? '' : ' disabled') + '>⚒️ Bas</button>';
     }
-    return matRow() + '<div class="dm-grid"><div class="dm-list">' + list + '</div>' + det + '</div>';
+    return '<div class="dm-anvil"><div class="dm-slotwrap">' + slot + (o ? '<button type="button" class="dm-swap" data-dm-pick="1">Değiştir</button>' : '') + '</div>' +
+      (o ? '<div class="dm-iname" style="color:' + (['#8a97a3', '#3fae6b', '#8b6cff', '#f0a033', '#ef4f42'][Math.min(4, o.x.r || 0)]) + '">' + esc(o.x.n) + '</div>' : '') +
+      '<div class="dm-mrow">' + mats + '</div>' + info + btn + '</div>';
   }
   function yapiHtml() {
     var d = dm(), l = d.lv, nx = l + 1, s = S(), mx = maxLv();
@@ -174,8 +190,9 @@
       '<div class="dm-body">' + (UI.tab === 'bas' ? basHtml() : yapiHtml()) + '</div></div>';
   }
   function refreshWin() { var o = document.getElementById('ek-forge'); if (o) o.innerHTML = winHtml(); }
-  function openForge(tab) {
+  function openForge(tab, itemId) {
     if (tab) UI.tab = tab; else UI.tab = lv() < 1 ? 'yapi' : 'bas';
+    if (itemId) { UI.sel = itemId; W.__dmLast = null; }
     var o = document.getElementById('ek-forge');
     if (!o) {
       o = document.createElement('div'); o.id = 'ek-forge'; o.className = 'ek-ov ek-sheet'; document.body.appendChild(o);
@@ -184,7 +201,7 @@
         if (t === o || t.closest('[data-dm-close]')) { o.remove(); return; }
         var b;
         if ((b = t.closest('[data-dm-tab]'))) { UI.tab = b.getAttribute('data-dm-tab'); refreshWin(); return; }
-        if ((b = t.closest('[data-dm-sel]'))) { UI.sel = b.getAttribute('data-dm-sel'); W.__dmLast = null; refreshWin(); return; }
+        if ((b = t.closest('[data-dm-pick]'))) { if (W.ekPickItem) W.ekPickItem({ title: 'Örse koy', sel: UI.sel, filter: function (it) { return it.cat === 'eq'; } }, function (id) { UI.sel = id; W.__dmLast = null; refreshWin(); }); return; }
         if ((b = t.closest('[data-dm-up]')) && !b.disabled) { enhance(b.getAttribute('data-dm-up')); return; }
         if ((b = t.closest('[data-dm-build]')) && !b.disabled) { startBuild(); return; }
       });
@@ -198,7 +215,7 @@
     var b = ev.target.closest && ev.target.closest('[data-u]');
     if (!b || W.__dmForge || b.closest('#ek-forge')) return;
     ev.preventDefault(); ev.stopPropagation(); ev.stopImmediatePropagation();
-    UI.sel = b.getAttribute('data-u'); openForge('bas');
+    openForge('bas', 'q:' + b.getAttribute('data-u'));
   }, true);
 
   /* ---------- 3D ---------- */

@@ -294,6 +294,7 @@
       '<div class="ek-grid">' + (tiles || '<div class="ek-empty">Çanta boş</div>') + '</div>' + detail + '</div>';
   }
   function openBag() {
+    if (typeof W.openCanta === 'function') { W.openCanta(); return; }
     var o = document.getElementById('ek-bag');
     if (!o) {
       o = document.createElement('div'); o.id = 'ek-bag'; o.className = 'ek-ov';
@@ -794,7 +795,7 @@
     });
     afterRender();
     requestAnimationFrame(frame);
-    W.ergenekonEk = { openBag: openBag, rollPack: rollPack, _dbg: function () { tickVisual(); placeMarks(Date.now()); return F.parcels.slice(0,3).map(function (p) { var v = new F.V3(p.x, 8, p.z).project(F.c3.camera); return [p.id, p.n, Math.round(p.x), Math.round(p.z), v.x.toFixed(2), v.y.toFixed(2), v.z.toFixed(3)]; }); }, state: function () { return { forest: F.ready, parcels: F.parcels ? F.parcels.length : 0, ek: ek() }; } };
+    W.ergenekonEk = { openBag: openBag, rollPack: rollPack, packs: function () { return ek().pk; }, usePack: usePack, packAmount: packAmount, packName: packName, rsvg: rsvg, capOf: capOf, _dbg: function () { tickVisual(); placeMarks(Date.now()); return F.parcels.slice(0,3).map(function (p) { var v = new F.V3(p.x, 8, p.z).project(F.c3.camera); return [p.id, p.n, Math.round(p.x), Math.round(p.z), v.x.toFixed(2), v.y.toFixed(2), v.z.toFixed(3)]; }); }, state: function () { return { forest: F.ready, parcels: F.parcels ? F.parcels.length : 0, ek: ek() }; } };
   }
   start();
 })();
