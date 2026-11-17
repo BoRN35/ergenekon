@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "ergenekon-3d",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "db:generate": "drizzle-kit generate",
+    "test": "node tests/api.mjs && node tests/recovery.mjs && node tests/world.mjs && node tests/account-client.mjs && node tests/game.mjs && node tests/oba.mjs && node tests/world-scene.mjs && node tests/world-density.mjs && node tests/world-caravans.mjs && node tests/map-clarity.mjs && node tests/arena-battle.mjs && node tests/game-hub.mjs && node tests/arena-scene.mjs && node tests/er-integration.mjs && node tests/building-plan.mjs && node tests/world-spacing.mjs && node tests/upgrade-balance.mjs && node tests/building-rules.mjs && node tests/research-integration.mjs && node tests/whiteout-research.mjs && node tests/queue-navigation.mjs && node tests/research-view.mjs && node tests/page-presentation.mjs && node tests/design-integration.mjs && node tests/city-landscape.mjs && node tests/city-scene-design.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0",
+    "drizzle-orm": "0.44.7"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.11",
+    "drizzle-kit": "0.31.8"
+  }
+}

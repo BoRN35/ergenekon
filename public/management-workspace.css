@@ -1,0 +1,193 @@
+/* Functional rooms, rather than a shared wall of cards. Bronze, carved wood and slate. */
+html body .management-enabled{display:block!important;padding-bottom:24px}
+html body .management-enabled>.game-page-header{justify-content:center;background-image:linear-gradient(90deg,#100e0b55,#100e0b22,#100e0b55),url('./assets/interface/carved-header.webp');background-position:center;background-size:cover}
+html body .management-enabled>.game-page-header .game-page-heading{text-align:center}
+html body .management-enabled>.game-page-header .game-page-heading p{margin-inline:auto}
+html body .management-workspace{--mgmt-gold:#c9a463;--mgmt-line:#8d7044;--mgmt-ink:#e9d6b1;display:grid;grid-template-columns:202px minmax(0,1fr);position:relative;isolation:isolate;min-width:0;min-height:510px;padding:12px;gap:12px;border:3px double #bd9758;outline:1px solid #322619;outline-offset:3px;border-radius:8px;background:radial-gradient(ellipse at 75% 0,#34423c45,transparent 62%),linear-gradient(125deg,#101d23,#0c161d 78%);box-shadow:inset 0 0 0 5px #080e12,inset 0 0 0 6px #8a663b55,0 12px 25px #0006;margin:10px 0 8px}
+html body .management-workspace:before,html body .management-workspace:after{content:"◇";position:absolute;top:-13px;color:#d3ae6a;font:22px Georgia,serif;line-height:24px;text-shadow:0 2px 3px #000;pointer-events:none}
+html body .management-workspace:before{left:18px}html body .management-workspace:after{right:18px}
+html body .management-workspace [hidden]{display:none!important}
+html body .management-workspace :is(.mgmt-navigation,.mgmt-deck,.mgmt-pane,.mgmt-inbox,.mgmt-mail-detail,.mgmt-event-content,.mgmt-event-calendar,.mgmt-council-hall,.mgmt-council-support){min-width:0;max-width:100%;box-sizing:border-box}
+html body .management-workspace .mgmt-navigation{display:flex;flex-direction:column;gap:9px;padding:8px 11px 18px 0;border-right:1px solid #9a7a4b;align-self:stretch;background:linear-gradient(90deg,#30282044,transparent)}
+html body .management-workspace button.mgmt-category{display:flex;align-items:center;gap:11px;width:100%;min-height:70px;padding:10px 12px;text-align:left;border:1px solid #7f704f!important;border-radius:5px!important;background:linear-gradient(#33362e,#1b2626)!important;color:#e4d7b9!important;box-shadow:inset 0 0 0 3px #0a131c55,0 3px 7px #0005!important;font:600 14px/1.35 Georgia,serif;text-shadow:0 2px 2px #000}
+html body .management-workspace button.mgmt-category.is-active{background:radial-gradient(ellipse at 10% 0,#367d7166,transparent),linear-gradient(#20504d,#112f35)!important;border-color:#78e1cf!important;box-shadow:inset 0 0 0 3px #07191b88,0 0 12px #2de4ca28!important;color:#e2fff4!important}
+html body .management-workspace .mgmt-category-chevron{margin-left:auto;flex:0 0 auto;color:#cbb17a;font-size:26px;font-weight:400}
+html body .management-workspace .mgmt-medallion{display:grid;place-items:center;position:relative;isolation:isolate;flex:0 0 38px;width:38px;height:38px;box-sizing:border-box;padding:3px;border:2px solid #b6975d;outline:1px solid #5a452c;outline-offset:2px;border-radius:50%;overflow:hidden;background:radial-gradient(ellipse at 30% 20%,#6a573b,#30281e 55%,#131d23);box-shadow:inset 0 0 0 2px #181e1b,0 4px 12px #0007}
+html body .management-workspace .mgmt-medallion img{display:block;max-width:100%;width:100%;height:100%;object-fit:cover;border-radius:50%}
+html body .management-workspace .mgmt-category .mgmt-medallion{outline:none;flex-basis:34px;width:34px;height:34px;border-width:1px;padding:1px}
+html body .management-workspace .mgmt-deck{padding:5px 5px 8px;align-self:start;min-height:470px}
+html body .management-workspace .mgmt-pane{position:relative;min-height:440px;padding:6px 8px 14px}
+html body .management-workspace .mgmt-room-heading{text-align:center;padding:6px 4px 16px;margin-bottom:12px;border-bottom:1px solid #9b7e474f;background:var(--ornament) center bottom/64px 12px no-repeat}
+html body .management-workspace .mgmt-room-heading small{display:block;color:#a99c7b;font:600 9px/1.5 system-ui,sans-serif;letter-spacing:.18em}
+html body .management-workspace .mgmt-room-heading h3{margin:5px 0 2px;font-size:clamp(18px,1.8vw,25px);color:#e4c58a}
+html body .management-workspace .game-page-section{margin:0}
+html body .management-workspace .game-section-title{margin:5px 0 20px;font-size:19px;justify-content:center;text-align:center;min-height:44px;background:var(--ornament) center bottom/64px 12px no-repeat}
+html body .management-workspace .game-section-title:after{display:none}
+html body .management-workspace :is(.game-section-content,.game-page-intro){grid-template-columns:minmax(0,1fr);gap:12px}
+html body .management-workspace .card{margin:0 0 12px;height:auto;border:1px solid #8a744b;border-radius:6px;background:linear-gradient(135deg,#213137e6,#111e24);box-shadow:inset 0 1px #ead29c1c,0 5px 12px #0004;font-size:13px;overflow-wrap:anywhere}
+html body .management-workspace :is(.card,.mgmt-pane) button{max-width:100%;min-height:44px}
+html body .management-workspace .mgmt-empty-note{text-align:center;max-width:350px;margin:22px auto;color:#a9b1a9;line-height:1.8}
+/* The ulak room keeps the actual selectable letters on the left and the open body on the right. */
+html body .management-workspace--p{display:block;padding:14px 18px 18px}
+html body .management-workspace--p>.mgmt-mail-seal{position:absolute;right:30px;top:24px;width:54px;height:54px;opacity:.7}
+html body .management-workspace--p .mgmt-mail-tools{padding-right:86px;margin-bottom:12px;min-height:70px}
+html body .management-workspace--p .mh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#b7b6a5;margin:2px 0 14px}
+html body .management-workspace--p .mh b{font:600 18px Georgia,serif;color:#e0c080}
+html body .management-workspace--p .mt{display:flex;gap:7px;flex-wrap:wrap}
+html body .management-workspace--p .mt button{padding:9px 16px;min-width:68px}
+html body .management-workspace--p .mgmt-deck{display:grid;grid-template-columns:minmax(270px,.9fr) minmax(0,1.25fr);padding:0;gap:20px;min-height:460px}
+html body .management-workspace--p .mgmt-inbox{padding-right:16px;border-right:1px solid #8c7348;min-width:0}
+html body .management-workspace--p .ml{display:flex;flex-direction:column;gap:9px;max-height:485px;min-height:80px;overflow:auto;padding:4px 4px 10px;scrollbar-width:thin}
+html body .management-workspace--p .mi{cursor:pointer;padding:12px 11px;flex-shrink:0;min-height:78px;position:relative}
+html body .management-workspace--p .mi.mgmt-mail-selected{border-color:#7fcfc0;background:linear-gradient(110deg,#285449,#17383d);box-shadow:inset 3px 0 #a6dfce,0 0 10px #6adbc420}
+html body .management-workspace--p .mc{gap:11px;align-items:center;min-width:0}
+html body .management-workspace--p .mk{flex:0 0 43px;width:43px;height:43px;display:grid;place-items:center;font-size:20px}
+html body .management-workspace--p .mx{min-width:0;flex:1}
+html body .management-workspace--p .mx b{font-size:13px;white-space:normal;line-height:1.45}
+html body .management-workspace--p .mx small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11px;line-height:1.5;white-space:normal;margin-top:3px}
+html body .management-workspace--p .mx em{display:block;font-size:10px;white-space:normal;margin-top:5px;color:#b2b4a1}
+html body .management-workspace--p .mr{font-size:13px;flex:0 0 auto}
+html body .management-workspace--p .mb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+html body .management-workspace--p .mb button{flex:1;min-width:115px;padding:10px 7px;font-size:11px}
+html body .management-workspace--p .mgmt-mail-detail{padding:16px 14px 10px;background:radial-gradient(ellipse at 50% 0,#74613c2b,transparent 70%)}
+html body .management-workspace--p .mgmt-mail-detail>.mgmt-medallion{width:112px;height:112px;margin:5px auto 24px;border-width:3px;padding:6px;outline-offset:4px}
+html body .management-workspace--p .md{border:0;background:transparent;margin:0;padding:10px 3px;color:#ded5bd;min-height:180px}
+html body .management-workspace--p .md p{line-height:1.9;font-size:14px}
+html body .management-workspace--p .md .row{margin-top:26px;padding-top:20px;border-top:1px solid #8b724555}
+html body .management-workspace--p .md button[data-mc]{flex:1 1 100%;min-height:51px;font:600 17px Georgia,serif}
+/* Preferences are separate rooms for audio, appearance, save transfer and the existing guide. */
+html body .management-workspace--g{grid-template-columns:215px minmax(0,1fr)}
+html body .management-workspace--g .mgmt-pane{max-width:780px;margin:auto;padding:6px 24px 24px}
+html body .management-workspace--g .mgmt-pane>.mgmt-settings-art{width:105px;height:105px;float:right;margin:15px 8px 25px 25px;border-width:3px;padding:5px;opacity:.95}
+html body .management-workspace--g .mgmt-pane>button{display:block;min-width:220px;margin:14px 0;padding:12px 18px;text-align:left}
+html body .management-workspace--g .hv{display:flex;align-items:center;gap:11px;min-height:62px;padding:12px 15px;border:1px solid #81704a;border-radius:5px;margin:15px 0;background:#1c2b2d;clear:both}
+html body .management-workspace--g .hv>span{flex:1;color:#d7c9aa}
+html body .management-workspace--g .hv>b{min-width:46px;text-align:center;color:#a9decd;font-variant-numeric:tabular-nums}
+html body .management-workspace--g .hv>button{width:44px;flex:0 0 44px}
+html body .management-workspace--g textarea#svt{min-height:138px;display:block;resize:vertical;font:12px/1.6 ui-monospace,monospace;padding:14px;margin-top:20px!important;background:#09161c;border-color:#9b8555;clear:both}
+html body .management-workspace--g .row{margin:16px 0;clear:both}
+html body .management-workspace--g .row>button{flex:1 1 180px}
+html body .management-workspace--g .mgmt-pane>p{clear:both;padding:12px 0;border-bottom:1px solid #6a614433;font-size:12px}
+/* Council: a central crest and territory, a treasury/help rail, and the real chat below. */
+html body .management-workspace--a{grid-template-columns:185px minmax(0,1fr)}
+html body .management-workspace--a .mgmt-council-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,.85fr);gap:20px}
+html body .management-workspace--a .mgmt-council-hall{padding:18px 10px 0;background:radial-gradient(ellipse at 50% 20%,#536b3a25,transparent 65%)}
+html body .management-workspace--a .mgmt-alliance-crest{width:176px;height:176px;margin:0 auto 22px;border-width:4px;outline-offset:5px;padding:8px;box-shadow:0 0 45px #6f966c20,inset 0 0 0 3px #181d17,0 8px 20px #0008}
+html body .management-workspace--a .mgmt-council-hall .card{background:transparent;border:0;box-shadow:none;padding:8px 5px}
+html body .management-workspace--a .mgmt-council-hall .card>h3{display:none}
+html body .management-workspace--a .mgmt-council-hall .row{justify-content:center;margin:18px 0}
+html body .management-workspace--a .mgmt-council-hall .row>button{flex:1 1 100px;padding:10px 8px}
+html body .management-workspace--a .mgmt-council-support{padding:10px 0 0 18px;border-left:1px solid #806d4855}
+html body .management-workspace--a .mgmt-council-support button{width:100%;padding:12px 8px}
+html body .management-workspace--a #alt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+html body .management-workspace--a #alt>:is(h4,p){grid-column:1/-1}
+html body .management-workspace--a #alt .card{margin:0;min-height:150px}
+html body .management-workspace--a #alt .card button{display:block;width:100%;margin-top:14px}
+html body .management-workspace--a .mgmt-chat-fold{grid-column:1/-1;padding:0 12px;margin-top:8px;border:1px solid #8a754d;border-radius:5px;background:#101e22}
+html body .management-workspace--a .mgmt-chat-fold summary{cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:center;gap:12px;color:#d9c18b;font:600 16px Georgia,serif;list-style:none}
+html body .management-workspace--a .mgmt-chat-fold summary:after{content:'⌄';color:#a8c8b4;font:20px system-ui,sans-serif}
+html body .management-workspace--a .mgmt-chat-fold[open] summary:after{transform:rotate(180deg)}
+html body .management-workspace--a .mgmt-chat-fold .game-section-title{display:none}
+html body .management-workspace--a #msgs{max-height:280px;min-height:150px;margin:10px 0;background:#0b171d;border:1px solid #615a3d}
+html body .management-workspace--a #ci{flex:1;min-width:0}
+/* Calendar on the right, a navigable event ledger on the left; reward cards keep their actions. */
+html body .management-workspace--e{grid-template-columns:208px minmax(0,1fr)}
+html body .management-workspace--e .mgmt-navigation{max-height:740px;overflow:auto;padding-right:11px}
+html body .management-workspace--e .mgmt-category{font-size:12px!important;min-height:65px!important}
+html body .management-workspace--e .mgmt-category .mgmt-medallion{width:30px;height:30px;flex-basis:30px}
+html body .management-workspace--e .mgmt-event-deck{display:grid;grid-template-columns:minmax(0,1fr) minmax(225px,.55fr);gap:17px}
+html body .management-workspace--e .mgmt-event-calendar{padding:8px 0 0 16px;border-left:1px solid #8d754b66}
+html body .management-workspace--e .mgmt-event-calendar .card{padding:14px 12px;background:radial-gradient(ellipse at top,#514b2c55,transparent),#152328}
+html body .management-workspace--e .mgmt-event-calendar h3{font-size:17px}
+html body .management-workspace--e .mgmt-event-calendar .cal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+html body .management-workspace--e .mgmt-event-calendar .cal>div{font-size:11px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #786444;border-radius:4px;background:#1b2b2a}
+html body .management-workspace--e .mgmt-event-calendar .cal>.t{border-color:#cdb06a;background:#4a472f;color:#f0d49b}
+html body .management-workspace--e .gt{width:100%;min-width:0;grid-template-columns:repeat(7,minmax(0,1fr));font-size:10px;gap:3px;overflow:hidden}
+html body .management-workspace--e .gt>div{min-width:0;overflow-wrap:anywhere;padding-inline:3px}
+html body .management-workspace--e .game-section-content{display:flex;flex-direction:column;align-items:stretch}
+html body .management-workspace--e .game-section-content>.card{position:relative;padding:18px 16px 18px 24px;border-left:3px solid #b3975d}
+html body .management-workspace--e .game-section-content>.card>button{display:block;min-width:132px;margin:14px 0 0 auto}
+html body .management-workspace--e .ck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}
+html body .management-workspace--e .ck button{min-height:68px;min-width:0;margin:0}
+/* Arena: choose an actual opponent, then use that opponent's existing challenge action. */
+html body .management-workspace--y{grid-template-columns:185px minmax(0,1fr)}
+html body .management-workspace--y .mgmt-arena-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(235px,.95fr);gap:20px}
+html body .management-workspace--y .mgmt-opponents{padding:4px 0 15px;min-width:0}
+html body .management-workspace--y button.mgmt-opponent{display:flex;align-items:center;gap:16px;text-align:left;width:100%;min-height:104px;margin:0 0 14px;padding:15px;border:1px solid #93784e!important;background:linear-gradient(110deg,#353328,#14242a)!important;box-shadow:inset 0 0 0 3px #090f1444,0 4px 10px #0005!important}
+html body .management-workspace--y button.mgmt-opponent.is-active{border-color:#78cbb8!important;background:linear-gradient(110deg,#285748,#17383b)!important;box-shadow:inset 3px 0 #89cebb,0 0 15px #5ac7b217!important}
+html body .management-workspace--y .mgmt-opponent>.mgmt-medallion{width:62px;height:62px;flex-basis:62px}
+html body .management-workspace--y .mgmt-opponent-copy{flex:1;min-width:0}
+html body .management-workspace--y .mgmt-opponent-copy b{display:block;font:600 17px Georgia,serif;color:#eddaa9;margin-bottom:9px}
+html body .management-workspace--y .mgmt-opponent-copy small{display:block;font-size:11px;color:#b4c0b1;line-height:1.7;white-space:normal}
+html body .management-workspace--y .mgmt-arena-detail{padding:15px 15px 10px;border-left:1px solid #8f754744;background:radial-gradient(ellipse at 50% 20%,#6e50352b,transparent 75%);min-width:0}
+html body .management-workspace--y .mgmt-arena-crest{width:170px;height:170px;margin:8px auto 30px;padding:9px;border-width:3px;outline-offset:5px}
+html body .management-workspace--y .mgmt-arena-detail .card{text-align:center;border:0;background:transparent;box-shadow:none;font-size:15px;line-height:2;padding:4px 8px}
+html body .management-workspace--y .mgmt-arena-detail .card>b{display:block;font:600 26px/1.5 Georgia,serif;color:#e6c387;margin-bottom:12px}
+html body .management-workspace--y .mgmt-arena-detail .card button{display:block;width:100%;margin-top:25px;min-height:54px;font:600 19px Georgia,serif}
+html body .management-workspace--y .mgmt-pane[data-mgmt-pane="duels"]>.game-page-section{padding-top:20px;margin-top:12px;border-top:1px solid #8f754744}
+html body .management-workspace--y .mgmt-pane[data-mgmt-pane="duels"]>.game-page-section .game-section-title{font-size:15px}
+html body .management-workspace--y :is(.mgmt-season-crest,.mgmt-chest-crest){width:170px;height:170px;margin:18px auto 27px;border-width:3px;padding:7px;outline-offset:5px}
+html body .management-workspace--y :is([data-mgmt-pane="season"],[data-mgmt-pane="chest"])>.card{max-width:650px;margin:20px auto;text-align:center;padding:24px}
+html body .management-workspace--y [data-arenaChest]{display:block;margin:20px auto 0;min-width:220px;min-height:52px}
+@media(min-width:1550px){html body .management-workspace--e .mgmt-event-deck{grid-template-columns:minmax(0,1fr) 260px}}
+@media(max-width:1100px){
+ html body .management-workspace{grid-template-columns:170px minmax(0,1fr);gap:10px;padding:10px}
+ html body .management-workspace button.mgmt-category{padding:9px 8px;gap:8px;font-size:12px;min-height:64px}
+ html body .management-workspace--e .mgmt-event-deck{grid-template-columns:minmax(0,1fr)}
+ html body .management-workspace--e .mgmt-event-calendar{border-left:0;border-top:1px solid #8d754b66;padding:15px 0 0}
+ html body .management-workspace--e .mgmt-event-calendar .cal{grid-template-columns:repeat(7,minmax(0,1fr))}
+ html body .management-workspace--a .mgmt-council-grid{grid-template-columns:minmax(0,1fr)}
+ html body .management-workspace--a .mgmt-council-support{border-left:0;border-top:1px solid #806d4855;padding:15px 0 0}
+ html body .management-workspace--y .mgmt-arena-grid{grid-template-columns:minmax(0,1fr)}
+ html body .management-workspace--y .mgmt-arena-detail{border-left:0;border-top:1px solid #8f754744}
+ html body .management-workspace--y .mgmt-arena-crest{width:120px;height:120px;margin-bottom:20px}
+ html body .management-workspace--p .mgmt-deck{grid-template-columns:minmax(230px,.9fr) minmax(0,1fr);gap:12px}
+}
+@media(max-width:760px){
+ html body .management-workspace{display:block;padding:9px;margin-top:8px;min-height:350px;outline-offset:0}
+ html body .management-enabled>.game-page-header .game-page-heading{text-align:center}
+ html body .management-workspace .mgmt-navigation{flex-direction:row;flex-wrap:nowrap;border:0;border-bottom:1px solid #95774a;padding:0 0 11px;margin-bottom:12px;gap:7px;overflow-x:auto;max-height:none;scrollbar-width:thin;scroll-padding:8px}
+ html body .management-workspace button.mgmt-category{flex:0 0 126px;width:126px;min-height:58px!important;padding:8px!important;gap:8px;font-size:11px!important}
+ html body .management-workspace .mgmt-category .mgmt-medallion{flex-basis:29px;width:29px;height:29px}
+ html body .management-workspace .mgmt-category-chevron{display:none}
+ html body .management-workspace .mgmt-deck{padding:0;min-height:0}
+ html body .management-workspace .mgmt-pane{padding:5px 3px 10px;min-height:320px}
+ html body .management-workspace .mgmt-room-heading h3{font-size:20px}
+ html body .management-workspace .game-section-title{font-size:17px;line-height:1.5}
+ html body .management-workspace .card{padding:14px 12px;font-size:12px}
+ html body .management-workspace--p .mgmt-deck{display:flex;flex-direction:column;gap:18px}
+ html body .management-workspace--p .mgmt-mail-tools{padding:0 55px 0 0;min-height:60px}
+ html body .management-workspace--p>.mgmt-mail-seal{right:15px;top:19px;width:43px;height:43px}
+ html body .management-workspace--p .mt{margin-right:-50px;gap:5px}
+ html body .management-workspace--p .mt button{padding:8px 10px;min-width:54px;font-size:11px}
+ html body .management-workspace--p .mh{font-size:10px;margin-bottom:12px}
+ html body .management-workspace--p .mgmt-inbox{padding:0;border:0}
+ html body .management-workspace--p .ml{max-height:310px;min-height:0}
+ html body .management-workspace--p .mgmt-mail-detail{border-top:1px solid #8a7148;padding:22px 7px 10px}
+ html body .management-workspace--p .mgmt-mail-detail>.mgmt-medallion{width:80px;height:80px;margin-bottom:20px}
+ html body .management-workspace--p .md{min-height:100px}
+ html body .management-workspace--g .mgmt-pane{padding-inline:8px}
+ html body .management-workspace--g .mgmt-pane>.mgmt-settings-art{width:74px;height:74px;margin:12px 0 20px 12px}
+ html body .management-workspace--g .mgmt-pane>button{min-width:0;width:calc(100% - 95px);min-height:49px;padding:11px 10px;font-size:11px}
+ html body .management-workspace--g .hv{gap:7px;padding:10px 8px;font-size:11px;flex-wrap:wrap}
+ html body .management-workspace--g .hv>span{min-width:96px}
+ html body .management-workspace--g .hv>b{min-width:39px}
+ html body .management-workspace--a .mgmt-council-grid{display:block}
+ html body .management-workspace--a .mgmt-alliance-crest{width:133px;height:133px;margin:0 auto 20px}
+ html body .management-workspace--a #alt{grid-template-columns:minmax(0,1fr)}
+ html body .management-workspace--a .mgmt-chat-fold{padding:0 8px;margin-top:15px}
+ html body .management-workspace--a #msgs{min-height:150px;max-height:230px}
+ html body .management-workspace--a .mgmt-chat-fold .row{display:flex;flex-wrap:nowrap}
+ html body .management-workspace--a #cs{flex:0 0 70px}
+ html body .management-workspace--e .mgmt-event-deck{display:block}
+ html body .management-workspace--e .mgmt-event-calendar .cal{grid-template-columns:repeat(4,minmax(0,1fr))}
+ html body .management-workspace--e .ck{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html body .management-workspace--e .gt{font-size:9px}
+ html body .management-workspace--y .mgmt-arena-grid{display:block}
+ html body .management-workspace--y button.mgmt-opponent{gap:12px;min-height:85px;padding:12px}
+ html body .management-workspace--y .mgmt-opponent>.mgmt-medallion{width:48px;height:48px;flex-basis:48px}
+ html body .management-workspace--y .mgmt-opponent-copy b{font-size:17px}
+ html body .management-workspace--y .mgmt-arena-detail{padding:22px 8px 8px}
+ html body .management-workspace--y .mgmt-arena-detail .card>b{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){html body .management-workspace *{scroll-behavior:auto!important;transition:none!important}}

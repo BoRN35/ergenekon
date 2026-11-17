@@ -1,0 +1,12 @@
+Bu ZIP proje dosyalarıyla birlikte hesabının oyun kaydını içerir.
+
+Geri yükleme:
+1. Oyunu aç.
+2. Oba Düzeni > Kayıt ve bulut bölümüne git.
+3. hesap-yedegi/kayit-kodu.txt içeriğini kayıt alanına yapıştır.
+4. Kaydı içe aktar düğmesine bas.
+
+oyun-kaydi.json doğrudan oyun state dosyasıdır. JSON içine metadata eklenmemiştir. Kaydın asıl _autosave bilgisi korunmuştur.
+Normal bulut eşitlemesi daha yeni ilerlemeyi koruyabilir; bu ZIP bulut kaydını zorla değiştirmez.
+Proje README belgesindeki genel ZIP açıklamasına ek olarak bu pakette hesap-yedegi klasörü de vardır.
+Hesap parolası veya oturum anahtarı ZIP içinde bulunmaz.

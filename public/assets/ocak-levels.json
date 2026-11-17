@@ -1,0 +1,125 @@
+{
+  "building": "ocak",
+  "milestones": [
+    1,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40
+  ],
+  "models": {
+    "1": {
+      "status": "ready",
+      "url": "models/ocak-sv1.glb",
+      "width": 5.5,
+      "rotationY": 0,
+      "fireAnchor": [
+        0.5264322298341175,
+        1.276900269150734,
+        0.0005608145018140366
+      ],
+      "fireScale": 1.0,
+      "version": "final3"
+    },
+    "5": {
+      "status": "ready",
+      "width": 6,
+      "url": "models/ocak-sv5.glb",
+      "version": "final3",
+      "fireAnchor": [
+        0.725871,
+        1.623131,
+        0
+      ],
+      "fireScale": 1.09
+    },
+    "10": {
+      "status": "ready",
+      "width": 6.4,
+      "url": "models/ocak-sv10.glb",
+      "version": "final3",
+      "fireAnchor": [
+        0.31287219054261733,
+        1.7374066894531253,
+        -2.0470980881824788e-05
+      ],
+      "fireScale": 1.18
+    },
+    "15": {
+      "status": "ready",
+      "width": 6.8,
+      "url": "models/ocak-sv15.glb",
+      "version": "final3",
+      "fireAnchor": [
+        0.49599977272926576,
+        1.6882664198753055,
+        0.0015509966144762362
+      ],
+      "fireScale": 1.27
+    },
+    "20": {
+      "status": "ready",
+      "width": 7.2,
+      "url": "models/ocak-sv20.glb",
+      "version": "final3",
+      "fireAnchor": [
+        0.11940071189654786,
+        1.6781218875885011,
+        -1.71275430901687e-08
+      ],
+      "fireScale": 1.3599999999999999
+    },
+    "25": {
+      "status": "ready",
+      "width": 7.6,
+      "url": "models/ocak-sv25.glb",
+      "version": "final3",
+      "fireAnchor": [
+        -0.8442964860187345,
+        2.4413789590109736,
+        0.05777403776081291
+      ],
+      "fireScale": 1.45
+    },
+    "30": {
+      "status": "ready",
+      "width": 8,
+      "url": "models/ocak-sv30.glb",
+      "version": "final3",
+      "fireAnchor": [
+        -0.4178759020660786,
+        2.2638474617004394,
+        -0.00577884250010993
+      ],
+      "fireScale": 1.54
+    },
+    "35": {
+      "status": "ready",
+      "width": 8.5,
+      "url": "models/ocak-sv35.glb",
+      "version": "final3",
+      "fireAnchor": [
+        -0.007509926792165064,
+        1.386285895228386,
+        -0.003899103422985844
+      ],
+      "fireScale": 1.63
+    },
+    "40": {
+      "status": "ready",
+      "width": 9,
+      "url": "models/ocak-sv40.glb",
+      "version": "final3",
+      "fireAnchor": [
+        0.05546782382344022,
+        2.3135057824760827,
+        -3.320244440152608e-05
+      ],
+      "fireScale": 1.72
+    }
+  }
+}

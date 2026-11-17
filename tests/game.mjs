@@ -1,0 +1,22 @@
+import vm from 'node:vm';import fs from 'node:fs';import assert from 'node:assert/strict';
+let code=fs.readFileSync(new URL('../public/index.html',import.meta.url),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
+const boot=code.indexOf('try{(function(){for(var k in IMG)');code=code.slice(0,boot);
+const element={style:{},classList:{toggle(){},add(){},remove(){}},dataset:{},addEventListener(){},appendChild(){},remove(){},querySelector(){return null},querySelectorAll(){return[]},getContext(){return{}},innerHTML:'',getBoundingClientRect(){return{width:1000,height:800}}};
+const events={};const doc={body:element,hidden:false,addEventListener(name,fn){(events[name]??=[]).push(fn)},getElementById(){return element},querySelector(){return null},querySelectorAll(){return[]},createElement(){return{...element}},documentElement:element};
+const context={console,document:doc,localStorage:{getItem(){return null},setItem(){}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},matchMedia(){return{matches:false}},addEventListener(){},location:{search:'',href:'https://test/'},URL,Blob,atob,btoa,performance:{now(){return 0}},Audio:function(){},requestAnimationFrame(){}};
+context.window=context;vm.createContext(context);for(const file of ['upgrade-balance.js','research-rules.js','whiteout-research-data.js','whiteout-research.js','theme-icons.js','painted-art.js','research-view.js','page-presentation.js','roster-workspace.js','management-workspace.js','map-workspace.js','city-workspace.js','reference-rooms.js','reference-shell.js'])vm.runInContext(fs.readFileSync(new URL('../public/'+file,import.meta.url),'utf8'),context);vm.runInContext(code,context);
+export const E=js=>vm.runInContext(js,context);export const ctx=context;
+E("render=function(){};snd=function(){};save=function(){};actionSave=function(){};s=fresh();mig();s.snd=false");
+if(process.argv[1]===import.meta.filename){
+E("s.l.ocak=4;s.r={odun:1e12,et:1e12,demir:1e12};start('yurt')");assert.equal(E('builders()'),1);assert.equal(E("can('odunluk')"),false);assert.match(E("bmReq('odunluk').join('')"),/data-bm="yurt"/);
+E("s.l.ocak=5;s.l.oba=4");assert.equal(E('builders()'),1);E("s.l.oba=5;start('odunluk')");assert.equal(E('builders()'),2);assert.equal(E('buildQueues().length'),2);assert.equal(E("can('yurt')"),false);assert.equal(E("can('avci')"),false);assert.match(E("bmHtml('odunluk')"),/Yükseltiliyor/);
+E("s.q.left=0.1;s.q2.left=0.1;tick(1,true)");assert.equal(E('s.l.yurt'),1);assert.equal(E('s.l.odunluk'),1);assert.equal(E('buildQueues().length'),0);
+E("s.l.oba=4;s.l.ocak=5;s.q={k:'oba',left:.01,tot:100,h:0};s.l.yurt=2;s.l.odunluk=2;s.l.avci=2;s.l.demirci=2;tick(1,true)");assert.equal(E('s.l.oba'),5);assert.equal(E('builders()'),2);
+E("s.q={k:'sifa',left:400,tot:500};s.q2=null;mig()");assert.equal(E('s.q.left'),400);assert.equal(E('s.q.k'),'sifa');
+E("s.q=null;s.q2={k:'avci',left:300,tot:400};mig()");assert.equal(E('s.q.k'),'avci');assert.equal(E('s.q2'),null);
+for(const lv of [0,1,2,5,10,15,20,25,30,35,39]){E(`s.l.oba=${lv};s.l.ocak=${lv}`);const costs=JSON.parse(E("JSON.stringify([cost('ocak'),cost('oba')])"));for(const k of Object.keys(costs[0]))assert.equal(costs[1][k],Math.ceil(costs[0][k]*1.4));assert.equal(E("dur('oba')"),Math.ceil(E("dur('ocak')")*1.4));}
+E("s.l.ocak=3;s.l.yurt=0;s.l.odunluk=0;s.l.avci=0;s.l.demirci=0;s.q=s.q2=null");const req=E("bmReq('ocak').join('')");for(const k of ['yurt','odunluk','avci','demirci'])assert.match(req,new RegExp('data-bm="'+k+'"'));
+E("tab='m';SC='m'");const click=events.click.find(fn=>String(fn).includes("e.target.id==='bk'"));assert.ok(click);click({target:{id:'',closest(selector){return selector==='button'?{dataset:{bm:'yurt'}}:null}}});assert.equal(E('BMK'),'yurt');assert.equal(E('tab'),'c');assert.equal(E('SC'),'c');
+E("s.l.ocak=40;s.l.oba=40");assert.equal(E("can('oba')"),false);assert.equal(E("can('ocak')"),false);E("s.l.oba=39;s.won=true;s.q=s.q2=null;s.r={odun:1e30,et:1e30,demir:1e30}");assert.equal(E("can('oba')"),true);
+E("s=fresh();mig();s.l.ocak=20;s.ch.hp=1e9;cs=function(){return{atk:1e9,def:1e9,hp:1e9}};s.en.v=100;s.en.t=Date.now();fight(0)");assert.equal(E('s.mk[0]'),60);E('tick(59,true)');assert.equal(E('s.mk[0]'),1);E('tick(1,true)');assert.equal(E('s.mk[0]'),0);
+console.log('PASS: Oba level5 builder unlock, parallel completion, no duplicate/third job, queue migration, clickable prerequisites, Oba cost/time at11 levels, max40, monster60s respawn.');}

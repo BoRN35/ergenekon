@@ -1,0 +1,5 @@
+import {sqliteTable,text,integer,primaryKey} from 'drizzle-orm/sqlite-core';
+export const gameSaves=sqliteTable('game_saves',{userId:text('user_id').primaryKey(),snapshot:text('snapshot').notNull(),revision:integer('revision').notNull(),updatedAt:integer('updated_at').notNull()});
+export const gameSaveBackups=sqliteTable('game_save_backups',{userId:text('user_id').notNull(),revision:integer('revision').notNull(),snapshot:text('snapshot').notNull(),updatedAt:integer('updated_at').notNull()},t=>[primaryKey({columns:[t.userId,t.revision]})]);
+export const worldPlayers=sqliteTable('world_players',{id:integer('id').primaryKey({autoIncrement:true}),userId:text('user_id').notNull().unique(),publicId:text('public_id').notNull().unique(),name:text('name').notNull(),level:integer('level').notNull(),obaLevel:integer('oba_level').notNull(),wallLevel:integer('wall_level').notNull(),updatedAt:integer('updated_at').notNull()});
+export const gameSaveRecovery=sqliteTable('game_save_recovery',{id:text('id').primaryKey(),userId:text('user_id').notNull(),snapshot:text('snapshot').notNull(),createdAt:integer('created_at').notNull()});

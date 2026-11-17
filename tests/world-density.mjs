@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';import {E} from './game.mjs';
+E('s=fresh();mig();s.fx=38');
+assert.equal(E('s.nodes.length'),114);assert.equal(E('M.length'),180);assert.equal(E('RIFT_OFFSET'),1000);
+assert.equal(E('M[11][0]'),'Erlik Han');assert.equal(E('M[12][0]'),'Çayır Kurdu');
+const positions=JSON.parse(E('JSON.stringify(s.nodes.map((n,i)=>pos(i)).concat(M.map(m=>[m[3],m[4]])))'));
+assert.equal(new Set(positions.map(p=>p.join(','))).size,294);assert.ok(positions.every(p=>p.every(v=>Number.isFinite(v)&&v>=0&&v<=100)));
+for(const type of ['odun','et','demir','komur'])assert.ok(E(`s.nodes.filter((n,i)=>n.t==='${type}'&&n.lv===1&&!fog(...pos(i))).length>=2`),type+' accessible near home');
+assert.ok(E('M.filter(m=>m[2]===1&&!fog(m[3],m[4])).length>=6'));assert.ok(E('M.slice(13).every((m,i)=>monsterBase(i+13)!==11)'));
+for(const lv of [1,2,4,6,11,17,24])assert.ok(E(`M.filter(m=>m[2]===${lv}).length>=12`));
+E('s.nodes=s.nodes.slice(0,18);s.nodes[0].res=13;s.nodes[2].rg=800;s.mk=s.mk.slice(0,13);s.mk[3]=17;s.sq=[{st:1,n:17,left:70}];window.oldNodes=JSON.stringify(s.nodes);mig()');
+assert.equal(E('s.nodes.length'),114);assert.equal(E('s.mk.length'),180);assert.equal(E('JSON.stringify(s.nodes.slice(0,18))'),E('oldNodes'));assert.equal(E('s.mk[3]'),17);assert.equal(E('s.sq[0].n'),17);assert.equal(E('s.sq[0].left'),70);
+E("s=fresh();mig();s.l.ocak=40;s.en.v=100;s.ch.hp=1e9;cs=function(){return{atk:1e9,def:1e9,hp:1e9}};window.spawn=M.findIndex((m,i)=>i>=13&&monsterBase(i)===12);fight(spawn)");
+assert.equal(E('s.mk[spawn]'),60);assert.ok(E('s.ch.k[spawn]'));assert.ok(E('s.ch.k[12]'));assert.equal(E('s.stat.cay'),1);assert.equal(E('s.stat.kills'),1);assert.equal(E('X6.isAz(spawn)'),false);assert.equal(E('X6.rfOn(spawn)'),false);assert.match(E('mInfo(spawn)'),/60 saniye/);assert.equal(E('monsterImage(spawn)'),'canavar_13');
+E('var before=JSON.stringify(s);fight(1000)');assert.equal(E('JSON.stringify(s)'),E('before'));
+console.log('PASS:114 actual resource nodes,180 independently fightable monsters, early-game density, unique in-bounds stable targets, old depleted resources/caravans/cooldowns migrated, species drops/unlocks and60s respawn.');
