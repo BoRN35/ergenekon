@@ -378,7 +378,7 @@
 
   /* ---------- 4) orman → kütük → tarla ---------- */
   var F = { ready: false };
-  function tarlaRate() { try { return W.nrate(ocak()) * 1.5; } catch (e) { return 2000; } } // Et / saat, tarla başına
+  function tarlaRate() { try { return W.nrate(ocak()) * 0.25; } catch (e) { return 300; } } // Et / saat, tarla başına
   function parcelLimit() { return 2 + Math.floor(ocak() / 2); }
   function slotsLimit() { var s = S(); return 1 + ((s && s.l && s.l.odunluk >= 10) ? 1 : 0); }
 
@@ -442,7 +442,7 @@
   function activeJobs() { var e = ek(), n = 0; for (var k in e.ps) { var x = e.ps[k]; if (x.st === 'cut' || x.st === 'plow') n++; } return n; }
   function cutSecs(p) { return CUT_MIN * 60 * Math.pow(STEP, p.n); }
   function plowSecs(p) { return PLOW_MIN * 60 * Math.pow(STEP, p.n); }
-  function woodGain(p) { try { return Math.floor(p.trees.length * W.nrate(ocak()) * 0.4); } catch (e) { return p.trees.length * 300; } }
+  function woodGain(p) { try { return Math.floor(p.trees.length * W.nrate(ocak()) * 0.2); } catch (e) { return p.trees.length * 300; } }
 
   function setTree(t, mode, frac) {
     var tr = F.trunks;
