@@ -643,10 +643,36 @@
     try { enhanceTop(); } catch (e) {}
     try { enhanceNav(); navActive(); } catch (e) {}
   }
+  // Bir render adımı çökerse bile (cihaza/kayda özgü hata) sayfa dekoru ve sağ panel yine uygulansın.
+  function repairShell() {
+    try { W.gamePagePresentation && W.gamePagePresentation.refresh(); } catch (e) { reportErr(e, 'sayfa'); }
+    try { W.referenceShell && W.referenceShell.refresh(); } catch (e) { reportErr(e, 'kabuk'); }
+    try { if (W.tab && document.body.dataset.gamePage !== W.tab) document.body.dataset.gamePage = W.tab; } catch (e) {}
+  }
+  var ERRS = [];
+  function reportErr(e, where) {
+    try {
+      var msg = (e && (e.message || e)) + '', st = (e && e.stack || '') + '';
+      var loc = (st.match(/([\w.-]+\.(?:js|html))(?:\?[^:]*)?:(\d+)/) || [])[0] || '';
+      var key = where + '|' + msg; if (ERRS.indexOf(key) >= 0) return; ERRS.push(key);
+      try { var L = JSON.parse(localStorage.getItem('ek_errs') || '[]'); L.unshift({ t: Date.now(), w: where, m: msg.slice(0, 200), l: loc.replace(/\?[^:]*/, '') }); localStorage.setItem('ek_errs', JSON.stringify(L.slice(0, 10))); } catch (x) {}
+      if (ERRS.length > 3) return;
+      var b = document.getElementById('ek-err');
+      if (!b) { b = document.createElement('div'); b.id = 'ek-err'; b.title = 'Kapatmak için dokun'; b.addEventListener('click', function () { b.remove(); }); document.body.appendChild(b); }
+      var line = document.createElement('div'); line.textContent = '⚠ ' + where + ': ' + msg.slice(0, 140) + (loc ? ' (' + loc.replace(/\?[^:]*/, '') + ')' : ''); b.appendChild(line);
+    } catch (x) {}
+  }
+  W.addEventListener('error', function (ev) { if (ev && ev.filename && ev.filename.indexOf(location.origin) === 0) reportErr(ev.error || ev.message, 'hata'); });
+  W.ergenekonErrors = function () { try { return JSON.parse(localStorage.getItem('ek_errs') || '[]'); } catch (e) { return []; } };
   function hookRender() {
     if (typeof W.render !== 'function' || W.render.__ek) return;
     var orig = W.render;
-    var wrapped = function () { var out = orig.apply(this, arguments); afterRender(); return out; };
+    var wrapped = function () {
+      var out;
+      try { out = orig.apply(this, arguments); }
+      catch (e) { reportErr(e, 'render'); repairShell(); }
+      afterRender(); return out;
+    };
     wrapped.__ek = true; W.render = wrapped;
   }
   var lastSettle = 0;

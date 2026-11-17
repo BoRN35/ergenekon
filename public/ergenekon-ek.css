@@ -378,3 +378,6 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
 .ek-lb.n.komur { background: linear-gradient(180deg, #4a4f57, #1d2025); }
 .ek-lb.az { border-color: #ffe08a; background: linear-gradient(180deg, #d79b2a, #7a4a08); }
 .ek-lb.lk { filter: grayscale(.85) brightness(.75); }
+#ek-err { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(70px + env(safe-area-inset-bottom)); z-index: 99999; max-width: min(560px, 92vw);
+  padding: 8px 12px; border-radius: 10px; background: rgba(60,12,8,.94); border: 1px solid #e07a5f; color: #ffe2d6; font: 600 12px/1.4 system-ui, sans-serif; box-shadow: 0 6px 20px rgba(0,0,0,.5); cursor: pointer; }
+@media (min-width: 761px) and (max-width: 1000px) { html body #cityv .world-tools { bottom: 74px !important; } html body #cityv #ek-world { bottom: 132px !important; } }
