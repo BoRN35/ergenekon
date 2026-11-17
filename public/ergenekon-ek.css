@@ -381,3 +381,9 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
 #ek-err { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(70px + env(safe-area-inset-bottom)); z-index: 99999; max-width: min(560px, 92vw);
   padding: 8px 12px; border-radius: 10px; background: rgba(60,12,8,.94); border: 1px solid #e07a5f; color: #ffe2d6; font: 600 12px/1.4 system-ui, sans-serif; box-shadow: 0 6px 20px rgba(0,0,0,.5); cursor: pointer; }
 @media (min-width: 761px) and (max-width: 1000px) { html body #cityv .world-tools { bottom: 74px !important; } html body #cityv #ek-world { bottom: 132px !important; } }
+.ek-awbar { margin: 10px 0 12px; }
+.ek-awt { display: flex; justify-content: space-between; font-size: 13px; color: #cdbf9f; margin-bottom: 5px; }
+.ek-awt b { color: #f2d58e; }
+.ek-awbar i { display: block; height: 10px; border-radius: 6px; background: #0c1517; border: 1px solid #6b5434; overflow: hidden; }
+.ek-awbar u { display: block; height: 100%; background: linear-gradient(90deg, #2c9c8c, #4fd1c3); text-decoration: none; }
+.ek-awbar small { display: block; margin-top: 5px; font-size: 11.5px; color: #9fb3ad; }

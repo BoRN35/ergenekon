@@ -378,7 +378,7 @@
 
   /* ---------- 4) orman → kütük → tarla ---------- */
   var F = { ready: false };
-  function tarlaRate() { try { return W.nrate(ocak()) * 0.25; } catch (e) { return 300; } } // Et / saat, tarla başına
+  function tarlaRate() { try { return W.nrate(ocak()) * 0.16; } catch (e) { return 200; } } // Et / saat, tarla başına
   function parcelLimit() { return 2 + Math.floor(ocak() / 2); }
   function slotsLimit() { var s = S(); return 1 + ((s && s.l && s.l.odunluk >= 10) ? 1 : 0); }
 
@@ -442,7 +442,7 @@
   function activeJobs() { var e = ek(), n = 0; for (var k in e.ps) { var x = e.ps[k]; if (x.st === 'cut' || x.st === 'plow') n++; } return n; }
   function cutSecs(p) { return CUT_MIN * 60 * Math.pow(STEP, p.n); }
   function plowSecs(p) { return PLOW_MIN * 60 * Math.pow(STEP, p.n); }
-  function woodGain(p) { try { return Math.floor(p.trees.length * W.nrate(ocak()) * 0.2); } catch (e) { return p.trees.length * 300; } }
+  function woodGain(p) { try { return Math.floor(p.trees.length * W.nrate(ocak()) * 0.13); } catch (e) { return p.trees.length * 300; } }
 
   function setTree(t, mode, frac) {
     var tr = F.trunks;
@@ -640,6 +640,15 @@
 
   /* ---------- döngüler ---------- */
   function afterRender() {
+    try {
+      var aw = document.getElementById('aw'), AWv = W.AW;
+      if (aw && AWv && AWv.d >= 60 && !aw.querySelector('.ek-awbar')) {
+        var p = aw.querySelector('p'), pct = Math.min(100, AWv.d / 432);
+        var bar = document.createElement('div'); bar.className = 'ek-awbar';
+        bar.innerHTML = '<div class="ek-awt"><span>Çevrim dışı birikim</span><b>' + (W.ft ? W.ft(AWv.d) : Math.round(AWv.d / 60) + ' dk') + ' / 12 sa</b></div><i><u style="width:' + pct.toFixed(1) + '%"></u></i><small>Gelir alındı, süre sıfırlandı. En fazla 12 saatlik gelir birikir.</small>';
+        if (p && p.parentNode) p.parentNode.insertBefore(bar, p.nextSibling); else aw.appendChild(bar);
+      }
+    } catch (e) {}
     try { enhanceTop(); } catch (e) {}
     try { enhanceNav(); navActive(); } catch (e) {}
   }
