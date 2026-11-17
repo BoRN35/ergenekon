@@ -611,3 +611,6 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
 }
 .ek-ov .dm-side .dm-go { height: 46px !important; min-height: 46px !important; width: 100% !important; }
 .ek-ov .dm-side .dm-clear { height: 34px !important; min-height: 34px !important; width: 100% !important; }
+.ek-optrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ek-optrow b { display: block; } .ek-optrow small { color: #9fb3ad; font-size: 12px; }
+.ek-optrow button { flex: none; width: auto !important; min-height: 0 !important; height: 34px; padding: 0 12px !important; }
