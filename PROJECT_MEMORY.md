@@ -274,3 +274,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Yönetici paneline: ⚖️ Ekonomi (ek_ecfg: toplama×, yapım süresi×, üretim×, malzeme düşme×, enerji dolum×, premium %; bu cihazda, sunucuyla herkese), 📅 Takvim (ay görünümü; ek_ev planlı etkinlikler: toplama bayramı/çift ganimet/bereket; ek_ann duyuru zamanlama → zamanı gelince sistem sohbeti + bildirim; ek_cal içerik tarihleri ⭐), ✍️ Yazılar (ek_txt tam metin değiştir, sayfayı yeniler), 🧊 3D model (.glb denetimi: △, MB, doku, sıkıştırma; kılavuz tablo), 📜 İşlem kaydı (ek_alog 200; W.ekAdminLog), 🚧 Bakım.
 - Bakım: public/bakim.json {"on","until","msg"} her 2 dk okunur (SW dışı); açıkken tarihî bekleme ekranı + geri sayım, kapanınca sayfa yenilenir. Yönetici ek_mskip ile geçebilir. Açma/kapama: dosyayı commit et.
 - Etkin planlı etkinlik #ek-evchip (oba/harita üstünde). docs/GOOGLE-PLAY.md (TWA adımları, mağaza ölçüleri, metin), docs/MODEL-KILAVUZU.md, public/.well-known/assetlinks.json (SHA-256 bekliyor; Pages alt klasörde olduğundan kök alan adı gerekir). tanitim.html (ön kayıt: window.EK_PREREG_URL yoksa cihazda saklar). Hilal logosu mask ile düzeltildi (index #ek-boot ve tanıtım).
+
+## Taş Yazıt görünümü (18 Kasım 2026)
+- Kullanıcı 4 tasarım yönünden A · Taş Yazıt'ı seçti (granit levhalar, oyma kenar, turkuaz #5fd0d8 + altın #e8c66a, büyük harf Cinzel başlıklar, ok uçlu altın düğmeler, anıt taşı biçimli NPC işaretleri).
+- Dosyalar: public/ergenekon-tas.css (html.tas altında, yalnız görünüş) + public/ergenekon-tas.js (html.tas sınıfı, NPC emojilerini çizgi simgeye çevirir, sayfalarda kalan eski çivit/kahverengi kutuları satır içi taş rengine çevirir — oku-sonra-yaz, sınıf değişince yeniden bakar).
+- Kapatma: localStorage ek_tema='eski' ya da W.ekTema(false). Tamamen kaldırmak: index.html'deki ergenekon-tas satırını sil.
+- Kayıt/oyun mantığına dokunulmadı.
