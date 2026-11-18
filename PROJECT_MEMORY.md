@@ -192,3 +192,6 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - s.ek.boy {n, tg (24 Oğuz boyu, stilize tamga SVG), rank han/bey/alp/er, ranks{}, mem[], pin, blk, mute, ws (haftalık katkı), seen}. Boy başlığı (#ek-oc .by-h): tamga, ad, rütbe, 👑 rütbeler (Han/Bey üye al/çıkar, rütbe ver), 📊 haftalık katkı (bağış/yardım/Akıncı), 🔎 ocak bulma (5 öneri, iki dokunuşla katıl; W.MEM yeni üyelere eşitlenir).
 - Liderlik devri: oyuncu Han iken 7+ gün yoksa en etkin Bey Han olur. Akıncı dalgasını Han/Bey başlatır (diğerleri için dönem başından 2 sa sonra açılır).
 - Sohbet kendi çizimiyle (#msgs): rütbe simgesi + tamga, küfür filtresi (W.ekClean), dokununca 🌐 çeviri, uzun bas → Sabitle (Han/Bey) / Şikayet / Engelle; şikayetler localStorage ek_reports → Yönetici panelinde 🔇 sustur 24 sa / ☾ uyar. Haritada kendi obanın üstünde tamga (#ek-boytg).
+
+## Bahadır Meydanı obada (ergenekon-arena.js)
+- Arena artık obanın içinde, kışlanın yanında (dünya x19,z-11) kum meydan + kazık çit + sancaklar + mızraklı/kalkanlı Bahadır NPC. NPC'ye veya üstündeki ⚔ simgesine (#ek-arena-npc, div — tema svg'leri değiştiriyor) dokununca sekme 'y'. Sefer Otağı'ndaki arena sekmesi kapatıldı; arenadaki geri tuşu "‹ Oba".

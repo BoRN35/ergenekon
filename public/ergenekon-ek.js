@@ -177,7 +177,7 @@
     dock.hidden = !(tab === 'c' || tab === 'm') || !mBtn;
     // Arena: Sefer Otağı'nın "Yolunu seç" listesinde bir sekme olarak
     var y = tabBtn('y'), tk = document.getElementById('tk');
-    if (tk && tab === 'k' && y && !tk.querySelector('[data-ek-arena]')) {
+    if (false && tk && tab === 'k' && y && !tk.querySelector('[data-ek-arena]')) { // arena artık obada bir NPC (ergenekon-arena.js)
       var zin = Array.prototype.filter.call(tk.querySelectorAll('button'), function (b) { return (b.textContent || '').replace(/[›\s]+$/, '').trim() === 'Zindan'; })[0];
       if (zin) {
         var a = zin.cloneNode(true);
@@ -218,15 +218,15 @@
     if (ty && tab === 'y' && !ty.querySelector('.ek-back')) {
       var bk = document.createElement('button');
       bk.type = 'button'; bk.className = 'ek-back';
-      bk.innerHTML = '‹ Sefer Otağı';
-      bk.addEventListener('click', function () { goTab('k'); });
+      bk.innerHTML = '‹ Oba';
+      bk.addEventListener('click', function () { goTab('c'); });
       ty.insertBefore(bk, ty.firstChild);
     }
   }
   // Bahadır Meydanı açıkken Sefer simgesi seçili görünsün
   function navActive() {
     var k = tabBtn('k');
-    if (k) k.classList.toggle('ek-on', W.tab === 'y');
+    var c = tabBtn('c'); if (c) c.classList.toggle('ek-on', W.tab === 'y'); if (k) k.classList.remove('ek-on');
   }
 
   /* ---------- 3) canavar ganimet paketleri ---------- */
