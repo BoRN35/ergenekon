@@ -762,3 +762,25 @@ html body .world-help { display: none !important; }
 .ci-upbar { position: absolute; left: 18%; right: 18%; bottom: -5px; height: 7px; border-radius: 4px; background: linear-gradient(180deg, #7dff9a, #22b04a); border: 1px solid #0c3a18; box-shadow: 0 0 8px rgba(80,255,130,.8); font-style: normal; z-index: 2; }
 .ci-upbar::after { content: ''; position: absolute; left: 50%; top: -6px; margin-left: -4px; border: 4px solid transparent; border-bottom: 5px solid #7dff9a; border-top: 0; }
 .research-node.is-ready::before { content: ''; position: absolute; left: 50%; top: -4px; width: 42px; height: 10px; margin-left: -21px; z-index: 3; border-radius: 6px; background: linear-gradient(180deg, #7dff9a, #22b04a); border: 2px solid #0c3a18; box-shadow: 0 0 10px rgba(80,255,130,.8); animation: stUp 1.4s ease-in-out infinite; }
+
+/* ===== Aşama 3: görev oku, danışman, ❗ ===== */
+#ek-goal { position: absolute; left: 14px; bottom: 16px; z-index: 31; display: flex; align-items: center; gap: 8px; max-width: min(320px, calc(100% - 120px)); height: 46px; padding: 0 12px 0 6px !important; min-height: 0 !important; margin: 0 !important; width: auto !important;
+  border-radius: 23px !important; border: 2px solid #c99a4e !important; background: linear-gradient(180deg, rgba(58,40,20,.95), rgba(28,18,8,.95)) !important; color: #f6e6c0 !important; box-shadow: 0 4px 12px rgba(0,0,0,.55) !important; cursor: pointer; }
+#ek-goal[hidden] { display: none !important; }
+#ek-goal i { flex: none; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 18px; background: radial-gradient(circle at 40% 35%, #fff1c4, #c4913f); color: #2b1704; font-weight: 900; }
+#ek-goal.ok i { background: radial-gradient(circle at 40% 35%, #b6ffc4, #22b04a); color: #0c3a18; }
+#ek-goal b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#ek-goal em { font-style: normal; color: #ffd76a; font-weight: 900; animation: goalNudge 1.2s ease-in-out infinite; }
+@keyframes goalNudge { 50% { transform: translateX(4px); } }
+#ek-sage { position: fixed; right: 12px; top: 80px; z-index: 9400; display: flex; align-items: center; gap: 10px; max-width: min(360px, calc(100vw - 24px)); padding: 8px 14px 8px 8px !important; min-height: 0 !important; width: auto !important; margin: 0 !important;
+  border-radius: 16px !important; border: 2px solid #b8894a !important; background: linear-gradient(180deg, rgba(30,44,46,.97), rgba(16,26,28,.97)) !important; color: #efe6d2 !important; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,.6) !important;
+  transform: translateX(120%); transition: transform .35s cubic-bezier(.3,1.3,.5,1); }
+#ek-sage.on { transform: translateX(0); }
+.sg-av { flex: none; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: radial-gradient(circle at 40% 35%, #3a5a5c, #142426); border: 2px solid #e3b54f; box-shadow: 0 0 12px rgba(227,181,79,.4); }
+.sg-tx { font-size: 14px; line-height: 1.35; } .sg-tx b { display: block; font: 800 13px 'Cinzel', Georgia, serif; color: #f2d58e; margin-bottom: 2px; }
+.ek-why { display: inline-flex !important; align-items: center; justify-content: center; width: 24px !important; height: 24px !important; min-height: 0 !important; padding: 0 !important; margin: 2px 0 !important; border-radius: 50% !important;
+  font: 900 14px system-ui !important; color: #2b1704 !important; background: radial-gradient(circle at 40% 35%, #fff1c4, #e3b54f) !important; border: 2px solid #5a3a12 !important; cursor: pointer; vertical-align: middle; }
+@media (max-width: 760px) {
+  #ek-goal { left: 86px; bottom: 18px; max-width: calc(100% - 100px); }
+  #ek-sage { top: 56px; right: 8px; }
+}
