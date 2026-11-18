@@ -22,7 +22,7 @@
     var M = W.MEM || [], o = (S().l.ocak || 1), hr = new Date().getHours();
     return M.map(function (m, i) {
       var h = hsh(m[0]), lv = Math.max(1, Math.min(40, o + (h % 9) - 3)), on = ((h >> 3) + hr * 7 + i) % 5 < 3;
-      return { n: m[0], lg: m[1], lv: lv, r: ROLE[i % ROLE.length], on: on, p: Math.round(lv * lv * 1800 * (1 + (h % 50) / 100)) };
+      return { n: m[0], lg: m[1], lv: lv, r: W.ekBoy ? W.ekBoy.rankIcon(m[0]) : ROLE[i % ROLE.length], on: on, p: Math.round(lv * lv * 1800 * (1 + (h % 50) / 100)) };
     }).sort(function (a, b) { return b.p - a.p; });
   }
   var ACT = [
@@ -113,7 +113,7 @@
     var h = '<div class="oc-top"><button type="button" class="oc-gift' + (o.g ? ' has' : '') + '" data-oc-gift="1"' + (o.g ? '' : ' disabled') + '><i>🎁</i><b>' + o.g + '</b><small>Ocak hediyesi</small></button>' +
       '<button type="button" class="oc-ak' + (a.done ? ' done' : '') + '" data-oc-ak="1"' + (a.done ? ' disabled' : '') + '><i>🏹</i><b>' + (a.done ? a.w + '/10' : '⚔') + '</b><small>' + (a.done ? '⏳ ' + ft(left / 1000) : 'Akıncı dalgaları') + '</small></button></div>' +
       '<div class="oc-mem"><div class="oc-h"><b>👥 ' + (ms.length + 1) + '</b><span><em class="dot"></em>' + (on + 1) + '</span></div><div class="oc-list">' +
-      '<div class="oc-m me"><span>⭐</span><b>Sen</b><small>Sv' + (S().l.ocak || 1) + '</small><em class="dot"></em></div>' +
+      '<div class="oc-m me"><span>' + (W.ekBoy ? W.ekBoy.rankIcon('Sen') : '⭐') + '</span><b>Sen</b><small>Sv' + (S().l.ocak || 1) + '</small><em class="dot"></em></div>' +
       ms.map(function (m) { return '<div class="oc-m"><span>' + m.r + '</span><b>' + m.n + '</b><small>Sv' + m.lv + '</small><em class="dot' + (m.on ? '' : ' off') + '"></em></div>'; }).join('') + '</div></div>' +
       '<div class="oc-feed">' + (o.feed.slice(0, 5).map(function (f) { var ago = Math.max(1, Math.round((Date.now() - f.at) / 60e3)); return '<div><i>' + f.e + '</i><span>' + f.t + '</span><small>' + ago + 'dk</small></div>'; }).join('') || '<div><i>🔥</i><span>Ocak sakin</span></div>') + '</div>';
     if (box.__ekh !== h) { box.__ekh = h; box.innerHTML = h; }

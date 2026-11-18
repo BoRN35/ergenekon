@@ -187,3 +187,8 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - PWA: manifest + ikonlar (assets/app), sw.js: sayfa önbellekten anında açılır, arka planda tazelenir; değiştiyse "✦ Yeni sürüm ↻" düğmesi. ?v= dosyalar önbellekten. /api/, no-store ve yabancı (font dışı) istekler SW dışı. Bildirimler W.ekNotify (SW showNotification).
 - Hata bildir: 3D tuvalin ekran görüntüsü + not + son hatalar → localStorage ek_bugs (12) + paylaşım menüsü. Admin: Ayarlar ⋯ → PIN (yalnız SHA-256 özeti kodda), cihazda ek_adm; araçlar zaman/kaynak/malzeme/kart/Ocak+1/enerji/etkinlik sıfırla; W.TST=true (şan tablolarına yazılmaz). Müfreze oranları da burada.
 - Dil: lang/{tr,az,kk,en,ar}.json (95 temel metin), tam eşleşen metin düğümlerini çeviren katman; ar için dir=rtl ve Noto Sans Arabic, kk için Noto yedek. Tüm metinlerin dosyaya taşınması sonraki iş.
+
+## Paket 2 · 6. adım (ergenekon-boy.js) — yerel YZ üyelerle
+- s.ek.boy {n, tg (24 Oğuz boyu, stilize tamga SVG), rank han/bey/alp/er, ranks{}, mem[], pin, blk, mute, ws (haftalık katkı), seen}. Boy başlığı (#ek-oc .by-h): tamga, ad, rütbe, 👑 rütbeler (Han/Bey üye al/çıkar, rütbe ver), 📊 haftalık katkı (bağış/yardım/Akıncı), 🔎 ocak bulma (5 öneri, iki dokunuşla katıl; W.MEM yeni üyelere eşitlenir).
+- Liderlik devri: oyuncu Han iken 7+ gün yoksa en etkin Bey Han olur. Akıncı dalgasını Han/Bey başlatır (diğerleri için dönem başından 2 sa sonra açılır).
+- Sohbet kendi çizimiyle (#msgs): rütbe simgesi + tamga, küfür filtresi (W.ekClean), dokununca 🌐 çeviri, uzun bas → Sabitle (Han/Bey) / Şikayet / Engelle; şikayetler localStorage ek_reports → Yönetici panelinde 🔇 sustur 24 sa / ☾ uyar. Haritada kendi obanın üstünde tamga (#ek-boytg).

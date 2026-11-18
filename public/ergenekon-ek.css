@@ -1254,3 +1254,49 @@ html[lang="kk"] body,html[lang="kk"] button{font-family:'Alegreya Sans','Noto Sa
 html[lang="kk"] h1,html[lang="kk"] h2,html[lang="kk"] h3{font-family:'Cinzel','Noto Serif',serif}
 html[lang="ar"] body,html[lang="ar"] button,html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{font-family:'Noto Sans Arabic','Alegreya Sans',sans-serif}
 body.ek-rtl .yk-head,body.ek-rtl .ek-mh{direction:rtl}
+
+/* ===== Paket 2 · 6. adım: Kutsal Ocak düzeni ===== */
+.tamga{display:inline-block;vertical-align:middle;color:#f2c14e}
+.by-h{display:grid;grid-template-columns:44px minmax(0,1fr) 40px 40px 40px;gap:6px;align-items:center;padding:8px;border-radius:14px;background:linear-gradient(180deg,#2a2017,#1a130d);border:1px solid #5a4630}
+html body .by-h button{height:40px;padding:0!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;font-size:18px;min-width:0;width:auto!important;margin:0!important}
+html body .by-h .by-tg{width:44px!important;height:52px;border-color:#f2c14e!important}
+.by-tg i{font-style:normal;color:#f2c14e;font-size:22px}
+.by-n b{display:block;font:700 15px Cinzel,serif;color:#ffe08a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.by-n small{font-size:12px;color:#c9b48a}
+.tg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 14px 6px;max-height:56vh;overflow:auto}
+html body .tg-grid button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px!important;border-radius:10px;background:#1a130d!important;border:1px solid #3a2c1f!important;color:#e7d6b4!important;min-width:0}
+html body .tg-grid button.on{border-color:#f2c14e!important;box-shadow:0 0 10px #f2c14e55}
+.tg-grid small{font-size:10.5px}.tg-note{margin:0 14px 12px;font-size:10.5px;opacity:.5;text-align:center}
+.bf-list{display:grid;gap:6px;margin:0 14px 14px}
+.bf-r{display:grid;grid-template-columns:36px minmax(0,1fr) 74px;gap:8px;align-items:center;padding:8px;border-radius:12px;background:#1a130d;border:1px solid #3a2c1f}
+.bf-t{display:grid;place-items:center}.bf-r b{display:block;font-size:13px;color:#ffe08a}.bf-r small{font-size:11px;opacity:.8}
+html body .bf-r button{padding:8px 0!important;border-radius:10px;background:linear-gradient(180deg,#f2c14e,#b57a1b)!important;color:#2a1a05!important;font-weight:800;min-width:0;border:0!important}
+html body .bf-r button:disabled{background:#221a13!important;color:#5fe3d6!important}
+.rk-list{display:grid;gap:4px;margin:0 14px 10px;max-height:52vh;overflow:auto}
+.rk-r{display:grid;grid-template-columns:26px minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:6px 8px;border-radius:10px;background:#1a130d;border:1px solid #3a2c1f}
+.rk-r b{font-size:13px;color:#f3e3c0}.rk-r small{font-size:11px;opacity:.7}
+.rk-a{display:flex;gap:4px}
+html body .rk-a button{width:30px!important;height:28px;padding:0!important;border-radius:8px;background:#221a13!important;border:1px solid #5a4630!important;min-width:0;font-size:12px}
+.rk-card2 .yk-main{margin:0 14px 14px;width:calc(100% - 28px)}
+.rk-note{text-align:center;opacity:.6}
+.ch-pin{position:sticky;top:0;z-index:2;display:grid;grid-template-columns:20px 1fr auto;gap:6px;align-items:center;padding:6px 8px;margin-bottom:6px;border-radius:10px;background:#2a1f10;border:1px solid #f2c14e88;font-size:13px}
+.ch-pin i{font-style:normal}
+html body .ch-pin button{padding:0 6px!important;background:none!important;border:0!important;width:auto!important}
+.ch-m{position:relative;padding:4px 2px;font-size:13.5px;user-select:none;-webkit-user-select:none}
+.ch-m.sys{color:#c9b48a;font-size:12px;text-align:center}
+.ch-m.me b{color:#5fe3d6}
+.ch-m .tamga{margin-right:2px}
+html body .ch-tb{display:inline-block;width:auto!important;margin:0 0 0 6px!important;padding:0 4px!important;font-size:12px;background:none!important;border:0!important;opacity:.7}
+.ch-tr{display:block;color:#9fd8d2;font-size:12px;margin-top:2px}
+.mm-q{margin:0 14px 10px;padding:8px;border-radius:10px;background:#1a130d;font-size:13px}
+.mm-acts{display:grid;gap:6px;margin:0 14px 14px}
+html body .mm-acts button{padding:10px!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important}
+.kt-h,.kt-r{display:grid;grid-template-columns:minmax(0,1fr) 66px 40px 40px;gap:6px;align-items:center;margin:0 14px}
+.kt-h{font-size:16px;text-align:center;margin-bottom:4px}
+.kt-list{display:grid;gap:4px;margin-bottom:8px;max-height:52vh;overflow:auto}
+.kt-r{padding:6px 8px;border-radius:10px;background:#1a130d;border:1px solid #3a2c1f;font-size:12.5px}
+.kt-r.me{border-color:#3fd6c8}.kt-r span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kt-r i{font-style:normal}.kt-r b{text-align:center;color:#ffe08a}
+.kt-note{text-align:center;font-size:11px;opacity:.6;margin:0 0 12px}
+#ek-boytg{position:absolute;left:0;top:0;z-index:30;width:24px;height:30px;display:grid;place-items:center;border-radius:6px;background:#140f0bcc;border:1px solid #f2c14e88;pointer-events:none}
+.ad-rp{grid-template-columns:24px 1fr auto}
+.ad-rpa{display:flex;gap:4px}
+html body .ad-rpa button{width:30px;height:30px;padding:0!important;border-radius:8px;background:#221a13!important;border:1px solid #5a4630!important;min-width:0}
