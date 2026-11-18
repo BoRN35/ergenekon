@@ -163,3 +163,10 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 ## Paket 2 · 1. adım (ergenekon-kolay.js)
 - 76 Neler yeni (s.ek.wv = VER; yeni sürümde VER'i değiştir), 96 Dünün emeği (s.ek.yd anlık görüntü, s.ek.yl, #aw içine satır), 65 ambar ışığı (durum.js 'amb'), 64 önerilen ilim (.ek-rec + sekmede turkuaz nokta), 89 ilim önizleme (.ek-prev, toplam → sonraki), 63 sürekli eğitim (s.ek.ct, Ordu çipi), 62 tekrar gönder (s.ek.rg), 83 hepsine yardım (#ek-hand, s.ek.hp sayacı), 72 renk körlüğü (body.ek-cb ◆/◇), 69 grafik kalitesi (s.ek.gq oto/düşük/orta/yüksek: pixelRatio + gölge).
 - Ayarlar satırları #ek-kolay. 67/73 (Supabase) kullanıcı projeyi açınca yapılacak.
+
+## Paket 2 · 2. adım (ergenekon-profil.js)
+- prfGen sarmalı: profil Genel sekmesinin başına vitrin (.ek-vt): çerçeveli portre, unvan, 💪 güç (dökümü açar), ✨ Kut, en iyi 3 kahraman, en yüksek + eşya; 📜 Destan Defteri, 🏅 Rekorlar, 🖼️ Çerçeve.
+- Çerçeveler s.ek.fr (Ocak 10/20/30/40, ilk 5★, ilk destan canavarı, ilk Opal, Destan çıkışı, 6 kurgan) #pfb'ye de uygulanır.
+- Defter s.ek.dd/ddk (ilk taramadaki geçmiş olaylar "önce" tarihli), rekorlar s.ek.rk.
+- Güç dökümü: Binalar/Kahramanlar/Eşyalar/Kut, Ocak seviyesine göre beklenene oran; en geride kehribar + altın hilal; dokununca ilgili ekran.
+- HIST: 9 kahramana kaynaklı tarih kartı (kahraman büyük portresindeki tamga) ve 3'er söz/olay baloncuğu (seçimde ve ara sıra savaştan sonra, 3 sn).
