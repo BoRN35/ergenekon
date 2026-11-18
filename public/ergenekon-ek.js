@@ -726,7 +726,7 @@
     }
     // kaydırmayı obanın çevresiyle sınırla
     var home = w.selfPosition; if (!home) return;
-    var R = 260, t = c.target, dx = t.x - home.x, dz = t.z - home.z, d = Math.hypot(dx, dz);
+    var R = 230, t = c.target, dx = t.x - home.x, dz = t.z - home.z, d = Math.hypot(dx, dz);
     if (d > R) { var k = R / d, nx = home.x + dx * k, nz = home.z + dz * k, ox = nx - t.x, oz = nz - t.z; t.x = nx; t.z = nz; cam.position.x += ox; cam.position.z += oz; }
     if (cam.zoom < c.minZoom || cam.zoom > c.maxZoom) { cam.zoom = Math.min(c.maxZoom, Math.max(c.minZoom, cam.zoom)); cam.updateProjectionMatrix(); }
   }
@@ -773,11 +773,70 @@
     var b = document.querySelector('[data-world-action="details"]'); if (b) b.textContent = 'Hedef bilgisi';
     try { W.selM = -1; } catch (e) {}
   }
+  /* ---------- 3e) harita koordinatları, yer imleri, obaya uzaklık ---------- */
+  var CO = { el: null, last: 0 };
+  function camLogical() {
+    var w = W.world3d, h = w && w.selfPosition; if (!w || !w.controls || !h) return null;
+    var t = w.controls.target; return { x: Math.round((t.x - h.x) / 4 + 50), y: Math.round((t.z - h.z) / 4 + 50) };
+  }
+  function goLogical(x, y) {
+    var w = W.world3d, h = w && w.selfPosition; if (!w || !w.controls || !h) return;
+    var c = w.controls, cam = w.camera, nx = h.x + (x - 50) * 4, nz = h.z + (y - 50) * 4, dx = nx - c.target.x, dz = nz - c.target.z;
+    c.target.x += dx; c.target.z += dz; cam.position.x += dx; cam.position.z += dz; c.update();
+  }
+  function km(p) { return Math.round(Math.hypot(p.x - 50, p.y - 50) * 2); }
+  function bms() { var e = ek(); e.bm = e.bm || []; return e.bm; }
+  function coordBar(now) {
+    var mapv = document.getElementById('mapv');
+    if (W.tab !== 'm' || !mapv) { if (CO.el) CO.el.hidden = true; return; }
+    if (!CO.el || !CO.el.isConnected) {
+      CO.el = document.createElement('div'); CO.el.id = 'ek-coord';
+      CO.el.innerHTML = '<button type="button" data-co="find" aria-label="Koordinata git"><span data-co-txt></span></button><button type="button" data-co="star" aria-label="Yer imi ekle">☆</button>';
+      CO.el.addEventListener('click', function (ev) { var b = ev.target.closest('[data-co]'); if (!b) return; if (b.dataset.co === 'star') addBm(); else openCoord(); });
+    }
+    if (CO.el.parentNode !== mapv) mapv.appendChild(CO.el);
+    CO.el.hidden = false;
+    if (now - CO.last < 150) return; CO.last = now;
+    var p = camLogical(); if (!p) return;
+    var t = CO.el.querySelector('[data-co-txt]'), txt = 'X ' + p.x + ' · Y ' + p.y + (km(p) ? ' · ' + km(p) + ' km' : ' · Oban');
+    if (t.textContent !== txt) t.textContent = txt;
+    var star = CO.el.querySelector('[data-co="star"]'), has = bms().some(function (b) { return b.x === p.x && b.y === p.y; });
+    star.textContent = has ? '★' : '☆'; star.classList.toggle('on', has);
+  }
+  function addBm() {
+    var p = camLogical(); if (!p) return; var l = bms();
+    var i = l.findIndex(function (b) { return b.x === p.x && b.y === p.y; });
+    if (i >= 0) l.splice(i, 1); else { var n = W.prompt ? W.prompt('Yer imi adı:', 'Yer ' + (l.length + 1)) : null; if (n === null) return; l.unshift({ n: String(n || 'Yer').slice(0, 24), x: p.x, y: p.y }); if (l.length > 20) l.length = 20; }
+    persist(); CO.last = 0;
+  }
+  function coordHtml() {
+    var p = camLogical() || { x: 50, y: 50 }, l = bms();
+    return '<div class="ek-modal ek-small" role="dialog" aria-modal="true" aria-label="Koordinat">' +
+      '<div class="ek-mh"><span class="ek-cap">BOZKIR HARİTASI</span><h2>Konuma Git</h2><button type="button" class="ek-x" data-ek-close="1" aria-label="Kapat">✕</button></div>' +
+      '<div class="ek-cogo"><label>X<input type="number" min="0" max="100" value="' + p.x + '" data-co-x></label><label>Y<input type="number" min="0" max="100" value="' + p.y + '" data-co-y></label><button type="button" class="ek-btn gold" data-co-go="1">Git</button></div>' +
+      '<div class="ek-acts ek-fgo"><button type="button" class="ek-btn" data-co-home="1">⌖ Obama dön (X 50 · Y 50)</button></div>' +
+      '<div class="ek-bml"><div class="ek-cap" style="padding:0 16px 6px">YER İMLERİ</div>' + (l.length ? l.map(function (b, i) { return '<div class="ek-bm"><button type="button" data-co-bm="' + i + '"><b>★ ' + esc(b.n) + '</b><small>X ' + b.x + ' · Y ' + b.y + ' · ' + km(b) + ' km</small></button><button type="button" class="ek-bmx" data-co-del="' + i + '" aria-label="Sil">✕</button></div>'; }).join('') : '<p class="ek-bme">Haritada bir yere gelip ☆ işaretine dokun.</p>') + '</div></div>';
+  }
+  function openCoord() {
+    var o = document.getElementById('ek-coordov');
+    if (!o) {
+      o = document.createElement('div'); o.id = 'ek-coordov'; o.className = 'ek-ov ek-sheet'; document.body.appendChild(o);
+      o.addEventListener('click', function (ev) {
+        var t = ev.target, b;
+        if (t === o || t.closest('[data-ek-close]')) { o.remove(); return; }
+        if (t.closest('[data-co-go]')) { var x = +o.querySelector('[data-co-x]').value, y = +o.querySelector('[data-co-y]').value; if (isFinite(x) && isFinite(y)) { goLogical(Math.max(0, Math.min(100, x)), Math.max(0, Math.min(100, y))); o.remove(); } return; }
+        if (t.closest('[data-co-home]')) { goLogical(50, 50); o.remove(); return; }
+        if ((b = t.closest('[data-co-del]'))) { bms().splice(+b.dataset.coDel, 1); persist(); o.innerHTML = coordHtml(); return; }
+        if ((b = t.closest('[data-co-bm]'))) { var m = bms()[+b.dataset.coBm]; if (m) goLogical(m.x, m.y); o.remove(); }
+      });
+    }
+    o.innerHTML = coordHtml();
+  }
   function frame() {
     requestAnimationFrame(frame);
     if (document.hidden) return;
     try { winMode(); } catch (e) {}
-    try { if (W.tab === 'm') { tuneWorld(); badges(Date.now()); } } catch (e) {}
+    try { if (W.tab === 'm') { tuneWorld(); badges(Date.now()); } coordBar(Date.now()); } catch (e) {}
     try { tickVisual(); placeMarks(Date.now()); } catch (e) {}
   }
   function start() {
@@ -792,7 +851,7 @@
     });
     document.addEventListener('keydown', function (ev) {
       if (ev.key !== 'Escape') return;
-      ['ek-bag', 'ek-parcel', 'ek-findov'].forEach(function (id) { var o = document.getElementById(id); if (o) o.remove(); });
+      ['ek-bag', 'ek-parcel', 'ek-findov', 'ek-coordov'].forEach(function (id) { var o = document.getElementById(id); if (o) o.remove(); });
     });
     afterRender();
     requestAnimationFrame(frame);

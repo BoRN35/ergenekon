@@ -614,3 +614,24 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
 .ek-optrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .ek-optrow b { display: block; } .ek-optrow small { color: #9fb3ad; font-size: 12px; }
 .ek-optrow button { flex: none; width: auto !important; min-height: 0 !important; height: 34px; padding: 0 12px !important; }
+/* ===== Harita koordinat çubuğu ===== */
+#ek-coord { position: absolute; left: 50%; transform: translateX(-50%); top: 52px; z-index: 30; display: flex; gap: 4px; }
+#ek-coord[hidden] { display: none !important; }
+#ek-coord button { height: 30px; min-height: 0 !important; padding: 0 12px !important; border-radius: 15px !important; border: 1px solid #c99a4e !important;
+  background: rgba(20,14,8,.86) !important; color: #f2e2bf !important; font: 700 12.5px system-ui, sans-serif; white-space: nowrap; width: auto !important; margin: 0 !important; }
+#ek-coord button[data-co="star"] { width: 30px !important; padding: 0 !important; font-size: 16px; color: #c9a96a !important; }
+#ek-coord button[data-co="star"].on { color: #ffd76a !important; }
+.ek-cogo { display: flex; gap: 8px; align-items: flex-end; padding: 14px 16px 4px; }
+.ek-cogo label { flex: 1; display: flex; flex-direction: column; gap: 4px; font: 700 12px 'Cinzel', Georgia, serif; color: #c9a96a; }
+.ek-cogo input { height: 40px; border-radius: 8px; border: 1px solid #6b5434; background: #0c1517; color: #fff; font: 700 16px system-ui; padding: 0 10px; }
+.ek-ov .ek-cogo .ek-btn { height: 40px; padding: 0 18px !important; flex: none; }
+.ek-bml { padding: 6px 0 14px; }
+.ek-bm { display: flex; gap: 6px; padding: 0 16px 6px; }
+.ek-ov .ek-bm button { min-height: 0 !important; border-radius: 8px !important; border: 1px solid #4d3b22 !important; background: #132326 !important; color: #ead9b4 !important; }
+.ek-ov .ek-bm button[data-co-bm] { flex: 1; display: flex; justify-content: space-between; align-items: center; height: 42px; padding: 0 12px !important; text-align: left; }
+.ek-bm small { color: #9fb3ad; font-size: 12px; }
+.ek-ov .ek-bmx { width: 42px; height: 42px; padding: 0 !important; flex: none; }
+.ek-bme { padding: 0 16px; color: #9fb3ad; font-size: 13px; }
+@media (max-width: 760px) { #ek-coord { top: 48px; } }
+.ek-cogo label { flex: 1 1 0; min-width: 0; } .ek-cogo input { width: 100%; box-sizing: border-box; }
+.ek-ov .ek-cogo .ek-btn { width: auto !important; margin: 0 !important; }
