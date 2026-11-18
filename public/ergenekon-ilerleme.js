@@ -181,6 +181,7 @@
     { n: 'Kıyım', e: '⚔️' }, { n: 'Dağlara Sığınış', e: '⛰' }, { n: 'Ergenekon Vadisi', e: '🌲' }, { n: 'Çoğalan Boylar', e: '🏕️' }, { n: 'Kök Börü', e: '🐺' },
     { n: 'Demirci Börteçine', e: '⚒️' }, { n: 'Körükler', e: '🔥' }, { n: 'Demir Dağ Kızarır', e: '🌋' }, { n: 'Dağ Erir', e: '💧' }, { n: 'Çıkış', e: '☀️' }
   ];
+  W.ekDestanCH = CH;
   function dsState() { var e = ek(); e.ds = e.ds || { s: 0 }; return e.ds; }
   function stagePow(i) { return Math.round(250 * Math.pow(1.38, i)); }
   function myPow() { var c = W.cs(), t = 0; try { t = W.tpowv(0); } catch (e) {} return Math.round(c.atk * 3 + c.def * 2 + c.hp * .3 + t * .05); }
@@ -190,7 +191,7 @@
       var done = cur >= (i + 1) * 3, on = chi === i;
       return '<div class="ds-ch' + (done ? ' done' : on ? ' on' : ' lk') + '"' + (done ? ' data-ds-sw="' + i + '"' : '') + '><i>' + c.e + '</i><small>' + (i + 1) + '. ' + c.n + '</small><span>' + [0, 1, 2].map(function (j) { var k = i * 3 + j; return '<em class="' + (k < cur ? 'ok' : k === cur ? 'cur' : '') + '"></em>'; }).join('') + '</span></div>';
     }).join('');
-    var done = cur >= 30, need = stagePow(cur);
+    var done = cur >= CH.length * 3, need = stagePow(cur);
     var body = '<div class="ds-path">' + path + '</div>' + (done ? '<p class="yk-max">☀️ Ergenekon’dan çıkıldı</p>' :
       '<div class="sv-stats" style="grid-template-columns:repeat(3,1fr)"><span><i>📍</i><b>' + (chi + 1) + '-' + (cur % 3 + 1) + '</b></span><span><i>👹</i><b>' + nf(need) + '</b></span><span><i>⚔</i><b class="' + (mp >= need ? 'ok' : 'no') + '">' + nf(mp) + '</b></span></div>' +
       '<button type="button" class="yk-main" data-ds-go="1">⚔ Savaş</button>');
@@ -221,7 +222,7 @@
   function dsChip() {
     var bar = document.getElementById('ek-army'); if (!bar || bar.querySelector('[data-ek-ds]')) return;
     var d = dsState(), b = document.createElement('button'); b.type = 'button'; b.className = 'db-chip'; b.setAttribute('data-ek-ds', '1');
-    b.innerHTML = '<i>📜</i><span><b>Destan Seferi</b><small>' + (d.s >= 30 ? 'Tamamlandı' : (Math.floor(d.s / 3) + 1) + '-' + (d.s % 3 + 1) + ' · ' + CH[Math.min(9, Math.floor(d.s / 3))].n) + '</small></span>';
+    b.innerHTML = '<i>📜</i><span><b>Destan Seferi</b><small>' + (d.s >= CH.length * 3 ? 'Tamamlandı' : (Math.floor(d.s / 3) + 1) + '-' + (d.s % 3 + 1) + ' · ' + CH[Math.min(CH.length - 1, Math.floor(d.s / 3))].n) + '</small></span>';
     b.addEventListener('click', function (ev) { ev.stopPropagation(); openDestanSefer(); }); bar.appendChild(b);
   }
 

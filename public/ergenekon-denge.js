@@ -180,5 +180,5 @@
   }
   function start() { if (!S() || !W.M || typeof W.cb !== 'function' || typeof W.mt !== 'function') { setTimeout(start, 400); return; } hooks(); alScan(); requestAnimationFrame(frame); }
   start();
-  W.ergenekonDenge = { openAlbum: openAlbum, openHorses: openHorses, openSet: openSet, triOf: triOf, weaponFit: weaponFit, setPct: setPct, horse: horse, owned: owned, fed: fed, bestFor: bestFor };
+  W.ergenekonDenge = { openAlbum: openAlbum, openHorses: openHorses, openSet: openSet, triOf: triOf, weaponFit: weaponFit, setPct: setPct, SETS: SETS, horse: horse, owned: owned, fed: fed, bestFor: bestFor };
 })();

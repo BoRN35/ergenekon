@@ -160,7 +160,7 @@
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && ev.target && ev.target.id === 'ci' && ev.target.value.trim()) reply(ev.target.value); }, true);
 
   /* ---------- 30) Kut Bereketi anahtarı ---------- */
-  W.__ekPrem = function () { var s = S(); return !!(s && s.ek && s.ek.prem); };
+  W.__ekPrem = function () { var s = S(), e = s && s.ek; if (!e) return false; var now = Date.now(); return !!(e.prem || (e.trial && e.trial > now) || (e.sub && e.sub > now)); };
   function premRow() {
     var tg = document.getElementById('tg'); if (!tg || W.tab !== 'g' || tg.querySelector('#ek-prem')) return;
     var row = document.createElement('div'); row.id = 'ek-prem'; row.className = 'card ek-optrow';
@@ -182,7 +182,7 @@
   var lf = 0, ls = 0, nextFeed = 0;
   function frame(now) {
     requestAnimationFrame(frame); if (document.hidden) return;
-    if (now - ls > 500) { ls = now; try { panel(); premRow(); light(); } catch (e) {} }
+    if (now - ls > 500) { ls = now; try { panel(); light(); } catch (e) {} }
     if (now > nextFeed) { nextFeed = now + 40000 + Math.random() * 50000; if (lf) try { feedTick(); save(); } catch (e) {} lf = 1; }
   }
   function start() { if (!S() || !W.MEM || typeof W.cs !== 'function') { setTimeout(start, 400); return; } giftAccrue(); requestAnimationFrame(frame); }
