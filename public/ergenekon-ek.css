@@ -874,3 +874,16 @@ html body .game-page-header { min-height: 92px !important; }
 .ek-ov { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 body.ek-night::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 99999; background: rgba(10,14,28,.14); }
 .yk-card:has(.rm-row) .yk-req { display: none !important; }
+/* ===== B: Demirci sadeleşmesi ===== */
+.ek-ov .dm-msb { display: flex; flex-direction: column; align-items: center; gap: 3px; width: 86px !important; padding: 0 !important; min-height: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important; cursor: pointer; }
+.dm-msb .ci-tile { width: 76px; height: 76px; }
+.dm-cnt { font: 800 18px 'Alegreya Sans', system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px #000; }
+.dm-cnt i { font-style: normal; color: #c9b48a; font-size: 15px; }
+.dm-msb.ok .dm-cnt { color: #9df0b8; } .dm-msb.no .dm-cnt { color: #ffcf8a; } .dm-msb.off { opacity: .7; }
+.dm-msb.no .ci-tile { box-shadow: inset 0 0 0 1px #000, 0 0 14px rgba(240,170,70,.65) !important; border-color: #e0a14a !important; animation: moonGlow 2.4s ease-in-out infinite; }
+.dm-src { font: 600 11.5px 'Alegreya Sans', system-ui; color: #ffcf8a; text-align: center; line-height: 1.2; max-width: 92px; }
+.dm-swaprow { display: flex; gap: 6px; }
+.ek-ov .dm-sw { flex: 1; height: 36px; min-height: 0 !important; padding: 0 !important; border-radius: 8px !important; font-size: 16px; background: #15110c !important; border: 1px solid #3a2e1e !important; color: #f6dfa9 !important; }
+.dm-sw i { font-style: normal; font-size: 12px; margin: 0 2px; color: #c9a96a; } .dm-sw[disabled] { opacity: .4; }
+.dm-minfo { display: flex; flex-direction: column; align-items: center; padding: 14px 0 6px; } .dm-minfo svg { width: 90px; height: 90px; } .dm-minfo b { font: 800 22px system-ui; color: #fff; }
+@media (max-width: 760px) { .dm-side { display: flex !important; flex-direction: column; } .dm-mcol { flex-direction: row !important; justify-content: center; gap: 6px; } }

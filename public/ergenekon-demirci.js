@@ -159,6 +159,45 @@
       '<g class="dm-burst"><circle cx="160" cy="70" r="20" fill="none" stroke="var(--fx,#ffd76a)" stroke-width="5"/>' +
       [0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { var a = i / 8 * Math.PI * 2; return '<path d="M' + (160 + Math.cos(a) * 26).toFixed(1) + ' ' + (70 + Math.sin(a) * 26).toFixed(1) + 'L' + (160 + Math.cos(a) * 70).toFixed(1) + ' ' + (70 + Math.sin(a) * 70).toFixed(1) + '" stroke="var(--fx,#ffd76a)" stroke-width="3" stroke-linecap="round"/>'; }).join('') + '</g></svg>';
   }
+  var GATE = { kagit: 1, safir: 4, opal: 8 }, MDESC = { kagit: 'Her basmada gerekir. Canavarlardan %5 ihtimalle düşer.', safir: '+5 ve üstü basmada gerekir. Sv 4+ canavarlardan %2,5 ihtimalle düşer.', opal: '+9 ve üstü basmada gerekir. Sv 8+ canavarlardan %2,5 ihtimalle düşer.' };
+  function bestTarget(k) { // seviyeye uygun, en yakın canavar
+    var s = S(), M = W.M || [], o = ocak(), g = GATE[k] || 1, best = -1, bd = 1e9;
+    M.forEach(function (x, i) {
+      if (!x || i === 11) return;
+      var az = W.X6 && W.X6.isAz ? W.X6.isAz(i) : false, L = x[2] + (az ? 2 : 0);
+      if (L < g || L > o || s.mk[i] > 0 || (W.fog && W.fog(x[3], x[4]))) return;
+      var dd = Math.hypot(x[3] - 50, x[4] - 50) - L * .4; if (dd < bd) { bd = dd; best = i; }
+    });
+    return best;
+  }
+  function abl(w) { var t = w.toLocaleLowerCase('tr'), v = (t.match(/[aıoueiöü]/g) || ['a']).pop(), back = 'aıou'.indexOf(v) >= 0, last = t.slice(-1), vow = 'aıoueiöü'.indexOf(last) >= 0, hard = 'çfhkpsşt'.indexOf(last) >= 0; return w + '’' + (vow ? 'n' : '') + (hard ? 't' : 'd') + (back ? 'an' : 'en'); }
+  function sourceName(k) { var i = bestTarget(k), M = W.M || []; return i >= 0 ? abl(M[i][0]) + ' düşer' : 'Sv ' + GATE[k] + '+ canavardan'; }
+  function goSource(k) {
+    var i = bestTarget(k); if (i < 0) return false;
+    var o = document.getElementById('ek-forge'); if (o) o.remove();
+    var tries = 0, go = function () {
+      var w = W.world3d, t = w && w.pveTargets && w.pveTargets.filter(function (x) { return x.kind === 'monster' && x.index === i; })[0];
+      if (!w || !t || !w.controls || W.tab !== 'm') { if (++tries < 30) setTimeout(go, 200); return; }
+      var c = w.controls, cam = w.camera, sx = c.target.x, sz = c.target.z, p0 = cam.position.clone(), t0 = performance.now();
+      (function step(now) { var e = Math.min(1, (now - t0) / 600), q = e < .5 ? 2 * e * e : 1 - Math.pow(-2 * e + 2, 2) / 2, nx = sx + (t.worldX - sx) * q, nz = sz + (t.worldZ - sz) * q; cam.position.set(p0.x + nx - sx, p0.y, p0.z + nz - sz); c.target.set(nx, c.target.y, nz); c.update(); if (e < 1) requestAnimationFrame(step); else try { w.activate({ kind: 'monster', index: i }); } catch (x) {} })(t0);
+    };
+    if (W.tab !== 'm') { var b = document.getElementById('ek-world'); if (b) b.click(); else { var tb = document.querySelector('#tabs [data-t="m"]'); if (tb) tb.click(); } setTimeout(go, 900); } else go();
+    return true;
+  }
+  W.ekGoSource = goSource;
+  function matInfo(k) {
+    var d = dm(), need = 0, o = itemById(UI.sel); if (o && (o.x.p || 0) < (W.UPM || 12)) need = matCost(o.x.p || 0)[k];
+    if (need > 0 && (d.mat[k] || 0) < need && goSource(k)) return;
+    var ov = document.createElement('div'); ov.className = 'ek-ov yk-ov';
+    ov.innerHTML = '<div class="yk-card yk-small"><div class="yk-head"><h2>' + MAT[k].n + '</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="dm-minfo">' + (W.ekIcon ? W.ekIcon.mat(k) : MAT[k].e) + '<b>' + nf(d.mat[k] || 0) + '</b></div><p class="yk-desc" style="margin:0 14px 14px">' + MDESC[k] + '</p></div>';
+    ov.addEventListener('click', function (e) { if (e.target === ov || e.target.closest('.yk-x')) ov.remove(); });
+    document.body.appendChild(ov);
+  }
+  function swapGem(from) {
+    var d = dm(), to = from === 'safir' ? 'opal' : 'safir'; if ((d.mat[from] || 0) < 1) return;
+    d.mat[from] -= 1; d.mat[to] = (d.mat[to] || 0) + 1; persist(); refreshWin();
+    try { W.snd(760, .05); } catch (e) {}
+  }
   function basHtml() {
     var s = S(), d = dm();
     if (d.lv < 1) return '<div class="dm-empty">Eşya basmak için önce Demirci’yi inşa et.<br><button type="button" class="ek-btn gold" data-dm-tab="yapi">Demirci’ye git</button></div>';
@@ -168,7 +207,9 @@
     var nxt = o && p < max ? tile({ id: 'nx', cat: 'eq', x: Object.assign({}, o.x, { p: p + 1 }), r: o.x.r || 0 }, { dis: true }) : '<div class="ci-tile ci-slot"></div>';
     var mats = Object.keys(MAT).map(function (k) {
       var have = d.mat[k] || 0, need = o && p < max ? mc[k] : 0, it = { id: 'm:' + k, cat: 'mat', mat: k, n: have, r: { kagit: 1, safir: 2, opal: 3 }[k] };
-      return '<div class="dm-ms' + (need > 0 ? (have >= need ? ' ok' : ' no') : ' off') + '">' + tile(it, { dis: true }) + '<small>' + (need > 0 ? nf(have) + ' / ' + need : '—') + '</small></div>';
+      var miss = need > 0 && have < need, src = miss ? sourceName(k) : '';
+      return '<button type="button" class="dm-ms dm-msb' + (need > 0 ? (have >= need ? ' ok' : ' no') : ' off') + '" data-dm-mat="' + k + '">' + tile(it, { dis: true }) +
+        '<b class="dm-cnt">' + nf(have) + (need > 0 ? '<i>/' + need + '</i>' : '') + '</b>' + (miss ? '<small class="dm-src">' + src + '</small>' : '') + '</button>';
     }).join('');
     var dem = 0, ch = 0, can = false, info;
     if (o && p < max) { try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {} can = (s.r.demir || 0) >= dem && haveMat(mc); }
@@ -188,7 +229,8 @@
       '<div class="dm-side"><div class="dm-sec">MALZEMELER</div><div class="dm-mcol">' + mats + '</div>' +
         '<div class="dm-fee"><span>ÜCRET</span>' + (o && p < max ? rc('⛓️', dem, s.r.demir || 0) : '<b>—</b>') + '</div>' +
         '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + (UI.sel || '') + '"' + (can ? '' : ' disabled') + '>YÜKSELT</button>' +
-        '<button type="button" class="ek-btn dm-clear" data-dm-clear="1"' + (o ? '' : ' disabled') + '>BOŞALT</button></div>' +
+        '<button type="button" class="ek-btn dm-clear" data-dm-clear="1"' + (o ? '' : ' disabled') + '>BOŞALT</button>' +
+        '<div class="dm-swaprow"><button type="button" class="dm-sw" data-dm-sw="safir"' + ((d.mat.safir || 0) < 1 ? ' disabled' : '') + '>🔷<i>➜</i>🔮</button><button type="button" class="dm-sw" data-dm-sw="opal"' + ((d.mat.opal || 0) < 1 ? ' disabled' : '') + '>🔮<i>➜</i>🔷</button></div></div>' +
       '<div class="dm-bag"><div class="dm-sec">ÇANTA · EKİPMAN</div><div class="ci-grid dm-grid6">' + grid.join('') + '</div></div></div>';
   }
   function yapiHtml() {
@@ -228,6 +270,8 @@
         var b;
         if ((b = t.closest('[data-dm-tab]'))) { UI.tab = b.getAttribute('data-dm-tab'); refreshWin(); return; }
         if ((b = t.closest('[data-ci]')) && o.contains(b)) { UI.sel = b.getAttribute('data-ci'); W.__dmLast = null; refreshWin(); return; }
+        var mb = t.closest('[data-dm-mat]'); if (mb) { matInfo(mb.getAttribute('data-dm-mat')); return; }
+        var sw = t.closest('[data-dm-sw]'); if (sw && !sw.disabled) { swapGem(sw.getAttribute('data-dm-sw')); return; }
         if (t.closest('[data-dm-clear]')) { UI.sel = null; W.__dmLast = null; refreshWin(); return; }
         if ((b = t.closest('[data-dm-pick]'))) { if (W.ekPickItem) W.ekPickItem({ title: 'Örse koy', sel: UI.sel, filter: function (it) { return it.cat === 'eq'; } }, function (id) { UI.sel = id; W.__dmLast = null; refreshWin(); }); return; }
         if ((b = t.closest('[data-dm-up]')) && !b.disabled) { enhance(b.getAttribute('data-dm-up')); return; }
