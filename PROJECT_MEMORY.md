@@ -213,3 +213,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Oto eritme: çantadaki r<eşik, r<2, +0 ve kilitsiz (x.lk) eşyalar → toz. Giyililer çantada olmadığı için erimez.
 - 5★ kahraman fazla kartı: detayda → toz (×20) ya da Kut (×4, s.ek.kutx → kutPoints), iki dokunuş onaylı.
 - Akıllı eğitim: tb sarmalı kaynağa ve kışla kapasitesine göre en fazla (taban×10'a kadar), ttime aynı oranda uzar. Yaralı önceliği: hQuick düşük kademeden bırakır. Çantadan tamamla: yapı kartında 🎒 Tamamla (paketlerden), yoksa 🐾 Nereden (kaynak bilgisi). Kum Saati: ✦ akıllı kombinasyon düğmesi (farm.js).
+
+## Paket 3 · 3. adım (ergenekon-mobil.js + index.html #ek-boot)
+- Telefonda dikey (body.ek-thumb): tüm .ek-ov pencereleri alttan açılan levha (tutamaçlı, alt menü görünür kalır); aşağı kaydırınca (>110px ya da hızlı) kapanır.
+- Geri tuşu: history guard; önce en üstteki pencere, sonra profil, sonra sekme → oba; obadayken 2 sn içinde ikinci geri çıkar.
+- Pil tasarrufu s.ek.eco (Oto/Açık/Kapalı, Grafik bölümünde): pil ≤%20 ve şarj yoksa ya da 60 sn dokunulmazsa renderer.render ~30 fps / boşta ~8 fps (son kare gecikmeli çizilir), CSS animasyonları durur.
+- Yükleme ekranı: body başında #ek-boot, kaynaklı tarihî söz (profil HIST listesinden) + çubuk; city3d hazır olunca kaybolur.

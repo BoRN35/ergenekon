@@ -1371,3 +1371,12 @@ html body .kh-ex button{width:auto!important;margin:0!important;padding:7px 10px
 html body .kh-ex button.ask{border-color:#f2c14e!important;color:#ffe08a!important}
 html body .yk-bag{width:auto!important;margin:0 0 0 6px!important;padding:6px 10px!important;border-radius:999px;background:#0f2a2a!important;border:1px solid #3fd6c8!important;color:#5fe3d6!important;font-size:12px}
 html body .ks-smart{grid-column:1/-1;width:100%!important;margin:4px 0 0!important;padding:6px!important;border-radius:10px;background:#0f2a2a!important;border:1px solid #3fd6c8!important;color:#5fe3d6!important;font-size:13px;height:auto!important}
+
+/* ===== Paket 3 · 3. adım: mobil ===== */
+/* 117) telefonda dikeyde pencereler alttan açılır (başparmak bölgesi), tutamaçla aşağı kaydırıp kapatılır */
+body.ek-thumb .ek-ov{align-items:flex-end!important;padding:0 0 calc(64px + env(safe-area-inset-bottom)) 0!important}
+body.ek-thumb .ek-ov .yk-card,body.ek-thumb .ek-ov .ek-modal{width:100%!important;max-width:none!important;border-radius:18px 18px 0 0!important;max-height:calc(100dvh - 130px)!important;padding-top:10px!important}
+body.ek-thumb .ek-ov .yk-card::before,body.ek-thumb .ek-ov .ek-modal::before{content:'';display:block;width:44px;height:5px;margin:-4px auto 6px;border-radius:3px;background:#a98b5099}
+body.ek-thumb #ek-boot~* .yk-card{margin:0}
+/* 120) tasarrufta süs animasyonları durur */
+body.ek-eco *,body.ek-eco *::before,body.ek-eco *::after{animation-play-state:paused!important}
