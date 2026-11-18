@@ -837,3 +837,40 @@ html body .game-page-header { min-height: 92px !important; }
   html body .ovp .mgmt-detail, html body .ovp .roster-detail, html body .ovp aside[class*="detail"] { border-radius: 14px 14px 0 0 !important; }
 }
 @media (max-width: 760px) { html body .ovp .game-page-header { padding-left: 64px !important; padding-right: 20px !important; min-height: 64px !important; justify-content: center; } html body .ovp .game-page-header h1, html body .ovp .game-page-header h2 { text-align: center; } }
+
+/* ===== A aşaması ===== */
+#ek-prog { position: absolute; inset: 0; pointer-events: none; z-index: 6; overflow: hidden; }
+#ek-prog[hidden] { display: none; }
+.ek-pb { position: absolute; left: 0; top: 0; width: 86px; margin: 0 0 0 -43px; padding: 0 !important; min-height: 0 !important; border: 0 !important; background: none !important; box-shadow: none !important; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 1px; will-change: transform; }
+.ek-pb[hidden] { display: none !important; }
+.ek-pb i { display: block; width: 100%; height: 11px; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.06)); border: 1px solid rgba(255,255,255,.55); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 2px 6px rgba(0,0,0,.5); backdrop-filter: blur(3px); }
+.ek-pb u { display: block; height: 100%; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.45); transition: width .9s linear; }
+.ek-pb small { font: 800 11px 'Alegreya Sans', system-ui, sans-serif; color: #fff; text-shadow: 0 0 3px #000, 0 1px 2px #000; }
+.ek-pb .ek-pbfin { display: none; }
+.ek-pb.fast { pointer-events: auto; cursor: pointer; }
+.ek-pb.fast .ek-pbfin { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; margin-top: 2px; border-radius: 50%; font-size: 16px; background: radial-gradient(circle at 40% 35%, #fff1c4, #e3b54f); border: 2px solid #5a3a12; box-shadow: 0 0 12px rgba(255,200,90,.7); animation: stBob 1.4s ease-in-out infinite; }
+#ek-rsfin { position: fixed; left: 50%; bottom: calc(76px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 9300; height: 44px; padding: 0 16px !important; min-height: 0 !important; width: auto !important; border-radius: 22px !important; border: 2px solid #5a3a12 !important;
+  background: linear-gradient(180deg, #f0cd85, #c4913f 55%, #93621f) !important; color: #2b1704 !important; font: 700 14px 'Alegreya Sans', system-ui, sans-serif; box-shadow: 0 0 16px rgba(255,200,90,.6), 0 4px 10px rgba(0,0,0,.5) !important; white-space: nowrap; }
+.ek-x5 { margin-left: 6px !important; min-width: 64px; background: linear-gradient(180deg, #8a2a1e, #5a1810) !important; border: 1px solid #e3b54f !important; color: #ffe8c0 !important; font-weight: 800 !important; }
+.rp-card { width: min(360px, 100%); }
+.rp-res { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 0 8px; font-size: 40px; }
+.rp-res b { font: 800 18px 'Cinzel', Georgia, serif; } .rp-res.w b { color: #ffd76a; } .rp-res.l b { color: #c9b48a; }
+.rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; padding: 6px 14px 4px; }
+.rp-grid span { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; border-radius: 10px; background: rgba(0,0,0,.3); border: 1px solid #4d3b22; }
+.rp-grid i { font-style: normal; font-size: 24px; } .rp-grid b { font: 800 14px 'Alegreya Sans', system-ui; color: #fff; }
+.rm-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 0 14px 10px; padding: 8px; border-radius: 10px; background: rgba(0,0,0,.28); border: 1px solid #4d3b22; }
+.rm-t { font: 800 13px 'Cinzel', Georgia, serif; color: #c9a96a; }
+.ek-ov .rm-it { display: flex; flex-direction: column; align-items: center; width: 58px; padding: 6px 0 !important; min-height: 0 !important; border-radius: 10px !important; background: rgba(224,170,70,.08) !important; border: 1px solid #c98a3a !important; color: #ffcf8a !important; box-shadow: 0 0 10px rgba(240,170,70,.25) !important; }
+.rm-it i { font-style: normal; font-size: 22px; } .rm-it b { font: 800 12px system-ui; }
+.rm-ok { color: #7be0a2; font-weight: 900; font-size: 18px; }
+/* 54) tamga mührü ve altın hilal (ünlem yok) */
+.ek-seal { font-size: 0 !important; color: transparent !important; position: relative; width: 28px !important; height: 28px !important; min-height: 0 !important; padding: 0 !important; border-radius: 50% !important;
+  background: radial-gradient(circle at 40% 35%, #5a3a1c, #2a1a0c) !important; border: 2px solid #c99a4e !important; box-shadow: inset 0 0 0 2px #2a1a0c, 0 0 6px rgba(201,154,78,.35) !important; }
+.ek-seal::before { content: ''; position: absolute; inset: 5px; background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2d58e' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 3v18M6 7l6 4 6-4M6 15l6 4 6-4'/%3E%3C/svg%3E"); }
+.ek-moon { font-size: 0 !important; color: transparent !important; background: none !important; box-shadow: none !important; border: 0 !important; width: 16px !important; height: 16px !important; animation: moonGlow 2.4s ease-in-out infinite !important; }
+.ek-moon::before { content: ''; position: absolute; inset: 0; background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 3a9 9 0 1 0 6 15A7 7 0 1 1 15 3z' fill='%23f2c04a' stroke='%235a3a12' stroke-width='1.2'/%3E%3C/svg%3E"); }
+@keyframes moonGlow { 0%,100% { filter: drop-shadow(0 0 2px rgba(242,192,74,.5)); } 50% { filter: drop-shadow(0 0 7px rgba(255,190,90,.95)); } }
+/* 55) göz dostu: pencere arkası hafif bulanık, gece sakin */
+.ek-ov { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+body.ek-night::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 99999; background: rgba(10,14,28,.14); }
+.yk-card:has(.rm-row) .yk-req { display: none !important; }
