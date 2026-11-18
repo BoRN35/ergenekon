@@ -87,7 +87,7 @@
       HAND = document.createElement('button'); HAND.type = 'button'; HAND.id = 'ek-hand'; HAND.setAttribute('aria-label', 'Hepsine yardım et');
       HAND.addEventListener('click', helpAll); document.body.appendChild(HAND);
     }
-    var show = n > 0 && !overlayOpen();
+    var show = n > 0 && !overlayOpen() && (!window.tab || window.tab === 'c' || window.tab === 'm');
     HAND.hidden = !show; if (!show) return;
     var h = '<i>🤝</i><b>' + n + '</b>'; if (HAND.__ekh !== h) { HAND.__ekh = h; HAND.innerHTML = h; }
   }

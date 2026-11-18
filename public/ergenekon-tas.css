@@ -85,7 +85,7 @@ html.tas body .np-mk i,html.tas body .np-mk i svg,html.tas body #ek-arena-npc b,
 html.tas body .np-mk i svg,html.tas body #ek-arena-npc svg{width:22px!important;height:22px!important}
 
 /* --- sayfa ekranları (Kurultay, Kale, Araştırma…) --- */
-html.tas body #tr#tr.game-page,html.tas body #tk#tk.game-page,html.tas body #tu#tu.game-page,html.tas body #ty#ty.game-page,html.tas body #tp#tp.game-page,html.tas body #tz#tz.game-page,html.tas body #tm#tm.game-page,html.tas body #ta#ta.game-page,html.tas body #tg#tg.game-page,html.tas body #te#te.game-page,html.tas body #tf#tf.game-page,html.tas body .wrap>.game-page.game-page{background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 60%),repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 5px),linear-gradient(180deg,#2f3133,#1c1d1e)!important;color:var(--tt)!important}
+html.tas body #tr#tr.game-page,html.tas body #tk#tk.game-page,html.tas body #tu#tu.game-page,html.tas body #ty#ty.game-page,html.tas body #tp#tp.game-page,html.tas body #tz#tz.game-page,html.tas body #tm#tm.game-page,html.tas body #ta#ta.game-page,html.tas body #tg#tg.game-page,html.tas body #te#te.game-page,html.tas body #tf#tf.game-page,html.tas body .wrap>.game-page.game-page{background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 60%),repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 5px),linear-gradient(180deg,#2f3133,#1c1d1e)!important;background-color:#1c1d1e!important;background-size:100% 100%,auto,100% 100%!important;background-repeat:no-repeat,repeat,no-repeat!important;background-attachment:scroll!important;color:var(--tt)!important}
 html.tas body .game-page .game-page-header{background:var(--tstone)!important;border:0!important;border-bottom:2px solid var(--tgk)!important;box-shadow:var(--tbev)!important}
 html.tas body .game-page .game-page-header::before,html.tas body .game-page .game-page-header::after{display:none!important}
 html.tas body .game-page .game-page-header h2,html.tas body .game-page .game-page-heading h2{font:700 18px 'Cinzel',Georgia,serif!important;letter-spacing:.22em!important;text-transform:uppercase;color:#efe8d8!important;text-shadow:0 2px 3px #000!important}
@@ -106,3 +106,15 @@ html.tas body .ovp .roster-workspace.roster-workspace,html.tas body .ovp .resear
 html.tas body .ovp .db-chip.db-chip,html.tas body .ovp .dn-chips>button,html.tas body .ovp .ar-best.ar-best{background:linear-gradient(180deg,#36383a,#26282a)!important;border:1px solid var(--tgk)!important;border-radius:3px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45)!important;color:var(--tt)!important}
 html.tas body .ovp .dn-chips>button.on,html.tas body .ovp .ar-best.ar-best.ok{background:linear-gradient(180deg,#2a2b2c,#1f2021)!important;color:var(--ta)!important;box-shadow:inset 0 0 0 1px var(--tl),inset 0 -2px 0 var(--ta)!important}
 html.tas body #ek-prev span{background:#232425!important}
+/* düzeltmeler (tarama 18 Kasım) */
+html body .kz-tg{width:48px!important;height:26px!important;min-height:0!important;flex:0 0 48px!important;margin:0 0 0 auto!important;display:block!important}
+html.tas body .kz-tg{background:#232425!important;border:1px solid #55524b!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)!important}
+html.tas body .kz-tg u{background:#8a8478!important}
+html.tas body .kz-tg.on{background:#1f2021!important;border-color:var(--tl)!important}
+html.tas body .kz-tg.on u{background:var(--tl)!important;box-shadow:0 0 6px var(--tl)}
+html.tas body .ar-acts .ek-btn.gold{letter-spacing:.05em!important;font-size:12.5px!important;white-space:nowrap!important;padding:0 16px!important}
+html.tas body .ek-btn.gold,html.tas body .yk-main.yk-main{white-space:nowrap}
+@media(max-width:700px){html body #tg #ek-set{padding-top:46px!important}}
+
+/* pencere açıkken oba üstü düğmeler ve danışman notu pencereyi kapatmasın */
+body:has(.ek-ov) #ek-rally,body:has(.ek-ov) #ek-sage,body:has(#pop:not([style*="none"])) #ek-rally,body:has(#pop:not([style*="none"])) #ek-sage,body:has(#aw) #ek-rally,body:has(#aw) #ek-sage{display:none!important}

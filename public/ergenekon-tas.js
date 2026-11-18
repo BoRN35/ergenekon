@@ -51,7 +51,7 @@
     if (e.__tasc === e.className && e.dataset.tas !== undefined) return;
     if (e.__tasc === e.className && e.__tasn) return;
     e.__tasc = e.className; clear(e);
-    if (SKIP.test(e.id) || e.tagName === 'IMG' || e.tagName === 'CANVAS' || e.closest('svg,.world3d')) { e.__tasn = 1; return; }
+    if (SKIP.test(e.id) || (e.classList && e.classList.contains('kz-tg')) || e.tagName === 'IMG' || e.tagName === 'CANVAS' || e.closest('svg,.world3d')) { e.__tasn = 1; return; }
     var st = e.getAttribute('style') || ''; if (/background/.test(st)) { e.__tasn = 1; return; }
     var cs = getComputedStyle(e), bi = cs.backgroundImage, bg = bi !== 'none' ? bi : cs.backgroundColor;
     if (/url\(/.test(bi)) { e.__tasn = 1; return; }

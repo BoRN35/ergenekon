@@ -281,3 +281,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Kapatma: localStorage ek_tema='eski' ya da W.ekTema(false). Tamamen kaldırmak: index.html'deki ergenekon-tas satırını sil.
 - Kayıt/oyun mantığına dokunulmadı.
 - 18 Kasım: yanıp sönme düzeltildi — taşa çevirme artık MutationObserver içinde, boyamadan önce yapılıyor; açık renkli/altın kutular (avatarlar) ve vurgulu satırlar (Sen) korunuyor; opak kutular opak kalıyor.
+- 18 Kasım tarama: Titreşim düğmesi gerilmesi, Ayarlar başlığının ✕ altında kalması, Arena 'Mücadele et' taşması, Kurultay/sayfa zemininde çivit boşluk, pencere/profil açıkken 'Katıl' ve danışman notunun üstte kalması, yardım (🤝) düğmesinin sayfa içeriğini örtmesi düzeltildi.
