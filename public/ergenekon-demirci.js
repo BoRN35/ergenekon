@@ -376,7 +376,7 @@
     if (d.t1) html = '<i>⏳</i><span>' + ft(Math.max(0, (d.t1 - Date.now()) / 1000)) + '</span>';
     else if (d.lv < 1) html = '<i>⚒️</i><span>' + (ocak() >= 3 ? 'Demirci inşa et' : 'Demirci · Ocak 3') + '</span>';
     else html = '<i>⚒️</i><span>Demirci Sv ' + d.lv + '</span>';
-    if (MK.el.__h !== html) { MK.el.__h = html; MK.el.innerHTML = html; }
+    if (MK.el.__ekh !== html) { MK.el.__ekh = html; MK.el.innerHTML = html; }
   }
 
   var lastSec = 0;

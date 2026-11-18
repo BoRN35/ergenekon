@@ -592,7 +592,7 @@
         ((kind === 'cut' && st) || kind === 'plow' ? '<i class="ek-ring"></i><small>' + esc(fmtT((st.t1 - now) / 1000)) + '</small>' : '') + '</button>');
     });
     var out = html.join('');
-    if (l.__h !== out) { l.innerHTML = out; l.__h = out; }
+    if (l.__ekh !== out) { l.innerHTML = out; l.__ekh = out; }
   }
   function onMark(ev) {
     var b = ev.target.closest('[data-ek-p]'); if (!b) return;
@@ -653,6 +653,7 @@
     } catch (e) {}
     try { enhanceTop(); } catch (e) {}
     try { enhanceNav(); navActive(); } catch (e) {}
+    try { arenaView(); } catch (e) {}
   }
   // Bir render adımı çökerse bile (cihaza/kayda özgü hata) sayfa dekoru ve sağ panel yine uygulansın.
   function repairShell() {
@@ -831,6 +832,53 @@
       });
     }
     o.innerHTML = coordHtml();
+  }
+  /* ---------- 3f) Bahadır Meydanı sıralaması (WOS Sefer Arenası tarzı) ---------- */
+  var AN = ['Karahan', 'Börü Bey', 'Alpagut', 'Tarkan', 'Bozok', 'Ilgaz', 'Kutluk', 'Tonga', 'Bilge Tamga', 'Ayaz', 'Çağrı', 'Tuğrul', 'Ertuğ', 'Oğuzer', 'Atilla', 'Kayı Bey', 'Selçuk', 'Yağmur Han', 'Toktamış', 'Kürşat', 'Alp Er', 'Batur', 'Kılıç Arslan', 'Bumin', 'İstemi', 'Kara Börü', 'Gök Han', 'Demirtaş', 'Yula', 'Sarıca'];
+  function rnd2(n) { var x = Math.sin(n * 91.17 + 7.3) * 43758.5; return x - Math.floor(x); }
+  function ladder() {
+    var s = S(), a = s.ar || { pts: 1000, n: 5 }, sea = 1, pw = 1000;
+    try { sea = W.season(); pw = W.power(); } catch (e) {}
+    var rows = AN.map(function (n, i) {
+      var r = rnd2(sea * 31 + i), top = i < 3;
+      return { n: n, pts: Math.round(a.pts + (r - .35) * 700 + (top ? 520 - i * 120 : 0)), pw: Math.round(pw * (.55 + r * .9 + (top ? .6 - i * .15 : 0))), ai: 1 };
+    });
+    rows.push({ n: s.boyName || 'Sen', pts: a.pts, pw: pw, me: 1 });
+    rows.sort(function (x, y) { return y.pts - x.pts; });
+    rows.forEach(function (r, i) { r.rk = i + 1; });
+    return rows;
+  }
+  function arenaHtml() {
+    var s = S(), a = s.ar || { pts: 1000, n: 5 }, rows = ladder(), me = rows.filter(function (r) { return r.me; })[0], left = 0, tr = ['Er', '🥉'];
+    try { left = Math.max(0, (W.EPOCH + W.season() * 2592e6 - Date.now()) / 1000); tr = W.tier(a.pts); } catch (e) {}
+    function pod(r, cls) { return '<div class="ar-pod ' + cls + '"><div class="ar-av">' + esc((r.n || '?').slice(0, 1)) + '</div><b>' + esc(r.n) + '</b><small>⚔ ' + nf(r.pw) + '</small><span>' + nf(r.pts) + '</span><i>' + r.rk + '</i></div>'; }
+    function row(r) { return '<div class="ar-row' + (r.me ? ' me' : '') + '"><em>' + r.rk + '</em><b>' + esc(r.n) + '</b><small>⚔ ' + nf(r.pw) + '</small><span>' + nf(r.pts) + '</span></div>'; }
+    return '<div class="ar-head"><div><span class="ek-cap">SEFER ARENASI · SEZON ' + (W.season ? W.season() : 1) + '</span><b>⏳ ' + (W.ft ? W.ft(left) : '') + '</b></div><div class="ar-tier">' + tr[1] + ' ' + tr[0] + '</div></div>' +
+      '<div class="ar-podium">' + pod(rows[1], 'p2') + pod(rows[0], 'p1') + pod(rows[2], 'p3') + '</div>' +
+      '<div class="ar-list">' + rows.slice(3, 30).map(row).join('') + '</div>' +
+      '<div class="ar-me">' + row(me) + '<div class="ar-acts"><button type="button" class="ek-btn" data-ar-hist="1">Geçmiş</button><button type="button" class="ek-btn" data-ar-def="1">Savunma Düzeni</button><button type="button" class="ek-btn gold" data-ar-go="1"' + (a.n > 0 ? '' : ' disabled') + '>⚔ Mücadele Et <i>' + a.n + '/5</i></button></div></div>';
+  }
+  function arenaView() {
+    var ty = document.getElementById('ty'); if (!ty || W.tab !== 'y') return;
+    var box = ty.querySelector('#ek-arena');
+    if (!box) {
+      box = document.createElement('div'); box.id = 'ek-arena'; box.className = 'ek-arena-box';
+      box.addEventListener('click', function (ev) {
+        var t = ev.target;
+        if (t.closest('[data-ar-go]')) { var b = ty.querySelector('[data-ar="1"]') || ty.querySelector('[data-ar]'); if (b) { b.scrollIntoView({ block: 'center', behavior: 'smooth' }); b.classList.add('ek-pulse'); setTimeout(function () { b.classList.remove('ek-pulse'); }, 1600); } }
+        if (t.closest('[data-ar-hist]')) { var l = (S().log || []).filter(function (x) { return /Arena/.test(String(x)); }).slice(0, 12); alertBox('Arena geçmişi', l.length ? l.map(function (x) { return '<p>' + esc(String(x).replace(/^🏟️\s*1v1 Arena:\s*/, '')) + '</p>'; }).join('') : '<p>Henüz arena mücadelesi yok.</p>'); }
+        if (t.closest('[data-ar-def]')) { try { goTab('k'); } catch (e) {} }
+      });
+    }
+    var arb = ty.querySelector('.mgmt-pane [data-ar]'), host = (arb && arb.closest('.mgmt-pane')) || ty;
+    if (box.parentNode !== host) host.insertBefore(box, host.firstChild);
+    var h = arenaHtml(); if (box.__ekh !== h || !box.firstElementChild) { box.__ekh = h; box.innerHTML = h; }
+  }
+  function alertBox(title, html) {
+    var o = document.createElement('div'); o.className = 'ek-ov ek-sheet';
+    o.innerHTML = '<div class="ek-modal ek-small"><div class="ek-mh"><h2>' + esc(title) + '</h2><button type="button" class="ek-x" aria-label="Kapat">✕</button></div><div class="ek-detail" style="margin:14px 16px">' + html + '</div></div>';
+    o.addEventListener('click', function (ev) { if (ev.target === o || ev.target.closest('.ek-x')) o.remove(); });
+    document.body.appendChild(o);
   }
   function frame() {
     requestAnimationFrame(frame);
