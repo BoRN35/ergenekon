@@ -187,15 +187,25 @@
     var d = dsState(), mp = myPow(), cur = d.s, chi = Math.floor(cur / 3);
     var path = CH.map(function (c, i) {
       var done = cur >= (i + 1) * 3, on = chi === i;
-      return '<div class="ds-ch' + (done ? ' done' : on ? ' on' : ' lk') + '"><i>' + c.e + '</i><small>' + (i + 1) + '. ' + c.n + '</small><span>' + [0, 1, 2].map(function (j) { var k = i * 3 + j; return '<em class="' + (k < cur ? 'ok' : k === cur ? 'cur' : '') + '"></em>'; }).join('') + '</span></div>';
+      return '<div class="ds-ch' + (done ? ' done' : on ? ' on' : ' lk') + '"' + (done ? ' data-ds-sw="' + i + '"' : '') + '><i>' + c.e + '</i><small>' + (i + 1) + '. ' + c.n + '</small><span>' + [0, 1, 2].map(function (j) { var k = i * 3 + j; return '<em class="' + (k < cur ? 'ok' : k === cur ? 'cur' : '') + '"></em>'; }).join('') + '</span></div>';
     }).join('');
     var done = cur >= 30, need = stagePow(cur);
     var body = '<div class="ds-path">' + path + '</div>' + (done ? '<p class="yk-max">☀️ Ergenekon’dan çıkıldı</p>' :
       '<div class="sv-stats" style="grid-template-columns:repeat(3,1fr)"><span><i>📍</i><b>' + (chi + 1) + '-' + (cur % 3 + 1) + '</b></span><span><i>👹</i><b>' + nf(need) + '</b></span><span><i>⚔</i><b class="' + (mp >= need ? 'ok' : 'no') + '">' + nf(mp) + '</b></span></div>' +
       '<button type="button" class="yk-main" data-ds-go="1">⚔ Savaş</button>');
     var o = popup('Ergenekon Destanı', body, 'ds-card');
-    o.addEventListener('click', function (ev) { if (!ev.target.closest('[data-ds-go]')) return; o.remove(); dsFight(); });
+    o.addEventListener('click', function (ev) { var sw = ev.target.closest('[data-ds-sw]'); if (sw) { o.remove(); dsSweep(+sw.dataset.dsSw); return; } if (!ev.target.closest('[data-ds-go]')) return; o.remove(); dsFight(); });
     setTimeout(function () { var c = o.querySelector('.ds-ch.on'); if (c) c.scrollIntoView({ block: 'nearest', inline: 'center' }); }, 30);
+  }
+  // 123) bölüm tarama: geçilmiş bölüm tek tuşla tekrar, ganimet hemen (günde 5)
+  function dsSweep(ch) {
+    var d = dsState(), s = S(), m = dm().mat, today = day(); d.sw = d.sw && d.sw.d === today ? d.sw : { d: today, n: 0 };
+    if (d.sw.n >= 5) { if (W.ekReport) W.ekReport({ title: 'Bölüm tarama', win: false, sub: '5/5', rows: [['⟳', '0']] }); return; }
+    d.sw.n++; var rows = [], kg = Math.random() < .4 + ch * .04 ? 1 : 0, st = Math.round((ch + 1) * 40 * (s.l.ocak || 1));
+    if (kg) { m.kagit += kg; rows.push(['📜', '+' + kg]); } s.r.celik = (s.r.celik || 0) + st; rows.push(['🔩', '+' + nf(st)]);
+    var res = Math.round(300 * Math.pow(1.25, s.l.ocak || 1) * (1 + ch * .2)); ['odun', 'et', 'demir'].forEach(function (k) { s.r[k] = (s.r[k] || 0) + Math.round(res / 3); }); rows.push(['📦', '+' + nf(res)]);
+    if (Math.random() < .15) { var h = Math.floor(Math.random() * W.HH.length); s.hc[h] = (s.hc[h] || 0) + 1; rows.push(['🃏', W.HH[h].n + ' +1']); }
+    save(); if (W.ekReport) W.ekReport({ title: 'Bölüm tarama', win: true, sub: CH[ch].n + ' · ⟳ ' + d.sw.n + '/5', rows: rows });
   }
   function dsFight() {
     var d = dsState(), need = stagePow(d.s), mp = myPow(), win = mp * (.85 + Math.random() * .3) >= need, s = S(), rows = [];

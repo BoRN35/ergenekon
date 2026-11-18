@@ -231,5 +231,5 @@
   }
   function start() { if (!S() || !W.M || typeof W.fight !== 'function') { setTimeout(start, 400); return; } requestAnimationFrame(frame); }
   start();
-  W.ergenekonFarm = { openKs: openKs, openMf: openMf, addKs: addKs, goMonster: goMonster };
+  W.ergenekonFarm = { openKs: openKs, openMf: openMf, addKs: addKs, goMonster: goMonster, claimMf: claim };
 })();

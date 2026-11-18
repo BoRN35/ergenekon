@@ -70,8 +70,12 @@
   function akState() { var o = oc(); if (o.ak.p !== period()) o.ak = { p: period(), w: 0, done: 0 }; return o.ak; }
   function wavePow(w) { return Math.round(120 * Math.pow(1.28, w) * (1 + (S().l.ocak || 1) * .05)); }
   function myPow() { var c = W.cs(), t = 0; try { t = W.tpowv(0); } catch (e) {} return Math.round(c.atk * 3 + c.def * 2 + c.hp * .3 + t * .05); }
+  var FN = ['⚖', '🗡️', '🐎', '🏹'];
+  function powF(f) { var s = S(), keep = s.formation; s.formation = f; try { return myPow(); } finally { s.formation = keep; } }
+  function akPow() { var f = S().ek.akf; return f == null ? myPow() : powF(f); }
+  function akBest() { var b = 0, bp = -1; for (var f = 0; f < 4; f++) { var p = powF(f); if (p > bp) { bp = p; b = f; } } return b; }
   function runWaves() {
-    var a = akState(); if (a.done) return; var mp = myPow(), w = 0, s = S(), m = dm().mat, res = 0, rows = [], cap = Infinity;
+    var a = akState(); if (a.done) return; var mp = akPow(), w = 0, s = S(), m = dm().mat, res = 0, rows = [], cap = Infinity;
     try { cap = W.cap(); } catch (x) {}
     while (w < 10 && mp * (.9 + Math.random() * .2) >= wavePow(w)) w++;
     for (var i = 0; i < w; i++) res += Math.round(600 * Math.pow(1.3, s.l.ocak || 1) * (1 + i * .15));
@@ -84,7 +88,9 @@
     if (W.ekHourglass) { if (w >= 3) rows = rows.concat(W.ekHourglass.add(2, 0)); if (w >= 6) rows = rows.concat(W.ekHourglass.add(0, 1)); }
     try { var wd = W.woundArmy(.02 * (w + 1)); if (wd) rows.push(['🩹', '+' + nf(wd)]); } catch (e) {}
     a.w = w; a.done = 1; save(); try { W.render(); } catch (e) {}
-    if (W.ekReport) W.ekReport({ title: 'Akıncı Dalgaları', win: w > 0, sub: w + '/10 dalga', rows: rows.length ? rows : [['🌊', '0/10']] });
+    var me = w * 10, clan = me; members().forEach(function (m) { clan += (hsh(m.n + a.p) % 9) * 10; });
+    rows.unshift(['🔥', nf(clan)]); rows.unshift(['🏅', nf(me)]); rows.unshift(['🌊', w + '/10']);
+    if (W.ekReport) W.ekReport({ title: 'Akıncı Dalgaları', win: w > 0, sub: '🏅 ' + me + ' · 🔥 Boy ' + nf(clan), rows: rows });
   }
 
   /* ---------- İttifak sekmesi paneli ---------- */
@@ -106,6 +112,8 @@
       BOX.addEventListener('click', function (ev) {
         if (ev.target.closest('[data-oc-gift]')) claimGifts();
         else if (ev.target.closest('[data-oc-ak]')) runWaves();
+        else if (ev.target.closest('[data-akf-best]')) { S().ek.akf = akBest(); save(); BOX.__ekh = ''; panel(); }
+        else if (ev.target.closest('[data-akf]')) { S().ek.akf = +ev.target.closest('[data-akf]').dataset.akf; save(); BOX.__ekh = ''; panel(); }
       });
     }
     var box = BOX; attach(); hookRender();
@@ -113,6 +121,7 @@
     var o = oc(), a = akState(), ms = members(), on = ms.filter(function (m) { return m.on; }).length, left = (period() + 1) * 3 * 864e5 - Date.now();
     var h = '<div class="oc-top"><button type="button" class="oc-gift' + (o.g ? ' has' : '') + '" data-oc-gift="1"' + (o.g ? '' : ' disabled') + '><i>🎁</i><b>' + o.g + '</b><small>Ocak hediyesi</small></button>' +
       '<button type="button" class="oc-ak' + (a.done ? ' done' : '') + '" data-oc-ak="1"' + (a.done ? ' disabled' : '') + '><i>🏹</i><b>' + (a.done ? a.w + '/10' : '⚔') + '</b><small>' + (a.done ? '⏳ ' + ft(left / 1000) : 'Akıncı dalgaları') + '</small></button></div>' +
+      '<div class="oc-akf"><small>🛡 Akıncı düzeni</small>' + FN.map(function (e, f) { var cur = S().ek.akf == null ? (S().formation || 0) : S().ek.akf; return '<button type="button" data-akf="' + f + '" class="' + (cur === f ? 'on' : '') + '">' + e + '</button>'; }).join('') + '<button type="button" data-akf-best="1">✦</button></div>' +
       '<div class="oc-mem"><div class="oc-h"><b>👥 ' + (ms.length + 1) + '</b><span><em class="dot"></em>' + (on + 1) + '</span></div><div class="oc-list">' +
       '<div class="oc-m me"><span>' + (W.ekBoy ? W.ekBoy.rankIcon('Sen') : '⭐') + '</span><b>Sen</b><small>Sv' + (S().l.ocak || 1) + '</small><em class="dot"></em></div>' +
       ms.map(function (m) { return '<div class="oc-m"><span>' + m.r + '</span><b>' + m.n + '</b><small>Sv' + m.lv + '</small><em class="dot' + (m.on ? '' : ' off') + '"></em></div>'; }).join('') + '</div></div>' +

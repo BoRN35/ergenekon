@@ -219,3 +219,11 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Geri tuşu: history guard; önce en üstteki pencere, sonra profil, sonra sekme → oba; obadayken 2 sn içinde ikinci geri çıkar.
 - Pil tasarrufu s.ek.eco (Oto/Açık/Kapalı, Grafik bölümünde): pil ≤%20 ve şarj yoksa ya da 60 sn dokunulmazsa renderer.render ~30 fps / boşta ~8 fps (son kare gecikmeli çizilir), CSS animasyonları durur.
 - Yükleme ekranı: body başında #ek-boot, kaynaklı tarihî söz (profil HIST listesinden) + çubuk; city3d hazır olunca kaybolur.
+
+## Paket 3 · 4. adım (ergenekon-sefer.js + ocak/ilerleme/farm yamaları)
+- Harita sol kenarda #ek-strip (body'de fixed; mapv içi her render'da siliniyor): kafileler simge+durum+kalan süre, dokun → kamera hedefe; ↩ Tümü (iki dokunuş, recall); 🧭 Seferler; ‹ katla (s.ek.stf).
+- Seferler merkezi (W.ekOpenHub, Ordu çipi): müfreze (claimMf), yem seferi, kurgan keşfi; tek tek 🎁 ve Hepsini topla.
+- Bölgeye göre ganimet #ek-zone (koordinat çubuğunun altında, kamera çevresi 14 birim: seviye aralığı + 📜🔷🔮🃏🔥 + kaynak türleri). Yer imi ✎ yeniden adlandır.
+- Toplayıcı kahraman: Oğuz odun, Fatih et, Kubilay demir, Timur kömür; %2.5×(★+1) en çok %15 (wosBonus tür etiketine), portrede küçük simge, Gönder levhasında uzman satırı.
+- Atlı Okçu yolu: Ordu çubuğundaki .ao kartına dokun → 3 adımlı yol (Kışla 35, Ocak 35, Harp Akademisi 10), dokun → bina.
+- Destan seferi: geçilmiş bölüme dokun → bölüm tarama (günde 5): kaynak, çelik, %40+ kağıt, %15 kart. Akıncı: ayrı kayıtlı düzen s.ek.akf (⚖🗡️🐎🏹, ✦ en iyi), sonuç kartı 🌊 dalga · 🏅 kişisel · 🔥 boy puanı.
