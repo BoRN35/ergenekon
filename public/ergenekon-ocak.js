@@ -80,6 +80,7 @@
     if (w >= 5) { m.kagit += 2; rows.push(['📜', '+2']); }
     if (w >= 8) { m.safir += 1; rows.push(['🔷', '+1']); }
     if (w >= 10) { m.opal += 1; rows.push(['🔮', '+1']); }
+    if (W.ekHourglass) { if (w >= 3) rows = rows.concat(W.ekHourglass.add(2, 0)); if (w >= 6) rows = rows.concat(W.ekHourglass.add(0, 1)); }
     try { var wd = W.woundArmy(.02 * (w + 1)); if (wd) rows.push(['🩹', '+' + nf(wd)]); } catch (e) {}
     a.w = w; a.done = 1; save(); try { W.render(); } catch (e) {}
     if (W.ekReport) W.ekReport({ title: 'Akıncı Dalgaları', win: w > 0, sub: w + '/10 dalga', rows: rows.length ? rows : [['🌊', '0/10']] });

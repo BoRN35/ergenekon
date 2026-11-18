@@ -181,6 +181,7 @@
     if (i >= 1) { dm.mat.safir += i; out.push(['🔷', '+' + i]); }
     if (i >= 2) { dm.mat.opal += i - 1; out.push(['🔮', '+' + (i - 1)]); }
     var h = Math.floor(Math.random() * HH().length); s.hc[h] = (s.hc[h] || 0) + 2 + i * 3; out.push(['🃏', HH()[h].n + ' +' + (2 + i * 3)]);
+    if (W.ekHourglass) out = out.concat(W.ekHourglass.add(i + 1, i >= 3 ? 1 : 0));
     return out;
   }
   function openDestan() {

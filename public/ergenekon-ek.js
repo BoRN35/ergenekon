@@ -360,6 +360,7 @@
       '<label class="ek-fchk"><input type="checkbox" data-ek-ffull="1"' + (FS.full ? ' checked' : '') + '> Sadece dolu kaynakları ara</label>' +
       '<div class="ek-acts ek-fgo"><button type="button" class="ek-btn" data-ek-fsearch="1">Ara</button></div>' + res + '</div>';
   }
+  W.ekOpenFind = function () { openFind(); };
   function openFind() {
     var o = document.getElementById('ek-findov');
     if (!o) {

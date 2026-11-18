@@ -170,3 +170,8 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Defter s.ek.dd/ddk (ilk taramadaki geçmiş olaylar "önce" tarihli), rekorlar s.ek.rk.
 - Güç dökümü: Binalar/Kahramanlar/Eşyalar/Kut, Ocak seviyesine göre beklenene oran; en geride kehribar + altın hilal; dokununca ilgili ekran.
 - HIST: 9 kahramana kaynaklı tarih kartı (kahraman büyük portresindeki tamga) ve 3'er söz/olay baloncuğu (seçimde ve ara sıra savaştan sonra, 3 sn).
+
+## Paket 2 · 3. adım (ergenekon-farm.js)
+- 66 Kaynak Ara sayfasına "Canavar" sekmesi (W.ekOpenFind ek.js'te açıldı): günün ✦ işaretlileri üstte, tür simgeleri, seviye kaydırıcı (canlı ve saldırılabilir en yüksek), malzeme filtresi 📜🔷🔮🃏, Ara → en yakın, tekrar → sıradaki, 📍 / ⚔×1 / ⚔×5 (ekSeries). Son seçim s.ek.cs.
+- 61 Kum saati s.ek.ks {m5,h1}: Emek Defteri kademeleri, destan canavarı eşikleri, Akıncı dalgaları (3+/6+) verir; satılmaz. Kullanım: yapı kartında ⏳, ilim detayında "Hızlandır", tek sayfada tüm sayaçlar (yapı/ilim/iyileştirme). W.ekHourglass.add(m5,h1).
+- 86 Alp Müfrezeleri s.ek.mf (2 yuva, 1/2/4/8/12 sa, kahraman çakışmaz), Ordu çipi; ödül tablosu RATE0, admin sekmesinde (#tz) JSON ile s.ek.mfr. Paketler Ocak'a göre ölçekli kaynak, premium +%35 yalnız kaynağa.
