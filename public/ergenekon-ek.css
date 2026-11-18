@@ -784,3 +784,35 @@ html body .world-help { display: none !important; }
   #ek-goal { left: 86px; bottom: 18px; max-width: calc(100% - 100px); }
   #ek-sage { top: 56px; right: 8px; }
 }
+
+/* ===== Aşama 4: sıra, günlük sandık, sefer ===== */
+#ek-uq { position: absolute; left: 12px; top: 12px; z-index: 30; display: flex; gap: 6px; }
+#ek-uq[hidden] { display: none !important; }
+#ek-uq .uq { position: relative; width: 46px; height: 46px; padding: 0 !important; min-height: 0 !important; margin: 0 !important; border-radius: 10px !important; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1.5px solid #8a6a36 !important; background: rgba(20,14,8,.82) !important; color: #f6e6c0 !important; font-size: 20px; box-sizing: border-box; }
+#ek-uq .uq small { font: 800 9px system-ui; color: #ffd76a; margin-top: -2px; }
+#ek-uq .uq.a { border-color: #e3b54f !important; background: conic-gradient(rgba(227,181,79,.45) calc(var(--p) * 1%), rgba(20,14,8,.85) 0) !important; }
+#ek-uq .uq.free { opacity: .55; font-size: 16px; filter: grayscale(.6); }
+#ek-uq .uq.q { border-style: dashed !important; } #ek-uq .uq.q i { position: absolute; right: -5px; top: -5px; width: 16px; height: 16px; border-radius: 50%; background: #a8322a; color: #fff; font: 900 9px/16px system-ui; font-style: normal; text-align: center; }
+#ek-uq .uq.slot { border-style: dashed !important; opacity: .35; }
+#ek-chest { z-index: 99980; background: rgba(8,6,3,.8); }
+.dc-box { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.dc-t { font: 800 24px 'Cinzel', Georgia, serif; color: #ffe08a; text-shadow: 0 2px 0 #3a1c04, 0 0 18px rgba(255,200,90,.6); }
+.ek-ov .dc-chest { position: relative; width: 190px; height: 160px; padding: 0 !important; min-height: 0 !important; border: 0 !important; background: transparent !important; box-shadow: none !important; cursor: pointer; animation: dcWob 1.2s ease-in-out infinite; }
+.dc-body { position: absolute; left: 10px; right: 10px; bottom: 0; height: 92px; border-radius: 10px; background: linear-gradient(180deg, #8a5226, #4e2a10); border: 4px solid #e3b54f; box-shadow: inset 0 -10px 0 rgba(0,0,0,.25), 0 10px 20px rgba(0,0,0,.6); }
+.dc-body::before { content: ''; position: absolute; left: 50%; top: -6px; width: 30px; height: 36px; margin-left: -15px; border-radius: 6px; background: linear-gradient(180deg, #fff1b5, #b8862a); border: 2px solid #5a3a12; }
+.dc-lid { position: absolute; left: 4px; right: 4px; top: 8px; height: 66px; border-radius: 60px 60px 10px 10px; background: linear-gradient(180deg, #a0602c, #5e3214); border: 4px solid #e3b54f; transform-origin: 50% 100%; transition: transform .45s cubic-bezier(.3,1.6,.5,1); z-index: 2; }
+.dc-glow { position: absolute; left: 50%; top: 45px; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; background: radial-gradient(circle, rgba(255,230,140,.85), rgba(255,200,90,0) 65%); opacity: 0; transition: opacity .5s; pointer-events: none; }
+.ek-ov .dc-box.open .dc-chest { animation: none; } .dc-box.open .dc-lid { transform: translateY(-34px) rotateX(70deg) rotate(-8deg); }
+.dc-box.open .dc-glow { opacity: 1; }
+.dc-h { font: 700 15px system-ui; color: #f2e2bf; }
+.dc-items { position: absolute; left: 50%; top: 110px; width: 0; height: 0; }
+.dc-it { position: absolute; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -50%); }
+.dc-it i { font-style: normal; font-size: 34px; filter: drop-shadow(0 3px 3px rgba(0,0,0,.6)); } .dc-it b { font: 900 14px system-ui; color: #b6ffb0; text-shadow: 0 0 3px #000, 0 1px 2px #000; }
+@keyframes dcPop { from { transform: translate(-50%, -50%) scale(.2); opacity: 0; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1); opacity: 1; } }
+@keyframes dcWob { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+.sv-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 14px 16px 4px; }
+.sv-stats span { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border-radius: 10px; background: rgba(0,0,0,.28); border: 1px solid #4d3b22; }
+.sv-stats i { font-style: normal; font-size: 18px; } .sv-stats b { font: 800 13px system-ui; color: #fff; }
+.sv-why { text-align: center; color: #ffb59f; font-weight: 700; margin: 6px 16px 0; }
+@media (max-width: 760px) { #ek-uq { top: 10px; left: 10px; } #ek-uq .uq { width: 42px; height: 42px; } }

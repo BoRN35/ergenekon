@@ -66,7 +66,9 @@
       var cs = ''; try { cs = W.crs(c); } catch (e) {}
       mid = '<div class="yk-cost">' + cs + '<span class="yk-time">⏱ ' + ft(W.dur ? W.dur(k) : 0) + '</span></div>' +
         (rq.length ? '<div class="yk-req">' + rq.join('') + '</div>' : '') +
-        '<button type="button" class="yk-main" data-k="' + k + '"' + (ok ? '' : ' disabled') + '>' + (L ? '⬆ Yükselt' : '🔨 İnşa et') + '</button>';
+        (!ok && W.ekQueue && W.ekQueue.list().indexOf(k) >= 0 ? '<button type="button" class="yk-main" disabled>📋 Sırada</button>' :
+         !ok && W.ekQueue && W.ekQueue.canQueue(k) ? '<button type="button" class="yk-main" data-ek-enqueue="' + k + '">📋 Sıraya ekle</button>' :
+        '<button type="button" class="yk-main" data-k="' + k + '"' + (ok ? '' : ' disabled') + '>' + (L ? '⬆ Yükselt' : '🔨 İnşa et') + '</button>');
     } else mid = '<p class="yk-max">En yüksek seviye</p>';
     var acts = actions(k, L).map(function (a) { return '<button type="button" class="yk-ico" data-yk="' + a[0] + '" title="' + a[1].replace(/^\S+\s/, '') + '">' + a[1].split(' ')[0] + '</button>'; }).join('');
     W.__ykInfo = '<p class="yk-desc">' + def.d + '</p><div class="yk-tab">' + rows + '</div>';
