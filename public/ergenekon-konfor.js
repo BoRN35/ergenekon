@@ -222,7 +222,7 @@
 
   /* ---------- 54) tamga / hilal uyarı dili ---------- */
   function seals() {
-    document.querySelectorAll('button.inf, .yk-info, .ek-why').forEach(function (b) { if (!b.classList.contains('ek-seal')) { b.classList.add('ek-seal'); b.setAttribute('aria-label', 'Bilgi'); } });
+    document.querySelectorAll('button.inf, .ek-why').forEach(function (b) { if (!b.classList.contains('ek-seal')) { b.classList.add('ek-seal'); b.setAttribute('aria-label', 'Bilgi'); } });
     document.querySelectorAll('#tabs i, .tabs i').forEach(function (i) { if (i.textContent.trim() === '!' && !i.classList.contains('ek-moon')) i.classList.add('ek-moon'); });
   }
 

@@ -118,3 +118,6 @@ html.tas body .ek-btn.gold,html.tas body .yk-main.yk-main{white-space:nowrap}
 
 /* pencere açıkken oba üstü düğmeler ve danışman notu pencereyi kapatmasın */
 body:has(.ek-ov) #ek-rally,body:has(.ek-ov) #ek-sage,body:has(#pop:not([style*="none"])) #ek-rally,body:has(#pop:not([style*="none"])) #ek-sage,body:has(#aw) #ek-rally,body:has(#aw) #ek-sage{display:none!important}
+/* yapı penceresi: bilgi düğmesi "!" diğer yazılarla aynı renkte, sade çerçeve */
+html body .ek-ov .yk-head .yk-info{background:transparent!important;border:1px solid #55524b!important;border-radius:3px!important;color:#e9e2d0!important;font:700 19px Georgia,'Times New Roman',serif!important;box-shadow:none!important;text-shadow:none!important}
+html body .ek-ov .yk-head .yk-info::before,html body .ek-ov .yk-head .yk-info::after{display:none!important}

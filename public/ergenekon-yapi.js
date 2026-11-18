@@ -77,6 +77,8 @@
       '<div class="yk-hero">' + img + '<span class="yk-lv">' + L + '</span>' + (L < max && !q ? '<span class="yk-next">→ ' + (L + 1) + '</span>' : '') + '</div>' +
       mid + '<div class="yk-foot">' + acts + '<button type="button" class="yk-ico" data-yk="detail" title="Diğer detaylar">⋯</button></div></div>';
   }
+  var INJ = '.ek-prod,.dg-burn,.rm-row,[data-ek-fin],.era-chip,[data-ek-ks],[data-ek-bag]';
+  function sig(e) { var c = (e.className && typeof e.className === 'string') ? e.className.trim().split(/\s+/)[0] : ''; return e.tagName.toLowerCase() + (c ? '.' + c : ''); }
   var cur = null, detail = false;
   function close() {
     var o = document.getElementById('ek-yapi'); if (o) o.remove();
@@ -100,7 +102,23 @@
         else if (a.indexOf('tab:') === 0) { o.remove(); cur = null; try { W.BMK = ''; } catch (e) {} var tb = document.querySelector('#tabs [data-t="' + a.slice(4) + '"]'); if (tb) tb.click(); else if (a === 'tab:m') { var w = document.getElementById('ek-world'); if (w) w.click(); } }
       });
     }
-    var h = cardHtml(k); if (o.__ekh !== h) { o.__ekh = h; o.innerHTML = h; }
+    var h = cardHtml(k);
+    if (o.__ekh !== h) {
+      var old = o.dataset.k === k ? o.firstElementChild : null, st = old ? old.scrollTop : 0, keep = [];
+      // başka modüllerin karta eklediği satırları (üretim, kömür, yol haritası, hızlandırma…) koru: yeniden çizimde kaybolup yanıp sönmesin
+      if (old) old.querySelectorAll(INJ).forEach(function (n) { var p = n.parentElement, nx = n.nextElementSibling; keep.push([n, p === old ? null : sig(p), nx && !nx.matches(INJ) ? sig(nx) : null]); });
+      o.__ekh = h; o.innerHTML = h;
+      var c = o.firstElementChild;
+      if (old && c) {
+        c.style.animation = 'none';
+        keep.forEach(function (x) {
+          var par = x[1] ? c.querySelector(x[1]) : c; if (!par) return;
+          var ref = x[2] ? par.querySelector(':scope > ' + x[2]) : null; if (x[2] && !ref) return;
+          par.insertBefore(x[0], ref);
+        });
+        c.scrollTop = st;
+      }
+    }
     cur = k; o.dataset.k = k;
   }
   function sync() {

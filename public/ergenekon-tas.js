@@ -5,6 +5,15 @@
   function on() { try { return localStorage.getItem('ek_tema') !== 'eski'; } catch (e) { return true; } }
   W.ekTema = function (v) { try { localStorage.setItem('ek_tema', v ? 'tas' : 'eski'); } catch (e) {} H.classList.toggle('tas', !!v); };
   H.classList.toggle('tas', on());
+  /* pencere her saniye yeniden çizilse de giriş kayması yalnız ilk açılışta oynar (yanıp sönme olmaz) */
+  new MutationObserver(function (ms) {
+    for (var i = 0; i < ms.length; i++) for (var j = 0; j < ms[i].addedNodes.length; j++) {
+      var n = ms[i].addedNodes[j]; if (n.nodeType !== 1 || !n.matches || !n.matches('.yk-card,.ek-modal')) continue;
+      var o = n.parentElement; if (!o || !o.classList.contains('ek-ov')) continue;
+      if (o.__tasSeen) n.style.animation = 'none'; else o.__tasSeen = 1;
+    }
+  }).observe(D.body || D.documentElement, { childList: true, subtree: true });
+
   var P = {
     kurultay: '<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>',
     ocak: '<path d="M12 3c3 4 6 6 6 10a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-2 0-4 0-6z"/>',
