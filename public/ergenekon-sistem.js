@@ -78,6 +78,7 @@
   }
   var RI = { odun: '🪵', et: '🍖', demir: '⛓️', komur: '🪨', kagit: '📜', safir: '🔷' };
   function chestDue() { var e = ek(); return e && e.dc !== today() && (S().l.ocak || 1) >= 1; }
+  W.ekChest = { due: function () { return chestDue(); }, claim: function () { if (!chestDue()) return []; var e = ek(), s = S(), list = rewards(), cap = Infinity; try { cap = W.cap(); } catch (x) {} e.dc = today(); var dm = s.ek.dm = s.ek.dm || {}; dm.mat = dm.mat || { kagit: 0, safir: 0, opal: 0 }; list.forEach(function (it) { var k = it[0], v = it[1]; if (k === 'kagit' || k === 'safir') dm.mat[k] = (dm.mat[k] || 0) + v; else s.r[k] = Math.min(k === 'komur' ? Infinity : cap, (s.r[k] || 0) + v); }); persist(); return list.map(function (it) { return [RI[it[0]], it[1]]; }); } };
   function openChest() {
     if (document.getElementById('ek-chest')) return;
     var o = document.createElement('div'); o.id = 'ek-chest'; o.className = 'ek-ov';

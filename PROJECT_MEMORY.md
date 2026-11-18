@@ -247,3 +247,11 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - 6 NPC (3D basit yapı + üstte simge levhası #ek-npcs .np-mk, geniş dokunma; 3D'ye dokunma da açar): Kurultay Otağı (-9,-13: Kahramanlar tab u, İkililer, Bilge Meclisi rehberi), Kutsal Ocak ateşi + tamga direği (-12,8: Boy tab a, Ocak ilimleri, Ocak Obası=mgmt buildings, Akıncı, Katkı), Sefer Otağı (11,9: Ordu tab k, Müfreze, Seferler hub, Destan seferi), Ağıl (21,10, Ocak 4: Evcil, Binek), Tuğ direği (-22,-1, Ocak 3: Nevruz rNevruz, Destan canavarı, Emek Defteri tab e, Şan tabloları tab y ranking, Hasar tablosu), Hazine Otağı (-5,-25, Ocak 5: Koleksiyon, Başarımlar rAch, Unvanlar rTitles).
 - Pencere: html sekmeler kendi .np-win; popup sekmeler modülün penceresine .np-tabs şeridi eklenir; sayfa sekmeleri (u/a/k/e/y) üstte sabit #ek-npcbar (body.ek-npcbar-on, #wx gizli). Telefonda sekmeler üstte, geniş yatayda solda. Son sekme s.ek.npcT. Kilitli NPC tamga + "Ocak N". İlk girişte sırayla parlama s.ek.npcI. Bekleyen iş: altın hilal / yeşil çubuk.
 - Sol menü: k, r, u, a gizli (body.ek-npcmenu); 🎒 Çanta ve 💬 Sohbet eklendi (tema tab düğmelerinin class'ını siliyor → seçici [data-ek-chat]/[data-ek-bag2]). Kalan: Profil, Şehir(c), Çanta, Posta, Sohbet, Etkinlik/hediye(e); harita DÜNYA, ayarlar üst çubukta.
+
+## Paket 4 · 2. adım (ergenekon-arayuz.js)
+- Karşılama (#aw) birleşik: günlük hediye satırı (W.ekChest.due/claim, sistem.js) + Neler yeni (W.ekNews, kolay.js VER p4-2) eklenir; ana düğme "🎁 Topla" (giriş ödülü + sandık, sonuç raporu kuyrukta), Tamam/Sonra → ✕. Testlerde #aw kapatma: '#aw [data-awy]'.
+- Pencere kuyruğu: W.ekReport #aw/#ek-rep/#ek-chest/#ek-boot açıkken sıraya girer.
+- Kaynak çubuğu: odun, et, demir, kömür + ⋯ (çelik, darı, Kor, toz kartı; dokununca kaynak bilgisi).
+- Kısayol: profilde ⚒️ Demirci / 🐺 Setler; kahraman silah çipi (.kh-wp) → Demirci; geri tuşu W.ekPopBack ile önceki pencereye.
+- Ayarlar: Yazı A−/A/A＋ (s.ek.fs, zoom), Müzik seviyesi, Titreşim (s.ek.vib, navigator.vibrate sarmalı). Arama: menüde 🔎 (NPC sekmeleri, binalar, kaynak/malzeme nereden, canavarlar, kahramanlar, eylemler).
+- Pencereler 200 ms kayarak açılır (düşük grafik/tasarrufta 80 ms). iPad sınıfları ek-tablet-p/l. Kamera: şehir ve haritada ⌖ (city3d.home / world3d.focusPlayer); iki parmak zaten DOLLY_ROTATE.

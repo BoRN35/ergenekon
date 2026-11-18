@@ -49,7 +49,7 @@
   function goCity() { var b = document.querySelector('#tabs [data-t="c"]'); if (b) b.click(); else { W.tab = 'c'; try { W.render(); } catch (e) {} } }
   addEventListener('popstate', function () {
     var o = topOverlay(), pop = document.getElementById('pop'), handled = false;
-    if (o) handled = closeOv(o);
+    if (o) { handled = closeOv(o); if (W.ekPopBack) W.ekPopBack(); }
     else if (pop && pop.offsetParent) { var c = pop.querySelector('[data-pcl]'); if (c) { c.click(); handled = true; } }
     else if (W.tab && W.tab !== 'c') { goCity(); handled = true; }
     if (handled) { guard(); return; }

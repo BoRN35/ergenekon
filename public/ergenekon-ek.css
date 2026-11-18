@@ -1480,7 +1480,7 @@ html body .ch-loc{display:inline-block;width:auto!important;margin:0!important;p
 
 /* ===== Paket 4 · 1. adım: oba NPC'leri ===== */
 body.ek-npcmenu #tabs button[data-t="k"],body.ek-npcmenu #tabs button[data-t="r"],body.ek-npcmenu #tabs button[data-t="u"],body.ek-npcmenu #tabs button[data-t="a"]{display:none!important}
-html body.ek-nav7 #tabs#tabs > button[data-ek-chat]:not(#pfb):not([data-ex]),html body.ek-nav7 #tabs#tabs > button[data-ek-bag2]:not(#pfb):not([data-ex]){display:grid!important;place-items:center;background:none!important;border:0!important;box-shadow:none!important}
+html body.ek-nav7 #tabs#tabs > button[data-ek-chat]:not(#pfb):not([data-ex]),html body.ek-nav7 #tabs#tabs > button[data-ek-bag2]:not(#pfb):not([data-ex]),html body.ek-nav7 #tabs#tabs > button[data-ek-srch]:not(#pfb):not([data-ex]){display:grid!important;place-items:center;background:none!important;border:0!important;box-shadow:none!important}
 .ek-nxi{display:grid;place-items:center;line-height:0}
 #ek-npcs{position:absolute;inset:0;pointer-events:none;z-index:30}
 .np-mk{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:12px;pointer-events:auto;cursor:pointer;display:grid;place-items:center;background:linear-gradient(180deg,#3a2c1f,#1a130d);border:2px solid #c9921a;box-shadow:0 2px 8px #000a}
@@ -1524,3 +1524,41 @@ html body .np-g{display:grid!important;grid-template-columns:30px 1fr 14px;gap:8
 .np-lk{display:flex;flex-direction:column;align-items:center;gap:6px;margin:4px 14px 18px}
 .np-tamga{color:#f2c14e;filter:drop-shadow(0 0 6px #f2c14e88)}.np-lk b{font:700 18px Cinzel,serif;color:#ffe08a}.np-lk small{font-size:20px;letter-spacing:4px}
 body.ek-npcbar-on #wx{display:none!important}
+
+/* ===== Paket 4 · 2. adım: arayüz ===== */
+.aw-row{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:center}
+.aw-row i{font-style:normal;font-size:24px}.aw-row b{display:block}.aw-row small{opacity:.8;font-size:13px;letter-spacing:2px}
+.aw-new{border-color:#3fd6c8!important}
+#aw .aw-main{background:linear-gradient(180deg,#f0cd85,#c4913f 48%,#93621f)!important;color:#2b1704!important;font-weight:800}
+/* 161) dört kaynak + ⋯ */
+#res.ek-res4 [data-ek-res="celik"],#res.ek-res4 [data-ek-res="dari"],#res.ek-res4 [data-ek-res="kristal"]{display:none!important}
+#res .ek-more{display:grid;place-items:center;min-width:34px!important;cursor:pointer;border-radius:999px;background:#1a130dcc;border:1px solid #5a4630;padding:0 8px!important}
+#res .ek-more b{color:#ffe08a;font-size:16px;letter-spacing:1px}
+#ek-rmore{position:fixed;z-index:500;display:grid;gap:4px;padding:8px;border-radius:14px;background:#140f0bf2;border:1px solid #f2c14e88;box-shadow:0 8px 24px #000a;min-width:170px}
+html body #ek-rmore button{display:flex;justify-content:space-between;gap:10px;width:100%!important;margin:0!important;padding:7px 10px!important;border-radius:10px;background:#221a13!important;border:1px solid #3a2c1f!important;color:#f3e3c0!important}
+#ek-rmore b{color:#ffe08a}
+.ek-pfgo{display:flex;gap:6px;justify-content:center;margin:8px 0}
+html body .ek-pfgo button{width:auto!important;margin:0!important;padding:7px 14px!important;border-radius:999px;background:#221a13!important;border:1px solid #f2c14e!important;color:#ffe08a!important}
+.kh-wp{cursor:pointer}
+/* 163) yazı boyutu */
+body.ek-fs-s .yk-card,body.ek-fs-s .ek-modal,body.ek-fs-s .game-page-section,body.ek-fs-s .card{zoom:.92}
+body.ek-fs-l .yk-card,body.ek-fs-l .ek-modal,body.ek-fs-l .game-page-section,body.ek-fs-l .card{zoom:1.12}
+body.ek-fs-l .yk-card .card,body.ek-fs-s .yk-card .card{zoom:1}
+/* 165) arama */
+.sr-in{margin:0 14px 8px}.sr-in input{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:12px;border:1px solid #5a4630;background:#120d09;color:#f3e3c0;font:16px 'Alegreya Sans',sans-serif}
+.sr-list{display:grid;gap:4px;margin:0 14px 14px;max-height:56vh;overflow:auto}
+html body .sr-list button{display:grid!important;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;text-align:left;width:100%!important;margin:0!important;padding:8px 10px!important;border-radius:10px;background:#1a130d!important;border:1px solid #3a2c1f!important;color:#f3e3c0!important}
+.sr-list i{font-style:normal;font-size:18px}.sr-list small{opacity:.6;font-size:11px}.sr-none{text-align:center;opacity:.5}
+/* 167) yumuşak pencere geçişi */
+.ek-ov .yk-card,.ek-ov .ek-modal,#aw .awc{animation:ekIn .2s ease-out}
+body.ek-thumb .ek-ov .yk-card,body.ek-thumb .ek-ov .ek-modal{animation:ekUp .22s ease-out}
+body.ek-anim-fast .ek-ov .yk-card,body.ek-anim-fast .ek-ov .ek-modal{animation-duration:.08s}
+@keyframes ekIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes ekUp{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+/* 168) kamera */
+#ek-cam{position:absolute;right:12px;bottom:calc(env(safe-area-inset-bottom) + 220px);z-index:42;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#140f0bdd;border:1px solid #c9921a;box-shadow:0 2px 8px #000a}
+#ek-cam[hidden]{display:none}
+/* 164) iPad: dikeyde pencereler geniş ama ortalı levha, yatayda yan sekmeler */
+body.ek-tablet-p .ek-ov .yk-card,body.ek-tablet-p .ek-ov .ek-modal{width:min(640px,94vw)!important;max-width:none!important}
+body.ek-tablet-p .np-card{width:min(680px,94vw)!important}
+body.ek-tablet .np-tabs button{min-width:74px!important}

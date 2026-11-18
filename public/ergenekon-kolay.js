@@ -6,7 +6,7 @@
   'use strict';
   var W = window;
   if (W.__ekKolay) return; W.__ekKolay = true;
-  var VER = 'p2-1';
+  var VER = 'p4-2';
   function S() { return W.s; }
   function ek() { var s = S(); s.ek = s.ek || {}; return s.ek; }
   function nf(x) { try { return W.nf(x); } catch (e) { return Math.floor(x); } }
@@ -15,7 +15,8 @@
   function overlayOpen() { return document.querySelector('.ek-ov,#aw,#ek-chest'); }
 
   /* ---------- 76) Neler yeni ---------- */
-  var NEW = [['🔁', 'Sürekli eğitim'], ['🐎', 'Tekrar gönder'], ['🤝', 'Hepsine yardım'], ['📜', 'Önerilen ilim'], ['🌾', 'Ambar ışığı'], ['🎨', 'Grafik ve renk ayarı']];
+  var NEW = [['🏕️', 'Oba NPC’leri'], ['🔎', 'Oyun içi arama'], ['🔤', 'Yazı boyutu'], ['📳', 'Titreşim ayarı'], ['⌖', 'Kamera sıfırlama'], ['🎁', 'Tek karşılama kartı']];
+  W.ekNews = { ver: VER, items: NEW, seen: function () { ek().wv = VER; save(); } };
   function whatsNew() {
     var e = ek(); if (e.wv === VER || overlayOpen()) return;
     if ((S().l.ocak || 1) < 2) { e.wv = VER; save(); return; } // yeni başlayana gösterme

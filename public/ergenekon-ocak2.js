@@ -91,7 +91,7 @@
   }
   var RB = null;
   function rallyBtn() {
-    var r = rl(), now = Date.now(), show = r.until > now && !r.joined && !document.querySelector('.ek-ov');
+    var r = rl(), now = Date.now(), show = r.until > now && !r.joined && !document.querySelector('.ek-ov,#aw,#ek-boot') && (W.tab === 'c' || W.tab === 'm');
     if (!RB) { RB = document.createElement('button'); RB.type = 'button'; RB.id = 'ek-rally'; RB.addEventListener('click', joinRally); document.body.appendChild(RB); }
     RB.hidden = !show; if (!show) return;
     var x = W.ekDestanName ? W.ekDestanName() : { e: '👹' }, h = '<i>' + x.e + '</i><span><b>⚔ Katıl</b><small>' + esc(r.by) + ' · ' + ft((r.until - now) / 1000) + '</small></span>';
