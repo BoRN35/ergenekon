@@ -88,15 +88,16 @@
   }
   function mapFx(now) {
     var w = W.world3d; if (!w || !w.pveGroup || W.tab !== 'm') return;
-    var far = w.camera && w.camera.zoom < .42, t = now / 1000, s = S(), o = s.l.ocak || 1, L = W.ekFaunaLegend || {};
+    var far = W.ekFar ? W.ekFar() : (w.camera && w.camera.zoom < .42), t = now / 1000, s = S(), o = s.l.ocak || 1, L = W.ekFaunaLegend || {};
     var C = classes();
     w.pveGroup.children.forEach(function (g) {
       var a = g.userData && g.userData.worldAction; if (!a) return;
       if (a.kind === 'monster' || a.kind === 'node') {
-        if (g.__ekVis === undefined) g.__ekVis = g.visible;
-        if (far && g.visible) { g.visible = false; g.__ekFar = true; } else if (!far && g.__ekFar) { g.visible = true; g.__ekFar = false; }
+        // uzakta gizle: grubun görünürlüğünü oyun motoru her güncellemede yeniden açtığı için
+        // (yanıp sönme) grubun kendisine değil, alt parçalarına dokunuyoruz
+        if (!!g.__ekFar !== far) { g.__ekFar = far; g.children.forEach(function (c) { c.visible = !far; }); }
       }
-      if (a.kind === 'monster' && g.visible) {
+      if (a.kind === 'monster' && g.visible && !g.__ekFar) {
         var i = a.index, ph = (i * 1.7) % 6.28;
         if (g.__ekRy === undefined) g.__ekRy = g.rotation.y;
         g.rotation.y = g.__ekRy + Math.sin(t * .35 + ph) * .45;           // yavaş dönüp etrafa bakma
@@ -106,7 +107,7 @@
           var m = new C.Mat({ color: '#bfe8ff', emissive: '#bfe8ff', emissiveIntensity: 1.1, transparent: true, opacity: .2, depthWrite: false });
           var au = new C.Mesh(new C.SphereGeometry(1, 16, 12), m); au.scale.set(2.6, 1.8, 2.6); au.position.y = 1.4; au.renderOrder = 3; g.add(au); FX.auras[i] = au;
         }
-        if (FX.auras[i]) FX.auras[i].material.opacity = .14 + Math.sin(t * 2 + ph) * .07;
+        if (FX.auras[i]) FX.auras[i].material.opacity = .15 + Math.sin(t * .8 + ph) * .025;
       }
     });
   }

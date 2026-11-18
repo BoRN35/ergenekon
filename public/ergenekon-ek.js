@@ -8,6 +8,8 @@
 (function () {
   'use strict';
   var W = window;
+  // uzak görünüm eşiği: gidip gelmesin diye iki eşikli (0.40 / 0.44)
+  W.ekFar = function () { var w = W.world3d, z = w && w.camera ? w.camera.zoom : 1; W.__ekFarS = W.__ekFarS ? z < .44 : z < .40; return W.__ekFarS; };
   if (W.__ergenekonEk) return;
   W.__ergenekonEk = true;
 
@@ -743,7 +745,7 @@
     if (!LB.v) LB.v = new w.camera.position.constructor();
     var s = S(), M = W.M || [], cv = w.renderer.domElement.getBoundingClientRect(), mb = mapv.getBoundingClientRect();
     var ocakLv = (s.l && s.l.ocak) || 1, mx = 1; try { mx = W.maxLv(); } catch (e) {}
-    var far = w.camera.zoom < 0.42, seen = {};
+    var far = W.ekFar(), seen = {};
     w.pveTargets.forEach(function (t) {
       if (!t.visible || (t.kind !== 'monster' && t.kind !== 'node')) return;
       var lv, cls, hid = false;
