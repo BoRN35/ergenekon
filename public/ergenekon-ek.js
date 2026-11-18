@@ -790,6 +790,7 @@
     var w = W.world3d, h = w && w.selfPosition; if (!w || !w.controls || !h) return null;
     var t = w.controls.target; return { x: Math.round((t.x - h.x) / 4 + 50), y: Math.round((t.z - h.z) / 4 + 50) };
   }
+  W.ekGoLogical = function (x, y) { goLogical(x, y); };
   function goLogical(x, y) {
     var w = W.world3d, h = w && w.selfPosition; if (!w || !w.controls || !h) return;
     var c = w.controls, cam = w.camera, nx = h.x + (x - 50) * 4, nz = h.z + (y - 50) * 4, dx = nx - c.target.x, dz = nz - c.target.z;

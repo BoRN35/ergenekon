@@ -163,12 +163,12 @@
   }
   var DBT = [.1, .3, .6, 1];
   function destanChip() { var d = destan(), x = DB[d.i]; return '<button type="button" class="db-chip" data-ek-db="1"><i>' + x.e + '</i><span><b>' + x.n + '</b><small>' + (d.hp > 0 ? Math.round(d.hp / d.max * 100) + '% can' : 'Yenildi') + '</small></span></button>'; }
-  function hitDestan() {
+  function hitDestan(rally) {
     var s = S(), d = destan(), now = Date.now(), en = 30;
-    if (d.hp <= 0 || d.cd > now || !s.en || s.en.v < en) return;
+    if (d.hp <= 0 || (!rally && d.cd > now) || !s.en || s.en.v < en) return;
     s.en.v -= en;
     var st = W.cs(), troops = 0; try { troops = W.tpowv(0); } catch (e) {}
-    var my = Math.round((st.atk * 40 + troops * .5) * (.85 + Math.random() * .3)), clan = Math.round(my * (1.5 + Math.random()));
+    var my = Math.round((st.atk * 40 + troops * .5) * (.85 + Math.random() * .3) * (rally ? 1.3 : 1)), clan = Math.round(my * (rally ? 3 + Math.random() : 1.5 + Math.random()));
     d.hp = Math.max(0, d.hp - my - clan); d.dmg += my; d.cd = now + 30 * 60 * 1000;
     try { var w = W.woundArmy ? W.woundArmy(.04) : 0; } catch (e) {}
     var rows = [['⚔', '+' + nf(my)], ['🛡️👥', '+' + nf(clan)]];
@@ -176,6 +176,8 @@
     save(); rer();
     if (W.ekReport) W.ekReport({ title: DB[d.i].n, win: d.hp <= 0, sub: d.hp <= 0 ? 'Destan canavarı düştü' : Math.round(d.hp / d.max * 100) + '% can kaldı', rows: rows });
   }
+  W.ekHitDestan = hitDestan; W.ekDestan = function () { return destan(); }; W.ekDestanName = function () { return DB[destan().i]; };
+  W.ekBestFormation = function () { try { var b = bestFormation(); W.setFormation(b.f); pairsAuto(); } catch (e) {} };
   function dbReward(i) {
     var s = S(), dm = (s.ek.dm = s.ek.dm || {}); dm.mat = dm.mat || { kagit: 0, safir: 0, opal: 0 }; var out = [];
     dm.mat.kagit += 2 + i * 2; out.push(['📜', '+' + (2 + i * 2)]);

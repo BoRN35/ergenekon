@@ -235,3 +235,10 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Haftalık posta: hafta değişince "📦 Haftanın emeği" (Emek Defteri alınmamış kademe malzemeleri + ⌛, arena puanına göre toz, boy katkısına göre toz + iksir); mail rw.ek {mat, ks, ei} mcol sarmalıyla alınır.
 - Toplu posta #ek-mbar (posta sekmesinde sağ alt): ✓ hepsi okundu, 🗑 okunmuş ve ödülsüzleri sil.
 - Nevruz bitince (nvDone) #ek-nvfx: uçuşan hasar sayıları, büyük vuruşlar altın, toplam sayaç.
+
+## Paket 3 · 6. adım (ergenekon-ocak2.js)
+- Ocak ilimleri s.ek.ot: 6 dal (toplama, üretim, yapım hızı, saldırı, savunma, Akıncı gücü), 10 sv; XP bağış (%10'luk paket odun/et/demir) + YZ üyeler odak dala saatte üye×18×1.15^Ocak; Han/Bey odak seçer. wosBonus/pm/cb/dur sarmalı, W.ekAkinciBonus, W.ekOcakTech (bonus listesi).
+- Ocak hediyesi seviyesi: s.ek.oc.gx (açılan hediye sayısı), Sv = √(gx/6)+1, her sv kaynak hediyelerini +%10.
+- Destan canavarı boy hasar tablosu (kendi d.dmg + kalan hasarın üyelere paylaşımı). Ralli: Han/Bey ara sıra 10 dk'lık ralli açar (s.ek.rl) → ekranın altında "⚔ Katıl" → en iyi düzen + bekleme süresiz vuruş (×1.3, boy ×3–4).
+- Konum paylaş: Konuma Git penceresinde 📍 Sohbete → "📍X · Y" mesajı; sohbette dokununca haritada oraya gider (W.ekGoLogical).
+- Oyuncu kartı: vitrin 📤 → 720×1000 PNG (portre, unvan, Ocak, güç, Kut, en iyi 3 kahraman, en yüksek +, av, davet kodu s.ek.inv), paylaşım menüsü ya da indirme. Davet ödülü/arkadaş listesi sunucuyla.

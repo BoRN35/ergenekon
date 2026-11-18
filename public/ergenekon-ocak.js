@@ -72,7 +72,7 @@
   function myPow() { var c = W.cs(), t = 0; try { t = W.tpowv(0); } catch (e) {} return Math.round(c.atk * 3 + c.def * 2 + c.hp * .3 + t * .05); }
   var FN = ['⚖', '🗡️', '🐎', '🏹'];
   function powF(f) { var s = S(), keep = s.formation; s.formation = f; try { return myPow(); } finally { s.formation = keep; } }
-  function akPow() { var f = S().ek.akf; return f == null ? myPow() : powF(f); }
+  function akPow() { var f = S().ek.akf; return (f == null ? myPow() : powF(f)) * (W.ekAkinciBonus ? W.ekAkinciBonus() : 1); }
   function akBest() { var b = 0, bp = -1; for (var f = 0; f < 4; f++) { var p = powF(f); if (p > bp) { bp = p; b = f; } } return b; }
   function runWaves() {
     var a = akState(); if (a.done) return; var mp = akPow(), w = 0, s = S(), m = dm().mat, res = 0, rows = [], cap = Infinity;
