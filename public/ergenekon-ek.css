@@ -664,3 +664,49 @@ html body #mapi .row:has(> button[data-mz]) { display: none !important; }
 .ar-acts .ek-btn[disabled] { filter: grayscale(.7) brightness(.7); }
 .ek-pulse { animation: ekPulse .8s ease-in-out 2; } @keyframes ekPulse { 50% { box-shadow: 0 0 0 4px #ffd76a; } }
 #ek-arena { border-radius: 12px; margin: 0 0 12px; }
+
+/* ===== Yapı kartı (WOS tarzı sade bina bilgisi) ===== */
+html body:not(.ek-detail) #tc > aside.city-context { display: none !important; }
+html body:not(.ek-detail) #tc.city-workspace { grid-template-columns: minmax(0, 1fr) !important; }
+html body:not(.ek-detail) #tc > #cityv { grid-column: 1 / -1 !important; width: 100% !important; }
+html body .world-info { display: none !important; }
+.yk-ov { z-index: 9500; }
+.yk-card { position: relative; width: min(440px, 100%); max-height: calc(100vh - 40px); overflow-y: auto; box-sizing: border-box; padding: 0 0 14px; color: #efe6d2; font-family: 'Alegreya Sans', system-ui, sans-serif;
+  background: linear-gradient(180deg, #1c2a2d, #101a1c); border: 2px solid #b8894a; border-radius: 14px; box-shadow: 0 0 0 1px #2a1c0e, 0 24px 60px rgba(0,0,0,.7); }
+.yk-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; height: 52px; background: linear-gradient(180deg, #5a3d1e, #36230f); border-bottom: 2px solid #b8894a; border-radius: 12px 12px 0 0; }
+.yk-head h2 { margin: 0; font: 800 22px 'Cinzel', Georgia, serif; color: #f6dfa9; text-shadow: 0 2px 0 #1b0f04; }
+.ek-ov .yk-x { position: absolute; right: 10px; top: 9px; width: 34px; height: 34px; min-height: 0 !important; padding: 0 !important; border-radius: 8px !important; border: 1px solid #c99a4e !important; background: rgba(0,0,0,.3) !important; color: #f6dfa9 !important; font-size: 17px; }
+.yk-hero { position: relative; display: flex; justify-content: center; padding: 14px 0 22px; background: radial-gradient(ellipse at 50% 55%, rgba(255,214,140,.16), transparent 65%); }
+.yk-hero img { width: 190px; height: 190px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(0,0,0,.5)); }
+.yk-ph { font-size: 110px; line-height: 190px; }
+.yk-lv { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); min-width: 40px; height: 40px; padding: 0 8px; box-sizing: border-box; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font: 900 19px system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px #000;
+  background: radial-gradient(circle at 40% 35%, #e0663a, #8e2a14); border: 3px solid #f2c26a; box-shadow: 0 0 0 2px #3a1c08, 0 4px 8px rgba(0,0,0,.5); }
+.yk-sec { margin: 0 14px; padding: 7px 0; text-align: center; font: 800 15px 'Cinzel', Georgia, serif; color: #f2d58e; background: linear-gradient(180deg, rgba(184,137,74,.28), rgba(184,137,74,.12)); border-radius: 8px 8px 0 0; }
+.yk-desc { margin: 0 14px 12px; padding: 12px 14px; text-align: center; font-size: 15px; line-height: 1.45; color: #e2d6bc; background: rgba(0,0,0,.25); border-radius: 0 0 8px 8px; }
+.yk-tab { margin: 0 14px 12px; border-radius: 0 0 8px 8px; overflow: hidden; }
+.yk-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; font-size: 15px; background: rgba(0,0,0,.22); }
+.yk-row:nth-child(2n) { background: rgba(0,0,0,.32); }
+.yk-row span { color: #d8cbae; } .yk-row b { color: #fff; font-weight: 800; }
+.yk-row em { font-style: normal; color: #7be0a2; margin-left: 2px; }
+.yk-cost { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 10px; margin: 0 14px 8px; font-size: 14px; }
+.yk-time { color: #cdbf9f; font-weight: 700; }
+.yk-req { margin: 0 14px 8px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.ek-ov .yk-main { display: block; width: calc(100% - 28px); margin: 4px 14px 8px; height: 50px; min-height: 0 !important; border-radius: 12px !important; font: 800 18px 'Cinzel', Georgia, serif !important;
+  color: #2b1704 !important; background: linear-gradient(180deg, #f0cd85 0%, #c4913f 48%, #93621f 100%) !important; border: 1px solid #5a3a12 !important; box-shadow: 0 3px 0 #3a2508, 0 6px 14px rgba(0,0,0,.4) !important; }
+.ek-ov .yk-main[disabled] { filter: grayscale(.75) brightness(.7); }
+.yk-acts { display: flex; gap: 8px; margin: 0 14px 8px; }
+.ek-ov .yk-btn { flex: 1; height: 42px; min-height: 0 !important; margin: 0 !important; padding: 0 8px !important; border-radius: 10px !important; font-size: 14px !important; color: #f6e6c0 !important;
+  background: linear-gradient(180deg, #6e4c27, #46301a) !important; border: 1px solid #b8894a !important; }
+.ek-ov .yk-more { display: block; width: calc(100% - 28px); margin: 2px 14px 0; height: 40px; min-height: 0 !important; border-radius: 10px !important; font-size: 14px !important;
+  background: linear-gradient(180deg, #1f6e68, #134a47) !important; color: #e8fffb !important; border: 1px solid #4fd1c3 !important; }
+.yk-prog { margin: 0 14px 8px; display: grid; grid-template-columns: 1fr auto; gap: 4px; font-size: 14px; color: #cdbf9f; }
+.yk-prog b { color: #fff; } .yk-prog i { grid-column: 1 / -1; height: 10px; border-radius: 6px; background: #0c1517; border: 1px solid #4d3b22; overflow: hidden; }
+.yk-prog u { display: block; height: 100%; background: linear-gradient(90deg, #c4913f, #f0cd85); text-decoration: none; }
+.yk-max { text-align: center; color: #7be0a2; font-weight: 800; }
+@media (max-width: 760px) {
+  .yk-ov { align-items: center; padding: 10px 10px calc(66px + env(safe-area-inset-bottom)); }
+  .yk-card { max-height: calc(100dvh - 90px); }
+  .yk-hero img { width: 150px; height: 150px; } .yk-ph { font-size: 90px; line-height: 150px; }
+  body.ek-detail #tc > aside.city-context { position: fixed !important; inset: auto 0 calc(58px + env(safe-area-inset-bottom)) 0 !important; max-height: 70vh !important; overflow: auto !important; z-index: 55 !important; }
+}
