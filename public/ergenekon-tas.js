@@ -29,16 +29,18 @@
   setInterval(patch, 400);
   /* --- kalan eski renkli kutuları taşa çevir (yalnız arka plan; tıklama/mantık değişmez) --- */
   var ST = {
-    p: [['background', 'rgba(30,31,32,.88)'], ['border-color', '#1b1c1d']],
+    p: [['background', '#222324'], ['border-color', '#1b1c1d']],
+    pt: [['background', 'rgba(30,31,32,.86)'], ['border-color', '#1b1c1d']],
     b: [['background', 'linear-gradient(180deg,#36383a,#26282a)'], ['border-color', '#1b1c1d'], ['box-shadow', 'inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45)'], ['color', '#e9e2d0']],
     on: [['background', 'linear-gradient(180deg,#2a2b2c,#1f2021)'], ['border-color', '#5fd0d8'], ['box-shadow', 'inset 0 -2px 0 #e8c66a,0 0 10px rgba(95,208,216,.22)'], ['color', '#e8c66a']]
   };
   var PROPS = ['background', 'border-color', 'box-shadow', 'color'];
   function clear(e) { if (!e.dataset.tas) return; PROPS.forEach(function (k) { e.style.removeProperty(k); }); delete e.dataset.tas; }
+  var LA = 1;
   function hue(bg) {
     var m = bg.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?/); if (!m) return null;
-    var R = +m[1], G = +m[2], B = +m[3], A = m[4] == null ? 1 : +m[4]; if (A < .12) return null;
-    var mx = Math.max(R, G, B), mn = Math.min(R, G, B); if (mx - mn < (mx < 75 ? 7 : 16)) return null;
+    var R = +m[1], G = +m[2], B = +m[3], A = m[4] == null ? 1 : +m[4]; if (A < .12) return null; LA = A;
+    var mx = Math.max(R, G, B), mn = Math.min(R, G, B); if (mx - mn < (mx < 75 ? 7 : 16)) return null; if (mx > 140) return 'gold';
     if (R > 185 && G > 135 && B < 150) return 'gold';
     if (G >= R && B >= R - 6) return (G > 85 && mx - mn > 38) ? 'hi' : 'teal';
     if (R > B) return (R > 150 && G < 90) ? 'red' : 'brown';
@@ -56,25 +58,31 @@
     var h = hue(bg); if (!h || h === 'gold' || h === 'red') { e.__tasn = 1; return; }
     var r = e.getBoundingClientRect(); if (r.width * r.height < 400) { e.__tasn = 1; return; }
     var btn = e.tagName === 'BUTTON' || e.getAttribute('role') === 'button';
-    var k = btn ? (h === 'hi' || /\b(on|is-selected|active|sel)\b/.test(e.className) ? 'on' : 'b') : 'p';
+    if (!btn && h === 'hi') { e.__tasn = 1; return; }
+    var k = btn ? (h === 'hi' || /\b(on|is-selected|active|sel)\b/.test(e.className) ? 'on' : 'b') : (LA > .7 ? 'p' : 'pt');
     e.__tasn = 0; Q.push([e, k]);
   }
-  var dirty = true, busy = false, Q = [];
+  var Q = [], ROOTS = '.wrap>.ovp, .ek-ov, #ek-npcbar, #cp, #aw, #tm .side, #tc .side, #qp, #pop', SEL = 'div,section,aside,article,header,nav,button,span,li,label,a,[role=button]';
+  function flush() { Q.forEach(function (q) { var e = q[0], k = q[1]; e.dataset.tas = k; ST[k].forEach(function (x) { e.style.setProperty(x[0], x[1], 'important'); }); }); Q = []; }
+  function scan(R) { if (!R.offsetWidth) return; if (R.matches && R.matches(SEL)) fix(R); var all = R.querySelectorAll(SEL); for (var j = 0; j < all.length; j++) if (all[j].offsetWidth) fix(all[j]); }
   function sweep() {
-    if (!dirty || busy || !H.classList.contains('tas')) return; dirty = false; busy = true;
-    try {
-      var roots = D.querySelectorAll('.wrap>.ovp, .ek-ov, #ek-npcbar, #cp, #aw, #tm .side, #tc .side, #qp, #pop');
-      for (var i = 0; i < roots.length; i++) {
-        var R = roots[i]; if (!R.offsetWidth) continue;
-        var all = R.querySelectorAll('div,section,aside,article,header,nav,button,span,li,label,a,[role=button]');
-        for (var j = 0; j < all.length; j++) if (all[j].offsetWidth) fix(all[j]);
-      }
-      Q.forEach(function (q) { var e = q[0], k = q[1]; e.dataset.tas = k; ST[k].forEach(function (x) { e.style.setProperty(x[0], x[1], 'important'); }); }); Q = [];
-    } catch (e) {}
-    busy = false;
+    if (!H.classList.contains('tas')) return;
+    try { var roots = D.querySelectorAll(ROOTS); for (var i = 0; i < roots.length; i++) scan(roots[i]); } catch (e) {}
+    flush();
   }
-  new MutationObserver(function () { dirty = true; }).observe(D.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
-  setInterval(sweep, 350);
-  var oldT = W.ekTema; W.ekTema = function (v) { oldT(v); if (!v) D.querySelectorAll('[data-tas]').forEach(clear); else dirty = true; };
+  /* boyama öncesi: yeni eklenen düğümler aynı anda taşa çevrilir, yanıp sönme olmaz */
+  new MutationObserver(function (ms) {
+    if (!H.classList.contains('tas')) return;
+    try {
+      for (var i = 0; i < ms.length; i++) {
+        var m = ms[i];
+        if (m.type === 'attributes') { var t = m.target; if (t.nodeType === 1 && t.closest && t.closest(ROOTS)) scan(t); continue; }
+        for (var j = 0; j < m.addedNodes.length; j++) { var n = m.addedNodes[j]; if (n.nodeType === 1 && (n.matches(ROOTS) || n.closest(ROOTS))) scan(n); }
+      }
+    } catch (e) {}
+    flush();
+  }).observe(D.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'hidden'] });
+  setInterval(sweep, 1200);
+  var oldT = W.ekTema; W.ekTema = function (v) { oldT(v); if (!v) D.querySelectorAll('[data-tas]').forEach(clear); else sweep(); };
 
 })(window);

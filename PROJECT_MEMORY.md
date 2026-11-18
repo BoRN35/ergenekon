@@ -280,3 +280,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Dosyalar: public/ergenekon-tas.css (html.tas altında, yalnız görünüş) + public/ergenekon-tas.js (html.tas sınıfı, NPC emojilerini çizgi simgeye çevirir, sayfalarda kalan eski çivit/kahverengi kutuları satır içi taş rengine çevirir — oku-sonra-yaz, sınıf değişince yeniden bakar).
 - Kapatma: localStorage ek_tema='eski' ya da W.ekTema(false). Tamamen kaldırmak: index.html'deki ergenekon-tas satırını sil.
 - Kayıt/oyun mantığına dokunulmadı.
+- 18 Kasım: yanıp sönme düzeltildi — taşa çevirme artık MutationObserver içinde, boyamadan önce yapılıyor; açık renkli/altın kutular (avatarlar) ve vurgulu satırlar (Sen) korunuyor; opak kutular opak kalıyor.
