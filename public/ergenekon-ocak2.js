@@ -147,7 +147,7 @@
       }, 'image/png');
     });
   }
-  W.ekShareCard = shareCard;
+  W.ekShareCard = shareCard; W.ekOpenTech = function () { openTech(); }; W.ekDmgTable = function () { dmgTable(); };
   function vitrinBtn() { var v = document.querySelector('.ek-vt .vt-acts'); if (v && !v.querySelector('[data-ek-share]')) v.insertAdjacentHTML('beforeend', '<button type="button" data-ek-share="1" aria-label="Paylaş">📤</button>'); }
   document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('[data-ek-share]'); if (!b) return; ev.stopPropagation(); ev.preventDefault(); shareCard(); }, true);
 
