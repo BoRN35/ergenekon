@@ -86,6 +86,7 @@
     if (w >= 8) { m.safir += 1; rows.push(['🔷', '+1']); }
     if (w >= 10) { m.opal += 1; rows.push(['🔮', '+1']); }
     if (W.ekHourglass) { if (w >= 3) rows = rows.concat(W.ekHourglass.add(2, 0)); if (w >= 6) rows = rows.concat(W.ekHourglass.add(0, 1)); }
+    if (W.ekPotion && w >= 5) rows = rows.concat(W.ekPotion.add(w >= 8 ? 2 : 1, 0));
     try { var wd = W.woundArmy(.02 * (w + 1)); if (wd) rows.push(['🩹', '+' + nf(wd)]); } catch (e) {}
     a.w = w; a.done = 1; save(); try { W.render(); } catch (e) {}
     var me = w * 10, clan = me; members().forEach(function (m) { clan += (hsh(m.n + a.p) % 9) * 10; });

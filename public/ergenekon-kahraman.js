@@ -183,6 +183,7 @@
     if (i >= 2) { dm.mat.opal += i - 1; out.push(['🔮', '+' + (i - 1)]); }
     var h = Math.floor(Math.random() * HH().length); s.hc[h] = (s.hc[h] || 0) + 2 + i * 3; out.push(['🃏', HH()[h].n + ' +' + (2 + i * 3)]);
     if (W.ekHourglass) out = out.concat(W.ekHourglass.add(i + 1, i >= 3 ? 1 : 0));
+    if (W.ekPotion) out = out.concat(W.ekPotion.add(1, i >= 2 ? 1 : 0));
     var stl = Math.round((i + 1) * 120 * ((s.l && s.l.ocak) || 1)); s.r.celik = (s.r.celik || 0) + stl; out.push(['🔩', '+' + stl]);
     return out;
   }

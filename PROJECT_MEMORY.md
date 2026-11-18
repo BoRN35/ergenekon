@@ -227,3 +227,11 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Toplayıcı kahraman: Oğuz odun, Fatih et, Kubilay demir, Timur kömür; %2.5×(★+1) en çok %15 (wosBonus tür etiketine), portrede küçük simge, Gönder levhasında uzman satırı.
 - Atlı Okçu yolu: Ordu çubuğundaki .ao kartına dokun → 3 adımlı yol (Kışla 35, Ocak 35, Harp Akademisi 10), dokun → bina.
 - Destan seferi: geçilmiş bölüme dokun → bölüm tarama (günde 5): kaynak, çelik, %40+ kağıt, %15 kart. Akıncı: ayrı kayıtlı düzen s.ek.akf (⚖🗡️🐎🏹, ✦ en iyi), sonuç kartı 🌊 dalga · 🏅 kişisel · 🔥 boy puanı.
+
+## Paket 3 · 5. adım (ergenekon-odul.js)
+- Ganimet kaydı s.ek.gl (50): fight sarmalı s.last'ı (HTML temizlenip) ayrıştırır, ekReport satırları (Seri av/Av hariç), posta ek ödülleri, Nevruz; 3 sn içinde aynısı yazılmaz. Profil vitrini 🧾 ve Güç kartında.
+- Aktif bonuslar (W.ekOpenBonus, vitrin 📋, Güç kartı): toplamlar (toplama/üretim/saldırı/savunma/can) + kaynak satırları; W.ekOcakTech() varsa Ocak teknolojileri de listelenir (116'da eklenecek).
+- Enerji iksiri s.ek.ei {s:+10, l:+30} (W.ekPotion): Emek Defteri kademeleri, destan canavarı eşikleri, Akıncı 5+ dalga; harita kartındaki ⚡ çipine dokun → kullan (EN_MAX'ı aşmaz).
+- Haftalık posta: hafta değişince "📦 Haftanın emeği" (Emek Defteri alınmamış kademe malzemeleri + ⌛, arena puanına göre toz, boy katkısına göre toz + iksir); mail rw.ek {mat, ks, ei} mcol sarmalıyla alınır.
+- Toplu posta #ek-mbar (posta sekmesinde sağ alt): ✓ hepsi okundu, 🗑 okunmuş ve ödülsüzleri sil.
+- Nevruz bitince (nvDone) #ek-nvfx: uçuşan hasar sayıları, büyük vuruşlar altın, toplam sayaç.

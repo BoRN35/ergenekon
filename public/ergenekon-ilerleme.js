@@ -99,7 +99,7 @@
     { id: 'kg', e: '⛰', t: 'Kurgan keşfi', n: 2, v: function () { var kg = ek().kg || {}; return Object.keys(kg).filter(function (k) { return kg[k].done; }).length; } },
     { id: 'ars', e: '🏟️', t: 'Arena mücadelesi', n: 10, v: function (s) { return s.stat.arena || 0; } }
   ];
-  var EDT = [[2, [['📜', 3], ['odun', 1], ['⏳', 3]]], [4, [['🔷', 1], ['📜', 5], ['⌛', 1]]], [6, [['🔮', 1], ['🃏', 5], ['⌛', 2]]]];
+  var EDT = [[2, [['📜', 3], ['odun', 1], ['⏳', 3], ['🧪', 2]]], [4, [['🔷', 1], ['📜', 5], ['⌛', 1], ['🧪', 2]]], [6, [['🔮', 1], ['🃏', 5], ['⌛', 2], ['⚗️', 1]]]];
   function ed() {
     var e = ek(), s = S(), w = week();
     if (!e.ed || e.ed.w !== w) { e.ed = { w: w, b: {}, cl: [] }; ED.forEach(function (g) { e.ed.b[g.id] = g.v(s); }); }
@@ -125,6 +125,7 @@
     t[1].forEach(function (r) {
       if (r[0] === '📜') m.kagit += r[1]; else if (r[0] === '🔷') m.safir += r[1]; else if (r[0] === '🔮') m.opal += r[1];
       else if (r[0] === '🃏') { var h = Math.floor(Math.random() * (W.HH || []).length); s.hc[h] = (s.hc[h] || 0) + r[1]; }
+      else if (r[0] === '🧪' || r[0] === '⚗️') { if (W.ekPotion) W.ekPotion.add(r[0] === '🧪' ? r[1] : 0, r[0] === '⚗️' ? r[1] : 0); }
       else if (r[0] === '⏳' || r[0] === '⌛') { if (W.ekHourglass) W.ekHourglass.add(r[0] === '⏳' ? r[1] : 0, r[0] === '⌛' ? r[1] : 0); }
       else if (r[0] === 'odun') { var pk = s.ek.pk = s.ek.pk || {}; pk.odun = pk.odun || { g: 0, b: 0, p: 0 }; pk.odun.b += 1; }
       rows.push([r[0] === 'odun' ? '📦' : r[0], '+' + r[1]]);
