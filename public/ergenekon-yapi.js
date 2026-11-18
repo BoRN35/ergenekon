@@ -101,7 +101,7 @@
       });
     }
     var h = cardHtml(k); if (o.__ekh !== h) { o.__ekh = h; o.innerHTML = h; }
-    cur = k;
+    cur = k; o.dataset.k = k;
   }
   function sync() {
     var k = ''; try { k = W.BMK || ''; } catch (e) {}

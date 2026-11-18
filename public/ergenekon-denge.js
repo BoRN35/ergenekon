@@ -24,7 +24,7 @@
   var TT = ['🗡️', '🐎', '🏹'], TN = ['Piyade', 'Süvari', 'Okçu'];
   // canavarın "savaş biçimi": hızlı/sürü = süvari gibi (piyade yener), ağır/iri = piyade gibi (okçu yener), uçan/ruh/uzak = okçu gibi (süvari yener)
   function styleOf(name) {
-    if (/Kurt|Tilki|Geyik|Karaca|At |Atı|Vaşak|Pars|Keçi|Börü/.test(name)) return 1;
+    if (/Kurt|Kurd|Tilki|Geyik|Karaca|At |Atı|Vaşak|Pars|Keçi|Börü/.test(name)) return 1;
     if (/Ayı|Boğa|Öküz|Domuz|Mamut|Dev|Tepegöz|Karakoncolos/.test(name)) return 0;
     return 2; // Kartal, Yılan Ruhu, Albastı, Ejder, Erlik’in Gölgesi …
   }

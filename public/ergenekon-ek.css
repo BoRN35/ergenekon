@@ -1314,3 +1314,41 @@ html body .ad-rpa button{width:30px;height:30px;padding:0!important;border-radiu
 .bn-feed{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;margin:0 14px 10px;padding:8px 10px;border-radius:12px;background:#1a130d;border:1px solid #3a2c1f}
 .bn-feed.on{border-color:#3fd6c8}.bn-feed i{font-style:normal;font-size:22px}.bn-feed b{display:block;font-size:13px}.bn-feed small{font-size:11px;opacity:.7}
 html body .bn-feed button{padding:8px 10px!important;border-radius:10px;background:#221a13!important;border:1px solid #f2c14e!important;color:#ffe08a!important;width:auto!important;margin:0!important}
+
+/* ===== Paket 3 · 1. adım: işaretler ===== */
+#ek-hil{position:absolute;inset:0;pointer-events:none;z-index:29}
+.ek-hl{position:absolute;left:0;top:0;width:28px;height:28px;pointer-events:auto;cursor:pointer;display:grid;place-items:center}
+.ek-hl i{display:block;width:20px;height:20px;border-radius:50%;box-shadow:inset -6px 3px 0 0 #f2c14e;filter:drop-shadow(0 0 5px #f2c14e);animation:ekHil 2.4s ease-in-out infinite;font-style:normal}
+.ek-hl-new i{box-shadow:none;width:auto;height:auto;color:#ffe08a;font-size:20px;text-shadow:0 0 8px #ffd34c}
+.ek-hl-wd i{box-shadow:inset -6px 3px 0 0 #e49a2a;filter:drop-shadow(0 0 6px #e49a2a)}
+@keyframes ekHil{50%{opacity:.55;transform:translateY(-3px)}}
+.ek-idle{position:absolute;top:2px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#2aa39a;color:#fff;font:800 10px/16px 'Alegreya Sans',sans-serif;font-style:normal;pointer-events:none;box-sizing:border-box;text-align:center}
+.ek-hl-dot{position:absolute;top:-2px;right:-2px;width:11px;height:11px;border-radius:50%;box-shadow:inset -3px 1px 0 0 #f2c14e;filter:drop-shadow(0 0 4px #f2c14e);pointer-events:none}
+#tabs [data-t="k"],[data-ek-pet]{position:relative}
+.kut-nx{display:flex;gap:8px;justify-content:center;align-items:center;margin:-4px 0 10px;font-size:12px}
+.kut-nx small{opacity:.7}.kut-nx span{padding:2px 8px;border-radius:999px;background:#1a130d;border:1px solid #5a4630}
+#ek-rinfo{position:fixed;z-index:500;width:200px;padding:10px;border-radius:14px;background:#140f0bf2;border:1px solid #f2c14e88;box-shadow:0 8px 24px #000a;color:#f3e3c0}
+#ek-rinfo>b{display:block;font:700 13px Cinzel,serif;color:#ffe08a}
+.ri-n{display:flex;justify-content:space-between;align-items:baseline;margin:4px 0}.ri-n span{font-size:18px;font-weight:800}.ri-n small{color:#5fe3d6}
+#ek-rinfo u,.ek-prod u{display:block;height:6px;border-radius:4px;background:#0f0b08;overflow:hidden;text-decoration:none;margin:4px 0}
+#ek-rinfo u em,.ek-prod u em{display:block;height:100%;background:linear-gradient(90deg,#2aa39a,#5fe3d6)}
+#ek-rinfo u em.hi,.ek-prod u em.hi{background:linear-gradient(90deg,#b86a12,#ffb347)}
+.ri-go{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+html body .ri-go button{flex:1;padding:6px 4px!important;border-radius:10px;font-size:12px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important;min-width:0;width:auto!important;margin:0!important}
+.ek-prod{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;margin:6px 14px;padding:6px 10px;border-radius:10px;background:#1a130d;border:1px solid #3a2c1f}
+.ek-prod i{font-style:normal;font-size:18px}.ek-prod b{font-size:13px;color:#5fe3d6}.ek-prod small{font-size:11px;opacity:.75}
+.ek-ti{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.ek-ti>span{padding:4px 9px;border-radius:999px;background:#1a130d;border:1px solid #3a2c1f;font-size:12px;color:#e7d6b4}
+.ek-ti small{opacity:.6}
+.dfc{display:flex;align-items:center;gap:5px}
+.dfc i{font-style:normal;font-size:12px}
+.ek-d-ok .dfc{border-color:#5fbf5a!important;color:#9be596}.ek-d-ok .dfc i::before{content:'◆'}
+.ek-d-mid .dfc{border-color:#e49a2a!important;color:#ffc070}.ek-d-mid .dfc i::before{content:'◈'}
+.ek-d-hard .dfc{border-color:#c0392b!important;color:#ff8a7a}.ek-d-hard .dfc i::before{content:'◇'}
+#ek-rsv,#ek-tarla{position:absolute;inset:0;pointer-events:none;z-index:28}
+#ek-rsv i,#ek-tarla i{position:absolute;left:0;top:0;width:32px;height:5px;border-radius:3px;background:#0f0b08cc;border:1px solid #00000088;overflow:hidden;font-style:normal}
+#ek-rsv i em,#ek-tarla i em{display:block;height:100%;background:#5fe3d6}
+#ek-rsv i.lo em{background:#e49a2a}
+#ek-tarla i{width:30px;height:6px;overflow:visible}#ek-tarla i em{background:linear-gradient(90deg,#7fb04a,#d6b54a);border-radius:3px}
+#ek-tarla i b{position:absolute;left:7px;top:-24px;font-size:16px;display:none;filter:drop-shadow(0 0 4px #ffd34c)}
+#ek-tarla i.rd b{display:block;animation:ekHil 1.6s infinite}

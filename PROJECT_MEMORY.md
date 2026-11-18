@@ -201,3 +201,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Çelik: demirci (Demir madeni) Sv10+ saatte 4·(L−9)·1.12^L; Akıncı (dalga×60×Ocak), destan canavarı eşikleri ((i+1)×120×Ocak); Sv15+ bina maliyetine çelik (cost sarmalı, RN'ye komur/celik/dari/kristal eklendi); Demirci +5 ve üstü basma steelCost.
 - Kor (s.r.kristal): Ocak 25+ av başına %3; Ata Yurdu maliyetinde 3+2·sv.
 - Darı (s.r.dari): tarlalar Et'in %35'i yerine darı; pet yemi (40·Ocak darı → 5 yem), binek beslemesi (30·Ocak darı = 24 sa; beslenmeyen at bonus vermez). Üst çubukta DARI/KOR çipleri.
+
+## Paket 3 · 1. adım (ergenekon-isaret.js)
+- Oba sahnesinde #ek-hil: boş inşaat sırası → Ocak üstünde altın hilal, boş ilim sırası → Bilgelik, yaralı ≥%80 → Şifahane (kehribar hilal, dokun → şifahane), yeni açılan bina ✦ (s.ek.nb, dokununca görüldü).
+- Sefer (k) simgesi ve DÜNYA düğmesinde boştaki kafile sayısı; pet düğmesinde Tulpar hazır/yem seferi dönünce hilal noktası.
+- Kut penceresinde sonraki seviye (.kut-nx). Üst çubukta kaynağa dokun → #ek-rinfo (miktar, saatlik, depo, nereden git). Üretim binası kartında .ek-prod (saatte + depo çubuğu; yapi.js #ek-yapi data-k).
+- Harita hedef kartı .ek-ti: canavar zorluk (◆ kolay/◈ denk/◇ zor, fight formülüyle), ⚡ maliyeti; kaynak: yol, yük, toplama, dönüş süreleri. Yakın görünümde kaynak rezerv çubukları (#ek-rsv), obada tarla döngü çubuğu + 🌾 (#ek-tarla, W.ekFields).

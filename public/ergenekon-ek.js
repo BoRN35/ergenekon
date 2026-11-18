@@ -498,6 +498,12 @@
     F.fields[p.id] = { soil: soil, crop: crop, n: pts.length };
     return F.fields[p.id];
   }
+  W.ekFields = function () { // 130) tarla hasat göstergesi için: tarla merkezleri ve döngü oranı
+    var e = ek(); if (!F.ready || !e || !e.ps) return []; var now = Date.now(), out = [];
+    F.parcels.forEach(function (p) { var st = e.ps[p.id]; if (!st || st.st !== 'field' || !p.trees.length) return; var x = 0, z = 0; p.trees.forEach(function (t) { x += t.x; z += t.z; }); out.push({ id: p.id, x: x / p.trees.length, z: z / p.trees.length, q: (((now - st.t1) / 1000 + p.n * 300) / 2400) % 1 }); });
+    return out;
+  };
+  W.ekTarlaRate = function () { return tarlaRate(); };
   function cropTint(f, t) {
     // filiz → yeşil → sarı (40 dakikalık görsel döngü)
     var q = (t / 2400) % 1, c = new F.Color(), a = new F.Color('#7fb04a'), b = new F.Color('#d6b54a');
