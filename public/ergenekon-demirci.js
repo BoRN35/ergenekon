@@ -42,6 +42,7 @@
   function gatherBonus(l) { return 0.03 * l; }
   function chanceMul(l) { return 1 + 0.03 * l; }
   function protect(l) { return l >= 10 ? 1 : l >= 5 ? 0.5 : 0; }
+  function steelCost(p) { return p >= 5 ? Math.round(150 * Math.pow(1.6, p - 5)) : 0; }
   function matCost(p) { return { kagit: p + 1, safir: p >= 4 ? p - 3 : 0, opal: p >= 8 ? p - 7 : 0 }; }
   function haveRes(c) { var r = S().r; for (var k in c) if ((r[k] || 0) < c[k]) return false; return true; }
   function haveMat(c) { var m = dm().mat; for (var k in c) if ((m[k] || 0) < c[k]) return false; return true; }
@@ -113,9 +114,9 @@
     var s = S(), d = dm(), o = itemById(id); if (!o || !d || d.lv < 1) return;
     var x = o.x, p = x.p || 0, max = W.UPM || 12; if (p >= max) return;
     var dem = 0, ch = 0; try { dem = W.ucost(x); ch = W.upch(x); } catch (e) { return; }
-    var mc = matCost(p); if ((s.r.demir || 0) < dem || !haveMat(mc)) return;
+    var mc = matCost(p), stc = steelCost(p); if ((s.r.demir || 0) < dem || (s.r.celik || 0) < stc || !haveMat(mc)) return;
     for (var m in mc) d.mat[m] -= mc[m];
-    s.r.demir -= dem;
+    s.r.demir -= dem; s.r.celik = (s.r.celik || 0) - stc;
     var res;
     if (Math.random() < ch) {
       x.p = p + 1; res = 'ok'; log('✅ ' + x.n + ' +' + x.p + ' oldu.');
@@ -212,7 +213,7 @@
         '<b class="dm-cnt">' + nf(have) + (need > 0 ? '<i>/' + need + '</i>' : '') + '</b>' + (miss ? '<small class="dm-src">' + src + '</small>' : '') + '</button>';
     }).join('');
     var dem = 0, ch = 0, can = false, info;
-    if (o && p < max) { try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {} can = (s.r.demir || 0) >= dem && haveMat(mc); }
+    if (o && p < max) { try { dem = W.ucost(o.x); ch = W.upch(o.x); } catch (e) {} can = (s.r.demir || 0) >= dem && (s.r.celik || 0) >= steelCost(p) && haveMat(mc); }
     if (!o) info = 'Çantandaki bir parçaya dokun, sonra Yükselt.';
     else if (p >= max) info = '<span class="dm-ok">En yüksek basma seviyesi (+' + max + ').</span>';
     else info = '<b style="color:' + ['#c9d2da', '#7be0a2', '#a8b8ff', '#ffc070', '#ff8a7a'][r] + '">' + esc(o.x.n) + '</b> · şans <b>%' + (ch * 100).toFixed(ch < 0.01 ? 2 : 1) + '</b> · ' + (p >= 5 ? (protect(d.lv) >= 1 ? 'düşmez' : protect(d.lv) > 0 ? 'düşebilir (usta %50 korur)' : '<span class="dm-warn">tutmazsa −1</span>') : 'düşmez');
@@ -227,7 +228,7 @@
         '<div class="dm-scene">' + anvilSvg() + '<div class="dm-on">' + cur + '</div><div class="dm-nx">' + nxt + '<i>➜</i></div></div>' +
         '<p class="dm-cap">' + info + '</p>' + res + '</div>' +
       '<div class="dm-side"><div class="dm-sec">MALZEMELER</div><div class="dm-mcol">' + mats + '</div>' +
-        '<div class="dm-fee"><span>ÜCRET</span>' + (o && p < max ? rc('⛓️', dem, s.r.demir || 0) : '<b>—</b>') + '</div>' +
+        '<div class="dm-fee"><span>ÜCRET</span>' + (o && p < max ? rc('⛓️', dem, s.r.demir || 0) + (steelCost(p) ? rc('🔩', steelCost(p), s.r.celik || 0) : '') : '<b>—</b>') + '</div>' +
         '<button type="button" class="ek-btn gold dm-go" data-dm-up="' + (UI.sel || '') + '"' + (can ? '' : ' disabled') + '>YÜKSELT</button>' +
         '<button type="button" class="ek-btn dm-clear" data-dm-clear="1"' + (o ? '' : ' disabled') + '>BOŞALT</button>' +
         '<div class="dm-swaprow"><button type="button" class="dm-sw" data-dm-sw="safir"' + ((d.mat.safir || 0) < 1 ? ' disabled' : '') + '>🔷<i>➜</i>🔮</button><button type="button" class="dm-sw" data-dm-sw="opal"' + ((d.mat.opal || 0) < 1 ? ' disabled' : '') + '>🔮<i>➜</i>🔷</button></div></div>' +
@@ -443,7 +444,7 @@
     var s = S(), d = dm(), o = itemById(id); if (!o || !d || d.lv < 1) return false;
     var p = o.x.p || 0; if (p >= (W.UPM || 12)) return false;
     var dem = 0; try { dem = W.ucost(o.x); } catch (e) { return false; }
-    return (s.r.demir || 0) >= dem && haveMat(matCost(p));
+    return (s.r.demir || 0) >= dem && (s.r.celik || 0) >= steelCost(p) && haveMat(matCost(p));
   }
   W.ergenekonDemirci = { canEnhance: canEnhance, open: openForge, state: function () { return dm(); }, rollMats: rollMats, _g: function () { return G; } };
 })();

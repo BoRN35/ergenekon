@@ -56,7 +56,7 @@
   }
   /* ---------- 32) Ata Yurdu ---------- */
   var AY = [{ id: 'bereket', e: '🌾', t: 'Üretim +%2' }, { id: 'ordu', e: '🚩', t: 'Ordu +%2' }, { id: 'yol', e: '🐎', t: 'Toplama +%3' }, { id: 'can', e: '⚡', t: 'Enerji +5' }, { id: 'kut', e: '✨', t: 'Kut +%5' }];
-  function ayCost(l) { var g = Math.pow(1.6, l); return { odun: Math.round(2e6 * g), et: Math.round(1.5e6 * g), demir: Math.round(6e5 * g) }; }
+  function ayCost(l) { var g = Math.pow(1.6, l); return { odun: Math.round(2e6 * g), et: Math.round(1.5e6 * g), demir: Math.round(6e5 * g), kristal: 3 + l * 2 }; }
   function ayUp(id) {
     var s = S(), ay = ek().ay = ek().ay || {}, l = ay[id] || 0, c = ayCost(l); if (l >= 10 || (s.l.ocak || 0) < 40) return;
     for (var r in c) if ((s.r[r] || 0) < c[r]) { try { W.add('Ata Yurdu için kaynak yetmiyor.'); } catch (e) {} return; }
@@ -150,7 +150,8 @@
   }
   function openPets() {
     var p = pets(), now = Date.now(), mx = petMax(), sfLeft = p.sf > now ? (p.sf - now) / 1000 : 0;
-    var body = '<div class="pet-yem"><i>🥩</i><b>' + nf(p.yem) + '</b><button type="button" class="yk-btn" data-pet-sf="1"' + (sfLeft ? ' disabled' : '') + '>' + (sfLeft ? '⏳ ' + ft(sfLeft) : '🐾 Yem seferi (2 sa)') + '</button></div>' +
+    var dari = S().r.dari || 0, dc = 40 * (S().l.ocak || 1);
+    var body = '<div class="pet-yem"><i>🥩</i><b>' + nf(p.yem) + '</b><button type="button" class="yk-btn" data-pet-dari="1"' + (dari >= dc ? '' : ' disabled') + '>🌾' + nf(dc) + ' → 🥩5</button><button type="button" class="yk-btn" data-pet-sf="1"' + (sfLeft ? ' disabled' : '') + '>' + (sfLeft ? '⏳ ' + ft(sfLeft) : '🐾 Yem seferi (2 sa)') + '</button></div>' +
       PETS.map(function (d) {
         var st = p[d.id], cost = 5 + st.lv * 3, extra = '';
         if (d.id === 'sahin') extra = '<small>⏱ ' + ft(Math.max(0, (Math.max(4, 8 - st.lv * .1) * 3600e3 - (now - st.t)) / 1000)) + ' · 🔎 ' + (st.found || 0) + '</small>';
@@ -161,6 +162,7 @@
     o.addEventListener('click', function (ev) {
       var t = ev.target, b;
       if ((b = t.closest('[data-pet-up]')) && !b.disabled) { var st = p[b.dataset.petUp], c = 5 + st.lv * 3; if (p.yem >= c && st.lv < petMax()) { p.yem -= c; st.lv++; save(); } o.remove(); openPets(); }
+      else if ((b = t.closest('[data-pet-dari]')) && !b.disabled) { var dcc = 40 * (S().l.ocak || 1); if ((S().r.dari || 0) >= dcc) { S().r.dari -= dcc; p.yem += 5; save(); } o.remove(); openPets(); }
       else if ((b = t.closest('[data-pet-sf]')) && !b.disabled) { p.sf = Date.now() + 2 * 3600e3; p.sfy = 6 + Math.floor((S().l.ocak || 1) / 2); save(); o.remove(); openPets(); }
       else if (t.closest('[data-pet-use]')) { p.tulpar.b = Date.now() + 3600e3; p.tulpar.cd = Date.now() + 12 * 3600e3; save(); o.remove(); try { W.snd(300, .2); navigator.vibrate && navigator.vibrate(40); } catch (x) {} openPets(); }
     });

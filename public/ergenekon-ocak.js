@@ -77,6 +77,7 @@
     for (var i = 0; i < w; i++) res += Math.round(600 * Math.pow(1.3, s.l.ocak || 1) * (1 + i * .15));
     ['odun', 'et', 'demir'].forEach(function (k) { s.r[k] = Math.min(cap, (s.r[k] || 0) + Math.round(res / 3)); });
     if (res) rows.push(['📦', '+' + nf(res)]);
+    if (w > 0) { var stl = Math.round(w * 60 * (s.l.ocak || 1)); s.r.celik = (s.r.celik || 0) + stl; rows.push(['🔩', '+' + nf(stl)]); }
     if (w >= 5) { m.kagit += 2; rows.push(['📜', '+2']); }
     if (w >= 8) { m.safir += 1; rows.push(['🔷', '+1']); }
     if (w >= 10) { m.opal += 1; rows.push(['🔮', '+1']); }

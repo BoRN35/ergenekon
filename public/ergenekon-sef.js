@@ -66,7 +66,7 @@
       var au = put(sph, am, 0, 1.65, 0, .95, 1.65, .95); au.renderOrder = 3; g.userData.aura = au;
     }
     // binek
-    var hs = W.ergenekonDenge && W.ergenekonDenge.horse();
+    var hs = W.ergenekonDenge && (W.ergenekonDenge.owned ? W.ergenekonDenge.owned() : W.ergenekonDenge.horse());
     if (hs) {
       var hc = hs.id === 'yakut' ? '#d9d4ca' : hs.id === 'ahal' ? '#b8913f' : hs.id === 'tulpar' ? '#e6eef6' : '#6e4426', hm2 = new K.Std({ color: hc, roughness: .55, metalness: hs.id === 'ahal' ? .3 : 0 }), mane = new K.Std({ color: hs.id === 'yakut' ? '#bdb6a9' : '#24170e', roughness: .9 });
       var hg = new K.Group(); hg.position.set(-1.7, 0, -.7); hg.rotation.y = .55; g.add(hg);

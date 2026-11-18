@@ -551,7 +551,7 @@
     var s = S(), e = ek(); if (!s || !e) return 0;
     var n = fieldCount(); e.lt = Date.now(); if (!n || dt <= 0) return 0;
     var add = n * tarlaRate() / 3600 * dt, room = Math.max(0, capOf('et') - s.r.et), g = Math.min(add, room);
-    s.r.et += g; return g;
+    s.r.et += g * .65; s.r.dari = Math.min(capOf('et'), (s.r.dari || 0) + add * .35); return g;
   }
   function hookTick() {
     if (typeof W.tick !== 'function' || W.tick.__ek) return;
@@ -589,7 +589,7 @@
       if (!st) { kind = 'cut'; label = 'Ağaçları kes'; if (jobs >= slotsLimit()) extra = ' ek-dim'; }
       else if (st.st === 'cut' || st.st === 'plow') { kind = st.st; var fr = Math.min(1, (now - st.t0) / (st.t1 - st.t0)); label = (st.st === 'cut' ? 'Kesiliyor' : 'Sürülüyor') + ' · ' + fmtT((st.t1 - now) / 1000); extra = '" style="--p:' + Math.round(fr * 100); }
       else if (st.st === 'stump') { kind = 'stump'; label = 'Tarla aç'; if (jobs >= slotsLimit()) extra = ' ek-dim'; }
-      else { kind = 'field'; label = 'Tarla · saatte +' + nf(tarlaRate()) + ' Et'; }
+      else { kind = 'field'; label = 'Tarla · saatte +' + nf(tarlaRate()) + ' Et + Darı'; }
       seen[p.id] = 1;
       html.push('<button type="button" class="ek-mk ek-' + kind + extra + '" data-ek-p="' + p.id + '" style="left:' + x.toFixed(1) + 'px;top:' + yy.toFixed(1) + 'px" aria-label="' + esc(label) + '" title="' + esc(label) + '">' +
         gsvg(kind === 'stump' || kind === 'plow' ? ICON.plow : kind === 'field' ? ICON.wheat : ICON.axe, kind === 'field' ? 22 : 26) +

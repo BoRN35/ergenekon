@@ -1305,3 +1305,12 @@ html body .ad-rpa button{width:30px;height:30px;padding:0!important;border-radiu
 #ek-arena-npc{cursor:pointer;position:absolute;left:0;top:0;z-index:31;width:40px;height:40px;border-radius:50%!important;padding:0!important;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#8f2a1e,#3a120c)!important;border:2px solid #f2c14e!important;color:#ffe08a!important;box-shadow:0 0 12px #f2c14e88;min-width:0!important}
 #ek-arena-npc[hidden]{display:none}
 #ek-arena-npc b{font:700 22px/1 serif;color:#ffe08a;text-shadow:0 1px 2px #000}
+
+/* 87) kaynak döngüsü */
+.ek-ri{font-style:normal;font-size:18px;margin-right:3px}
+#res .ek-burn{box-shadow:inset 0 -2px 0 #ff8a3a}
+.dg-burn{display:grid;grid-template-columns:24px 1fr auto;gap:6px;align-items:center;margin:6px 14px;padding:6px 10px;border-radius:10px;background:#1a130d;border:1px solid #3a2c1f;font-size:13px}
+.dg-burn.on{border-color:#ff8a3a}.dg-burn i{font-style:normal}.dg-burn small{opacity:.7}
+.bn-feed{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;margin:0 14px 10px;padding:8px 10px;border-radius:12px;background:#1a130d;border:1px solid #3a2c1f}
+.bn-feed.on{border-color:#3fd6c8}.bn-feed i{font-style:normal;font-size:22px}.bn-feed b{display:block;font-size:13px}.bn-feed small{font-size:11px;opacity:.7}
+html body .bn-feed button{padding:8px 10px!important;border-radius:10px;background:#221a13!important;border:1px solid #f2c14e!important;color:#ffe08a!important;width:auto!important;margin:0!important}

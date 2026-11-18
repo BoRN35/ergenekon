@@ -82,12 +82,17 @@
     { id: 'ahal', n: 'Ahal-Teke', e: '🐎', b: .04, c: '#f2c14e', t: 'Ocak 15', ok: function () { return (S().l.ocak || 0) >= 15; } },
     { id: 'tulpar', n: 'Tulpar', e: '🪽', b: .06, c: '#8fd0ff', t: 'Ergenekon’dan çıkış', ok: function () { return ((ek().ds || {}).s || 0) >= 30; } }
   ];
-  function horse() { var id = ek().bn, h = HORSES.find(function (x) { return x.id === id; }); return h && h.ok() ? h : null; }
+  function horse() { var id = ek().bn, h = HORSES.find(function (x) { return x.id === id; }); return h && h.ok() && fed() ? h : null; }
+  function owned() { var id = ek().bn, h = HORSES.find(function (x) { return x.id === id; }); return h && h.ok() ? h : null; }
+  function fed() { return (ek().bnf || 0) > Date.now(); }
+  function feedCost() { return 30 * (S().l.ocak || 1); }
+  function feed() { var s = S(), c = feedCost(); if ((s.r.dari || 0) < c) return false; s.r.dari -= c; ek().bnf = Math.max(Date.now(), ek().bnf || 0) + 864e5; save(); return true; }
   function openHorses() {
     var cur = ek().bn;
-    var body = '<div class="bn-grid">' + HORSES.map(function (h) { var ok = h.ok(); return '<button type="button" class="bn' + (cur === h.id && ok ? ' on' : '') + (ok ? '' : ' lk') + '" data-bn="' + h.id + '"' + (ok ? '' : ' disabled') + ' style="--hc:' + h.c + '"><i>' + h.e + '</i><b>' + h.n + '</b><small>' + (ok ? '🐾 +%' + Math.round(h.b * 100) : '🔒 ' + h.t) + '</small></button>'; }).join('') + '</div>';
+    var fd = fed(), left = Math.max(0, ((ek().bnf || 0) - Date.now()) / 1000), fc = feedCost(), dr = S().r.dari || 0;
+    var body = '<div class="bn-feed' + (fd ? ' on' : '') + '"><i>🌾</i><span><b>' + (fd ? '◆ ' + (W.ft ? W.ft(left) : Math.ceil(left / 3600) + ' sa') : '◇ Aç') + '</b><small>' + nf(dr) + '</small></span><button type="button" data-bn-feed="1"' + (dr >= fc ? '' : ' disabled') + '>🌾' + nf(fc) + ' · +24 sa</button></div>' + '<div class="bn-grid">' + HORSES.map(function (h) { var ok = h.ok(); return '<button type="button" class="bn' + (cur === h.id && ok ? ' on' : '') + (ok ? '' : ' lk') + '" data-bn="' + h.id + '"' + (ok ? '' : ' disabled') + ' style="--hc:' + h.c + '"><i>' + h.e + '</i><b>' + h.n + '</b><small>' + (ok ? '🐾 +%' + Math.round(h.b * 100) : '🔒 ' + h.t) + '</small></button>'; }).join('') + '</div>';
     var o = popup('Binek', body, 'bn-card');
-    o.addEventListener('click', function (ev) { var b = ev.target.closest('[data-bn]'); if (!b || b.disabled) return; ek().bn = b.dataset.bn; save(); o.remove(); rer(); try { navigator.vibrate && navigator.vibrate(20); } catch (e) {} });
+    o.addEventListener('click', function (ev) { if (ev.target.closest('[data-bn-feed]')) { if (feed()) { o.remove(); openHorses(); rer(); } return; } var b = ev.target.closest('[data-bn]'); if (!b || b.disabled) return; ek().bn = b.dataset.bn; save(); o.remove(); rer(); try { navigator.vibrate && navigator.vibrate(20); } catch (e) {} });
   }
 
   /* ================= 92) koleksiyon albümü ================= */
@@ -149,9 +154,9 @@
     var bar = document.getElementById('ek-army'); if (!bar) return;
     var b = bar.querySelector('[data-ek-wf]'), f = weaponFit();
     if (!b) { b = document.createElement('div'); b.className = 'dn-chips'; b.setAttribute('data-ek-wf', '1'); bar.appendChild(b); }
-    var hs = horse(), h = '<span class="' + (f && f.on ? 'on' : '') + '" title="Silah uyumu">' + (f ? WI[f.t] : '⚔️') + (f && f.on ? ' ◆ +%3' : ' ◇') + '</span>' +
+    var hs = owned(), hf = fed(), h = '<span class="' + (f && f.on ? 'on' : '') + '" title="Silah uyumu">' + (f ? WI[f.t] : '⚔️') + (f && f.on ? ' ◆ +%3' : ' ◇') + '</span>' +
       SETS.map(function (st) { var n = setCount(st.r); return n ? '<button type="button" data-set="' + st.id + '" class="' + (n >= 2 ? 'on' : '') + '">' + st.e + ' ' + n + '/6</button>' : ''; }).join('') +
-      '<button type="button" data-bn-open="1" class="' + (hs ? 'on' : '') + '">' + (hs ? hs.e + ' +%' + Math.round(hs.b * 100) : '🐎 ◇') + '</button>';
+      '<button type="button" data-bn-open="1" class="' + (hs && hf ? 'on' : '') + '">' + (hs ? hs.e + (hf ? ' +%' + Math.round(hs.b * 100) : ' 🌾◇') : '🐎 ◇') + '</button>';
     if (b.__ekh !== h) { b.__ekh = h; b.innerHTML = h; }
   }
   document.addEventListener('click', function (ev) {
@@ -175,5 +180,5 @@
   }
   function start() { if (!S() || !W.M || typeof W.cb !== 'function' || typeof W.mt !== 'function') { setTimeout(start, 400); return; } hooks(); alScan(); requestAnimationFrame(frame); }
   start();
-  W.ergenekonDenge = { openAlbum: openAlbum, openHorses: openHorses, openSet: openSet, triOf: triOf, weaponFit: weaponFit, setPct: setPct, horse: horse, bestFor: bestFor };
+  W.ergenekonDenge = { openAlbum: openAlbum, openHorses: openHorses, openSet: openSet, triOf: triOf, weaponFit: weaponFit, setPct: setPct, horse: horse, owned: owned, fed: fed, bestFor: bestFor };
 })();
