@@ -1352,3 +1352,22 @@ html body .ri-go button{flex:1;padding:6px 4px!important;border-radius:10px;font
 #ek-tarla i{width:30px;height:6px;overflow:visible}#ek-tarla i em{background:linear-gradient(90deg,#7fb04a,#d6b54a);border-radius:3px}
 #ek-tarla i b{position:absolute;left:7px;top:-24px;font-size:16px;display:none;filter:drop-shadow(0 0 4px #ffd34c)}
 #ek-tarla i.rd b{display:block;animation:ekHil 1.6s infinite}
+
+/* ===== Paket 3 · 2. adım: ayarlar ve otomasyon ===== */
+#ek-set{display:grid;gap:10px;margin-bottom:12px}
+.st-sec{padding:10px;border-radius:14px;background:linear-gradient(180deg,#2a2017,#17110c);border:1px solid #5a4630}
+.st-sec h4{display:flex;align-items:center;gap:8px;margin:0 0 8px;font:700 14px Cinzel,serif;color:#ffe08a}.st-sec h4 i{font-style:normal;font-size:18px}
+.st-body{display:grid;gap:8px}.st-body>.card{margin:0!important;background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+.st-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.st-row>i{font-style:normal;font-size:18px}.st-row>span:not(.st-seg):not(.st-vol){flex:1}
+html body .st-tg,html body .st-vol button,html body .st-seg button,html body .st-link{width:auto!important;margin:0!important;padding:7px 12px!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important;min-width:0}
+html body .st-tg.on,html body .st-seg button.on{background:#0f2a2a!important;border-color:#3fd6c8!important;color:#5fe3d6!important}
+.st-vol{display:flex;align-items:center;gap:6px;margin-left:auto}.st-vol b{min-width:32px;text-align:center}
+.st-seg{display:flex;gap:4px}
+.st-note{margin:0;font-size:11px;opacity:.6}
+.st-body .kz-row{grid-template-columns:28px 1fr auto}
+.kh-ex{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.kh-ex span{font-weight:800}
+html body .kh-ex button{width:auto!important;margin:0!important;padding:7px 10px!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important}
+html body .kh-ex button.ask{border-color:#f2c14e!important;color:#ffe08a!important}
+html body .yk-bag{width:auto!important;margin:0 0 0 6px!important;padding:6px 10px!important;border-radius:999px;background:#0f2a2a!important;border:1px solid #3fd6c8!important;color:#5fe3d6!important;font-size:12px}
+html body .ks-smart{grid-column:1/-1;width:100%!important;margin:4px 0 0!important;padding:6px!important;border-radius:10px;background:#0f2a2a!important;border:1px solid #3fd6c8!important;color:#5fe3d6!important;font-size:13px;height:auto!important}

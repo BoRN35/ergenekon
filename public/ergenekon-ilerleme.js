@@ -33,6 +33,7 @@
     var ms = e.ms || {}; for (var m in ms) p += Math.min(60, Math.floor(ms[m] / 10));
     p += Object.keys(e.kg || {}).filter(function (k) { return e.kg[k].done; }).length * 10;
     p += Object.keys(s.rs || {}).reduce(function (a, k) { return a + (s.rs[k] || 0); }, 0) * 2;
+    p += e.kutx || 0;
     return Math.round(p * (1 + ((e.ay || {}).kut || 0) * .05));
   }
   function kutLevel() { var p = kutPoints(), lv = Math.floor(Math.sqrt(p / 12)), cur = 12 * lv * lv, nx = 12 * (lv + 1) * (lv + 1); return { lv: lv, p: p, pc: (p - cur) / (nx - cur), nx: nx }; }

@@ -37,7 +37,7 @@
     var body = '<div class="ks-have"><span><i>⏳</i><b>' + k.m5 + '</b><small>5 dk</small></span><span><i>⌛</i><b>' + k.h1 + '</b><small>1 sa</small></span></div>' +
       (T.length ? T.map(function (t) {
         return '<div class="ks-row' + (focus === t.id ? ' on' : '') + '"><i>' + t.e + '</i><span><b>' + esc(t.n) + '</b><small>' + ft(t.q.left) + '</small></span>' +
-          '<button type="button" data-ks="' + t.id + '|m5"' + (k.m5 ? '' : ' disabled') + '>⏳</button><button type="button" data-ks="' + t.id + '|h1"' + (k.h1 ? '' : ' disabled') + '>⌛</button></div>';
+          '<button type="button" data-ks="' + t.id + '|m5"' + (k.m5 ? '' : ' disabled') + '>⏳</button><button type="button" data-ks="' + t.id + '|h1"' + (k.h1 ? '' : ' disabled') + '>⌛</button>' + smartBtn(t, k) + '</div>';
       }).join('') : '<p class="ks-empty">⏳ —</p>');
     o = popup('Kum Saati', body, 'ks-card'); o.id = 'ek-ks';
     o.addEventListener('click', function (ev) {
@@ -48,6 +48,18 @@
       save(); rer(); openKs(p[0]);
     });
   }
+  // 113) akıllı hızlandırma: en çok süreyi en az israfla kapatan kombinasyon
+  function combo(L, k) {
+    var best = null;
+    for (var x = 0; x <= k.h1; x++) for (var y = 0; y <= k.m5; y++) { var use = x * 3600 + y * 300; if (!use) continue; var cov = Math.min(L, use), waste = Math.max(0, use - L); var sc = cov * 10 - waste - (x + y); if (!best || sc > best.sc) best = { x: x, y: y, sc: sc, cov: cov, waste: waste }; if (y * 300 > L + 300) break; }
+    return best;
+  }
+  function smartBtn(t, k) { var c = combo(t.q.left, k); if (!c) return ''; return '<button type="button" class="ks-smart" data-ks-auto="' + t.id + '">✦ ' + (c.x ? c.x + '⌛ ' : '') + (c.y ? c.y + '⏳' : '') + '</button>'; }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('[data-ks-auto]'); if (!b) return; ev.stopPropagation();
+    var t = timers().find(function (x) { return x.id === b.dataset.ksAuto; }), k = ks(); if (!t) return; var c = combo(t.q.left, k); if (!c) return;
+    k.h1 -= c.x; k.m5 -= c.y; t.q.left = Math.max(1, t.q.left - c.x * 3600 - c.y * 300); save(); rer(); openKs(t.id);
+  }, true);
   function ksButtons() {
     var yk = document.getElementById('ek-yapi'), acts = yk && yk.querySelector('.yk-prog') && yk.querySelector('.yk-acts');
     if (acts && !acts.querySelector('[data-ek-ks]')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'yk-btn'; b.setAttribute('data-ek-ks', '1'); b.textContent = '⏳ ' + (ks().m5 + ks().h1); b.addEventListener('click', function (ev) { ev.stopPropagation(); openKs(); }); acts.appendChild(b); }

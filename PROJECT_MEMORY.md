@@ -207,3 +207,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Sefer (k) simgesi ve DÜNYA düğmesinde boştaki kafile sayısı; pet düğmesinde Tulpar hazır/yem seferi dönünce hilal noktası.
 - Kut penceresinde sonraki seviye (.kut-nx). Üst çubukta kaynağa dokun → #ek-rinfo (miktar, saatlik, depo, nereden git). Üretim binası kartında .ek-prod (saatte + depo çubuğu; yapi.js #ek-yapi data-k).
 - Harita hedef kartı .ek-ti: canavar zorluk (◆ kolay/◈ denk/◇ zor, fight formülüyle), ⚡ maliyeti; kaynak: yol, yük, toplama, dönüş süreleri. Yakın görünümde kaynak rezerv çubukları (#ek-rsv), obada tarla döngü çubuğu + 🌾 (#ek-tarla, W.ekFields).
+
+## Paket 3 · 2. adım (ergenekon-ayar.js)
+- Ayarlar başında #ek-set: 🔊 Ses (data-sn/mu/vs oyunun kendi düğmeleri), 🎨 Grafik (#ek-kolay), 🔔 Bildirim (#ek-nt-opt), 👤 Hesap (#ek-prem + Kayıt ve bulut kısayolu), 🌐 Dil (#ek-tek), ⚙️ Otomasyon (oto eritme s.ek.ae 0/1/2, oto yardım s.ek.ah varsayılan açık, sürekli eğitim, tekrar gönder). Eski bölmeler altta durur.
+- Oto eritme: çantadaki r<eşik, r<2, +0 ve kilitsiz (x.lk) eşyalar → toz. Giyililer çantada olmadığı için erimez.
+- 5★ kahraman fazla kartı: detayda → toz (×20) ya da Kut (×4, s.ek.kutx → kutPoints), iki dokunuş onaylı.
+- Akıllı eğitim: tb sarmalı kaynağa ve kışla kapasitesine göre en fazla (taban×10'a kadar), ttime aynı oranda uzar. Yaralı önceliği: hQuick düşük kademeden bırakır. Çantadan tamamla: yapı kartında 🎒 Tamamla (paketlerden), yoksa 🐾 Nereden (kaynak bilgisi). Kum Saati: ✦ akıllı kombinasyon düğmesi (farm.js).
