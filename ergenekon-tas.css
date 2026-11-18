@@ -1,0 +1,123 @@
+/* ===== TAŞ YAZIT görünümü (html.tas) — yalnız görünüş; kaldırmak için index.html'deki iki satırı sil ===== */
+html.tas{--tg1:#45484b;--tg2:#2c2e30;--tgk:#1b1c1d;--tl:#5fd0d8;--tld:#2f8c94;--ta:#e8c66a;--tt:#e9e2d0;--tm:#a9a294;
+ --tstone:repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.025) 0 2px,rgba(0,0,0,.035) 2px 5px),linear-gradient(180deg,var(--tg1),var(--tg2));
+ --tbev:inset 0 2px 0 rgba(255,255,255,.12),inset 0 -3px 0 rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.6);
+ --tgold:linear-gradient(180deg,#f0d690,#c49a3c 55%,#8f6a22);
+ --tarrow:polygon(14px 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,14px 100%,0 50%)}
+
+/* --- üst çubuk --- */
+html.tas body #top#top{background:var(--tstone)!important;border:0!important;border-bottom:3px solid var(--tgk)!important;box-shadow:var(--tbev)!important;border-radius:0!important}
+html.tas body #top#top #res .ek-res,html.tas body #top#top #res [data-ek-res]{background:transparent!important;border:0!important;border-left:1px solid var(--tgk)!important;box-shadow:-1px 0 0 rgba(255,255,255,.07)!important;border-radius:0!important}
+html.tas body #top#top #res .ek-res b,html.tas body #top#top #res [data-ek-res] b{color:var(--tt)!important;font-family:Georgia,'Times New Roman',serif!important;text-shadow:0 1px 2px #000!important}
+html.tas body #top#top .ek-rbtn{background:var(--tstone)!important;border:1px solid var(--tgk)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 2px 6px rgba(0,0,0,.6)!important;color:var(--tl)!important;border-radius:8px!important}
+html.tas body #top#top .ek-rbtn svg{color:var(--tl)!important;filter:none!important}
+html.tas body #tabs#tabs>#pfb{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(180deg,#f0d690,#a98030)!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+html.tas body #tabs#tabs>#pfb img{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);border-radius:0!important;border:0!important}
+
+/* --- alt menü --- */
+html.tas body #tabs#tabs{background:var(--tstone)!important;border:0!important;border-top:3px solid var(--tgk)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,.1),0 -6px 18px rgba(0,0,0,.55)!important}
+html.tas body #tabs#tabs>button:not(#pfb){background:transparent!important;border:0!important;box-shadow:none!important;color:var(--tm)!important;border-radius:0!important}
+html.tas body #tabs#tabs>button:not(#pfb) svg,html.tas body #tabs#tabs .ek-nxi{color:var(--tm)!important;background:transparent!important;border:0!important;box-shadow:none!important}
+html.tas body #tabs#tabs>button.on:not(#pfb),html.tas body #tabs#tabs>button.ek-on:not(#pfb){color:var(--ta)!important;background:linear-gradient(180deg,transparent,rgba(232,198,106,.12))!important;box-shadow:inset 0 -2px 0 var(--ta)!important}
+html.tas body #tabs#tabs>button.on:not(#pfb) svg,html.tas body #tabs#tabs>button.ek-on:not(#pfb) svg{color:var(--ta)!important;filter:drop-shadow(0 0 6px rgba(232,198,106,.7))!important}
+
+/* --- oba NPC işaretleri: anıt taşı --- */
+html.tas body .np-mk{width:44px!important;height:50px!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;isolation:isolate;padding-top:6px;box-sizing:border-box}
+html.tas body .np-mk::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(50% 0,100% 18%,100% 100%,0 100%,0 18%);background:var(--tstone);box-shadow:var(--tbev);filter:drop-shadow(0 4px 6px rgba(0,0,0,.6))}
+html.tas body .np-mk i{color:var(--tl)!important;font-size:20px!important;display:flex}
+html.tas body .np-mk i svg{filter:drop-shadow(0 0 4px rgba(95,208,216,.45))}
+html.tas body .np-mk.lk i{color:var(--tm)!important}
+html.tas body .np-mk .np-hil{top:-6px!important;right:-6px!important;box-shadow:inset -4px 2px 0 0 var(--ta)!important;filter:drop-shadow(0 0 5px var(--ta))!important}
+html.tas body .np-mk .np-up{background:var(--tl)!important;box-shadow:0 0 6px var(--tl)!important}
+html.tas body #ek-arena-npc{width:44px!important;height:50px!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;isolation:isolate;padding-top:6px!important;box-sizing:border-box}
+html.tas body #ek-arena-npc::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(50% 0,100% 18%,100% 100%,0 100%,0 18%);background:var(--tstone)}
+html.tas body #ek-arena-npc b{color:var(--tl)!important;text-shadow:none!important;display:flex}
+
+/* --- oba düğmeleri --- */
+html.tas body #ek-world{background:var(--tstone)!important;border:2px solid var(--ta)!important;box-shadow:0 0 0 2px var(--tgk),0 8px 18px rgba(0,0,0,.7)!important}
+html.tas body #ek-world span{color:var(--ta)!important;letter-spacing:.16em!important}
+html.tas body #ek-world svg{color:var(--tl)!important}
+html.tas body #ek-goal{background:var(--tstone)!important;border:1px solid var(--tgk)!important;border-radius:4px!important;box-shadow:var(--tbev)!important;color:var(--tt)!important}
+html.tas body #ek-goal b{font-family:Georgia,serif!important;letter-spacing:.04em}
+html.tas body #ek-goal em{color:var(--ta)!important}
+html.tas body #ek-dmk{background:var(--tstone)!important;border:1px solid var(--tgk)!important;border-radius:4px!important;color:var(--tt)!important;box-shadow:0 4px 10px rgba(0,0,0,.6)!important}
+html.tas body #tst>*{background:var(--tstone)!important;border:1px solid var(--tgk)!important;border-left:3px solid var(--ta)!important;border-radius:4px!important;box-shadow:var(--tbev)!important;color:var(--tt)!important}
+
+/* --- pencereler --- */
+html.tas body .ek-ov .yk-card,html.tas body .ek-ov .ek-modal,html.tas body #aw .awc{background:var(--tstone)!important;border:1px solid var(--tgk)!important;box-shadow:var(--tbev)!important;color:var(--tt)!important}
+html.tas body:not(.ek-thumb) .ek-ov .yk-card,html.tas body:not(.ek-thumb) .ek-ov .ek-modal{border-radius:6px!important}
+html.tas body.ek-thumb .ek-ov .yk-card::before,html.tas body.ek-thumb .ek-ov .ek-modal::before{background:#7d7a72!important}
+html.tas body .ek-ov .yk-head{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.12)),var(--tstone)!important;border-bottom:2px solid var(--tgk)!important;box-shadow:0 1px 0 rgba(255,255,255,.06)!important;border-radius:0!important}
+html.tas body .ek-ov .yk-head h2{font:700 19px 'Cinzel',Georgia,serif!important;letter-spacing:.22em!important;text-transform:uppercase;color:#efe8d8!important;text-shadow:0 2px 3px #000!important}
+html.tas body .ek-ov .yk-head img,html.tas body .ek-ov .yk-head svg{filter:grayscale(1) brightness(1.6) opacity(.35)!important}
+html.tas body .ek-ov .yk-x,html.tas body .ek-ov .ek-x,html.tas body #ek-npcbar .nb-x{background:transparent!important;border:1px solid #55524b!important;border-radius:3px!important;color:var(--tm)!important}
+html.tas body .ek-ov h3,html.tas body .ek-ov h4{color:var(--ta)!important;font-family:'Cinzel',Georgia,serif!important;letter-spacing:.14em!important}
+
+/* altın ana düğmeler: ok uçlu levha */
+html.tas body .yk-main.yk-main,html.tas body .ek-ov .yk-main,html.tas body .ek-ov .ek-btn.gold,html.tas body .ek-btn.gold,html.tas body .ar-acts .ek-btn.gold,html.tas body .ek-ov .dm-go{background:var(--tgold)!important;color:#1a1408!important;border:0!important;border-radius:0!important;clip-path:var(--tarrow);box-shadow:none!important;letter-spacing:.16em!important;text-transform:uppercase;font-family:'Cinzel',Georgia,serif!important;text-shadow:0 1px 0 rgba(255,255,255,.35)!important}
+/* ikincil düğmeler: koyu taş, altın çizgi */
+html.tas body .ek-ov .ek-btn:not(.gold),html.tas body .ek-btn:not(.gold),html.tas body .ek-ov .yk-btn,html.tas body .ek-ov .yk-more,html.tas body .ar-acts .ek-btn:not(.gold),html.tas body .ek-ov .ci-sort,html.tas body .ek-ov .ci-forge,html.tas body .ek-ov .dm-clear,html.tas body .ek-ov .dm-sw{background:#232425!important;border:1px solid #8f6a22!important;border-radius:3px!important;color:var(--ta)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important}
+html.tas body .ek-ov .yk-ico{background:var(--tstone)!important;border:1px solid var(--tgk)!important;color:var(--tl)!important}
+
+/* sekmeler: oyma yazı, seçili altın alt çizgi */
+html.tas body .np-tabs button,html.tas body .ek-ov .ek-tabs button,html.tas body .ek-ov .ci-tabs button,html.tas body .ek-ov .ci-kadim .ci-tabs button{background:#232425!important;border:1px solid var(--tgk)!important;border-radius:2px!important;color:#b9b2a3!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)!important}
+html.tas body .np-tabs button.on,html.tas body .ek-ov .ek-tabs button.on,html.tas body .ek-ov .ci-tabs button.on,html.tas body .ek-ov .ci-kadim .ci-tabs button.on{background:linear-gradient(180deg,#2a2b2c,#1f2021)!important;border-color:var(--tgk)!important;color:var(--ta)!important;box-shadow:inset 0 -2px 0 var(--ta),0 0 10px rgba(232,198,106,.15)!important}
+html.tas body .np-tabs{border-color:var(--tgk)!important}
+html.tas body .np-card>.np-tabs{border-right-color:var(--tgk)!important}
+html.tas body #ek-npcbar{background:var(--tstone)!important;border-bottom:3px solid var(--tgk)!important;box-shadow:var(--tbev)!important}
+html.tas body #ek-npcbar .nb-n{color:#efe8d8!important;letter-spacing:.14em;text-transform:uppercase}
+
+/* kutular ve yuvalar: oyuk taş */
+html.tas body .ek-ov .ek-fchip,html.tas body .ek-ov .dm-it,html.tas body .ek-ov .rm-it,html.tas body .ek-ov .ek-bm button{background:linear-gradient(180deg,#36383a,#26282a)!important;border:1px solid var(--tgk)!important;border-radius:2px!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.6),inset 0 -1px 0 rgba(255,255,255,.06)!important;color:var(--tt)!important}
+html.tas body .ek-ov .ek-fchip.on,html.tas body .ek-ov .dm-it.on{box-shadow:inset 0 0 0 2px var(--tl),0 0 12px rgba(95,208,216,.3)!important;background:linear-gradient(180deg,#36383a,#26282a)!important}
+html.tas body .ek-ov .ci-tile,html.tas body .ci-tile{border-radius:2px!important;background-color:#26282a!important}
+html.tas body .ek-ov .ci-tile.on,html.tas body .ci-tile.on{outline-color:var(--ta)!important}
+/* ilerleme çubukları */
+html.tas body .ek-ov progress{accent-color:var(--tl)}
+
+/* danışman, toplanma, kaynak işaretleri */
+html.tas body #ek-sage#ek-sage,html.tas body #ek-sage#ek-sage>*{background:var(--tstone)!important;border-color:var(--tgk)!important;border-radius:4px!important;color:var(--tt)!important}
+html.tas body #ek-sage#ek-sage{border:1px solid var(--tgk)!important;border-left:3px solid var(--ta)!important;box-shadow:var(--tbev)!important}
+html.tas body #ek-sage .sg-av{background:#232425!important;border-color:var(--tgk)!important;border-radius:3px!important}
+html.tas body #ek-rally#ek-rally{background:var(--tstone)!important;border:1px solid var(--ta)!important;border-radius:3px!important;box-shadow:var(--tbev)!important;color:var(--tt)!important}
+html.tas body #ek-marks#ek-marks .ek-mk{background:var(--tstone)!important;border:1px solid var(--tgk)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 3px 8px rgba(0,0,0,.6)!important;color:var(--ta)!important}
+html.tas body .np-mk i,html.tas body .np-mk i svg,html.tas body #ek-arena-npc b,html.tas body #ek-arena-npc svg{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important;width:auto!important;height:auto!important;min-width:0!important}
+html.tas body .np-mk i svg,html.tas body #ek-arena-npc svg{width:22px!important;height:22px!important}
+
+/* --- sayfa ekranları (Kurultay, Kale, Araştırma…) --- */
+html.tas body #tr#tr.game-page,html.tas body #tk#tk.game-page,html.tas body #tu#tu.game-page,html.tas body #ty#ty.game-page,html.tas body #tp#tp.game-page,html.tas body #tz#tz.game-page,html.tas body #tm#tm.game-page,html.tas body #ta#ta.game-page,html.tas body #tg#tg.game-page,html.tas body #te#te.game-page,html.tas body #tf#tf.game-page,html.tas body .wrap>.game-page.game-page{background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 60%),repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 5px),linear-gradient(180deg,#2f3133,#1c1d1e)!important;background-color:#1c1d1e!important;background-size:100% 100%,auto,100% 100%!important;background-repeat:no-repeat,repeat,no-repeat!important;background-attachment:scroll!important;color:var(--tt)!important}
+html.tas body .game-page .game-page-header{background:var(--tstone)!important;border:0!important;border-bottom:2px solid var(--tgk)!important;box-shadow:var(--tbev)!important}
+html.tas body .game-page .game-page-header::before,html.tas body .game-page .game-page-header::after{display:none!important}
+html.tas body .game-page .game-page-header h2,html.tas body .game-page .game-page-heading h2{font:700 18px 'Cinzel',Georgia,serif!important;letter-spacing:.22em!important;text-transform:uppercase;color:#efe8d8!important;text-shadow:0 2px 3px #000!important}
+html.tas body .game-page .game-section-heading{color:#efe8d8!important;font-family:'Cinzel',Georgia,serif!important;letter-spacing:.16em!important}
+html.tas body .game-page .kh-det,html.tas body .game-page .kh-pw{background:rgba(0,0,0,.22)!important;border-color:var(--tgk)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important;border-radius:3px!important}
+html.tas body .game-page .kh-pw b,html.tas body .game-page .kh-pw strong{color:var(--tl)!important}
+/* eski tema değişkenleri taş paletine */
+html.tas{--bg:#1c1d1e;--sky:#26282a;--card:#2c2e30;--slate:#232425;--wood:#2c2e30;--map:#1f2122;--bar:#2a2c2e;--line:#4a4b4c;--acc:#c9a24a;--teal:#5fd0d8;--bronze:#c9a24a;--bronze-bright:#f0d690;--mut:#a9a294;--ink:#e9e2d0;
+ --roster-teal:#5fd0d8;--research-teal:#5fd0d8;--roster-line:rgba(74,75,76,.9);--mgmt-line:#4a4b4c;--reference-leather:none}
+
+html.tas body .roster-workspace,html.tas body .roster-stage,html.tas body .roster-rail,html.tas body .research-screen,html.tas body .research-tree-region,html.tas body .research-detail,html.tas body .research-branches{background:transparent!important}
+html.tas body .research-detail,html.tas body .research-costs{background:rgba(0,0,0,.25)!important;border-color:var(--tgk)!important}
+html.tas body .roster-section-choice,html.tas body .research-branches button,html.tas body .db-chip,html.tas body .kh-t,html.tas body .ar-best,html.tas body .game-page .ek-tabs button,html.tas body .research-node-name,html.tas body .research-requirement{background:linear-gradient(180deg,#36383a,#26282a)!important;border:1px solid var(--tgk)!important;border-radius:3px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45)!important;color:var(--tt)!important}
+html.tas body .roster-section-choice.is-selected,html.tas body .research-branches button.is-selected,html.tas body .kh-t.on,html.tas body .ar-best.ok,html.tas body .game-page button.on:not(#pfb){background:linear-gradient(180deg,#2a2b2c,#1f2021)!important;color:var(--ta)!important;box-shadow:inset 0 0 0 1px var(--tl),inset 0 -2px 0 var(--ta),0 0 10px rgba(95,208,216,.2)!important}
+html.tas body .research-medallion,html.tas body .research-detail-emblem,html.tas body .game-page img.hpic{background:radial-gradient(circle at 50% 40%,#55585b,#202122)!important}
+html.tas body #ek-hand{background:var(--tstone)!important}
+html.tas body .ovp .roster-workspace.roster-workspace,html.tas body .ovp .research-screen.research-screen,html.tas body .roster-stage .roster-army-art.roster-army-art{background:transparent!important}
+html.tas body .ovp .db-chip.db-chip,html.tas body .ovp .dn-chips>button,html.tas body .ovp .ar-best.ar-best{background:linear-gradient(180deg,#36383a,#26282a)!important;border:1px solid var(--tgk)!important;border-radius:3px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45)!important;color:var(--tt)!important}
+html.tas body .ovp .dn-chips>button.on,html.tas body .ovp .ar-best.ar-best.ok{background:linear-gradient(180deg,#2a2b2c,#1f2021)!important;color:var(--ta)!important;box-shadow:inset 0 0 0 1px var(--tl),inset 0 -2px 0 var(--ta)!important}
+html.tas body #ek-prev span{background:#232425!important}
+/* düzeltmeler (tarama 18 Kasım) */
+html body .kz-tg{width:48px!important;height:26px!important;min-height:0!important;flex:0 0 48px!important;margin:0 0 0 auto!important;display:block!important}
+html.tas body .kz-tg{background:#232425!important;border:1px solid #55524b!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)!important}
+html.tas body .kz-tg u{background:#8a8478!important}
+html.tas body .kz-tg.on{background:#1f2021!important;border-color:var(--tl)!important}
+html.tas body .kz-tg.on u{background:var(--tl)!important;box-shadow:0 0 6px var(--tl)}
+html.tas body .ar-acts .ek-btn.gold{letter-spacing:.05em!important;font-size:12.5px!important;white-space:nowrap!important;padding:0 16px!important}
+html.tas body .ek-btn.gold,html.tas body .yk-main.yk-main{white-space:nowrap}
+@media(max-width:700px){html body #tg #ek-set{padding-top:46px!important}}
+
+/* pencere açıkken oba üstü düğmeler ve danışman notu pencereyi kapatmasın */
+body:has(.ek-ov) #ek-rally,body:has(.ek-ov) #ek-sage,body:has(#pop:not([style*="none"])) #ek-rally,body:has(#pop:not([style*="none"])) #ek-sage,body:has(#aw) #ek-rally,body:has(#aw) #ek-sage{display:none!important}
+/* yapı penceresi: bilgi düğmesi "!" diğer yazılarla aynı renkte, sade çerçeve */
+html body .ek-ov .yk-head .yk-info{background:transparent!important;border:1px solid #55524b!important;border-radius:3px!important;color:#e9e2d0!important;font:700 19px Georgia,'Times New Roman',serif!important;box-shadow:none!important;text-shadow:none!important}
+html body .ek-ov .yk-head .yk-info::before,html body .ek-ov .yk-head .yk-info::after{display:none!important}

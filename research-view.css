@@ -1,0 +1,162 @@
+/* Illustrated research room. Hitboxes and artwork use the same layout geometry. */
+html body #tr>.research-screen{height:100%;min-height:0;width:100%}
+html body .research-screen{--research-gold:#e3bf76;--research-teal:#63f0dc;position:relative;display:flex;flex-direction:column;min-width:0;border:2px solid #bc9551;border-radius:13px;background:var(--ref-leather,radial-gradient(ellipse at top,#203236,#0b141b 70%));box-shadow:inset 0 0 0 4px #080e11,inset 0 0 0 5px #b18c4c88,0 14px 35px #0009;color:#ecdfc0;overflow:hidden;text-align:left;font:15px/1.5 system-ui,sans-serif;isolation:isolate}
+html body .research-screen *{box-sizing:border-box;min-width:0}
+html body .research-screen button{font:inherit;color:inherit;width:auto;margin:0;cursor:pointer;text-shadow:none;touch-action:manipulation;border-radius:5px;min-height:44px;transition:background .15s,border-color .15s,box-shadow .15s}
+html body .research-screen button:disabled{cursor:default;opacity:.7}
+html body .research-screen button:hover:not(:disabled){filter:none}
+html body .research-screen button:focus-visible{outline:2px solid #86ffed;outline-offset:4px}
+html body .research-screen h1,html body .research-screen h2,html body .research-screen p{margin:0}
+html body .research-screen :is(h1,h2){font-family:Cinzel,Georgia,serif;color:#edce8e;letter-spacing:.025em;text-shadow:0 2px 3px #000}
+html body .research-screen .research-header{position:relative;flex:none;display:flex;justify-content:center;align-items:center;gap:16px;min-height:88px;height:88px;padding:13px 100px 12px;border-bottom:3px ridge #b38a47;background:linear-gradient(90deg,#1c1711bb,#201a1680,#17150fd9),url('./assets/interface/carved-header.webp') center/cover;box-shadow:inset 0 3px #dbb77355,inset 0 -3px #080c0f,0 5px 18px #0006;text-align:center;z-index:2}
+html body .research-screen .research-header::after{content:'';position:absolute;inset:6px;border:1px solid #d5ad6755;pointer-events:none}
+html body .research-screen .research-header-sigil{display:none}
+html body .research-screen .research-eyebrow{font-size:8px;font-weight:600;letter-spacing:.18em;color:#bda774}
+html body .research-screen .research-header h1{font-size:34px;line-height:1.2;margin:0 0 2px;text-shadow:0 2px #000,0 0 15px #ebc68220}
+html body .research-screen .research-header p{font:italic 15px/1.3 Georgia,serif;color:#e0cda4}
+html body .research-screen .research-completion{position:absolute;right:23px;bottom:14px;font-size:10px;color:#c9b58a;text-align:right}
+html body .research-screen .research-completion b{font:24px Georgia,serif;color:#e1c17f}
+html body .research-screen .research-completion small{display:block;font-size:8px;color:#b0a280}
+html body .research-screen .research-layout{flex:1;display:grid;grid-template-columns:198px minmax(0,1fr) 316px;min-height:0}
+html body .research-screen .research-branches{padding:25px 11px 14px;display:flex;flex-direction:column;gap:11px;background:linear-gradient(90deg,#080f15aa,#1c292d77);border-right:2px ridge #8d744955;min-width:0}
+html body .research-screen .research-branches button{display:grid;grid-template-columns:32px 1fr;gap:0 10px;padding:15px 12px;min-height:77px;position:relative;text-align:left;border:1px solid #ae8d58;border-radius:5px;background:linear-gradient(140deg,#39403b99,#172126);box-shadow:inset 0 1px #e3d2ae25,0 3px 7px #0008;color:#eadcc0}
+html body .research-screen .research-branches button>span{grid-row:span 2;align-self:center;width:31px;height:31px;color:#d7b36d;filter:drop-shadow(0 2px 2px #0008)}
+html body .research-screen .research-branches svg{width:31px;height:31px}
+html body .research-screen .research-branches b{font:600 18px/1.3 Georgia,serif;align-self:center;overflow-wrap:normal;text-shadow:0 2px 2px #000}
+html body .research-screen .research-branches small{font-size:9px;color:#a9a18a;line-height:1.6}
+html body .research-screen .research-branches button.is-selected{border-color:#5ff2df;background:radial-gradient(ellipse at left,#1b958055,transparent),linear-gradient(110deg,#145b59,#12373c);box-shadow:inset 0 0 15px #1bd6bb22,inset 0 1px #baffed55,0 0 14px #2df3d333;color:#efffe7;clip-path:polygon(0 0,96% 0,100% 50%,96% 100%,0 100%)}
+html body .research-screen .research-branches button.is-selected>span{color:#a8f4d5;filter:drop-shadow(0 0 4px #4bffeaa0)}
+html body .research-screen .research-branches>p{margin-top:auto;padding:24px 8px 4px;font:italic 12px/1.8 Georgia,serif;color:#a69b7d}
+html body .research-screen .research-tree-region{display:flex;flex-direction:column;min-width:0;min-height:0;position:relative;background:radial-gradient(ellipse at 50% 30%,#33434133,transparent 75%),var(--ref-leather,#0e1920);border-right:2px ridge #96774766}
+html body .research-screen .research-tree-toolbar{flex:none;height:36px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;border-bottom:1px solid #b89a5722;font-size:10px;color:#b9b79d}
+html body .research-screen .research-tree-legend{display:flex;gap:5px;align-items:center;font-size:9px;color:#9ea993;white-space:nowrap}
+html body .research-screen .research-tree-legend :is(i,em){width:5px;height:5px;border-radius:50%;background:#64e6d4;display:inline-block;margin-left:5px;box-shadow:0 0 5px #64e6d455}
+html body .research-screen .research-tree-legend em{background:#e6bf6d}
+html body .research-screen .research-tree-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c19b57 #101b20;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;position:relative}
+html body .research-screen .research-tree-canvas{position:relative;margin:0 auto}
+html body .research-screen .research-connections{position:absolute;inset:0;display:block;width:100%;height:100%;border:0!important;background:none!important;border-radius:0!important;pointer-events:none}
+html body .research-screen .research-connections path{fill:none;stroke:#d0ac67;stroke-width:2.1;stroke-linejoin:round;stroke-linecap:round;opacity:.73;filter:drop-shadow(0 0 3px #e8b45655)}
+html body .research-screen .research-connections path.is-earned{stroke:#ffe1a1;opacity:1;filter:drop-shadow(0 0 4px #ffbd6399)}
+html body .research-screen .research-connections path.is-linked{stroke:#ffe6a8;opacity:1;filter:drop-shadow(0 0 5px #eeb65c99)}
+html body .research-screen button.research-node{position:absolute;width:var(--research-node-width,172px);height:var(--research-node-height,199px);min-height:var(--research-node-height,199px);display:flex;flex-direction:column;align-items:center;padding:0 2px;border:0;background:transparent;box-shadow:none;color:#edddb8;z-index:1}
+html body .research-screen .research-medallion{width:var(--research-medallion-size,130px);height:var(--research-medallion-size,130px);position:relative;display:grid;place-items:center;flex:none;border:4px double #d4ac65;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#6a5739,#283133 62%,#101d25 85%);box-shadow:inset 0 0 0 3px #3c2d1b,inset 0 0 0 5px #d4a05c66,0 5px 12px #000b,0 0 0 1px #36271a;transition:border-color .16s,box-shadow .16s}
+html body .research-screen .research-medallion::before{content:'';position:absolute;inset:-5px;border:1px solid #c6a56899;border-radius:50%;pointer-events:none}
+html body .research-screen .research-medallion::after{content:'';position:absolute;inset:4px;border:1px solid #e0bd7166;border-radius:50%;pointer-events:none}
+html body .research-screen .research-node-art{display:block;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:contain;border-radius:50%;filter:drop-shadow(0 3px 4px #0009)}
+html body .research-screen .research-node-state{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border:2px solid #c9a259;border-radius:50%;background:radial-gradient(#3d3020,#101d21);display:grid;place-items:center;color:#f1ca73;font-size:17px;line-height:1;box-shadow:0 2px 4px #000a;z-index:1}
+html body .research-screen .research-node-state:empty{display:none}
+html body .research-screen .research-node-state svg{width:14px;height:14px;display:block;stroke-width:2}
+html body .research-screen .research-node-name{min-height:45px;max-height:48px;flex:none;display:flex;align-items:center;justify-content:center;width:calc(100% - 8px);margin-top:-1px;border:1px solid #bf9756;border-radius:3px;background:linear-gradient(#3c3525,#172026);padding:4px 7px;font:600 15px/1.2 Georgia,serif;text-align:center;color:#f0ddb5;text-shadow:0 2px 2px #000;overflow:hidden;box-shadow:inset 0 1px #e3c87b44,inset 0 0 0 2px #17180f,0 4px 5px #0008;clip-path:polygon(5% 0,95% 0,100% 18%,100% 82%,95% 100%,5% 100%,0 82%,0 18%);position:relative;z-index:1}
+html body .research-screen .research-node>small{font-size:10px;color:#b5b29c;margin-top:5px;line-height:1.3}
+html body .research-screen .research-node.is-selected .research-medallion{border-color:#90ffe8;box-shadow:inset 0 0 0 3px #25655d,inset 0 0 13px #58ffe433,0 0 0 2px #21d9cd,0 0 12px #15ebceaa,0 0 27px #25e4c755,0 5px 12px #0009}
+html body .research-screen .research-node.is-selected .research-medallion::before{border-color:#69f9e3}
+html body .research-screen .research-node.is-selected .research-medallion::after{content:'◆';inset:auto;left:calc(50% - 8px);top:-16px;width:16px;height:20px;border:0;border-radius:0;background:none;font-size:18px;color:#b7ffe7;text-shadow:0 0 5px #31f8d9}
+html body .research-screen .research-node.is-selected .research-node-name{border-color:#efcd81;color:#fff1cc;background:linear-gradient(#42462f,#192b29);box-shadow:inset 0 0 0 2px #16231e,0 0 10px #efbd6633}
+html body .research-screen .research-node.is-complete .research-node-state{color:#afffe0;border-color:#66e6a4;background:radial-gradient(#16734f,#07362a)}
+html body .research-screen .research-node.is-locked .research-node-art{filter:saturate(.82) brightness(.9) drop-shadow(0 2px 3px #0008)}
+html body .research-screen .research-node:hover:not(:disabled) .research-medallion{border-color:#fff0ad;box-shadow:inset 0 0 0 3px #66502d,0 0 16px #cbaa5c55,0 4px 11px #0009}
+html body .research-screen .research-node.is-active .research-node-state{color:#bcffed;border-color:#85e5d0}
+html body .research-screen .research-detail{min-height:0;overflow:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:25px 19px 17px;background:radial-gradient(ellipse at 50% 5%,#38423d44,transparent 65%),var(--ref-leather,#101b22);border-left:1px solid #080d12;position:relative;scrollbar-width:thin;scrollbar-color:#a88649 #0d181d}
+html body .research-screen .research-detail-emblem{flex:none;width:173px;height:173px;display:grid;place-items:center;padding:6px;border:5px double #d2aa61;border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#756140,#273238 67%,#112027);box-shadow:inset 0 0 0 3px #3b2c1a,inset 0 0 0 5px #d1a36388,0 5px 18px #000a,0 0 0 1px #6c542e;margin:0 auto 14px;position:relative}
+html body .research-screen .research-detail-emblem::after{content:'';position:absolute;inset:4px;border:1px solid #e3bc71;border-radius:50%;pointer-events:none}
+html body .research-screen .research-detail-art{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;filter:drop-shadow(0 4px 5px #0008)}
+html body .research-screen .research-detail>.research-eyebrow{display:none}
+html body .research-screen .research-detail h2{font-size:27px;line-height:1.2;margin:0 0 10px;letter-spacing:0}
+html body .research-screen .research-level-badge{display:inline-block;padding:2px 16px;border:1px solid #c39c59;border-radius:20px;background:linear-gradient(#37372a,#172126);font:15px/1.2 Georgia,serif;color:#ecdbb2;box-shadow:inset 0 1px #d5bd7c22}
+html body .research-screen .research-benefit{width:100%;margin:18px 0 14px;padding:13px 10px;background:linear-gradient(110deg,#29484477,#0d1c23);border:1px solid #b19c6b88;border-radius:7px;color:#83f3d8;font:600 19px/1.4 Georgia,serif;box-shadow:inset 0 1px #e7d3a317}
+html body .research-screen .research-requirements{display:grid;gap:7px;width:100%;margin-bottom:14px}
+html body .research-screen .research-requirement{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:7px 10px;background:linear-gradient(#433a27,#23291f);border:1px solid #a98a50;border-radius:5px;font:14px/1.35 Georgia,serif;color:#e0c693;text-align:left;box-shadow:inset 0 1px #e0c38422,0 2px 3px #0005}
+html body .research-screen .research-requirement>span:nth-child(2){flex:1}
+html body .research-screen .research-requirement small{white-space:nowrap;font-size:12px;color:#c4b180}
+html body .research-screen .research-requirement.is-met{border-color:#6a9b77;color:#c4e5b4;background:linear-gradient(#2a4030,#1d3026)}
+html body .research-screen .research-costs{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;width:100%;padding:12px 7px;border:1px solid #af945f99;border-radius:7px;background:#08141caa;box-shadow:inset 0 2px 7px #0005}
+html body .research-screen .research-cost{min-width:33px;flex:1;display:flex;flex-direction:column;align-items:center;font-size:12px;color:#efe0b9}
+html body .research-screen .research-cost i{display:block;width:34px;height:34px;font-style:normal;color:#d8b369;font-size:25px;line-height:1.3}
+html body .research-screen .research-resource-art{display:block;width:34px;height:34px}
+html body .research-screen .research-cost b{font-size:13px;font-weight:600;color:inherit;margin-top:4px}
+html body .research-screen .research-cost small{font-size:9px;color:#a2af99;margin-top:2px}
+html body .research-screen .research-cost.is-short b{color:#e0a87b}
+html body .research-screen .research-duration{padding:11px 0;font:16px/1.4 Georgia,serif;color:#e6d3a5}
+html body .research-screen .research-duration>span{color:#dbb36b;margin-right:5px;font-size:23px;vertical-align:middle}
+html body .research-screen button.research-cta{flex:none;width:100%;min-height:49px;padding:10px 14px;border:2px solid #e1b86c;outline:1px solid #694b22;outline-offset:3px;margin:4px 0 6px;background:linear-gradient(120deg,#a36e2d,#c08a3d 48%,#845724);box-shadow:inset 0 0 0 2px #573519,inset 0 0 0 4px #bd8f4b,inset 0 0 15px #ead18322,0 4px 13px #0009;font:600 22px/1.1 Georgia,serif;color:#fff0c7;letter-spacing:.035em;text-shadow:0 2px 2px #533715;clip-path:polygon(6% 0,94% 0,100% 28%,100% 72%,94% 100%,6% 100%,0 72%,0 28%)}
+html body .research-screen .research-cta:hover:not(:disabled){background:linear-gradient(#c4944e,#835c29)}
+html body .research-screen .research-cta:disabled{background:linear-gradient(#42483c,#243433);border-color:#8b956d;outline-color:#566146;box-shadow:inset 0 0 0 3px #29332b,0 3px 7px #0008;opacity:.8;color:#b7c3a4;text-shadow:0 1px #0005}
+html body .research-screen .research-hint{margin:9px 0 0!important;color:#b0ad8e;font-size:11px;line-height:1.6}
+html body .research-screen .research-done{padding:20px 0;color:#b8edc9;font-size:14px}
+html body .research-screen .research-queue{flex:none;min-height:51px;display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 19px;border-top:2px ridge #bd9653aa;background:linear-gradient(#242d26,#101b21);font:15px Georgia,serif;color:#e0cc9d;box-shadow:inset 0 0 0 4px #0a1218,inset 0 0 0 5px #b18c4c66}
+html body .research-screen .research-queue-sigil{font-size:25px;color:#d7b56b;text-shadow:0 0 6px #e5b96144}
+html body .research-screen .research-queue>small{font:11px system-ui,sans-serif;color:#9da58a}
+html body .research-screen .research-queue.is-running{justify-content:flex-start}
+html body .research-screen .research-queue.is-running>div{flex:1;max-width:390px}
+html body .research-screen .research-queue.is-running b{font-size:13px;font-weight:400}
+html body .research-screen .research-queue.is-running strong{font-size:14px;font-weight:400;white-space:nowrap}
+html body .research-screen .research-progress{height:4px;background:#071218;border-radius:5px;overflow:hidden;margin-top:7px}
+html body .research-screen .research-progress>span{height:100%;display:block;background:linear-gradient(90deg,#5f9e7d,#a7e1b0)}
+html body .research-screen .research-queue button{font-size:11px;min-height:37px;padding:7px 10px;background:#28352d;border:1px solid #a78b53;color:#ded4ae}
+html body .research-screen .research-utilities{flex:none;max-height:28dvh;overflow:auto;background:#0d171c;border-top:1px solid #94723e55;font-size:12px;color:#aeb49d}
+html body .research-screen .research-utilities summary{min-height:40px;padding:10px 19px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:#b7b797}
+html body .research-screen .research-utilities summary::-webkit-details-marker{display:none}
+html body .research-screen .research-utilities summary>span{color:#d4b170}
+html body .research-screen .research-utility-wallet{display:flex;flex-wrap:wrap;gap:9px 18px;padding:0 19px 12px;color:#b1b89c}
+html body .research-screen .research-utility-wallet b{font-weight:500;color:#e4d5ab}
+html body .research-screen .research-utility-actions{display:flex;flex-wrap:wrap;gap:8px;padding:0 19px 16px}
+html body .research-screen .research-utility-actions button{min-height:39px;padding:8px 11px;font-size:11px;border:1px solid #a68a51;background:#24332c;color:#e0d1a7}
+html body .research-screen .research-detail-jump{display:none}
+@media(min-width:1600px){html body .research-screen .research-layout{grid-template-columns:207px minmax(0,1fr) 330px}html body .research-screen .research-branches{padding-inline:13px}html body .research-screen .research-detail{padding-inline:22px}html body .research-screen .research-detail h2{font-size:29px}}
+@media(max-width:1200px) and (min-width:761px){html body .research-screen .research-layout{grid-template-columns:160px minmax(0,1fr) 280px}html body .research-screen .research-branches{padding:20px 8px 13px;gap:10px}html body .research-screen .research-branches button{grid-template-columns:26px 1fr;gap:7px;padding:13px 8px;min-height:75px}html body .research-screen .research-branches b{font-size:15px}html body .research-screen .research-branches button>span,html body .research-screen .research-branches svg{width:26px;height:26px}html body .research-screen .research-detail{padding:23px 14px 16px}html body .research-screen .research-detail-emblem{width:151px;height:151px}html body .research-screen .research-detail h2{font-size:24px}html body .research-screen .research-benefit{font-size:17px;padding:12px 8px}html body .research-screen .research-requirement{font-size:12px;padding:7px}html body .research-screen .research-costs{gap:8px}html body .research-screen .research-cost b{font-size:12px}html body .research-screen .research-tree-legend{display:none}}
+@media(max-width:760px){
+ html body #tr>.research-screen{height:auto;min-height:100%}
+ html body .research-screen{border-radius:8px;overflow:hidden}
+ html body .research-screen .research-header{height:84px;min-height:84px;padding:15px 23px 14px}
+ html body .research-screen .research-header h1{font-size:25px}
+ html body .research-screen .research-header .research-eyebrow{font-size:7px;letter-spacing:.12em}
+ html body .research-screen .research-header p{font-size:12px}
+ html body .research-screen .research-completion{display:none}
+ html body .research-screen .research-layout{display:flex;flex:none;flex-direction:column;min-height:0}
+ html body .research-screen .research-branches{flex:none;display:flex;flex-direction:row;overflow-x:auto;gap:6px;padding:8px;border-right:0;border-bottom:2px ridge #b7964a66;scrollbar-width:none}
+ html body .research-screen .research-branches button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 5px;min-height:63px;min-width:63px;flex:1;border-radius:6px;clip-path:none}
+ html body .research-screen .research-branches button>span{display:block;width:23px;height:23px;flex:none}
+ html body .research-screen .research-branches svg{width:23px;height:23px}
+ html body .research-screen .research-branches small,html body .research-screen .research-branches>p{display:none}
+ html body .research-screen .research-branches b{font-size:11px;line-height:1.15;align-self:center;text-align:center}
+ html body .research-screen .research-tree-region{border-right:0;flex:none}
+ html body .research-screen .research-tree-toolbar{height:38px;padding:0 10px;font-size:9px}
+ html body .research-screen .research-tree-legend{display:none}
+ html body .research-screen .research-detail-jump{display:inline-flex;align-items:center;min-height:38px;background:none;border:0;color:#b5ead0;padding:6px 7px;font-size:11px}
+ html body .research-screen .research-tree-scroll{flex:none;height:44svh;min-height:320px;max-height:480px}
+ html body .research-screen .research-tree-canvas{margin:0 auto}
+ html body .research-screen .research-node-name{width:calc(100% - 2px);min-height:35px;max-height:37px;font-size:11px;line-height:1.2;padding:3px}
+ html body .research-screen .research-node>small{font-size:9px;margin-top:4px}
+ html body .research-screen .research-node-state{width:21px;height:21px;font-size:13px;border-width:1px}
+ html body .research-screen .research-node-state svg{width:12px;height:12px}
+ html body .research-screen .research-medallion{border-width:3px;box-shadow:inset 0 0 0 2px #49351c,inset 0 0 0 4px #d1a26377,0 4px 8px #0009}
+ html body .research-screen .research-node.is-selected .research-medallion{box-shadow:inset 0 0 0 2px #27635a,0 0 0 1px #38dbc9,0 0 13px #29efd180,0 0 22px #25e4c733}
+ html body .research-screen .research-node.is-selected .research-medallion::after{font-size:14px;top:-13px}
+ html body .research-screen .research-detail{overflow:visible;flex:none;border-left:0;border-top:2px ridge #bc9856;padding:19px 16px 22px;display:grid;grid-template-columns:87px minmax(0,1fr);gap:5px 13px;text-align:left;align-items:center;scroll-margin-top:10px}
+ html body .research-screen .research-detail-emblem{width:85px;height:85px;grid-row:1/3;margin:0;padding:3px;border-width:3px}
+ html body .research-screen .research-detail-emblem::after{inset:3px}
+ html body .research-screen .research-detail h2{font-size:22px;margin:0;line-height:1.25;align-self:end}
+ html body .research-screen .research-level-badge{width:max-content;font-size:12px;padding:2px 12px;align-self:start}
+ html body .research-screen .research-benefit{grid-column:1/-1;text-align:center;font-size:17px;margin:12px 0 8px;padding:11px 7px}
+ html body .research-screen .research-requirements{grid-column:1/-1;margin:0 0 7px;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ html body .research-screen .research-requirement{font-size:11px;padding:7px 6px;min-height:44px;gap:6px}
+ html body .research-screen .research-requirement small{font-size:10px}
+ html body .research-screen .research-costs{grid-column:1/-1;gap:8px;padding:10px 6px}
+ html body .research-screen .research-cost b{font-size:12px}
+ html body .research-screen .research-cost small{font-size:8px}
+ html body .research-screen .research-duration{grid-column:1/-1;justify-self:center;padding:7px 0;font-size:15px}
+ html body .research-screen button.research-cta{grid-column:1/-1;min-height:48px;font-size:21px;margin-top:2px}
+ html body .research-screen .research-hint,html body .research-screen .research-done{grid-column:1/-1;text-align:center}
+ html body .research-screen .research-queue{gap:8px;padding:12px 13px;min-height:53px;flex-wrap:wrap;font-size:13px}
+ html body .research-screen .research-queue>small{display:none}
+ html body .research-screen .research-queue.is-running>div{flex:1;min-width:140px}
+ html body .research-screen .research-queue button{font-size:10px;padding:6px 8px;min-height:44px}
+ html body .research-screen .research-utility-wallet{padding:0 13px 12px;gap:8px 12px;font-size:11px}
+ html body .research-screen .research-utilities{max-height:none;overflow:visible}
+ html body .research-screen .research-utilities summary{padding:12px 13px;font-size:11px;min-height:44px}
+ html body .research-screen .research-utility-actions{padding:0 13px 16px;gap:7px}
+ html body .research-screen .research-utility-actions button{flex:1;min-height:44px;font-size:11px}
+ html body .research-screen button:focus-visible{outline-offset:1px}
+}
+@media(max-width:380px){html body .research-screen .research-branches{padding:7px 5px;gap:4px}html body .research-screen .research-branches button{min-width:57px;padding:7px 3px}html body .research-screen .research-branches b{font-size:10px}html body .research-screen .research-detail h2{font-size:20px}html body .research-screen .research-requirements{grid-template-columns:1fr}html body .research-screen .research-costs{gap:6px}html body .research-screen .research-header h1{font-size:23px}}
+@media(prefers-reduced-motion:reduce){html body .research-screen button,html body .research-screen .research-medallion{transition:none}}
