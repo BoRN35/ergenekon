@@ -816,3 +816,24 @@ html body .world-help { display: none !important; }
 .sv-stats i { font-style: normal; font-size: 18px; } .sv-stats b { font: 800 13px system-ui; color: #fff; }
 .sv-why { text-align: center; color: #ffb59f; font-weight: 700; margin: 6px 16px 0; }
 @media (max-width: 760px) { #ek-uq { top: 10px; left: 10px; } #ek-uq .uq { width: 42px; height: 42px; } }
+
+/* ===== Aşama 5: tek pencere şablonu ===== */
+/* başlık altı açıklamalar gizli (❗ ile açılır) */
+html body .game-page-header small, html body .game-page-header p, html body .game-page-header em, html body .research-header p, html body .research-header small { display: none !important; }
+html body .game-page-header { min-height: 92px !important; }
+/* eklenen pencereler aynı ahşap-bronz çerçevede */
+.ek-modal, .yk-card { background: linear-gradient(140deg, #17272f, #0e1b22 70%) !important; border: 1px solid #a98b50 !important; border-radius: 12px !important;
+  box-shadow: 0 20px 80px #000b, inset 0 0 0 3px #071218, inset 0 0 0 4px #8f76412e !important; }
+.ek-mh, .yk-head { position: relative; background: linear-gradient(90deg, #34271e, #22291f) !important; border-bottom: 1px solid #8b7448 !important; box-shadow: inset 0 -4px #090f12, 0 5px 18px #0004 !important; overflow: hidden; }
+.ek-mh::before, .ek-mh::after, .yk-head::before, .yk-head::after { content: ''; position: absolute; top: 50%; width: 64px; height: 44px; margin-top: -22px; pointer-events: none;
+  background: url('./assets/interface/carved-header.webp') -26px -39px/386px 128px no-repeat; mix-blend-mode: lighten; opacity: .9; filter: drop-shadow(0 2px 2px #0009); }
+.ek-mh::before, .yk-head::before { left: 50%; margin-left: -150px; }
+.ek-mh::after, .yk-head::after { right: 50%; margin-right: -150px; transform: scaleX(-1); }
+.ek-mh h2, .yk-head h2 { position: relative; z-index: 1; color: #f2d58e !important; }
+.ek-cap { position: relative; z-index: 1; }
+@media (max-width: 760px) {
+  .ek-mh::before, .yk-head::before { margin-left: -128px; } .ek-mh::after, .yk-head::after { margin-right: -128px; }
+  /* sekmeli pencerelerde detay alttan */
+  html body .ovp .mgmt-detail, html body .ovp .roster-detail, html body .ovp aside[class*="detail"] { border-radius: 14px 14px 0 0 !important; }
+}
+@media (max-width: 760px) { html body .ovp .game-page-header { padding-left: 64px !important; padding-right: 20px !important; min-height: 64px !important; justify-content: center; } html body .ovp .game-page-header h1, html body .ovp .game-page-header h2 { text-align: center; } }
