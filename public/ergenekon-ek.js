@@ -750,13 +750,13 @@
         var m = M[t.index]; if (!m) return;
         var az = W.X6 && W.X6.isAz ? W.X6.isAz(t.index) : false;
         lv = m[2] + (az ? 2 : 0); hid = s.mk && s.mk[t.index] > 0;
-        cls = 'm' + (lv > ocakLv ? ' lk' : '') + (az ? ' az' : '');
+        cls = 'm' + (lv > ocakLv ? ' lk' : '') + (az ? ' az' : '') + (W.ekIsMarked && W.ekIsMarked(t.index) ? ' mk' : '');
       } else {
         var n = s.nodes && s.nodes[t.index]; if (!n) return;
         lv = n.lv; hid = n.rg > 0 || n.res <= 0;
         cls = 'n ' + n.t + (lv > mx ? ' lk' : '');
       }
-      if (hid || (far && t.kind === 'node')) return;
+      if (hid || far) return;
       LB.v.set(t.worldX, 6.2, t.worldZ).project(w.camera);
       if (LB.v.z > 1 || LB.v.x < -1.1 || LB.v.x > 1.1 || LB.v.y < -1.1 || LB.v.y > 1.1) return;
       var x = cv.left - mb.left + (LB.v.x + 1) / 2 * cv.width, y = cv.top - mb.top + (1 - LB.v.y) / 2 * cv.height;

@@ -7,26 +7,41 @@
   // [ad, emoji, en düşük sv, en yüksek sv, model/base no, ağırlık]
   // 0-12 oyunun kendi türleri; 13+ yeni türler
   var SP = [
-    ['Çayır Kurdu', '🐺', 1, 3, 12, 5],
-    ['Ala Geyik', '🦌', 1, 4, 13, 5],
-    ['Kızıl Tilki', '🦊', 1, 3, 15, 4],
-    ['Yaban Domuzu', '🐗', 2, 7, 14, 5],
-    ['Bozkır Kurdu', '🐺', 3, 9, 0, 5],
-    ['Kara Ayı', '🐻', 4, 11, 1, 4],
-    ['Börü Kartalı', '🦅', 5, 13, 17, 4],
-    ['Yılan Ruhu', '🐍', 6, 14, 2, 3],
-    ['Yaban Öküzü', '🐃', 7, 16, 18, 4],
-    ['Albastı', '👺', 8, 17, 3, 3],
-    ['Kar Parsı', '🐆', 9, 19, 19, 4],
-    ['Kızıl Boğa', '🐂', 11, 21, 4, 3],
-    ['Buz Devi', '🧊', 14, 24, 5, 3],
-    ['Bozkır Mamutu', '🦣', 15, 26, 20, 3],
-    ['Tepegöz', '👁️', 17, 28, 6, 3],
-    ['Karakoncolos', '👹', 20, 31, 7, 3],
-    ['Evren Ejderi', '🐉', 24, 35, 8, 3],
-    ['Demir Dev', '🗿', 28, 38, 9, 2],
-    ['Erlik’in Gölgesi', '👻', 33, 39, 10, 2]
+    ['Çayır Kurdu', '🐺', 1, 6, 12, 5],
+    ['Karaca', '🦌', 1, 8, 21, 5],
+    ['Kızıl Tilki', '🦊', 1, 7, 15, 4],
+    ['Yaban Domuzu', '🐗', 2, 10, 14, 5],
+    ['Ala Geyik', '🦌', 3, 12, 13, 3],
+    ['Bozkır Kurdu', '🐺', 4, 12, 0, 4],
+    ['Kara Ayı', '🐻', 5, 14, 1, 3],
+    ['Börü Kartalı', '🦅', 6, 16, 17, 3],
+    ['Yılan Ruhu', '🐍', 7, 16, 2, 2],
+    ['Bozayı', '🐻', 11, 20, 22, 5],
+    ['Alageyik', '🦌', 11, 20, 23, 5],
+    ['Vaşak', '🐈', 11, 20, 24, 4],
+    ['Yaban Atı Sürüsü', '🐎', 12, 20, 25, 4],
+    ['Yaban Öküzü', '🐃', 9, 18, 18, 3],
+    ['Albastı', '👺', 10, 19, 3, 2],
+    ['Kar Parsı', '🐆', 12, 22, 19, 3],
+    ['Kızıl Boğa', '🐂', 13, 23, 4, 2],
+    ['Anadolu Parsı', '🐆', 21, 30, 26, 5],
+    ['Dağ Keçisi Sürüsü', '🐐', 21, 30, 27, 5],
+    ['Kartal', '🦅', 21, 30, 28, 4],
+    ['Kara Kurt Sürüsü', '🐺', 22, 30, 29, 5],
+    ['Buz Devi', '🧊', 18, 27, 5, 2],
+    ['Bozkır Mamutu', '🦣', 20, 29, 20, 3],
+    ['Tepegöz', '👁️', 22, 31, 6, 2],
+    ['Karakoncolos', '👹', 24, 33, 7, 2],
+    ['Ak Geyik', '🦌', 31, 40, 30, 5],
+    ['Kara Boğa', '🐂', 31, 40, 31, 5],
+    ['Börü Ana’nın Yavruları', '🐺', 31, 40, 32, 4],
+    ['Ejder Yavrusu', '🐉', 32, 40, 33, 4],
+    ['Evren Ejderi', '🐉', 30, 39, 8, 2],
+    ['Demir Dev', '🗿', 33, 39, 9, 2],
+    ['Erlik’in Gölgesi', '👻', 35, 39, 10, 2]
   ];
+  var HERD = { 25: 1, 27: 1, 29: 1, 32: 1 }, PACK = { 0: 1, 12: 1, 29: 1, 32: 1, 25: 1, 27: 1 }, LEGEND = { 30: 1, 32: 1, 33: 1 };
+  W.ekFaunaLegend = LEGEND;
   function rnd(i) { var x = Math.sin(i * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); }
   function reassign() {
     var M = W.M; if (!M || M.length < 14 || M.__ekFauna) return;
@@ -37,14 +52,20 @@
       if (!pool.length) continue;
       var tot = pool.reduce(function (a, sp) { return a + sp[5]; }, 0), r = rnd(i + 999) * tot, pick = pool[0];
       for (var k = 0; k < pool.length; k++) { r -= pool[k][5]; if (r <= 0) { pick = pool[k]; break; } }
-      M[i] = [pick[0], pick[1], lv, m[3], m[4], pick[4]];
+      var x = m[3] + (rnd(i + 7) - .5) * 2.4, y = m[4] + (rnd(i + 11) - .5) * 2.4;
+      M[i] = [pick[0], pick[1], lv, x, y, pick[4]];
+    }
+    // sürü/kurt grupları: aynı türden yakın komşular 2–3'lü öbek olur
+    for (var j = 14; j < M.length; j++) {
+      var a = M[j], b0 = a && PACK[a[5]] ? a : null; if (!b0 || rnd(j + 5) < .35) continue;
+      for (var q = 13; q < j; q++) { var c = M[q]; if (!c || c[5] !== a[5] || Math.abs(c[2] - a[2]) > 4) continue; var dd = Math.hypot(c[3] - a[3], c[4] - a[4]); if (dd < 9 && dd > 2.2) { var ang = rnd(j * 3) * Math.PI * 2; a[3] = c[3] + Math.cos(ang) * 2.4; a[4] = c[4] + Math.sin(ang) * 2.4; break; } }
     }
     M.__ekFauna = true;
   }
   reassign();
 
   /* ---------- 3D modeller ---------- */
-  var BASES = { 13: 'geyik', 14: 'domuz', 15: 'tilki', 17: 'kartal', 18: 'okuz', 19: 'pars', 20: 'mamut' };
+  var BASES = { 13: 'geyik', 14: 'domuz', 15: 'tilki', 17: 'kartal', 18: 'okuz', 19: 'pars', 20: 'mamut', 21: 'karaca', 22: 'bozayi', 23: 'alageyik', 24: 'vasak', 25: 'atsurusu', 26: 'anadoluparsi', 27: 'keci', 28: 'kartal2', 29: 'karakurt', 30: 'akgeyik', 31: 'karaboga', 32: 'boruyavru', 33: 'ejderyavru' };
   function quad(T, g, o) {
     // gövde +x yönüne bakar; o: renkler ve oranlar
     var body = T.mat(o.c, true), dark = T.mat(o.d || '#3a3430', true), eye = T.mat('#e0a35a', true, { emissive: '#b5521f', emissiveIntensity: .4 });
@@ -120,6 +141,34 @@
       g.scale.setScalar(1.25);
     }
   };
+  function wolfLike(T, g, col, sc) {
+    var q = quad(T, g, { c: col, d: '#2a2622', leg: .9, lt: .09, len: 1.35, h: .6, w: .5, hr: .42, sr: .22, sl: .55, hy: .45, bh: .5 });
+    for (var e = -1; e <= 1; e += 2) T.put(new T.Cone(.14, .4, 4), q.body, g, q.hx - .05, q.hy + .45, e * .2);
+    var tl = T.put(new T.Cyl(.1, .16, 1.2, 6), q.body, g, -1.6, q.bh + .1, 0); tl.rotation.z = -2.2;
+    if (sc) g.scale.setScalar(sc);
+  }
+  function herd(T, g, fn, n) { for (var i = 0; i < n; i++) { var s = new T.Group(); fn(T, s); s.position.set((i - (n - 1) / 2) * 2.3, 0, (i % 2) * 1.6 - .8); s.rotation.y = (i - 1) * .35; s.scale.multiplyScalar(.72); g.add(s); } }
+  MODELS.karaca = function (T, g) { MODELS.geyik(T, g); g.scale.setScalar(.8); };
+  MODELS.bozayi = function (T, g) { var q = quad(T, g, { c: '#6b4a2e', d: '#3b2718', leg: 1.0, lt: .24, len: 1.7, h: 1.05, w: .95, hr: .62, sr: .3, sl: .45, hy: .3, bh: .8 }); for (var e = -1; e <= 1; e += 2) T.put(new T.Sphere(.18, 6, 5), q.body, g, q.hx - .1, q.hy + .55, e * .32); g.scale.setScalar(1.2); };
+  MODELS.alageyik = function (T, g) { MODELS.geyik(T, g); g.scale.setScalar(1.1); };
+  MODELS.vasak = function (T, g) { var q = quad(T, g, { c: '#b9925e', d: '#3a2f25', leg: .8, lt: .09, len: 1.3, h: .55, w: .48, hr: .42, sr: .2, sl: .3, hy: .35, bh: .45 }); for (var e = -1; e <= 1; e += 2) { T.put(new T.Cone(.12, .5, 4), q.body, g, q.hx - .05, q.hy + .48, e * .22); T.put(new T.Cyl(.02, .02, .25, 4), q.dark, g, q.hx - .05, q.hy + .85, e * .22); } };
+  function horse(T, g, col) { var q = quad(T, g, { c: col, d: '#2a1d14', leg: 1.5, lt: .1, len: 1.55, h: .7, w: .55, hr: .35, sr: .26, sl: .9, hy: 1.1, bh: .6 }); T.put(new T.Box(.12, 1.0, .2), q.dark, g, q.hx - .3, q.hy - .1, 0).rotation.z = -.5; var tl = T.put(new T.Cyl(.08, .2, 1.2, 6), q.dark, g, -1.6, q.bh + .3, 0); tl.rotation.z = -2.6; }
+  MODELS.atsurusu = function (T, g) { herd(T, g, function (T2, s) { horse(T2, s, ['#7a4a26', '#b98a56', '#3a2a1e'][Math.floor(Math.random() * 3)]); }, 3); };
+  MODELS.anadoluparsi = function (T, g) { MODELS.pars(T, g); g.children.forEach(function (c) { if (c.material && c.material.color && c.material.color.getHexString() === 'd9d3c2') c.material = T.mat('#d6a85a', true); }); g.scale.setScalar(1.1); };
+  function goat(T, g) { var q = quad(T, g, { c: '#cfc6b4', d: '#4a3f33', leg: .8, lt: .08, len: 1.1, h: .55, w: .45, hr: .34, sr: .18, sl: .4, hy: .55, bh: .45 }); var hn = T.mat('#5a4a38', true); for (var e = -1; e <= 1; e += 2) { var h = T.put(new T.Cone(.08, .8, 5), hn, g, q.hx - .2, q.hy + .55, e * .14); h.rotation.z = .9; } T.put(new T.Cone(.06, .3, 4), q.dark, g, q.hx + .3, q.hy - .4, 0).rotation.z = Math.PI; }
+  MODELS.keci = function (T, g) { herd(T, g, goat, 3); };
+  MODELS.kartal2 = function (T, g) { MODELS.kartal(T, g); g.scale.setScalar(1.25); };
+  MODELS.karakurt = function (T, g) { herd(T, g, function (T2, s) { wolfLike(T2, s, '#2e2a28'); }, 3); };
+  MODELS.akgeyik = function (T, g) { MODELS.geyik(T, g); g.traverse(function (o) { if (o.isMesh && o.material && o.material.color) { var h = o.material.color.getHexString(); if (h === 'a8774a' || h === 'e8d6b8') o.material = T.mat('#f4f1ea', true, { emissive: '#bfe8ff', emissiveIntensity: .25 }); } }); g.scale.setScalar(1.25); };
+  MODELS.karaboga = function (T, g) { MODELS.okuz(T, g); g.traverse(function (o) { if (o.isMesh && o.material && o.material.color && o.material.color.getHexString() === '3d2f26') o.material = T.mat('#141212', true); }); g.scale.setScalar(1.2); };
+  MODELS.boruyavru = function (T, g) { herd(T, g, function (T2, s) { wolfLike(T2, s, '#e9e6df'); }, 3); g.scale.setScalar(1.1); };
+  MODELS.ejderyavru = function (T, g) {
+    var q = quad(T, g, { c: '#3f6a52', d: '#1d3328', leg: .8, lt: .14, len: 1.5, h: .7, w: .6, hr: .5, sr: .3, sl: .6, hy: .7, bh: .55 });
+    var wm = T.mat('#2c4a3a', true); for (var e = -1; e <= 1; e += 2) { var w = T.put(new T.Cone(1.1, 1.8, 3), wm, g, -.1, q.bh + 1.1, e * .9); w.rotation.x = e * 1.2; }
+    var tl = T.put(new T.Cone(.25, 1.8, 6), q.body, g, -2.0, q.bh + .1, 0); tl.rotation.z = Math.PI / 2;
+    for (var k = 0; k < 4; k++) T.put(new T.Cone(.12, .35, 4), T.mat('#c9a24a', true), g, -.8 + k * .5, q.bh + .75, 0);
+  };
+  function aura(T, g, col) { var m = T.mat(col, true, { emissive: col, emissiveIntensity: 1.2, transparent: true, opacity: .22 }); var a = T.put(new T.Sphere(1.6, 14, 10), m, g, 0, 1.5, 0); a.castShadow = false; a.scale.set(1.6, 1.2, 1.6); a.name = 'Aura'; }
   W.ekMonsterModel = function (D, T) {
     try {
       var base = W.monsterBase ? W.monsterBase(D.index) : -1, kind = BASES[base];
@@ -139,7 +188,7 @@
   }
   function addImages() {
     if (!W.IMG) return false;
-    var col = { 13: ['#6f8a4f', '#2a3a1e'], 14: ['#5d4a3c', '#241a14'], 15: ['#a5552b', '#3a1a0c'], 17: ['#5a7a9a', '#1c2a3a'], 18: ['#5b4a3a', '#1d1610'], 19: ['#8a9aa8', '#2b3640'], 20: ['#7a5a40', '#2a1c12'] };
+    var col = { 13: ['#6f8a4f', '#2a3a1e'], 14: ['#5d4a3c', '#241a14'], 15: ['#a5552b', '#3a1a0c'], 17: ['#5a7a9a', '#1c2a3a'], 18: ['#5b4a3a', '#1d1610'], 19: ['#8a9aa8', '#2b3640'], 20: ['#7a5a40', '#2a1c12'] }; for (var cb = 21; cb <= 33; cb++) col[cb] = LEGEND[cb] ? ['#8ab6c8', '#1c2f3a'] : ['#6a7a50', '#24301a'];
     SP.forEach(function (sp) { var b = sp[4]; if (b < 13) return; var k = 'canavar_' + (b + 1); if (!W.IMG[k]) W.IMG[k] = medallion(sp[1], col[b][0], col[b][1]); });
     return true;
   }
