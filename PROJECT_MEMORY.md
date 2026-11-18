@@ -175,3 +175,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - 66 Kaynak Ara sayfasına "Canavar" sekmesi (W.ekOpenFind ek.js'te açıldı): günün ✦ işaretlileri üstte, tür simgeleri, seviye kaydırıcı (canlı ve saldırılabilir en yüksek), malzeme filtresi 📜🔷🔮🃏, Ara → en yakın, tekrar → sıradaki, 📍 / ⚔×1 / ⚔×5 (ekSeries). Son seçim s.ek.cs.
 - 61 Kum saati s.ek.ks {m5,h1}: Emek Defteri kademeleri, destan canavarı eşikleri, Akıncı dalgaları (3+/6+) verir; satılmaz. Kullanım: yapı kartında ⏳, ilim detayında "Hızlandır", tek sayfada tüm sayaçlar (yapı/ilim/iyileştirme). W.ekHourglass.add(m5,h1).
 - 86 Alp Müfrezeleri s.ek.mf (2 yuva, 1/2/4/8/12 sa, kahraman çakışmaz), Ordu çipi; ödül tablosu RATE0, admin sekmesinde (#tz) JSON ile s.ek.mfr. Paketler Ocak'a göre ölçekli kaynak, premium +%35 yalnız kaynağa.
+
+## Paket 2 · 4. adım (ergenekon-denge.js)
+- 88 Canavar biçimi adından: hızlı/sürü = süvari gibi (🗡️ piyade yener), ağır = piyade gibi (🏹 okçu yener), uçan/ruh = okçu gibi (🐎 süvari yener). Savaşta düzen öncüsü zayıf türse saldırı ×1.2 (+0.05 uygun Turan Taktiğiyle), canavarın üstün olduğu türse ×0.9. Harita hedef panelinde .tri-row ve tek dokunuşla öncü seçimi.
+- 98 Silah uyumu: yay (Mete, Oğuz, Cengiz, Tomris), kılıç (Alparslan, Fatih, Timur, Kara Fatma), mızrak (Kubilay); sahip olunan kahraman eşleşirse +%3 saldırı. Yeni silahlar gen() sarmalıyla kılıç/yay/mızrak adlarıyla düşer.
+- 91 Setler r=2 Bozkurt, r=3 Tulpar, r=4 Hakan (6 parça: b,k,g,l,f,w) 2/4/6 → +%1/2/3 tüm statlar. Eksik parçaya dokununca canavar araması.
+- 92 Albüm (s.ek.al): Canavar (av ustalığı ms), Kahraman, Eşya; tamamlanan sayfa +%0.5 (saldırı/savunma/can). 97 Binek s.ek.bn: Kazak (Ocak 5) %2, Yakut (500 av) %3, Ahal-Teke (Ocak 15) %4, Tulpar (Destan çıkışı) %6 sefer süresi (mt sarmalı).

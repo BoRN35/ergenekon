@@ -89,6 +89,7 @@
   function tac() { var e = ek(); return TAC.filter(function (t) { return t.id === e.tt; })[0] || null; }
   function bestTac(base) { return TAC.filter(function (t) { return t.good.indexOf(base) >= 0; })[0] || null; }
   function tacFactor(base) { var t = tac(); if (!t) return 1; return t.good.indexOf(base) >= 0 ? 1.15 : .97; }
+  W.ergenekonKahramanTac = function (base) { return tacFactor(base) > 1; };
   function hookCs() {
     if (typeof W.cs !== 'function' || W.cs.__ek) return;
     var o = W.cs, f = function () { var r = o.apply(this, arguments); if (W.__ekFightBase != null) { var k = tacFactor(W.__ekFightBase); r = { atk: Math.round(r.atk * k), def: Math.round(r.def * (k > 1 ? 1.05 : 1)), hp: r.hp }; } return r; };

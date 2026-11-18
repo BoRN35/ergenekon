@@ -127,7 +127,7 @@
     return '<div class="ek-vt"><button type="button" class="vt-av ' + frameCls() + '" data-ekp="fr">' + avatar() + '</button>' +
       '<div class="vt-mid"><b class="vt-ti">' + (ti ? esc(ti.n) : '—') + '</b><div class="vt-chips"><button type="button" data-ekp="guc"><i>💪</i>' + nf(pw) + '</button><button type="button" data-ekp="kut"><i>✨</i>' + kut() + '</button></div>' +
       '<div class="vt-heroes">' + [0, 1, 2].map(function (j) { var h = top[j]; return '<span class="vt-h">' + (h ? heroPic(h[1], 44) + '<em>' + h[0] + '★</em>' : '') + '</span>'; }).join('') + '<span class="vt-it">' + item + '</span></div></div>' +
-      '<div class="vt-acts"><button type="button" data-ekp="dd" aria-label="Destan Defteri">📜</button><button type="button" data-ekp="rk" aria-label="Rekorlar">🏅</button><button type="button" data-ekp="fr" aria-label="Çerçeve">🖼️</button></div></div>';
+      '<div class="vt-acts"><button type="button" data-ekp="dd" aria-label="Destan Defteri">📜</button><button type="button" data-ekp="rk" aria-label="Rekorlar">🏅</button><button type="button" data-ekp="al" aria-label="Koleksiyon">📖</button><button type="button" data-ekp="bn" aria-label="Binek">' + (W.ergenekonDenge && W.ergenekonDenge.horse() ? W.ergenekonDenge.horse().e : '🐎') + '</button><button type="button" data-ekp="fr" aria-label="Çerçeve">🖼️</button></div></div>';
   }
   function hookPrf() {
     if (typeof W.prfGen !== 'function' || W.prfGen.__ekP) return;
