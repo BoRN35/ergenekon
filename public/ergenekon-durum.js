@@ -23,6 +23,7 @@
     for (var k in POS) o[k] = POS[k];
     return (L.slots = o);
   }
+  function full() { var s = S(), c = 0; try { c = W.cap(); } catch (x) { return false; } return ['odun', 'et', 'demir', 'komur'].some(function (r) { return (s.r[r] || 0) >= c * .9; }); }
   function rate(k) { // hasat: saatlik üretimin %25'i
     var s = S(), lv = (s.l && s.l[k]) || 0; if (!lv) return 0;
     var f = 1; try { f = W.factor() * W.pm() * W.ECO(); } catch (e) {}
@@ -142,12 +143,13 @@
       if (can) items.push(['up', '']);
       if (e.fx[k] > t) items.push(['fx', '']);
       if (k === 'bilgelik' && e.rsGlow) items.push(['rs', '📜']);
+      if (k === 'ambar' && full()) items.push(['amb', '']);
       items.forEach(function (it, i) {
         var id = k + ':' + it[0], b = L.pool[id];
         if (!b) { b = L.pool[id] = document.createElement('button'); b.type = 'button'; b.className = 'ek-st ek-st-' + it[0]; b.dataset.st = k; b.dataset.kind = it[0]; el.appendChild(b); }
         var html = it[0] === 'up' ? '<i></i>' : it[0] === 'bin' ? '<span>' + it[1] + '</span>' : it[0] === 'rs' ? '<span>' + it[1] + '</span>' : '';
         if (b.__ekh !== html) { b.__ekh = html; b.innerHTML = html; }
-        var dy = it[0] === 'up' ? 0 : it[0] === 'bin' ? -30 : it[0] === 'rs' ? -30 : 26;
+        var dy = it[0] === 'up' ? 0 : it[0] === 'bin' || it[0] === 'rs' || it[0] === 'amb' ? -30 : 26;
         b.style.transform = 'translate(' + (sp.x - cv.left).toFixed(1) + 'px,' + (sp.y - cv.top + dy).toFixed(1) + 'px)';
         b.hidden = false; seen[id] = 1;
       });

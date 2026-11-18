@@ -159,3 +159,7 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Sohbet: emoji satırı #ek-em, üyeler anahtar kelimeye göre yanıt verir.
 - Kut Bereketi anahtarı (s.ek.prem, +%35 toplama, ödeme yok), ışık: ACES + pozlama 1.12.
 - DİKKAT: global fonksiyon sarmalayan her kanca alt fonksiyonun özelliklerini kopyalamalı (for k in o f[k]=o[k]); kopyalamazsa iki kanca birbirini sonsuza dek sarar (wosBonus yığılma hatası düzeltildi).
+
+## Paket 2 · 1. adım (ergenekon-kolay.js)
+- 76 Neler yeni (s.ek.wv = VER; yeni sürümde VER'i değiştir), 96 Dünün emeği (s.ek.yd anlık görüntü, s.ek.yl, #aw içine satır), 65 ambar ışığı (durum.js 'amb'), 64 önerilen ilim (.ek-rec + sekmede turkuaz nokta), 89 ilim önizleme (.ek-prev, toplam → sonraki), 63 sürekli eğitim (s.ek.ct, Ordu çipi), 62 tekrar gönder (s.ek.rg), 83 hepsine yardım (#ek-hand, s.ek.hp sayacı), 72 renk körlüğü (body.ek-cb ◆/◇), 69 grafik kalitesi (s.ek.gq oto/düşük/orta/yüksek: pixelRatio + gölge).
+- Ayarlar satırları #ek-kolay. 67/73 (Supabase) kullanıcı projeyi açınca yapılacak.

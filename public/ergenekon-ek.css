@@ -1023,3 +1023,41 @@ html body #ek-em button{flex:1;padding:6px 0!important;font-size:18px;border-rad
 #ek-live.on{animation:ekLive 4.5s ease forwards}
 @keyframes ekLive{0%{opacity:0;transform:translate(-50%,-8px)}10%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
 html body #ek-prem button.on{background:linear-gradient(180deg,#f2c14e,#b57a1b)!important;color:#2a1a05!important}
+
+/* ===== Paket 2 · 1. adım: konfor ===== */
+html body #ek-stat .ek-st-amb{width:30px!important;height:30px!important;margin:-15px 0 0 -15px;border-radius:50%!important;border:2px solid #ffd27a!important;padding:0!important;background:radial-gradient(circle,#ffe2a0 0,#f0a43a 55%,#b86a12 100%)!important;box-shadow:0 0 16px 4px #ffb347aa!important;animation:ekAmb 1.6s ease-in-out infinite}
+@keyframes ekAmb{50%{transform-origin:center;opacity:.55}}
+.nw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:4px 14px 12px}
+.nw-grid span{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:12px;background:#221a13;border:1px solid #5a4630}
+.nw-grid i{font-style:normal;font-size:26px}.nw-grid small{font-size:11px;color:#e7d6b4;text-align:center}
+.ek-yday{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0;padding:6px 10px;border-radius:999px;background:#1a130dcc;border:1px solid #5a4630;color:#f3e3c0;font-size:13px}
+.ek-yday b{font-family:Cinzel,serif;color:#ffe08a}
+.ek-yday-float{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 120px);transform:translateX(-50%);z-index:95;transition:opacity .7s,transform .7s;white-space:nowrap}
+.ek-yday-float.out{opacity:0;transform:translate(-50%,-10px)}
+#ek-hand{position:fixed;right:4px;bottom:calc(env(safe-area-inset-bottom) + 170px);z-index:96;width:46px;height:46px;border-radius:50%;padding:0!important;display:flex;align-items:center;justify-content:center;border:2px solid #f2c14e!important;background:radial-gradient(circle at 40% 35%,#3a2c1f,#1a130d)!important;box-shadow:0 0 14px #f2c14e66;animation:ekUs 1.8s infinite}
+#ek-hand i{font-style:normal;font-size:22px}
+#ek-hand b{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#2aa39a;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px}
+#ek-hand.done{transform:scale(1.2);transition:transform .2s}
+#ek-hand[hidden]{display:none}
+html body #tr .research-node.ek-rec .research-medallion{box-shadow:0 0 0 3px #3fd6c8,0 0 22px #3fd6c8aa!important;animation:ekRec 2.2s ease-in-out infinite}
+@keyframes ekRec{50%{box-shadow:0 0 0 3px #3fd6c8,0 0 8px #3fd6c855}}
+.ek-hide{display:none!important}
+.ek-prev{display:grid;gap:6px;margin:8px 0;width:100%;flex:1 1 100%;grid-column:1/-1;box-sizing:border-box}
+.ek-prev span{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:8px;align-items:center;padding:8px 12px;border-radius:12px;background:#0f2a2a;border:1px solid #2aa39a66}
+.ek-prev small{font-size:12px;color:#bfe;opacity:.85}.ek-prev b{font-size:15px;color:#e7d6b4}.ek-prev b.nx{color:#5fe3d6}.ek-prev i{font-style:normal;color:#f2c14e}
+#ek-kolay{display:grid;gap:8px}
+.kz-row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px}
+.kz-row i{font-style:normal;font-size:20px;text-align:center}
+.kz-seg{grid-column:2/4;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+html body #ek-kolay .kz-seg button{padding:7px 0!important;border-radius:9px;font-size:12px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important;min-width:0}
+html body #ek-kolay .kz-seg button.on{background:#0f2a2a!important;border-color:#3fd6c8!important;color:#5fe3d6!important}
+html body #ek-kolay .kz-tg{width:48px;height:26px;border-radius:13px;padding:0!important;position:relative;background:#2a211a!important;border:1px solid #5a4630!important;min-width:0}
+#ek-kolay .kz-tg u{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#8a7a62;transition:left .2s}
+html body #ek-kolay .kz-tg.on{background:#0f2a2a!important;border-color:#3fd6c8!important}
+#ek-kolay .kz-tg.on u{left:25px;background:#5fe3d6}
+.db-chip.on{border-color:#3fd6c8!important}
+/* renk körlüğü: renge ek şekil — yeterli dolu tamga, eksik boş çerçeve */
+body.ek-cb .cg::before,body.ek-cb .research-cost.is-affordable::before,body.ek-cb .ok:not(.ed-g)::before{content:'◆';margin-right:3px;font-size:.8em}
+body.ek-cb .cr::before,body.ek-cb .research-cost.is-short::before,body.ek-cb .no::before{content:'◇';margin-right:3px;font-size:.8em}
+html body #tr [data-rtb].ek-rec-tab{position:relative}
+html body #tr [data-rtb].ek-rec-tab::after{content:'';position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:#3fd6c8;box-shadow:0 0 8px #3fd6c8}
