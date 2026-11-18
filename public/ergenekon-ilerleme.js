@@ -67,11 +67,11 @@
   function hookBonus() {
     if (typeof W.wosBonus === 'function' && !W.wosBonus.__ekIl) {
       var o = W.wosBonus, f = function (label) { var v = o.apply(this, arguments); if (label === 'Gathering Speed') { var k = kutLevel(); v += kutBonus(k.lv).gather + ((ek().ay || {}).yol || 0) * .03; var us = ek().us; if (us && us.t1 > Date.now()) v += .5; if (W.__ekPrem && W.__ekPrem()) v += .35; } return v; };
-      f.__ekIl = true; W.wosBonus = f;
+      for (var q0 in o) f[q0] = o[q0]; f.__ekIl = true; W.wosBonus = f;
     }
     if (typeof W.dur === 'function' && !W.dur.__ekIl) { var du = W.dur, df = function () { var v = du.apply(this, arguments); return typeof v === 'number' ? Math.max(1, Math.round(v * (1 - kutBonus(kutLevel().lv).build))) : v; }; for (var q in du) df[q] = du[q]; df.__ekIl = true; W.dur = df; }
     var want = 200 + kutBonus(kutLevel().lv).energy + ((ek().ay || {}).can || 0) * 5; if (W.EN_MAX !== want) W.EN_MAX = want;
-    if (typeof W.pm === 'function' && !W.pm.__ekIl) { var po = W.pm, pf = function () { return po.apply(this, arguments) + ((ek().ay || {}).bereket || 0) * .02; }; pf.__ekIl = true; W.pm = pf; }
+    if (typeof W.pm === 'function' && !W.pm.__ekIl) { var po = W.pm, pf = function () { return po.apply(this, arguments) + ((ek().ay || {}).bereket || 0) * .02; }; for (var q1 in po) pf[q1] = po[q1]; pf.__ekIl = true; W.pm = pf; }
   }
 
   /* ---------- 28) Uğurlu Saat ---------- */
@@ -145,7 +145,7 @@
   function hookCb() {
     if (typeof W.cb !== 'function' || W.cb.__ekIl) return;
     var o = W.cb, f = function (k) { var b = o(k), t = pets().tulpar; if (t.b > Date.now() && (k === 'a' || k === 'f')) b += .1 + t.lv * .002; if ((ek().ay || {}).ordu && k === 'a') b += ek().ay.ordu * .02; return b; };
-    f.__ekIl = true; W.cb = f;
+    for (var q2 in o) f[q2] = o[q2]; f.__ekIl = true; W.cb = f;
   }
   function openPets() {
     var p = pets(), now = Date.now(), mx = petMax(), sfLeft = p.sf > now ? (p.sf - now) / 1000 : 0;

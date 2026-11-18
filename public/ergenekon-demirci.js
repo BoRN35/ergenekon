@@ -78,12 +78,12 @@
     if (typeof W.wosBonus === 'function' && !W.wosBonus.__dm) {
       var ob = W.wosBonus;
       var nb = function (label) { var v = ob.apply(this, arguments); if (label === 'Gathering Speed') v += gatherBonus(lv()); return v; };
-      nb.__dm = true; W.wosBonus = nb;
+      for (var q0 in ob) nb[q0] = ob[q0]; nb.__dm = true; W.wosBonus = nb;
     }
     if (typeof W.upch === 'function' && !W.upch.__dm) {
       var oc = W.upch;
       var nc = function (x) { return Math.min(0.95, oc.apply(this, arguments) * chanceMul(lv())); };
-      nc.__dm = true; W.upch = nc;
+      for (var q1 in oc) nc[q1] = oc[q1]; nc.__dm = true; W.upch = nc;
     }
   }
 

@@ -262,6 +262,7 @@
       } catch (e) {}
       return out;
     };
+    for (var pk in orig) if (!(pk in wrapped)) wrapped[pk] = orig[pk];
     wrapped.__ek = true;
     W.fight = wrapped;
   }

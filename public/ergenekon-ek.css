@@ -999,3 +999,27 @@ html body .ed-t.got{opacity:.4;background:#1c2a17!important}
 .ds-ch.on{border-color:#f2c14e;box-shadow:0 0 10px #f2c14e55}.ds-ch.lk{opacity:.45}.ds-ch.done{background:#1c2a17}
 .ek-optrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .ek-optrow small{display:block;font-size:11px;opacity:.7}
+
+/* ===== F: Kutsal Ocak ===== */
+#ek-oc{margin:6px 0 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0}
+.oc-top{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+html body #ek-oc .oc-top button{display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto;align-items:center;column-gap:6px;padding:10px!important;border-radius:14px;background:linear-gradient(180deg,#2a2017,#1a130d)!important;border:1px solid #5a4630!important;color:#f3e3c0!important;text-align:left;min-height:64px}
+#ek-oc .oc-top i{grid-row:1/3;font-style:normal;font-size:30px;text-align:center}
+#ek-oc .oc-top b{font:800 18px Cinzel,serif;color:#ffe08a}#ek-oc .oc-top small{font-size:11px;opacity:.8}
+html body #ek-oc .oc-gift.has{border-color:#f2c14e!important;box-shadow:0 0 12px #f2c14e66;animation:ekUs 1.8s infinite}
+html body #ek-oc button:disabled{opacity:.55}
+.oc-mem,.oc-feed{padding:10px;border-radius:14px;background:#1a130d;border:1px solid #3a2c1f}
+.oc-h{display:flex;justify-content:space-between;color:#ffe08a;margin-bottom:6px}.oc-h span{display:flex;align-items:center;gap:5px;font-size:12px;color:#7ee07a}
+.oc-list{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.oc-m{flex:0 0 64px;position:relative;display:flex;flex-direction:column;align-items:center;padding:6px 2px;border-radius:10px;background:#221a13;border:1px solid #3a2c1f}
+.oc-m.me{border-color:#f2c14e}.oc-m span{font-size:18px}.oc-m b{font-size:11px;color:#f3e3c0;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.oc-m small{font-size:10px;color:#c9b48a}
+.oc-m .dot{position:absolute;top:5px;right:5px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5fdc5a;box-shadow:0 0 5px #5fdc5a}.dot.off{background:#665;box-shadow:none}
+.oc-feed div{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;font-size:12px;color:#e7d6b4;padding:3px 0}
+.oc-feed i{font-style:normal}.oc-feed small{opacity:.55;font-size:10px}
+#ek-em{display:flex;gap:6px;margin-top:6px}
+html body #ek-em button{flex:1;padding:6px 0!important;font-size:18px;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;min-width:0}
+#ek-live{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 118px);transform:translateX(-50%);z-index:90;max-width:86vw;padding:6px 12px;border-radius:999px;background:#140f0bcc;border:1px solid #5a4630;color:#f3e3c0;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none}
+#ek-live.on{animation:ekLive 4.5s ease forwards}
+@keyframes ekLive{0%{opacity:0;transform:translate(-50%,-8px)}10%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+html body #ek-prem button.on{background:linear-gradient(180deg,#f2c14e,#b57a1b)!important;color:#2a1a05!important}

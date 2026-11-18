@@ -152,3 +152,10 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Uğurlu Saat (#ek-us haritada): günde 1, 1 sa +%50 toplama (s.ek.us).
 - Şahin/Tulpar (🦅 üst buton, s.ek.pets, yem seferi), Destan Seferi (10 bölüm × 3, s.ek.ds, #ek-army çipi).
 - Geri dönüş sandığı (3+ gün, s.ek.seen/bk), bildirimler (Ayarlar, sayfa açıkken/arka planda), bozkır sesleri (WebAudio, s.snd/SVV).
+
+## F aşaması — Kutsal Ocak (ergenekon-ocak.js)
+- İttifak (Boylar Meclisi) "Boy merkezi" bölmesinin üstüne #ek-oc: Ocak hediyesi (45 dk'da 1, en çok 25), Akıncı dalgaları (3 günde bir, 10 dalga), üye listesi (MEM, yerel YZ, çevrim içi noktası), canlılık akışı (+ başka sekmelerde #ek-live).
+- management-workspace.js her render'da odayı yeniden kurar → kutu render sarmalıyla yeniden takılır (attach).
+- Sohbet: emoji satırı #ek-em, üyeler anahtar kelimeye göre yanıt verir.
+- Kut Bereketi anahtarı (s.ek.prem, +%35 toplama, ödeme yok), ışık: ACES + pozlama 1.12.
+- DİKKAT: global fonksiyon sarmalayan her kanca alt fonksiyonun özelliklerini kopyalamalı (for k in o f[k]=o[k]); kopyalamazsa iki kanca birbirini sonsuza dek sarar (wosBonus yığılma hatası düzeltildi).
