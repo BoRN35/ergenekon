@@ -1216,3 +1216,41 @@ html body .ab.ok{border-color:#5a4630!important;background:#221a13!important;col
 .ab small{font-size:9.5px;line-height:1.1;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sef-box{grid-column:1/-1;height:200px;border-radius:12px;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#3a2c1f,#120d09 70%);position:relative}
 .sef-cv{width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+
+/* ===== Paket 2 · 5. adım: teknik ===== */
+#ek-upd{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 64px);transform:translateX(-50%);z-index:99;display:flex;align-items:center;gap:8px;padding:8px 14px!important;border-radius:999px;background:#140f0bee!important;border:1px solid #f2c14e!important;color:#ffe08a!important;box-shadow:0 0 14px #f2c14e66;width:auto!important}
+#ek-upd i{font-style:normal}#ek-upd b{font-size:16px}
+#ek-tek{display:grid;gap:8px}
+.tk-lang{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+html body .tk-lang button,html body .tk-row button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important;min-width:0}
+html body .tk-lang button.on{background:#0f2a2a!important;border-color:#3fd6c8!important;color:#5fe3d6!important}
+.tk-lang i,.tk-row i{font-style:normal;font-size:20px}.tk-lang small,.tk-row small{font-size:11px}
+.tk-row{display:grid;grid-template-columns:1fr 1fr 44px;gap:6px}
+html body .tk-row .tk-adm{opacity:.55}
+.pw-steps{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 14px 16px}
+.pw-steps span{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px;border-radius:12px;background:#221a13;border:1px solid #5a4630;min-width:70px}
+.pw-steps i{font-style:normal;font-size:26px}.pw-steps small{font-size:11px;text-align:center}.pw-steps b{color:#f2c14e;font-size:20px}
+.bg-c{display:grid;gap:8px;margin:0 14px 14px}
+.bg-img{width:100%;border-radius:12px;border:1px solid #5a4630;max-height:34vh;object-fit:contain;background:#120d09}
+.bg-none{height:120px;display:grid;place-items:center;font-size:30px}
+.bg-c textarea,.ad-ta,.ad-pin input{width:100%;box-sizing:border-box;border-radius:10px;border:1px solid #5a4630;background:#120d09;color:#f3e3c0;padding:8px;font:14px/1.4 'Alegreya Sans',sans-serif}
+.ad-pin{display:grid;grid-template-columns:1fr 64px;gap:8px;margin:0 14px 14px}.ad-pin input{font-size:22px;letter-spacing:6px;text-align:center}
+.ad-pin input.bad,.ad-ta.bad{border-color:#e49a2a}
+.ad-tag{margin:0 14px 8px;text-align:center;font-size:12px;color:#e49a2a}
+.ad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 14px 10px}
+html body .ad-grid button{display:flex;flex-direction:column;align-items:center;padding:8px 0!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important;min-width:0}
+html body .ad-grid button.done{border-color:#3fd6c8!important;background:#0f2a2a!important}
+.ad-grid i{font-style:normal;font-size:20px}.ad-grid small{font-size:11px}
+.ad-bugs{margin:0 14px 10px;max-height:34vh;overflow:auto;display:grid;gap:6px}
+.ad-b{display:grid;grid-template-columns:64px 1fr 30px;gap:8px;align-items:center;padding:6px;border-radius:10px;background:#1a130d;border:1px solid #3a2c1f}
+.ad-b img{width:64px;height:44px;object-fit:cover;border-radius:6px}.ad-b b{display:block;font-size:11.5px;color:#ffe08a}.ad-b small{display:block;font-size:11px;opacity:.85}.ad-b small.er{color:#e49a2a}
+html body .ad-b button{padding:0!important;height:30px;border-radius:8px;background:#221a13!important;border:1px solid #5a4630!important;min-width:0}
+.ad-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 14px 14px}
+html body .ad-row button{padding:8px!important;border-radius:10px;background:#221a13!important;border:1px solid #5a4630!important;color:#e7d6b4!important}
+.ad-hint{margin:0 14px 6px;font-size:11px;opacity:.7}.ad-ta{margin:0 14px 8px;width:calc(100% - 28px)!important;font:12px monospace}
+.ad-none{text-align:center;opacity:.5}
+/* dil: Kazakça/Arapça için yedek yazı tipleri, Arapça sağdan sola */
+html[lang="kk"] body,html[lang="kk"] button{font-family:'Alegreya Sans','Noto Sans',sans-serif}
+html[lang="kk"] h1,html[lang="kk"] h2,html[lang="kk"] h3{font-family:'Cinzel','Noto Serif',serif}
+html[lang="ar"] body,html[lang="ar"] button,html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{font-family:'Noto Sans Arabic','Alegreya Sans',sans-serif}
+body.ek-rtl .yk-head,body.ek-rtl .ek-mh{direction:rtl}

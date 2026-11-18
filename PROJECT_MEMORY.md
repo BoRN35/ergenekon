@@ -182,3 +182,8 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - 91 Setler r=2 Bozkurt, r=3 Tulpar, r=4 Hakan (6 parça: b,k,g,l,f,w) 2/4/6 → +%1/2/3 tüm statlar. Eksik parçaya dokununca canavar araması.
 - 92 Albüm (s.ek.al): Canavar (av ustalığı ms), Kahraman, Eşya; tamamlanan sayfa +%0.5 (saldırı/savunma/can). 97 Binek s.ek.bn: Kazak (Ocak 5) %2, Yakut (500 av) %3, Ahal-Teke (Ocak 15) %4, Tulpar (Destan çıkışı) %6 sefer süresi (mt sarmalı).
 - 90 Şef 3D (ergenekon-sef.js): profil vitrininde oyunun Three.js sınıflarıyla (city3d'den toplanır) basit primitif şef; eşya kademesi doğal malzeme tonu + nadirlik şeridi, + ≥5 parıltı, en yüksek + ≥10/15 altın aura, tam sette pelerin, seçili binek yanında; sürükleyerek döner. Gerçekçi model için kullanıcıdan Tripo3D GLB beklenebilir.
+
+## Paket 2 · 5. adım (ergenekon-teknik.js, sw.js, manifest.webmanifest, lang/)
+- PWA: manifest + ikonlar (assets/app), sw.js: sayfa önbellekten anında açılır, arka planda tazelenir; değiştiyse "✦ Yeni sürüm ↻" düğmesi. ?v= dosyalar önbellekten. /api/, no-store ve yabancı (font dışı) istekler SW dışı. Bildirimler W.ekNotify (SW showNotification).
+- Hata bildir: 3D tuvalin ekran görüntüsü + not + son hatalar → localStorage ek_bugs (12) + paylaşım menüsü. Admin: Ayarlar ⋯ → PIN (yalnız SHA-256 özeti kodda), cihazda ek_adm; araçlar zaman/kaynak/malzeme/kart/Ocak+1/enerji/etkinlik sıfırla; W.TST=true (şan tablolarına yazılmaz). Müfreze oranları da burada.
+- Dil: lang/{tr,az,kk,en,ar}.json (95 temel metin), tam eşleşen metin düğümlerini çeviren katman; ar için dir=rtl ve Noto Sans Arabic, kk için Noto yedek. Tüm metinlerin dosyaya taşınması sonraki iş.

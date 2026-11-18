@@ -226,7 +226,7 @@
   }
   var NT = { timers: [] };
   function notifOn() { return ek().nt && 'Notification' in W && Notification.permission === 'granted'; }
-  function notify(t, b) { try { if (notifOn()) new Notification(t, { body: b, icon: './assets/interface/carved-header.webp', tag: t }); } catch (e) {} }
+  function notify(t, b) { try { if (!notifOn()) return; if (W.ekNotify) W.ekNotify(t, b); else new Notification(t, { body: b, icon: './assets/app/icon-192.png', tag: t }); } catch (e) {} }
   function schedule() {
     NT.timers.forEach(clearTimeout); NT.timers = [];
     if (!notifOn()) return; var s = S();
