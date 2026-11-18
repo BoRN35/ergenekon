@@ -710,3 +710,17 @@ html body .world-info { display: none !important; }
   .yk-hero img { width: 150px; height: 150px; } .yk-ph { font-size: 90px; line-height: 150px; }
   body.ek-detail #tc > aside.city-context { position: fixed !important; inset: auto 0 calc(58px + env(safe-area-inset-bottom)) 0 !important; max-height: 70vh !important; overflow: auto !important; z-index: 55 !important; }
 }
+
+/* ===== Aşama 1: tek ana ekran ===== */
+/* sol menü en fazla 6 simge: Oba, Sefer, Araştırma, Kahraman, Posta, Etkinlik */
+html body.ek-nav7 #tabs > button[data-t="a"], html body.ek-nav7 #tabs > button:not([data-t]):not(#pfb):not([data-ex]) { display: none !important; }
+/* üst çubuk: yalnız kaynaklar */
+html body #top > .mt1, html body #top > .pwr, html body #top > .heat, html body #top > .infb { display: none !important; }
+html body #res > div[title="Depo kapasitesi"], html body #res > div[title="Halk"] { display: none !important; }
+html body #res > div:not([title]):not(.ek-res):not([data-ek-res]) { display: none !important; }
+/* sahne üstündeki kalabalık */
+html body #cityv .world-build, html body #cityv .world-tools, html body .world-map-help, html body #cp { display: none !important; }
+/* akıcı geçiş */
+#ek-fade { position: fixed; inset: 0; z-index: 99990; pointer-events: none; opacity: 0; background: radial-gradient(circle at 50% 55%, rgba(30,22,12,.6), #0b0805 70%); transition: opacity .23s ease; }
+#ek-fade.in { opacity: 1; } #ek-fade.out { opacity: 0; transition-duration: .45s; }
+html body .world-help { display: none !important; }

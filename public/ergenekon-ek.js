@@ -150,7 +150,7 @@
     if (!dock) {
       dock = document.createElement('button');
       dock.id = 'ek-world'; dock.type = 'button';
-      dock.addEventListener('click', function () { goTab(W.tab === 'm' ? 'c' : 'm'); });
+      dock.addEventListener('click', function () { var to = W.tab === 'm' ? 'c' : 'm'; if (W.ekFade) W.ekFade(function () { goTab(to); }); else goTab(to); });
     }
     var host = document.getElementById(tab === 'm' ? 'mapv' : 'cityv');
     if (host && dock.parentNode !== host) host.appendChild(dock);
