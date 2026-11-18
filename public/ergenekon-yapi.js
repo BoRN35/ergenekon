@@ -68,14 +68,12 @@
         (rq.length ? '<div class="yk-req">' + rq.join('') + '</div>' : '') +
         '<button type="button" class="yk-main" data-k="' + k + '"' + (ok ? '' : ' disabled') + '>' + (L ? '⬆ Yükselt' : '🔨 İnşa et') + '</button>';
     } else mid = '<p class="yk-max">En yüksek seviye</p>';
-    var acts = actions(k, L).map(function (a) { return '<button type="button" class="yk-btn" data-yk="' + a[0] + '">' + a[1] + '</button>'; }).join('');
+    var acts = actions(k, L).map(function (a) { return '<button type="button" class="yk-ico" data-yk="' + a[0] + '" title="' + a[1].replace(/^\S+\s/, '') + '">' + a[1].split(' ')[0] + '</button>'; }).join('');
+    W.__ykInfo = '<p class="yk-desc">' + def.d + '</p><div class="yk-tab">' + rows + '</div>';
     return '<div class="yk-card" role="dialog" aria-modal="true" aria-label="' + def.n + '">' +
-      '<div class="yk-head"><h2>' + def.n + '</h2><button type="button" class="yk-x" data-yk="close" aria-label="Kapat">✕</button></div>' +
-      '<div class="yk-hero">' + img + '<span class="yk-lv">' + L + '</span></div>' +
-      '<div class="yk-sec">Yapı Özeti</div><p class="yk-desc">' + def.d + '</p>' +
-      '<div class="yk-sec">Bonus</div><div class="yk-tab">' + rows + '</div>' +
-      mid + (acts ? '<div class="yk-acts">' + acts + '</div>' : '') +
-      '<button type="button" class="yk-more" data-yk="detail">Diğer Detaylar</button></div>';
+      '<div class="yk-head"><button type="button" class="yk-info" data-yk="info" aria-label="Açıklama">!</button><h2>' + def.n + '</h2><button type="button" class="yk-x" data-yk="close" aria-label="Kapat">✕</button></div>' +
+      '<div class="yk-hero">' + img + '<span class="yk-lv">' + L + '</span>' + (L < max && !q ? '<span class="yk-next">→ ' + (L + 1) + '</span>' : '') + '</div>' +
+      mid + '<div class="yk-foot">' + acts + '<button type="button" class="yk-ico" data-yk="detail" title="Diğer detaylar">⋯</button></div></div>';
   }
   var cur = null, detail = false;
   function close() {
@@ -94,6 +92,7 @@
         if (!b) return; // data-k / data-h / data-p / data-bm oyunun kendi tıklama işleyicisine gider
         var a = b.getAttribute('data-yk');
         if (a === 'close') close();
+        else if (a === 'info') { var ov = document.createElement('div'); ov.className = 'ek-ov yk-ov'; ov.innerHTML = '<div class="yk-card yk-small"><div class="yk-head"><h2>Bilgi</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div>' + (W.__ykInfo || '') + '</div>'; ov.addEventListener('click', function (e2) { if (e2.target === ov || e2.target.closest('.yk-x')) ov.remove(); }); document.body.appendChild(ov); }
         else if (a === 'detail') { detail = true; document.body.classList.add('ek-detail'); o.remove(); cur = null; }
         else if (a === 'hearth') { o.remove(); cur = null; try { W.city3d.hearthGallery.open(); } catch (e) {} }
         else if (a.indexOf('tab:') === 0) { o.remove(); cur = null; try { W.BMK = ''; } catch (e) {} var tb = document.querySelector('#tabs [data-t="' + a.slice(4) + '"]'); if (tb) tb.click(); else if (a === 'tab:m') { var w = document.getElementById('ek-world'); if (w) w.click(); } }

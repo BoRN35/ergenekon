@@ -395,5 +395,11 @@
     requestAnimationFrame(frame);
   }
   start();
-  W.ergenekonDemirci = { open: openForge, state: function () { return dm(); }, rollMats: rollMats, _g: function () { return G; } };
+  function canEnhance(id) {
+    var s = S(), d = dm(), o = itemById(id); if (!o || !d || d.lv < 1) return false;
+    var p = o.x.p || 0; if (p >= (W.UPM || 12)) return false;
+    var dem = 0; try { dem = W.ucost(o.x); } catch (e) { return false; }
+    return (s.r.demir || 0) >= dem && haveMat(matCost(p));
+  }
+  W.ergenekonDemirci = { canEnhance: canEnhance, open: openForge, state: function () { return dm(); }, rollMats: rollMats, _g: function () { return G; } };
 })();

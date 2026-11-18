@@ -105,6 +105,7 @@
     else if (it.cat === 'res') badge = '<b class="ci-amt">' + nf(W.ergenekonEk ? W.ergenekonEk.packAmount(it.res, it.tier) : 0) + '</b><span class="ci-n">' + nf(it.n) + '</span>';
     else badge = '<span class="ci-n">' + nf(it.n) + '</span>';
     var cls = 'ci-tile r' + Math.min(4, it.r || 0) + glowClass(it) + (opts.on ? ' on' : '');
+    if (it.cat === 'eq' && it.id !== 'nx' && W.ergenekonDemirci && W.ergenekonDemirci.canEnhance(it.id)) { cls += ' ci-up'; badge += '<i class="ci-upbar"></i>'; }
     if (opts.dis) return '<div class="' + cls + ' ci-static" style="--rc:' + col + '">' + iconOf(it) + badge + '</div>';
     return '<button type="button" class="' + cls + '" data-ci="' + it.id + '" style="--rc:' + col + '">' + iconOf(it) + badge + '</button>';
   }
