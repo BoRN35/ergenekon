@@ -255,3 +255,10 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Kısayol: profilde ⚒️ Demirci / 🐺 Setler; kahraman silah çipi (.kh-wp) → Demirci; geri tuşu W.ekPopBack ile önceki pencereye.
 - Ayarlar: Yazı A−/A/A＋ (s.ek.fs, zoom), Müzik seviyesi, Titreşim (s.ek.vib, navigator.vibrate sarmalı). Arama: menüde 🔎 (NPC sekmeleri, binalar, kaynak/malzeme nereden, canavarlar, kahramanlar, eylemler).
 - Pencereler 200 ms kayarak açılır (düşük grafik/tasarrufta 80 ms). iPad sınıfları ek-tablet-p/l. Kamera: şehir ve haritada ⌖ (city3d.home / world3d.focusPlayer); iki parmak zaten DOLLY_ROTATE.
+
+## Paket 4 · 3. adım (ergenekon-cag.js)
+- Çağ: Ocak 1–10 Oba, 11–20 Boy, 21–30 Bodun, 31–40 Kağanlık (W.ekEra); vitrinde unvan başında, Ocak kartında çip; geçişte ödül + ekran parıltısı (s.ek.era).
+- Günlük görevler s.ek.gg (5: av 5, toplama 800·1.25^Ocak, yükseltme başlat, 3 yardım, 1 arena); 5/5 sandık (kaynak, kağıt, iksir, kum saati); Tuğ NPC'de ilk sekme "Günlük".
+- Uyanış: 5★ kahramanda 120 kartla tek seferlik ☀ (+%5 kahramanın bonus türüne, hb sarmalı), s.ek.aw; fazla kart dönüşümü (ayar.js) yanında seçmeli.
+- Klan: s.ek.boy.cx (bağış, yardım, hediye, üye başı günlük 20) → Sv=1+√(cx/150) (≤20); üye sınırı 10+2·Sv; Ocak ilimleri dal i Sv max(1, 2i) ile açılır. Boy başlığında seviye çubuğu. Haritada kendi obanın tamgası bayrak oldu → dokununca klan profili. Yeni boy → Han postası + sohbette karşılama; yeni üye → sohbette hoş geldin. Pasif üye (YZ, 7+ gün) Rütbeler'de soluk + ☾ gün.
+- İsim: profilde ✎ (ilki ücretsiz, sonra Ad Tılsımı s.ek.at — Emek Defteri 6/6 kademesi haftada 1), küfür filtresi; s.ek.nm → NET.name. Sürüm W.EK_VER (Ayarlar altı, hata bildirimi). Yönetici panelinde 📈 FPS (fps/bellek/çizim çağrısı).

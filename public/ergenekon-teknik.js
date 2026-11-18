@@ -62,7 +62,7 @@
     var o = popup('Hata bildir', '<div class="bg-c">' + (img ? '<img class="bg-img" src="' + img + '" alt="">' : '<div class="bg-img bg-none">📷</div>') + '<textarea maxlength="300" rows="3" placeholder="Kısa not…"></textarea><button type="button" class="yk-main" data-bg-go="1">🐞 Gönder</button></div>', 'bg-card');
     o.addEventListener('click', function (ev) {
       if (!ev.target.closest('[data-bg-go]')) return;
-      var note = o.querySelector('textarea').value.trim().slice(0, 300), rec = { t: Date.now(), tab: W.tab, oc: s.l.ocak, ua: navigator.userAgent.slice(0, 120), v: (document.querySelector('script[src*="ergenekon-teknik"]') || {}).src || '', note: note, img: img, err: (W.__ekErrs || []).slice(-3) };
+      var note = o.querySelector('textarea').value.trim().slice(0, 300), rec = { t: Date.now(), tab: W.tab, oc: s.l.ocak, ua: navigator.userAgent.slice(0, 120), v: W.EK_VER || '', note: note, img: img, err: (W.__ekErrs || []).slice(-3) };
       var L = bugs(); L.unshift(rec); while (L.length > 12) L.pop();
       try { ls('ek_bugs', JSON.stringify(L)); } catch (e) { L.forEach(function (x, i) { if (i > 2) x.img = ''; }); ls('ek_bugs', JSON.stringify(L)); }
       share(rec); o.remove(); toast('🐞 ✓');
