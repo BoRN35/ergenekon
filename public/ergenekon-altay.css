@@ -154,3 +154,12 @@ html.tas.altay body #ek-all{border-radius:50%!important;background:radial-gradie
  html.tas.altay body:has(#tc:not([style*="none"])) #ek-rally#ek-rally{bottom:calc(env(safe-area-inset-bottom) + 236px)!important}
  html.tas.altay body:has(#tc:not([style*="none"])) #ek-hand#ek-hand{bottom:calc(env(safe-area-inset-bottom) + 240px)!important;right:14px!important}
 }
+/* ===== Geniş ekran: soldaki dikey ray kalkar, menü King of Altay gibi altta yatay şerit ===== */
+@media (min-width:700px){
+ html.tas.altay body #tabs#tabs{top:auto!important;bottom:0!important;left:0!important;right:0!important;width:100%!important;height:calc(64px + env(safe-area-inset-bottom))!important;padding:4px 120px calc(4px + env(safe-area-inset-bottom)) 12px!important;flex-direction:row!important;justify-content:center!important;align-items:center!important;gap:clamp(8px,3vw,40px)!important;border-radius:0!important;border:0!important;border-top:3px solid #c8923a!important;box-sizing:border-box!important;overflow:visible!important}
+ html.tas.altay body #tabs#tabs>button:not(#pfb){width:64px!important;min-width:64px!important;height:56px!important;margin:0!important}
+ html.tas.altay body #tabs#tabs>button[data-lb]:not(#pfb)::after{font-size:11px!important}
+ html.tas.altay body #tabs#tabs>button[data-lb]:not(#pfb) svg{width:26px!important;height:26px!important}
+ html.tas.altay body .wrap>#tc,html.tas.altay body .wrap>#tm,html.tas.altay body .wrap>.ovp{left:0!important;right:0!important;width:auto!important;height:auto!important;bottom:calc(64px + env(safe-area-inset-bottom))!important}
+ html.tas.altay body #top#top{left:92px!important}
+}
