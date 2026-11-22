@@ -66,7 +66,7 @@
       if (!L || !(W.B || {})[k]) { b.hidden = true; return; }
       var q = null; try { q = W.buildQueue(k); } catch (e) {}
       var h = '<span class="pl-n"><b>' + L + '</b>' + nm(k) + '</span>' + (q && q.left > 0 ? '<span class="pl-t">⏱ ' + ft(q.left) + '</span><span class="pl-bar"><i style="width:' + Math.max(2, Math.min(100, 100 - q.left / (q.tot || 1) * 100)).toFixed(0) + '%"></i></span>' : '');
-      if (b.__h !== h) { b.__h = h; b.innerHTML = h; }
+      if (b.__pl !== h) { b.__pl = h; b.innerHTML = h; }
       P.v.set(g.position.x, 0, g.position.z + 2.2).project(c.camera);
       if (P.v.z > 1 || Math.abs(P.v.x) > 1.05 || Math.abs(P.v.y) > 1.05) { b.hidden = true; return; }
       b.hidden = false;

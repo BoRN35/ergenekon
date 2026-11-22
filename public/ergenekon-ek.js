@@ -604,6 +604,18 @@
     var out = html.join('');
     if (l.__ekh !== out) { l.innerHTML = out; l.__ekh = out; }
   }
+  // 2.5D oba için: projeksiyonsuz parsel listesi ve açma (yalnız okuma + mevcut pencereyi açar)
+  W.ekParcelList = function () {
+    if (!F.ready) return []; var e = ek(), now = Date.now(), jobs = activeJobs(), out = [];
+    F.parcels.forEach(function (p) {
+      var st = e.ps[p.id], ok = unlocked(p); if (!st && !ok) return;
+      var kind = !st ? 'cut' : st.st === 'cut' || st.st === 'plow' ? st.st : st.st === 'stump' ? 'stump' : 'field';
+      var busy = kind === 'cut' && st || kind === 'plow';
+      out.push({ id: p.id, kind: kind, left: busy ? (st.t1 - now) / 1000 : 0, dim: (kind === 'cut' && !st || kind === 'stump') && jobs >= slotsLimit(), t: busy ? fmtT((st.t1 - now) / 1000) : '' });
+    });
+    return out;
+  };
+  W.ekOpenParcel = function (id) { var p = F.parcels.filter(function (x) { return x.id === id; })[0]; if (p) openParcel(p); };
   function onMark(ev) {
     var b = ev.target.closest('[data-ek-p]'); if (!b) return;
     var p = F.parcels.filter(function (x) { return x.id === b.getAttribute('data-ek-p'); })[0]; if (p) openParcel(p);
