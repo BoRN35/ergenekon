@@ -1,0 +1,124 @@
+/* Ergenekon yeni — görünüm. Telefon dikey öncelikli, kaydırma yok. */
+:root{--k:1;--wood:#3a2414;--wood2:#24150b;--rim:#c99a45;--rim2:#8a6026;--red:#8c2318;--red2:#5e140d;--cream:#f4e8cc;--cream2:#e6d3a8;--ink:#2b1a0c;--gold:#f3c14b;--gold2:#c98419;--tq:#5fd0d8;--ok:#3fae4f;--no:#e0473e;--mut:#8a7353;
+--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#120b06;color:var(--cream);font:500 14px/1.25 "Alegreya Sans",system-ui,sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+html.kilitli #oyun{display:none}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+img{display:block}
+.ik{display:inline-block;vertical-align:middle;object-fit:contain}
+.ik svg{width:100%;height:100%;display:block}
+.cin{font-family:Cinzel,Georgia,serif}
+
+/* giriş */
+#kapi{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;background:radial-gradient(ellipse at 50% 30%,#4a1a10,#160b06 70%);z-index:99}
+#kapi[hidden]{display:none}
+#kapi small{letter-spacing:.3em;color:#c9a96a;font-size:11px}
+#kapi h1{font:800 30px Cinzel,serif;color:var(--gold);margin:0 0 10px;text-shadow:0 2px 0 #2a1606}
+#kapi input{width:min(320px,100%);height:54px;border-radius:10px;border:2px solid var(--rim2);background:#140c07;color:#fff;font-size:24px;text-align:center;letter-spacing:.3em}
+#kapi button{width:min(320px,100%);height:54px;border-radius:12px;background:linear-gradient(#ffd77a,#e3a12c 55%,#b06d12);color:#3a1d03;font:800 19px Cinzel,serif;box-shadow:inset 0 -3px 0 #8a4f0a,0 3px 0 #2a1606}
+#kapi p{min-height:20px;color:#ff9585;margin:0}
+
+#oyun{position:fixed;inset:0;overflow:hidden}
+
+/* ---------- sahne ---------- */
+#sahne{position:absolute;inset:0;overflow:hidden;background:#5f7d3a}
+#sahne .zemin{position:absolute;inset:0;width:100%;height:100%}
+#sahne .zemin img{width:100%;height:100%;object-fit:cover}
+.obj{position:absolute;transform:translate(-50%,-62%);width:calc(var(--s)*var(--k)*1px);height:calc(var(--s)*var(--k)*1px);z-index:2}
+.obj .gv{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 6px 5px rgba(0,0,0,.35))}
+.obj .gv img{width:100%;height:100%;object-fit:contain}
+.obj .gv .yt{width:100%;height:100%}
+.obj.kilit .gv{filter:saturate(.55) brightness(.92) drop-shadow(0 6px 5px rgba(0,0,0,.35))}
+.obj:active .gv{transform:scale(.96)}
+.lev{position:absolute;left:50%;top:100%;transform:translate(-50%,-30%);display:flex;align-items:center;gap:4px;white-space:nowrap;background:rgba(28,16,8,.86);border:1px solid rgba(201,154,69,.65);border-radius:10px;padding:1px 7px 1px 2px;font:700 11px "Alegreya Sans";color:#fbefd2;box-shadow:0 2px 3px rgba(0,0,0,.4);pointer-events:none}
+.lev b{min-width:17px;height:17px;border-radius:9px;background:linear-gradient(#3b5f9a,#20365e);border:1px solid #9cc0ff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;padding:0 3px}
+.lev.yer b{background:linear-gradient(#8c2318,#5e140d);border-color:#e8c66a}
+.ok-up{position:absolute;right:-4px;top:100%;transform:translate(60%,-50%);width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#7ee06a,#2f8f2a);border:2px solid #e9ffd9;box-shadow:0 1px 3px #000a;pointer-events:none}
+.ok-up:after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;border:5px solid transparent;border-bottom:7px solid #fff;transform:translate(-50%,-75%)}
+.sur{position:absolute;left:50%;top:-6px;transform:translate(-50%,-100%);background:rgba(16,40,22,.88);border:1px solid #6fd07a;border-radius:10px;padding:1px 8px;font:800 12px "Alegreya Sans";color:#d6ffd9;white-space:nowrap;pointer-events:none}
+.sur i{display:block;height:3px;margin-top:1px;border-radius:2px;background:linear-gradient(90deg,hsl(var(--h),70%,50%) var(--p),rgba(255,255,255,.15) var(--p))}
+.kbad{position:absolute;left:50%;top:6%;transform:translateX(-50%);background:rgba(28,16,8,.9);border:1px solid var(--rim);border-radius:10px;padding:0 7px;font:800 11px "Alegreya Sans";color:var(--gold);white-space:nowrap}
+.hsat{position:absolute;left:50%;top:-4px;transform:translate(-50%,-100%);width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff7df,#e8c66a);border:2px solid #8a6026;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px #0008}
+.hilal{position:absolute;right:-2px;top:-2px;width:18px;height:18px;filter:drop-shadow(0 0 4px rgba(255,214,90,.9))}
+
+/* ---------- üst çubuk ---------- */
+#ust{position:absolute;left:0;right:0;top:0;padding-top:var(--sat);z-index:900;pointer-events:none}
+#ust>*{pointer-events:auto}
+.uc{height:44px;margin-left:46px;background:linear-gradient(#4a2c16,#2a170a);border-bottom:2px solid var(--rim);box-shadow:0 3px 6px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:space-around;padding:0 6px 0 24px}
+.kay{display:flex;align-items:center;gap:3px;font:800 15px "Alegreya Sans";color:#fff;text-shadow:0 1px 0 #000}
+.kay.az{color:#ffb4a8}
+.por{position:absolute;left:4px;top:calc(var(--sat) + 2px);width:60px;height:60px;border-radius:50%;background:#2a170a;border:3px solid var(--rim);box-shadow:0 2px 6px #000a;overflow:hidden}
+.por img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.por .sv{position:absolute;left:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:linear-gradient(#3b5f9a,#20365e);border:2px solid #cfe0ff;font:800 12px "Alegreya Sans";display:flex;align-items:center;justify-content:center}
+.uc2{display:flex;gap:5px;margin:4px 0 0 66px}
+.pil{display:flex;align-items:center;gap:4px;height:24px;padding:0 9px 0 3px;border-radius:12px;font:800 14px "Alegreya Sans";background:linear-gradient(#5a1a10,#3a0f09);border:1px solid #c96b3a;box-shadow:0 2px 3px #0008}
+.pil.en{background:linear-gradient(#173a4a,#0d2230);border-color:#5fd0d8}
+.pil.cag{background:linear-gradient(#3a2a12,#22170a);border-color:var(--rim);font-size:12px;padding:0 9px}
+
+/* ---------- yan sütunlar ---------- */
+.yan{position:absolute;z-index:850;display:flex;flex-direction:column;gap:12px}
+.yan.sol{left:6px;top:calc(var(--sat) + 96px)}
+.yan.sag{right:6px;top:calc(var(--sat) + 96px)}
+.yan.sag-b{top:calc(var(--sat) + 160px)}
+.yan [hidden],.rz[hidden]{display:none!important}
+.yb{position:relative;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#5a1d12,#2a0c07);border:2px solid var(--rim);box-shadow:0 2px 5px #000b,inset 0 0 0 2px #2a170a;display:flex;align-items:center;justify-content:center}
+.yb .ik{width:28px;height:28px}
+.yb .ad{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);font:800 10.5px "Alegreya Sans";white-space:nowrap;background:rgba(20,10,4,.9);border-radius:7px;padding:0 5px;color:#fbefd2}
+.yb .zm{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);font:800 11px "Alegreya Sans";background:rgba(20,10,4,.9);border-radius:7px;padding:0 4px;color:#fff;white-space:nowrap}
+.yb.bos{filter:grayscale(.5) brightness(.8)}
+.yb.bos .hilal{display:block}
+.yb .hilal{display:none}
+.yb.hazir .hilal{display:block}
+.yb.kucuk{width:44px;height:44px}
+
+/* ---------- alt ---------- */
+#alt{position:absolute;left:0;right:0;bottom:0;z-index:900;padding-bottom:var(--sab)}
+.gorev{display:flex;align-items:center;gap:6px;margin:0 70px 4px 6px;height:40px;border-radius:9px;background:linear-gradient(#fbf1d8,#ecd9ad);border:2px solid var(--rim2);color:var(--ink);box-shadow:0 2px 5px #0009;padding:0 6px 0 2px;position:relative}
+.gorev .gi{width:40px;height:40px;margin-top:-6px;flex:none}
+.gorev .gt{flex:1;min-width:0;font:700 13px "Alegreya Sans";white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gorev .gt em{font-style:normal;color:#a3271a;font-weight:800;margin-right:4px}
+.gorev .gb{width:26px;height:26px;flex:none}
+.sohbet{margin:0 70px 4px 6px;height:24px;border-radius:12px;background:rgba(20,10,4,.82);border:1px solid rgba(201,154,69,.5);display:flex;align-items:center;gap:6px;padding:0 10px;font:600 12px "Alegreya Sans";color:#f1dd9c;white-space:nowrap;overflow:hidden}
+.sohbet b{color:#9fd8ff}
+.ac{height:62px;background:linear-gradient(#4a2c16,#24130a);border-top:2px solid var(--rim);display:flex;align-items:stretch;padding-right:92px;box-shadow:0 -3px 8px rgba(0,0,0,.5)}
+.ac button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:800 12px "Alegreya Sans";color:#fbefd2;position:relative;text-shadow:0 1px 0 #000}
+.ac button .ik{width:32px;height:32px}
+.ac .rz{position:absolute;top:3px;left:55%;min-width:17px;height:17px;border-radius:9px;background:#c0392b;border:1.5px solid #fff;font:800 10.5px "Alegreya Sans";display:flex;align-items:center;justify-content:center;padding:0 3px}
+.dunya{position:absolute;right:6px;bottom:calc(var(--sab) + 6px);width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#7a2416,#3a0d07);border:4px solid var(--rim);box-shadow:0 0 0 2px #2a170a,0 4px 10px #000c;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:910;font:800 13px Cinzel,serif;color:#fbefd2}
+.dunya .ik{width:42px;height:42px}
+
+/* ---------- bildirim ---------- */
+#bil{position:absolute;left:50%;top:calc(var(--sat) + 104px);transform:translateX(-50%);z-index:1050;display:flex;flex-direction:column;gap:6px;align-items:center;pointer-events:none}
+.bl{background:rgba(20,10,4,.92);border:1px solid var(--rim);border-radius:10px;padding:6px 12px;font:700 13px "Alegreya Sans";color:#fbefd2;max-width:300px;text-align:center;animation:bl 2.6s forwards}
+@keyframes bl{0%{opacity:0;transform:translateY(-6px)}8%,80%{opacity:1;transform:none}100%{opacity:0}}
+.ucan{position:fixed;z-index:1200;pointer-events:none;font:800 14px "Alegreya Sans";color:#fff;text-shadow:0 1px 2px #000;display:flex;align-items:center;gap:3px;transition:transform .7s cubic-bezier(.5,-.3,.7,1),opacity .7s}
+
+/* ---------- pencere ---------- */
+.pen{position:absolute;inset:0;z-index:1000;display:flex;flex-direction:column;background:#1b0f07;animation:pa .16s ease-out}
+@keyframes pa{from{opacity:.4;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pb{flex:none;padding-top:var(--sat);background:linear-gradient(#a3271a,#6d170f);border-bottom:3px solid var(--rim);box-shadow:0 3px 8px #000b;position:relative}
+.pb .bi{height:48px;display:flex;align-items:center;justify-content:center;font:800 20px Cinzel,serif;color:#fff3d6;letter-spacing:.04em;text-shadow:0 2px 0 #3a0a05}
+.pb .geri{position:absolute;left:44px;bottom:8px;width:32px;height:32px;border-radius:50%;background:radial-gradient(#4a1810,#260a05);border:2px solid var(--rim);display:flex;align-items:center;justify-content:center;font:800 18px "Alegreya Sans";color:#fff}
+.pb .kurt{position:absolute;bottom:0;width:40px;height:52px}
+.pb .kurt.l{left:0}.pb .kurt.r{right:0;transform:scaleX(-1)}
+.pi{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
+
+/* ---------- kutlama ---------- */
+.kut{position:absolute;inset:0;z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(ellipse at 50% 45%,#3b6aa6 0,#173053 38%,#0a1426 75%);overflow:hidden}
+.kut:before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.10) 0 8deg,transparent 8deg 22deg);animation:don 30s linear infinite}
+@keyframes don{to{transform:rotate(360deg)}}
+.kut>*{position:relative}
+.kut h2{font:800 28px Cinzel,serif;color:#7fb6ff;margin:0;text-shadow:0 2px 6px #000}
+.kut .r{width:min(78vw,330px);height:min(78vw,330px);display:flex;align-items:center;justify-content:center}
+.kut .r img,.kut .r .yt{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 14px #000b)}
+.kut .sv{font:800 40px Cinzel,serif;color:#d8e9ff;text-shadow:0 3px 8px #000}
+.kut .gc{font:800 20px "Alegreya Sans";color:#fff}
+.kut .yeni{display:flex;gap:10px}
+.kut .yk{width:96px;border-radius:10px;border:3px solid #4d8be0;background:#13284a;padding:4px;text-align:center;font:700 12px "Alegreya Sans"}
+.kut .yk .yt,.kut .yk img{width:84px;height:70px;object-fit:contain;margin:0 auto}
+.dug{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 26px;border-radius:12px;font:800 17px "Alegreya Sans";color:#3a1d03;background:linear-gradient(#ffe08a,#f0b13a 50%,#c8800f);border:2px solid #fff1c2;box-shadow:inset 0 -3px 0 #8a4f0a,0 3px 0 #2a1606,0 0 0 2px #6b3d08}
+.dug.mavi{color:#fff;background:linear-gradient(#5d94e6,#2c5bb0 55%,#1d3c7a);border-color:#cfe0ff;box-shadow:inset 0 -3px 0 #102552,0 3px 0 #0a1426,0 0 0 2px #142a55}
+.dug.yesil{color:#fff;background:linear-gradient(#7ed66c,#3f9a35 55%,#256b20);border-color:#e3ffd9;box-shadow:inset 0 -3px 0 #174a12,0 3px 0 #0a1f08,0 0 0 2px #1d4a17}
+.dug:disabled{filter:grayscale(.8) brightness(.75)}
+.dug small{display:block;font-size:11px;font-weight:700;opacity:.85}
