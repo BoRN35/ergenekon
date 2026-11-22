@@ -56,7 +56,7 @@
     var s = S(), B = G('B') || {}, def = B[k]; if (!def) return '';
     var L = (s.l && s.l[k]) || 0, max = 40, q = null, c = {}, ok = false, rq = [], req = [];
     try { q = W.buildQueue(k); c = W.cost(k); ok = W.can(k); rq = W.bmReq(k) || []; req = W.buildingRequirements(k) || []; } catch (e) {}
-    var img = ''; try { img = W.im(W.bkey(k), 190, '<div class="yk-ph">' + def.i + '</div>'); } catch (e) {}
+    var img = '', ba = W.ekBinaArt && W.ekBinaArt(k); if (ba) img = '<img src="' + ba + '" alt="" class="ya-art">'; else try { img = W.im(W.bkey(k), 190, '<div class="yk-ph">' + def.i + '</div>'); } catch (e) {}
     var bon = bonus(k, L);
     var rows = bon.map(function (r) { return '<div class="yk-row"><span>' + r[0] + '</span><b>' + r[1] + (r[2] && L < max ? '<em>' + r[2] + '</em>' : '') + '</b></div>'; }).join('');
     W.__ykInfo = '<p class="yk-desc">' + def.d + '</p><div class="yk-tab">' + rows + '</div>';

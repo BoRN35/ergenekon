@@ -212,3 +212,4 @@ html.ao #cityv>canvas,html.ao #cityv .world3d,html.ao #cityv>div>canvas:not(.ao-
 #ao-jobs .ao-job.dim{filter:grayscale(.7) brightness(.8)}
 @media (min-width:700px){#ao-jobs{top:84px;left:14px}}
 #ek-ao svg,#ao-jobs svg{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;margin:0!important;width:22px!important;height:22px!important}
+html body #ek-yapi .ya-card .yk-hero img.ya-art{height:100%!important;width:auto!important;max-width:80%;object-fit:contain;filter:drop-shadow(4px 8px 6px rgba(0,0,0,.45))}

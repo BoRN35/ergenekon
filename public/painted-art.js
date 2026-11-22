@@ -1,7 +1,7 @@
 /* Original illustrated game art. This read-only helper never touches a save. */
 (function(root){
  'use strict';
- var url='./assets/interface/painted/strategy-atlas.png',cols=4,rows=4;
+ var url='./assets/interface/painted/strategy-atlas.webp',cols=4,rows=4;
  var names=['toolbox','medicalyurt','trainingrack','bandages','astrolabe','banner','encampment','wood','ore','steel','coal','food','crystal','coins','bow','anvil'];
  var aliases={
   toolbox:'toolbox',tooling:'toolbox',carpentry:'toolbox',construction:'toolbox',build:'toolbox',hammer:'toolbox',settings:'toolbox',

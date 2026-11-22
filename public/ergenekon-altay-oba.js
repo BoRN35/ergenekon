@@ -2,12 +2,12 @@
    3D oba sahnesinin yerine: boyalı zemin + elle çizilmiş bina görselleri (assets/img/bina_*_t1..t4) sabit yuvalarda,
    NPC otağları, seviye levhaları, yapım süresi, yükseltilebilir oku, hilal; sol sütunda oba işleri; kaydır/yakınlaştır.
    Oyun mantığı, kayıt ve kurallar aynen: binaya dokununca oyunun kendi yapı penceresi açılır (window.BMK).
-   Kapatmak: Ayarlar › Grafik › Oba görünümü › 3D (localStorage ek_oba='3d'). */
+   3D oba ve modelleri 22 Kasım'da kaldırıldı; 3D sahne yalnız parsel/arka plan hesapları için yüklenir, çizilmez. */
 (function () {
   'use strict';
   var W = window, D = document, H = D.documentElement;
   if (W.__ekAO) return; W.__ekAO = true;
-  function on() { try { return localStorage.getItem('ek_oba') !== '3d'; } catch (e) { return true; } }
+  function on() { return true; } // 3D oba kaldırıldı (22 Kasım)
   var IMGP = './assets/img/';
   var WW = 2400, WH = 2700, CX = 1100, CY = 1080, OX = 100, OY = 260;
   // bina yuvaları: [x, y, genişlik, görsel anahtarı]
@@ -195,6 +195,7 @@
   function mute3D() {
     var c = W.city3d; if (!c || !c.renderer || muted) return; muted = true;
     var r = c.renderer, orig = r.render.bind(r);
+    try { r.setPixelRatio(.2); r.shadowMap.enabled = false; } catch (e) {} // oba 3D çizimi yok: bellek ve pil tasarrufu
     r.render = function () { if (on() && W.tab === 'c' && !D.querySelector('.hearth-gallery:not([hidden]),.building-gallery:not([hidden])')) return; return orig.apply(null, arguments); };
   }
   var last = 0;
@@ -211,5 +212,6 @@
   }
   requestAnimationFrame(loop);
   var lw = 0; W.addEventListener('resize', function () { if (R.built && R.el.clientWidth !== lw) { lw = R.el.clientWidth; fit(); } });
+  W.ekBinaArt = function (k) { if (!SL[k]) return null; var L = (S() && S().l && S().l[k]) || 1; return art(k, Math.max(1, L)); };
   W.ekAO = { fit: fit, state: R, update: update };
 })();
