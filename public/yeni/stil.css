@@ -219,3 +219,109 @@ img{display:block}
 .kz h3{margin:0;font:800 19px Cinzel,serif;color:#dfeaff}
 .kz .xb{width:min(80vw,300px)}
 .kz .sat{width:100%}
+
+/* ---------- harita ---------- */
+#harita{position:absolute;inset:0;overflow:hidden;background:#4f6b34;touch-action:none;z-index:5}
+#harita[hidden]{display:none}
+.harita-acik #sahne,.harita-acik .yan{display:none!important}
+.hz-katman{position:absolute;left:0;top:0;width:1600px;height:1600px;will-change:transform}
+.hz-zemin{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#86a656 0,#6c8c40 30%,#557434 60%,#3e5a28 100%);}
+.hz-zemin:after{content:"";position:absolute;inset:0;opacity:.35;background-image:radial-gradient(circle at 20% 30%,rgba(40,60,20,.6) 0 2px,transparent 3px),radial-gradient(circle at 70% 80%,rgba(120,140,70,.5) 0 3px,transparent 4px);background-size:37px 41px,53px 47px}
+.hz-sis{position:absolute;left:800px;top:800px;width:0;height:0}
+.hz-sis:before{content:"";position:absolute;left:calc(-1 * var(--r) - 1200px);top:calc(-1 * var(--r) - 1200px);width:calc(2 * var(--r) + 2400px);height:calc(2 * var(--r) + 2400px);border-radius:50%;background:radial-gradient(circle,transparent calc(var(--r) - 10px),rgba(200,210,220,.55) calc(var(--r) + 30px),rgba(220,226,232,.92) calc(var(--r) + 120px));pointer-events:none}
+.hm{position:absolute;transform:translate(-50%,-60%);width:52px;height:52px;display:flex;align-items:center;justify-content:center}
+.hm[hidden]{display:none}
+.hm img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 3px rgba(0,0,0,.45))}
+.hm .em{font-size:30px}
+.hm .lv{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);min-width:20px;height:18px;border-radius:9px;background:#7a1d12;border:1.5px solid #f3c14b;font:800 11px "Alegreya Sans";color:#fff;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.hm .lv.k{background:#1f3e66;border-color:#9cc0ff}
+.hm.soluk{opacity:.5;filter:saturate(.4)}
+.hm.azman img{filter:drop-shadow(0 0 6px #f3c14b)}
+.hm.boss{width:70px;height:70px}
+.hm.kay{width:46px;height:46px}
+.hm.kay .rz{position:absolute;left:8px;right:8px;top:-4px;height:4px;border-radius:2px;background:#6fd07a;max-width:30px;display:block}
+.hm.mesgul:after{content:"";position:absolute;inset:-4px;border:2px dashed #f3c14b;border-radius:50%}
+.hm.oba{width:96px;height:96px;z-index:3}
+.hm .hl{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);white-space:nowrap;background:rgba(20,10,4,.85);border:1px solid var(--rim);border-radius:9px;padding:0 8px;font:800 11px "Alegreya Sans";color:#f3c14b}
+.hz-koor{position:absolute;left:50%;bottom:calc(var(--sab) + 140px);transform:translateX(-50%);z-index:860;background:rgba(20,10,4,.82);border:1px solid var(--rim2);border-radius:12px;padding:2px 12px;font:800 12px "Alegreya Sans";color:#fbefd2;pointer-events:none}
+.hz-sol{position:absolute;right:6px;top:calc(var(--sat) + 96px);z-index:860;display:flex;flex-direction:column;gap:14px}
+.hz-serit{position:absolute;left:6px;top:calc(var(--sat) + 96px);z-index:860;display:flex;flex-direction:column;gap:6px}
+.ks{display:flex;align-items:center;gap:4px;height:30px;padding:0 8px 0 4px;border-radius:15px;background:rgba(20,10,4,.86);border:1px solid var(--rim);font:800 12px "Alegreya Sans";color:#fbefd2;position:relative;overflow:hidden}
+.ks.bos{opacity:.75}
+.ks i{position:absolute;left:0;bottom:0;height:3px;background:#6fd07a}
+.hz-panel{position:absolute;left:6px;right:6px;bottom:calc(var(--sab) + 136px);z-index:870;border-radius:12px;background:linear-gradient(#3e2612,#24150b);border:2px solid var(--rim);box-shadow:0 6px 18px #000c;padding:10px;color:#fbefd2}
+.hz-panel[hidden]{display:none}
+.hp-ust{display:flex;gap:10px;align-items:center}
+.hp-ust>img,.hp-ust>.em{width:76px;height:76px;object-fit:contain;flex:none;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:10px;background:radial-gradient(#5a3a1e,#2a170a);border:1px solid var(--rim2)}
+.hp-ust>div{flex:1;min-width:0}
+.hp-ust b{font:800 17px Cinzel,serif;color:#fff3d6}
+.cipler{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+.cipler .cip{padding:2px 8px;font-size:12px}
+.ci2{font:600 12px "Alegreya Sans";color:#d9c49a}
+.hp-x{align-self:flex-start;width:30px;height:30px;border-radius:50%;background:#5a1d12;border:1px solid var(--rim);font:800 14px sans-serif}
+.hp-ganimet{display:flex;gap:6px;margin:8px 0 4px}
+.hp-ganimet span{width:34px;height:34px;border-radius:8px;background:rgba(0,0,0,.3);border:1px solid #6b4a24;display:flex;align-items:center;justify-content:center}
+.hp-d{display:flex;align-items:center;gap:8px;margin-top:8px}
+.hp-d .dug{min-height:42px;padding:0 14px;font-size:15px}
+.hpb{flex:1;font:600 10px "Alegreya Sans";color:#cdb98e}
+.zafer{position:absolute;inset:0;z-index:1150;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(ellipse at 50% 40%,rgba(120,70,10,.85),rgba(10,6,3,.92) 70%)}
+.zafer.yen{background:radial-gradient(ellipse at 50% 40%,rgba(60,30,30,.85),rgba(10,6,3,.92) 70%)}
+.zafer .zb{font:800 44px Cinzel,serif;color:#ffd56a;padding:6px 40px;background:linear-gradient(90deg,transparent,rgba(160,100,10,.7),transparent);text-shadow:0 3px 10px #000}
+.zafer.yen .zb{color:#ff8a7a}
+.zafer .zs{font:700 15px "Alegreya Sans";color:#fbefd2}
+.zafer .zl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:340px}
+.zafer small{color:#a89270}
+.ara{position:absolute;inset:0;z-index:1150;background:rgba(0,0,0,.55);display:flex;align-items:flex-end}
+.ara-k{width:100%;padding:12px 12px calc(var(--sab) + 14px);background:linear-gradient(#3e2612,#1f1209);border-top:3px solid var(--rim);border-radius:16px 16px 0 0}
+.ara-t{display:flex;gap:6px;margin:8px 0}
+.ara-t button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:10px;background:rgba(0,0,0,.3);border:1px solid #6b4a24;font:700 12px "Alegreya Sans"}
+.ara-t button.on{border-color:#f3c14b;background:rgba(243,193,75,.15)}
+.ara-s{display:flex;align-items:center;justify-content:center;gap:18px;font:800 20px "Alegreya Sans"}
+.ara-s button{width:40px;height:40px;border-radius:50%;background:#5a1d12;border:2px solid var(--rim);font:800 22px sans-serif}
+.ara input[type=range]{width:100%;accent-color:#f3c14b;margin:8px 0}
+
+/* ---------- posta ---------- */
+.mrow{width:100%;text-align:left;position:relative}
+.mrow.rd{opacity:.78}
+.mrow .ad small{display:block;font:600 11.5px "Alegreya Sans";color:#7a5a30}
+.nok{position:absolute;right:6px;top:6px;width:9px;height:9px;border-radius:50%;background:#c0392b;border:1.5px solid #fff}
+.mrz{font-style:normal;margin-left:4px;background:#c0392b;color:#fff;border-radius:8px;padding:0 5px;font-size:10.5px}
+.mkart{padding:12px;border-radius:10px;background:linear-gradient(#fbf3dc,#efdfb8);border:1px solid #c9a96a;color:var(--ink);display:flex;flex-direction:column;gap:8px}
+.mb-u{display:flex;gap:10px;align-items:center}.mb-u b{font:800 16px "Alegreya Sans"}.mb-u small{display:block;font:600 12px "Alegreya Sans";color:#7a5a30}
+.mb-u .gi{width:48px;height:48px;border-radius:8px;background:linear-gradient(#5b3a1e,#3d2512);display:flex;align-items:center;justify-content:center}
+.mkart p{margin:0;font:600 14px "Alegreya Sans"}
+
+/* ---------- boy ---------- */
+.bkart{display:flex;gap:12px;align-items:center;margin:10px 10px 0;padding:12px;border-radius:12px;background:linear-gradient(100deg,#3e2612,#5a1d12);border:2px solid var(--rim);color:#fbefd2}
+.bkart b{font:800 20px Cinzel,serif;color:#fff3d6}.bkart small{display:block;font:700 12px "Alegreya Sans";color:#e2cfa5}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.bk{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:10px;background:linear-gradient(#5b3a1e,#3d2512);border:1px solid #241307;color:#fbefd2;box-shadow:0 2px 4px #0006}
+.bk b{font:800 14px "Alegreya Sans"}.bk small{font:600 11.5px "Alegreya Sans";color:#d9c49a}
+.bk:disabled{opacity:.6}
+.bk .hilal{right:6px;top:6px}
+.sohl{justify-content:flex-end;flex:1}
+.msj{align-self:flex-start;max-width:86%;padding:6px 10px;border-radius:10px 10px 10px 2px;background:#fbf3dc;border:1px solid #c9a96a;color:var(--ink);font:600 13.5px "Alegreya Sans"}
+.msj b{color:#7a2416}.msj small{display:block;color:#7a5a30;font-size:11.5px}
+.msj.ben{align-self:flex-end;border-radius:10px 10px 2px 10px;background:#e3f1d2}
+.yaz{flex:1;min-width:0;height:46px;border-radius:10px;border:2px solid var(--rim2);background:#fbf3dc;color:var(--ink);font:600 15px "Alegreya Sans";padding:0 10px}
+
+/* ---------- dilek kuyusu ---------- */
+.kuyu{flex:1;min-height:200px;margin-top:6px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 60%,#3f7a8a,#13323d 55%,#0b1a22);background-size:cover;background-position:center}
+.kuyu-r{position:relative;width:min(62vw,250px);height:min(62vw,250px)}
+.kuyu-r img,.kuyu-r .yt{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 14px #000c)}
+.parilti{position:absolute;left:50%;top:55%;width:60%;height:30%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(rgba(95,208,216,.7),transparent 70%);animation:par 2.4s ease-in-out infinite}
+@keyframes par{50%{opacity:.4;transform:translate(-50%,-50%) scale(1.15)}}
+
+/* ---------- çanta ---------- */
+.ciz{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px}
+.ciz.mal3{grid-template-columns:repeat(4,1fr)}
+.cz{position:relative;aspect-ratio:1;border-radius:8px;background:linear-gradient(#2e1c0e,#1b1008);border:2px solid var(--rc,#5a3a1e);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 10px rgba(0,0,0,.6)}
+.mal3 .cz{aspect-ratio:auto;padding:6px 2px}
+.mal3 .cz small{font:600 10.5px "Alegreya Sans";color:#d9c49a;text-align:center}
+.cz img{width:78%;height:78%;object-fit:contain}
+.cz.bos{border-color:#3a2414;opacity:.5}
+.cz.sec{box-shadow:0 0 0 2px #f3c14b,inset 0 0 10px rgba(0,0,0,.6)}
+.cz .pp{position:absolute;left:3px;top:1px;font:800 11px "Alegreya Sans";color:#ffd56a}
+.cz .sl{position:absolute;right:3px;bottom:1px;font:800 11px "Alegreya Sans";color:#fff}
+.mal3 .cz .sl{position:static;font-size:15px}
+.yesil-ok{position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:#3fae4f;border:1.5px solid #e9ffd9}

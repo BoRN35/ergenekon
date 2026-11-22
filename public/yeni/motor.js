@@ -501,6 +501,23 @@
   E.helpN = function () { return (s.al && s.al.hq) || 0; };
   E.helpAll = function () { var n = E.helpN(); if (!n) return 0; s.al.hq = 0; s.d.p.help = (s.d.p.help || 0) + n; s.sp = (s.sp || 0) + n; s.ek.hp = (s.ek.hp || 0) + n; act(); return n; };
 
+  // Ocak hediyesi (ergenekon-ocak.js + ocak2 seviye çarpanı): 45 dk'da 1, en çok 25
+  function oc() { var e = s.ek; e.oc = e.oc || { g: 3, gt: Date.now(), feed: [], ak: {} }; return e.oc; }
+  E.gifts = function () { var o = oc(), iv = 45 * 60e3, n = Math.floor((Date.now() - o.gt) / iv); if (n > 0) { o.g = Math.min(25, o.g + n); o.gt += n * iv; } return o.g; };
+  E.giftLv = function () { var x = oc().gx || 0, l = Math.floor(Math.sqrt(x / 6)); return { lv: l + 1, pc: (x - 6 * l * l) / (6 * (l + 1) * (l + 1) - 6 * l * l) }; };
+  E.giftClaim = function () {
+    var o = oc(), n = E.gifts(); if (!n) return null; var m = s.ek.dm.mat, tot = { r: 0, k: 0, c: 0, e: 0 }, mul = 1 + (E.giftLv().lv - 1) * .1, c = cap();
+    for (var i = 0; i < n; i++) { var r = Math.random(); if (r < .1) { m.kagit++; tot.k++; } else if (r < .25) { var h = rnd(HH.length); s.hc[h] = (s.hc[h] || 0) + 1; tot.c++; } else if (r < .4) { s.en.v = Math.min(EN_MAX, s.en.v + 5); tot.e += 5; } else { var g = Math.round(400 * Math.pow(1.25, s.l.ocak || 1) * mul), k = ['odun', 'et', 'demir'][rnd(3)]; s.r[k] = Math.min(c, (s.r[k] || 0) + g); tot.r += g; } }
+    o.g = 0; o.gx = (o.gx || 0) + n; act(); return tot;
+  };
+  E.boy = function () { var e = s.ek; if (!e.boy) e.boy = { n: 'Kök Böri', tg: -1, rank: 'han', ranks: {}, pin: null, blk: {}, mute: {}, ws: { w: 0 }, seen: Date.now(), mem: null }; return e.boy; };
+  E.boyMem = function () { var b = E.boy(); return b.mem || ['Tolga', 'Aigerim', 'Mehmet', 'John', 'Ayşe', 'Dmitri', 'Yusuf', 'Min']; };
+  E.chatSend = function (txt) { txt = String(txt || '').trim().slice(0, 120); if (!txt) return; s.chat = s.chat || []; s.chat.push({ u: (s.ek.nm || 'Alp Tonga'), lg: 'TR', txt: txt, tr: '', me: 1 }); if (s.chat.length > 40) s.chat.shift(); act(); };
+  // Çanta
+  E.melt = function (i) { var c = s.ch, x = c.inv[i]; if (!x) return 0; c.inv.splice(i, 1); s.d.p.melt = (s.d.p.melt || 0) + 1; s.stat.melt = (s.stat.melt || 0) + 1; dq('melt', 1); var v = dust(x); s.ud += v; act(); return v; };
+  E.equip = function (i) { var c = s.ch, x = c.inv[i]; if (!x) return; var ks = x.s === 'e' ? ['e0', 'e1'] : x.s === 'y' ? ['y0', 'y1'] : [x.s], ky = ks.filter(function (k) { return !c.eq[k]; })[0] || ks.sort(function (a, b) { return ev(c.eq[a]) - ev(c.eq[b]); })[0], o = c.eq[ky]; c.inv.splice(i, 1); c.eq[ky] = x; if (o) c.inv.push(o); c.hp = Math.min(c.hp, cs().hp); act(); };
+  E.better = function (x) { var c = s.ch, ks = x.s === 'e' ? ['e0', 'e1'] : x.s === 'y' ? ['y0', 'y1'] : [x.s], w = ks.map(function (k) { return c.eq[k] ? ev(c.eq[k]) : 0; }); return ev(x) - Math.min.apply(null, w); };
+
   /* ---------------- dışa ---------------- */
   E.B = B; E.ALLEQ = ALLEQ; E.invMax = invMax; E.dust = dust; E.halk = halk; E.umLv = umLv;
 })(window);
