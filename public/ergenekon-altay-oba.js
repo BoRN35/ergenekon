@@ -92,13 +92,21 @@
 
   /* ---------- sahne ---------- */
   var R = { el: null, world: null, s: .5, x: 0, y: 0, items: {}, built: false };
-  function fit() {
-    var host = R.el; if (!host) return; var w = host.clientWidth, h = host.clientHeight;
-    var mob = w < 700, s = mob ? w / 1080 : Math.min(1, Math.max(.4, Math.min(w / 1900, h / 1300)));
-    R.min = mob ? .26 : .3; R.max = 1.1; R.s = Math.max(R.min, s);
-    R.x = w / 2 - CX * R.s; R.y = h / 2 - (CY - (mob ? 300 : 40)) * R.s; clamp(); apply();
+  // tek ekran: tüm oba sığar, kaydırma yok (telefon öncelikli)
+  function bounds() {
+    var x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9, k, v;
+    for (k in SL) { v = SL[k]; x0 = Math.min(x0, v[0] - v[2] * .55); x1 = Math.max(x1, v[0] + v[2] * .55); y0 = Math.min(y0, v[1] - v[2] * .9); y1 = Math.max(y1, v[1] + 50); }
+    for (k in NP) { v = NP[k]; x0 = Math.min(x0, v[0] - v[2] * .55); x1 = Math.max(x1, v[0] + v[2] * .55); y0 = Math.min(y0, v[1] - v[2] - 60); y1 = Math.max(y1, v[1] + 50); }
+    return [x0, y0, x1, y1];
   }
-  function clamp() { var w = R.el.clientWidth, h = R.el.clientHeight; R.s = Math.max(R.min || .3, Math.min(R.max || 1.1, R.s)); var ww = WW * R.s, wh = WH * R.s; R.x = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, R.x)); R.y = wh <= h ? (h - wh) / 2 : Math.min(0, Math.max(h - wh, R.y)); }
+  function fit() {
+    var host = R.el; if (!host) return; var w = host.clientWidth, h = host.clientHeight, b = bounds();
+    var top = 62, bot = w < 700 ? 178 : 80, side = w < 700 ? 58 : 70, aw = w - side * 2, ah = h - top - bot;
+    R.s = Math.min(aw / (b[2] - b[0]), ah / (b[3] - b[1]));
+    R.min = R.max = R.s; R.lock = true;
+    R.x = side + (aw - (b[2] - b[0]) * R.s) / 2 - b[0] * R.s; R.y = top + (ah - (b[3] - b[1]) * R.s) / 2 - b[1] * R.s; apply();
+  }
+  function clamp() { if (R.lock) return; var w = R.el.clientWidth, h = R.el.clientHeight; R.s = Math.max(R.min || .3, Math.min(R.max || 1.1, R.s)); var ww = WW * R.s, wh = WH * R.s; R.x = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, R.x)); R.y = wh <= h ? (h - wh) / 2 : Math.min(0, Math.max(h - wh, R.y)); }
   function apply() { R.world.style.transform = 'translate(' + R.x.toFixed(1) + 'px,' + R.y.toFixed(1) + 'px) scale(' + R.s.toFixed(4) + ')'; R.world.style.setProperty('--s', R.s.toFixed(4)); }
   function sprite(src, x, y, w, cls) {
     var im = D.createElement('img'); im.src = src; im.alt = ''; im.draggable = false; im.className = 'ao-sp' + (cls ? ' ' + cls : '');
@@ -146,12 +154,13 @@
     R.el.addEventListener('pointerdown', function (e) { R.el.setPointerCapture && R.el.setPointerCapture(e.pointerId); P[e.pointerId] = [e.clientX, e.clientY]; var ks = Object.keys(P); if (ks.length === 1) { start = { x: e.clientX, y: e.clientY, ox: R.x, oy: R.y, t: Date.now(), target: e.target }; moved = false; } else if (ks.length === 2) { var a = P[ks[0]], b = P[ks[1]]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), s: R.s, mx: (a[0] + b[0]) / 2, my: (a[1] + b[1]) / 2, ox: R.x, oy: R.y }; moved = true; } });
     R.el.addEventListener('pointermove', function (e) {
       if (!P[e.pointerId]) return; P[e.pointerId] = [e.clientX, e.clientY]; var ks = Object.keys(P);
-      if (ks.length === 2 && pinch) { var a = P[ks[0]], b = P[ks[1]], d = Math.hypot(a[0] - b[0], a[1] - b[1]), r = R.el.getBoundingClientRect(), mx = pinch.mx - r.left, my = pinch.my - r.top, ns = Math.max(R.min, Math.min(R.max, pinch.s * d / pinch.d)); R.x = mx - (mx - pinch.ox) * ns / pinch.s; R.y = my - (my - pinch.oy) * ns / pinch.s; R.s = ns; clamp(); apply(); return; }
+      if (ks.length === 2 && pinch && !R.lock) { var a = P[ks[0]], b = P[ks[1]], d = Math.hypot(a[0] - b[0], a[1] - b[1]), r = R.el.getBoundingClientRect(), mx = pinch.mx - r.left, my = pinch.my - r.top, ns = Math.max(R.min, Math.min(R.max, pinch.s * d / pinch.d)); R.x = mx - (mx - pinch.ox) * ns / pinch.s; R.y = my - (my - pinch.oy) * ns / pinch.s; R.s = ns; clamp(); apply(); return; }
+      if (R.lock) return;
       if (start && ks.length === 1) { var dx = e.clientX - start.x, dy = e.clientY - start.y; if (!moved && Math.hypot(dx, dy) > 8) moved = true; if (moved) { R.x = start.ox + dx; R.y = start.oy + dy; clamp(); apply(); } }
     });
     function up(e) { var had = !!P[e.pointerId]; delete P[e.pointerId]; if (Object.keys(P).length < 2) pinch = null; if (!had || Object.keys(P).length) return; if (start && !moved) tap(D.elementFromPoint(e.clientX, e.clientY) || start.target); start = null; }
     R.el.addEventListener('pointerup', up); R.el.addEventListener('pointercancel', function (e) { delete P[e.pointerId]; pinch = null; start = null; });
-    R.el.addEventListener('wheel', function (e) { e.preventDefault(); var r = R.el.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top, ns = Math.max(R.min, Math.min(R.max, R.s * (e.deltaY < 0 ? 1.12 : 1 / 1.12))); R.x = mx - (mx - R.x) * ns / R.s; R.y = my - (my - R.y) * ns / R.s; R.s = ns; clamp(); apply(); }, { passive: false });
+    R.el.addEventListener('wheel', function (e) { e.preventDefault(); if (R.lock) return; var r = R.el.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top, ns = Math.max(R.min, Math.min(R.max, R.s * (e.deltaY < 0 ? 1.12 : 1 / 1.12))); R.x = mx - (mx - R.x) * ns / R.s; R.y = my - (my - R.y) * ns / R.s; R.s = ns; clamp(); apply(); }, { passive: false });
   }
   function tap(t) {
     if (!t || !t.closest) return; var b = t.closest('[data-b]'), n = t.closest('[data-npc]');
@@ -201,6 +210,16 @@
   var last = 0;
   function loop(now) {
     requestAnimationFrame(loop);
+  // alt menü / yan ray: simge altına kısa ad (King of Altay gibi)
+  var LB = { c: 'Oba', m: 'Harita', k: 'Kale', r: 'İlim', u: 'Alpler', a: 'İttifak', p: 'Posta', e: 'Etkinlik', y: 'Arena', g: 'Ayarlar' };
+  setInterval(function () {
+    D.querySelectorAll('#tabs>button:not(#pfb)').forEach(function (b) {
+      if (b.dataset.lb) return; var t = b.dataset.t, n = (t && LB[t]) || b.title || b.getAttribute('aria-label') || '';
+      if (n === 'Şehir') n = 'Oba'; if (n === 'Etkinlikler') n = 'Etkinlik'; if (n) b.dataset.lb = n;
+    });
+  }, 1000);
+  // üst çubuktaki kartal / düzen düğmelerine ad (sağ sütunda gösterilir)
+  setInterval(function () { D.querySelectorAll('.ek-topbtns .ek-rbtn:not([data-lb])').forEach(function (b) { b.dataset.lb = b.dataset.ekPet ? 'Evcil' : b.dataset.ek === 'gear' ? 'Düzen' : b.dataset.ek === 'bag' ? 'Çanta' : ''; }); }, 1000);
     var o = on(); H.classList.toggle('ao', o);
     if (!o) { if (R.el) R.el.hidden = true; if (R.jobs) R.jobs.hidden = true; return; }
     if (!R.built) { if (!build()) return; }
