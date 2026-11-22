@@ -157,7 +157,7 @@
   UI.buzz = buzz;
 
   /* ---------- pencere çerçevesi ---------- */
-  var KURT = '<svg class="kurt l" viewBox="0 0 40 52"><path d="M6 50l2-20-6-14 10 6 4-14 6 12 8-2-4 10 10 8-12 4-6 10z" fill="#e8c66a" stroke="#6b3d08" stroke-width="1.6" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#6b3d08"/></svg>';
+  var KURT = '<svg class="kurt l" viewBox="0 0 44 52"><path d="M42 50C40 40 37 33 39 27L35 25 34 9 27 18 21 16 13 20 4 26 2 31 11 33 9 37 17 39 23 43 28 50Z" fill="#e8c66a" stroke="#6b3d08" stroke-width="1.6" stroke-linejoin="round"/><path d="M33 12l-3 7M8 31l6-1" stroke="#9a6b12" stroke-width="1.2"/><circle cx="20" cy="26" r="2.2" fill="#6b3d08"/></svg>';
   UI.pen = function (title, body, opt) {
     UI.kapat(true); opt = opt || {};
     var d = document.createElement('div'); d.className = 'pen'; d.id = 'pen';

@@ -423,15 +423,20 @@
   /* ---------------- görevler ---------------- */
   // Destan (eski QU): yalnız tamamlanma koşulları ve ödülü
   var QU = E.QU = [
-    ['Ocağı Sv 2’ye yükselt', function () { return [s.l.ocak, 2]; }, 'ocak'],
-    ['Odunluk ve Avcı Çadırı kur', function () { return [(s.l.odunluk >= 1) + (s.l.avci >= 1), 2]; }, 'odunluk'],
-    ['Alp Tonga’yı Sv 3’e çıkar', function () { return [s.ch.lv, 3]; }, 'av'],
-    ['Bozkır Kurdu’nu yen', function () { return [s.ch.k[0] ? 1 : 0, 1]; }, 'av'],
-    ['Bir araştırmayı tamamla', function () { return [Object.keys(s.rs).reduce(function (a, k) { return a + (s.rs[k] || 0); }, 0) >= 1 ? 1 : 0, 1]; }, 'eski'],
-    ['Ocağı Sv 5’e çıkar', function () { return [s.l.ocak, 5]; }, 'ocak'],
-    ['50 asker eğit', function () { return [s.tr[0] + s.tr[1] + s.tr[2], 50]; }, 'kisla']
+    ['Boylar vadide mahsur. Kam, Tengri’ye yakarır: “Ateş sönmesin.”', 'Ocağı Sv 2’ye yükselt', function () { return [s.l.ocak, 2]; }, 'b:ocak'],
+    ['Dede Korkut boyları toplar: “Önce hayatta kalın.”', 'Odunluk ve Avcı Çadırı kur', function () { return [(s.l.odunluk >= 1 ? 1 : 0) + (s.l.avci >= 1 ? 1 : 0), 2]; }, 'b:odunluk'],
+    ['Genç Alp Tonga kılıcını kuşanır.', 'Alp Tonga’yı Sv 3’e çıkar', function () { return [s.ch.lv, 3]; }, 'harita'],
+    ['Vadinin kapısında kurtlar uluyor.', 'Bozkır Kurdu’nu yen', function () { return [s.ch.k[0] ? 1 : 0, 1]; }, 'harita'],
+    ['Bilge Tonyukuk yeni bilgiler arar.', 'Bir araştırmayı tamamla', function () { return [Object.keys(s.rs).some(function (k) { return s.rs[k] > 0; }) ? 1 : 0, 1]; }, 'eski'],
+    ['Ocak harlandı, dağ hâlâ sessiz.', 'Ocağı Sv 5’e çıkar', function () { return [s.l.ocak, 5]; }, 'b:ocak'],
+    ['Erlik Han’ın gölgeleri yaklaşıyor.', '50 asker eğit', function () { return [s.tr[0] + s.tr[1] + s.tr[2], 50]; }, 'eski'],
+    ['Yeraltında eski bir mağara bulundu.', 'Zindanda 3. kata ulaş', function () { return [s.dg.best || 0, 3]; }, 'eski'],
+    ['Kadim bilgeler çağrıya cevap verir.', 'Bir bilgeyi aç', function () { return [s.hr.some(function (h) { return h.lv >= 1; }) ? 1 : 0, 1]; }, 'eski'],
+    ['Karşı saldırı zamanı.', 'Karanlık Karakol’u fethet', function () { return [s.cz.length >= 1 ? 1 : 0, 1]; }, 'eski'],
+    ['Dağın bağrı kızarıyor, demir yumuşuyor.', 'Ocağı Sv 20’ye çıkar', function () { return [s.l.ocak, 20]; }, 'b:ocak'],
+    ['Son savaş: Erlik Han’ın tahtı.', 'Erlik Han’ı yen', function () { return [s.ch.k[11] ? 1 : 0, 1]; }, 'harita']
   ];
-  E.destan = function () { var q = QU[s.qu]; if (!q) return null; var p = q[1](); return { i: s.qu, t: q[0], v: Math.min(p[0], p[1]), g: p[1], ok: p[0] >= p[1], go: q[2] }; };
+  E.destan = function () { var q = QU[s.qu]; if (!q) return null; var p = q[2](); return { i: s.qu, s: q[0], t: q[1], v: Math.min(p[0], p[1]), g: p[1], ok: p[0] >= p[1], go: q[3], rw: Math.floor(600 * Math.pow(1.4, s.l.ocak)) }; };
   E.destanClaim = function () { var d = E.destan(); if (!d || !d.ok) return null; var rw = Math.floor(600 * Math.pow(1.4, s.l.ocak)); RES4.forEach(function (r) { s.r[r] = Math.min(cap(), (s.r[r] || 0) + rw); }); s.sp += 15; s.hr[rnd(HR.length)].sh += 3; s.qu++; add('Destan bölümü tamamlandı.'); act(); return rw; };
   // Günlük görevler (ergenekon-cag.js)
   var GT = E.GT = [

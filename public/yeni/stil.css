@@ -122,3 +122,100 @@ img{display:block}
 .dug.yesil{color:#fff;background:linear-gradient(#7ed66c,#3f9a35 55%,#256b20);border-color:#e3ffd9;box-shadow:inset 0 -3px 0 #174a12,0 3px 0 #0a1f08,0 0 0 2px #1d4a17}
 .dug:disabled{filter:grayscale(.8) brightness(.75)}
 .dug small{display:block;font-size:11px;font-weight:700;opacity:.85}
+
+/* ---------- ortak pencere parçaları ---------- */
+.svp{align-self:center;margin:6px 0 0;background:rgba(20,10,4,.85);border:1px solid var(--rim2);border-radius:10px;padding:1px 12px;font:800 12px "Alegreya Sans";color:#fbefd2}
+.ipucu{display:flex;align-items:center;gap:8px;margin:6px 10px 0;padding:6px 10px;border-radius:8px;background:linear-gradient(#fbf3dc,#efdfb8);color:var(--ink);font:700 13px "Alegreya Sans";box-shadow:0 2px 4px #0007}
+.ipucu.uy{background:linear-gradient(#fff1c9,#f5d98a)}
+.par{background:linear-gradient(#efdcb2,#e2c995);color:var(--ink);border-top:3px solid var(--rim2);box-shadow:inset 0 2px 8px rgba(90,60,20,.35);padding:8px 10px;display:flex;flex-direction:column;gap:6px;min-height:0}
+.bas{display:flex;align-items:center;gap:8px;font:800 12px "Alegreya Sans";letter-spacing:.08em;color:#7a2416;text-transform:uppercase;justify-content:center}
+.bas:before,.bas:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#a47b42,transparent)}
+.sat{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;background:linear-gradient(#5b3a1e,#3d2512);border:1px solid #241307;color:#fbefd2;font:700 14px "Alegreya Sans";min-height:42px}
+.sat .ad{flex:1;min-width:0}
+.sat .ad small{display:block;font-size:11.5px;font-weight:600;color:#e2cfa5}
+.tik{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#7ee06a,#2f8f2a);border:2px solid #e9ffd9;display:flex;align-items:center;justify-content:center;font:900 13px sans-serif;color:#fff;flex:none}
+.git{flex:none;min-width:58px;height:30px;border-radius:8px;font:800 13px "Alegreya Sans";color:#fff;background:linear-gradient(#5d94e6,#2c5bb0 55%,#1d3c7a);border:1.5px solid #cfe0ff;box-shadow:inset 0 -2px 0 #102552}
+.git.al{color:#3a1d03;background:linear-gradient(#ffe08a,#f0b13a 55%,#c8800f);border-color:#fff1c2;box-shadow:inset 0 -2px 0 #8a4f0a}
+.git.ye{background:linear-gradient(#7ed66c,#3f9a35 55%,#256b20);border-color:#e3ffd9;box-shadow:inset 0 -2px 0 #174a12}
+.git:disabled{filter:grayscale(.85) brightness(.8)}
+.mal{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.mal span{display:flex;align-items:center;gap:3px;font:800 14px "Alegreya Sans"}
+.cg{color:#7ee06a}.cr{color:#ff8a7a}
+.par .cg{color:#1f7a2a}.par .cr{color:#b3261e}
+.cip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:8px;background:linear-gradient(#5b3a1e,#3d2512);border:1px solid #241307;color:#fbefd2;font:700 13px "Alegreya Sans"}
+.alts{flex:none;padding:8px 10px calc(var(--sab) + 10px);display:flex;gap:10px;justify-content:center;background:linear-gradient(#3a2414,#1f1209);border-top:2px solid var(--rim2)}
+.alts .dug{flex:1;max-width:220px;padding:0 10px}
+.sek{display:flex;gap:4px;padding:8px 8px 0;background:#2a170a}
+.sek button{flex:1;height:36px;border-radius:8px 8px 0 0;font:800 13px "Alegreya Sans";color:#e9d3a3;background:linear-gradient(#5a3a1e,#3a2412);border:1px solid #6b4a24;border-bottom:0;position:relative}
+.sek button.on{color:#3a1d03;background:linear-gradient(#f6e6bf,#e2c995)}
+.sek .hilal{right:2px;top:-6px}
+.bar{height:8px;border-radius:5px;background:rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.3)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#3fae4f,#8be06f);border-radius:5px}
+.bar.mavi i{background:linear-gradient(90deg,#3b6fd0,#7fb0ff)}
+.bar.alt i{background:linear-gradient(90deg,#c98419,#f3c14b)}
+
+/* ---------- yapı penceresi ---------- */
+.yg{position:relative;flex:1;min-height:150px;display:flex;align-items:center;justify-content:center;gap:10px;padding:6px 14px;background:radial-gradient(ellipse at 50% 55%,rgba(120,150,70,.55),rgba(30,20,10,.95) 75%)}
+.yg .tek{width:min(62vw,250px);height:100%;max-height:250px;display:flex;align-items:center;justify-content:center}
+.yg .tek img,.yg .tek .yt{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 10px #000c)}
+.yg .iki{flex:1;height:100%;max-height:170px;border-radius:8px;border:2px solid var(--rim);background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;padding:4px;position:relative}
+.yg .iki img,.yg .iki .yt{width:100%;height:100%;object-fit:contain}
+.yg .iki.yeni{border-color:#f3c14b;box-shadow:0 0 14px rgba(243,193,75,.45)}
+.yg .serit{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(#ffe08a,#e0a12a);color:#5a2c02;font:800 11px "Alegreya Sans";padding:2px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 3px #0008}
+.yg .ok{font:900 22px sans-serif;color:#f3c14b}
+.sva{flex:none;display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 0 8px;background:rgba(20,10,4,.9)}
+.sva .yu{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3b5f9a,#162a4d);border:3px solid #9cc0ff;display:flex;align-items:center;justify-content:center;font:800 18px "Alegreya Sans"}
+.sva .yu.n{border-color:#f3c14b}
+.sva .orta{width:150px;text-align:center;font:800 11px "Alegreya Sans";color:#d8c69a}
+.sva .orta .ok3{color:#f3c14b;font:900 16px sans-serif;letter-spacing:2px}
+.sure{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:linear-gradient(#4a2e18,#2e1b0d);border:2px solid #6fd07a;color:#fff}
+.sure .zz{font:800 28px "Alegreya Sans";letter-spacing:.02em}
+.sure .bar{flex:1}
+.hz{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.hz .sat{min-height:38px;padding:4px 6px;font-size:13px}
+.hz .git{min-width:48px;height:28px}
+
+/* ---------- görevler ---------- */
+.bol{position:relative;margin:8px 8px 0;border-radius:10px;overflow:hidden;min-height:118px;padding:10px 12px;background:linear-gradient(100deg,rgba(40,20,8,.95),rgba(80,40,15,.7)),radial-gradient(ellipse at 85% 50%,#c98a3a,#3a1d0a);border:2px solid var(--rim2);color:#fbefd2}
+.bol small{font:800 12px "Alegreya Sans";color:#f3c14b;letter-spacing:.1em}
+.bol h3{margin:2px 0 4px;font:800 21px Cinzel,serif;color:#fff3d6}
+.bol p{margin:0;font:600 13px "Alegreya Sans";color:#e9d7b0;max-width:92%}
+.bol .noktalar{display:flex;gap:5px;margin-top:8px}
+.bol .noktalar i{width:16px;height:16px;border-radius:50%;background:#2a170a;border:1.5px solid #8a6026;display:flex;align-items:center;justify-content:center;font:900 9px sans-serif;color:#fff;font-style:normal}
+.bol .noktalar i.ok{background:#3fae4f;border-color:#d9ffd0}
+.bol .noktalar i.su{background:#f3c14b;border-color:#fff}
+.gl{display:flex;flex-direction:column;gap:6px;padding:8px}
+.gs{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;background:linear-gradient(#fbf3dc,#efdfb8);border:1px solid #c9a96a;color:var(--ink);box-shadow:0 2px 3px rgba(0,0,0,.25)}
+.gs .gi{width:44px;height:44px;flex:none;border-radius:8px;background:linear-gradient(#5b3a1e,#3d2512);display:flex;align-items:center;justify-content:center;border:1px solid #241307}
+.gs .gi .ik{width:32px;height:32px}
+.gs .ad{flex:1;min-width:0;font:700 13.5px "Alegreya Sans"}
+.gs .ad .bar{margin-top:4px;background:#cdb88c}
+.gs .sy{font:800 12px "Alegreya Sans";color:#6b4a1e;min-width:46px;text-align:right}
+.gs.ok{background:linear-gradient(#eaf7d9,#d4ecb9)}
+.odl{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;padding:6px 8px;font:800 13px "Alegreya Sans";color:#fbefd2}
+
+/* ---------- kahramanlar ---------- */
+.hiz{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px}
+.hk{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;background:#1c120a;border:2px solid #8a6026;box-shadow:0 3px 6px #000a}
+.hk img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.hk.yok img{filter:grayscale(1) brightness(.45)}
+.hk .hn{position:absolute;left:0;right:0;bottom:0;padding:14px 4px 3px;background:linear-gradient(transparent,rgba(0,0,0,.92));font:800 12px "Alegreya Sans";text-align:center;color:#fff}
+.hk .yz{display:block;color:#f3c14b;font-size:12px;letter-spacing:1px}
+.hk .kb{position:absolute;left:4px;right:4px;bottom:3px;height:4px}
+.hk.r1{border-color:#3aa868}.hk.r2{border-color:#8b6cff}.hk.r3{border-color:#e0922b}.hk.r5{border-color:#f3c14b;box-shadow:0 0 10px rgba(243,193,75,.6)}
+.hk .yeso{position:absolute;top:4px;left:4px;right:4px;height:5px;border-radius:3px;background:linear-gradient(90deg,#3fae4f,#8be06f)}
+.hd{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 12px;flex:1;min-height:0}
+.hd .bp{width:min(56vw,220px);aspect-ratio:3/4;border-radius:12px;overflow:hidden;border:3px solid #e8c66a;box-shadow:0 6px 14px #000c}
+.hd .bp img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.hd h3{margin:0;font:800 20px Cinzel,serif;color:#fff3d6}
+.hd .yz{color:#f3c14b;font-size:20px;letter-spacing:3px}
+.ikili{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.ikili span{font:700 12px "Alegreya Sans";padding:2px 8px;border-radius:8px;border:1px solid #8a6026;color:#d9c49a}
+.ikili span.on{border-color:#f3c14b;color:#f3c14b;background:rgba(243,193,75,.12)}
+
+/* ---------- kurt ---------- */
+.kz{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 12px;background:radial-gradient(ellipse at 50% 30%,#2c4a7a,#101d33 60%,#090f1c)}
+.kz .kr{width:min(58vw,230px);height:min(58vw,230px);object-fit:contain;filter:drop-shadow(0 10px 14px #000c)}
+.kz h3{margin:0;font:800 19px Cinzel,serif;color:#dfeaff}
+.kz .xb{width:min(80vw,300px)}
+.kz .sat{width:100%}
