@@ -1666,3 +1666,18 @@ html body .mt-x{position:absolute;top:calc(env(safe-area-inset-top) + 14px);righ
 #ek-evchip{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 92px);transform:translateX(-50%);z-index:45;display:flex;gap:6px;pointer-events:none}
 #ek-evchip span{padding:4px 10px;border-radius:999px;background:#2a1f10ee;border:1px solid #f2c14e;color:#ffe08a;font-size:12px;box-shadow:0 0 10px #f2c14e55}
 #ek-evchip[hidden]{display:none}
+/* kum saati: 5 tür */
+.ks-have{grid-template-columns:repeat(5,1fr)!important;gap:5px!important}
+.ks-have span{grid-template-columns:1fr!important;grid-template-rows:auto auto auto!important;justify-items:center;padding:6px 2px!important;text-align:center}
+.ks-have span.z{opacity:.45}
+.ks-have i{grid-row:auto!important;font-size:18px!important}
+.ks-have b{font-size:16px!important}
+.ks-have small{font-size:11px!important;opacity:.85!important;white-space:nowrap}
+.ks-row{grid-template-columns:28px minmax(0,1fr)!important}
+.ks-use{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.ks-use button{height:36px!important;font-size:12.5px!important;font-weight:800;white-space:nowrap;color:#f3e3c0}
+/* görev satırları: dokununca git */
+[data-go]{cursor:pointer;position:relative}
+.gg-r[data-go]:not(.ok)::after,.ed-g[data-go]:not(.ok)::after{content:'›';position:absolute;right:6px;top:50%;transform:translateY(-50%);font:700 20px Georgia,serif;color:#e8c66a;opacity:.8;pointer-events:none}
+.gg-r[data-go]:not(.ok),.ed-g[data-go]:not(.ok){padding-right:22px!important}
+.gg-r[data-go]:not(.ok):active,.ed-g[data-go]:not(.ok):active,.o7-d[data-go]:active{filter:brightness(1.25)}

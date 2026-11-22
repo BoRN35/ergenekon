@@ -283,3 +283,9 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - 18 Kasım: yanıp sönme düzeltildi — taşa çevirme artık MutationObserver içinde, boyamadan önce yapılıyor; açık renkli/altın kutular (avatarlar) ve vurgulu satırlar (Sen) korunuyor; opak kutular opak kalıyor.
 - 18 Kasım tarama: Titreşim düğmesi gerilmesi, Ayarlar başlığının ✕ altında kalması, Arena 'Mücadele et' taşması, Kurultay/sayfa zemininde çivit boşluk, pencere/profil açıkken 'Katıl' ve danışman notunun üstte kalması, yardım (🤝) düğmesinin sayfa içeriğini örtmesi düzeltildi.
 - 18 Kasım: yapı penceresi (Odunluk vb.) her saniye yeniden çizilirken giriş kayması tekrar oynuyor, üretim/kömür/yol haritası satırları kaybolup geliyor, '!' bilgi düğmesi mühüre dönüp geri geliyordu → yeniden çizimde kayma yok, eklenen satırlar korunuyor, kaydırma yeri korunuyor; '!' diğer yazılarla aynı renkte sade çerçeve (konfor mühürü .yk-info'ya artık uygulanmıyor). tas.js: tüm pencerelerde giriş kayması yalnız ilk açılışta.
+
+## 22 Kasım 2026
+- ergenekon-git.js: W.ekGo(k) — görev satırına dokununca ilgili ekran: kill→en yakın uygun canavar kartı, mine→en yakın kaynak (Sefer kartı), build→en hızlı yükseltilebilir yapı penceresi, help→İttifak (+🤝), arena, research, kurgan(seferler), hero(Kurultay), ocak, forge(Demirci). Günlük (gg-r), Emek Defteri (ed-g), Açılış 7 gün (o7-d) satırlarına data-go iliştirilir.
+- Kum saati 5 tür: s.ek.ks {m1,m5,m30,h1,h8} (60/300/1800/3600/28800 sn). Eski m5/h1 korunur. ekHourglass.add(küçük, büyük) türlere düşer: küçük ⏳ m1 55·m5 33·m30 10·h1 2; büyük ⌛ m30 50·h1 42·h8 8. addT({tür:n}) doğrudan. Akıllı hızlandırma çok türlü.
+- Başlık/düğme sığdırma (tas.js alt bölüm): taşarsa önce harf aralığı sonra yazı boyu (en az %62/9px).
+- Haritada Katıl sağ üstte, 🤝 onun altında (hedef kartını örtmesin).

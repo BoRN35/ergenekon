@@ -121,3 +121,11 @@ body:has(.ek-ov) #ek-rally,body:has(.ek-ov) #ek-sage,body:has(#pop:not([style*="
 /* yapı penceresi: bilgi düğmesi "!" diğer yazılarla aynı renkte, sade çerçeve */
 html body .ek-ov .yk-head .yk-info{background:transparent!important;border:1px solid #55524b!important;border-radius:3px!important;color:#e9e2d0!important;font:700 19px Georgia,'Times New Roman',serif!important;box-shadow:none!important;text-shadow:none!important}
 html body .ek-ov .yk-head .yk-info::before,html body .ek-ov .yk-head .yk-info::after{display:none!important}
+/* başlıklar düğmelerin altına girmesin; tek satır, sığmazsa küçülür */
+html body .ek-ov .yk-head h2{box-sizing:border-box!important;max-width:100%!important;padding:0 54px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+html body .game-page-header h2,html body .game-page-heading h2{white-space:nowrap!important;overflow:hidden!important;max-width:100%!important}
+html body #ek-npcbar .nb-n{overflow:hidden;max-width:46vw}
+html body .yk-btn,html body .yk-main{white-space:nowrap!important;overflow:hidden!important}
+/* haritada "Katıl" alttaki hedef kartını (Saldır) örtmesin: sağ üste */
+html body:has(#tm:not([style*="none"])) #ek-rally{top:calc(env(safe-area-inset-top) + 116px)!important;bottom:auto!important;left:auto!important;right:8px!important;transform:none!important;margin:0!important}
+html body:has(#tm:not([style*="none"])) #ek-hand{top:calc(env(safe-area-inset-top) + 186px)!important;bottom:auto!important}

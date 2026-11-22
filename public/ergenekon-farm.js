@@ -1,6 +1,6 @@
 /* Ergenekon — Ek Paket 2, 3. adım: farm döngüsü. Claude, 18 Kasım 2026.
    66 harita arama "Canavar" sekmesi · 61 Kum Saati hızlandırmaları (satılmaz) · 86 Alp Müfrezeleri (pasif sefer)
-   Kalıcı: s.ek.ks {m5,h1} kum saatleri · s.ek.cs canavar arama son seçimi · s.ek.mf müfrezeler · s.ek.mfr oran ayarı (admin) */
+   Kalıcı: s.ek.ks {m1,m5,m30,h1,h8} kum saatleri · s.ek.cs canavar arama son seçimi · s.ek.mf müfrezeler · s.ek.mfr oran ayarı (admin) */
 (function () {
   'use strict';
   var W = window;
@@ -21,9 +21,17 @@
   }
 
   /* ================= 61) Kum Saati ================= */
-  function ks() { var e = ek(); e.ks = e.ks || { m5: 0, h1: 0 }; return e.ks; }
-  function addKs(m5, h1) { var k = ks(); k.m5 += m5 || 0; k.h1 += h1 || 0; save(); var r = []; if (m5) r.push(['⏳', '5dk ×' + m5]); if (h1) r.push(['⌛', '1sa ×' + h1]); return r; }
-  W.ekHourglass = { add: addKs, get: ks, open: function () { openKs(); } };
+  /* 5 tür kum saati: 1 dk · 5 dk · 30 dk · 1 sa · 8 sa. Eski kayıtlardaki m5/h1 sayıları olduğu gibi korunur. */
+  var KT = [['m1', 60, '1 dk'], ['m5', 300, '5 dk'], ['m30', 1800, '30 dk'], ['h1', 3600, '1 sa'], ['h8', 28800, '8 sa']];
+  var KD = {}; KT.forEach(function (t) { KD[t[0]] = t; });
+  // küçük ödül (⏳) ve büyük ödül (⌛) türlere düşer; süre uzadıkça düşme oranı azalır
+  var DROP_S = [['m1', 55], ['m5', 33], ['m30', 10], ['h1', 2]], DROP_B = [['m30', 50], ['h1', 42], ['h8', 8]];
+  function ks() { var e = ek(); e.ks = e.ks || {}; KT.forEach(function (t) { if (typeof e.ks[t[0]] !== 'number') e.ks[t[0]] = 0; }); return e.ks; }
+  function ksTotal() { var k = ks(), n = 0; KT.forEach(function (t) { n += k[t[0]]; }); return n; }
+  function roll(T) { var t = 0; T.forEach(function (x) { t += x[1]; }); var r = Math.random() * t; for (var i = 0; i < T.length; i++) { r -= T[i][1]; if (r < 0) return T[i][0]; } return T[0][0]; }
+  function addT(got) { var k = ks(), r = []; KT.forEach(function (t) { var n = got[t[0]] || 0; if (n > 0) { k[t[0]] += n; r.push(['⏳', t[2] + ' ×' + n]); } }); save(); return r; }
+  function addKs(m5, h1) { var got = {}, i; for (i = 0; i < (m5 || 0); i++) { var a = roll(DROP_S); got[a] = (got[a] || 0) + 1; } for (i = 0; i < (h1 || 0); i++) { var b = roll(DROP_B); got[b] = (got[b] || 0) + 1; } return addT(got); }
+  W.ekHourglass = { add: addKs, addT: addT, get: ks, total: ksTotal, types: KT, open: function () { openKs(); } };
   function timers() {
     var s = S(), B = W.B || {}, out = [];
     try { (W.buildQueues() || []).forEach(function (q) { if (q.left > 0) out.push({ id: 'b:' + q.k, e: (B[q.k] || {}).i || '🔨', n: (B[q.k] || {}).n || 'Yapı', q: q }); }); } catch (e) {}
@@ -34,35 +42,39 @@
   function openKs(focus) {
     var o = document.getElementById('ek-ks'); if (o) o.remove();
     var k = ks(), T = timers();
-    var body = '<div class="ks-have"><span><i>⏳</i><b>' + k.m5 + '</b><small>5 dk</small></span><span><i>⌛</i><b>' + k.h1 + '</b><small>1 sa</small></span></div>' +
+    var body = '<div class="ks-have">' + KT.map(function (t) { return '<span class="' + (k[t[0]] ? '' : 'z') + '"><i>⏳</i><b>' + k[t[0]] + '</b><small>' + t[2] + '</small></span>'; }).join('') + '</div>' +
       (T.length ? T.map(function (t) {
         return '<div class="ks-row' + (focus === t.id ? ' on' : '') + '"><i>' + t.e + '</i><span><b>' + esc(t.n) + '</b><small>' + ft(t.q.left) + '</small></span>' +
-          '<button type="button" data-ks="' + t.id + '|m5"' + (k.m5 ? '' : ' disabled') + '>⏳</button><button type="button" data-ks="' + t.id + '|h1"' + (k.h1 ? '' : ' disabled') + '>⌛</button>' + smartBtn(t, k) + '</div>';
+          '<div class="ks-use">' + KT.map(function (x) { return '<button type="button" data-ks="' + t.id + '|' + x[0] + '"' + (k[x[0]] ? '' : ' disabled') + '>' + x[2] + '</button>'; }).join('') + '</div>' + smartBtn(t, k) + '</div>';
       }).join('') : '<p class="ks-empty">⏳ —</p>');
     o = popup('Kum Saati', body, 'ks-card'); o.id = 'ek-ks';
     o.addEventListener('click', function (ev) {
       var b = ev.target.closest('[data-ks]'); if (!b || b.disabled) return;
       var p = b.dataset.ks.split('|'), t = timers().find(function (x) { return x.id === p[0]; }), kk = ks(); if (!t || !kk[p[1]]) return;
-      kk[p[1]]--; t.q.left = Math.max(1, t.q.left - (p[1] === 'm5' ? 300 : 3600));
+      if (!KD[p[1]]) return; kk[p[1]]--; t.q.left = Math.max(1, t.q.left - KD[p[1]][1]);
       try { navigator.vibrate && navigator.vibrate(15); W.snd(880, .05); } catch (e) {}
       save(); rer(); openKs(p[0]);
     });
   }
   // 113) akıllı hızlandırma: en çok süreyi en az israfla kapatan kombinasyon
   function combo(L, k) {
-    var best = null;
-    for (var x = 0; x <= k.h1; x++) for (var y = 0; y <= k.m5; y++) { var use = x * 3600 + y * 300; if (!use) continue; var cov = Math.min(L, use), waste = Math.max(0, use - L); var sc = cov * 10 - waste - (x + y); if (!best || sc > best.sc) best = { x: x, y: y, sc: sc, cov: cov, waste: waste }; if (y * 300 > L + 300) break; }
-    return best;
+    var use = {}, rem = L, any = false, i, t;
+    for (i = KT.length - 1; i >= 0; i--) { t = KT[i]; var n = Math.min(k[t[0]], Math.floor(rem / t[1])); if (n > 0) { use[t[0]] = n; rem -= n * t[1]; any = true; } }
+    if (rem > 0) { // kalan süreyi en az israfla kapat
+      for (i = 0; i < KT.length; i++) { t = KT[i]; if (t[1] >= rem && k[t[0]] - (use[t[0]] || 0) > 0) { use[t[0]] = (use[t[0]] || 0) + 1; rem = 0; any = true; break; } }
+      for (i = 0; rem > 0 && i < KT.length; i++) { t = KT[i]; while (rem > 0 && k[t[0]] - (use[t[0]] || 0) > 0) { use[t[0]] = (use[t[0]] || 0) + 1; rem -= t[1]; any = true; } }
+    }
+    return any ? use : null;
   }
-  function smartBtn(t, k) { var c = combo(t.q.left, k); if (!c) return ''; return '<button type="button" class="ks-smart" data-ks-auto="' + t.id + '">✦ ' + (c.x ? c.x + '⌛ ' : '') + (c.y ? c.y + '⏳' : '') + '</button>'; }
+  function smartBtn(t, k) { var c = combo(t.q.left, k); if (!c) return ''; return '<button type="button" class="ks-smart" data-ks-auto="' + t.id + '">✦ ' + KT.filter(function (x) { return c[x[0]]; }).map(function (x) { return c[x[0]] + '×' + x[2]; }).join(' + ') + '</button>'; }
   document.addEventListener('click', function (ev) {
     var b = ev.target.closest && ev.target.closest('[data-ks-auto]'); if (!b) return; ev.stopPropagation();
     var t = timers().find(function (x) { return x.id === b.dataset.ksAuto; }), k = ks(); if (!t) return; var c = combo(t.q.left, k); if (!c) return;
-    k.h1 -= c.x; k.m5 -= c.y; t.q.left = Math.max(1, t.q.left - c.x * 3600 - c.y * 300); save(); rer(); openKs(t.id);
+    var sec = 0; KT.forEach(function (x) { var n = c[x[0]] || 0; k[x[0]] -= n; sec += n * x[1]; }); t.q.left = Math.max(1, t.q.left - sec); save(); rer(); openKs(t.id);
   }, true);
   function ksButtons() {
     var yk = document.getElementById('ek-yapi'), acts = yk && yk.querySelector('.yk-prog') && yk.querySelector('.yk-acts');
-    if (acts && !acts.querySelector('[data-ek-ks]')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'yk-btn'; b.setAttribute('data-ek-ks', '1'); b.textContent = '⏳ ' + (ks().m5 + ks().h1); b.addEventListener('click', function (ev) { ev.stopPropagation(); openKs(); }); acts.appendChild(b); }
+    if (acts && !acts.querySelector('[data-ek-ks]')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'yk-btn'; b.setAttribute('data-ek-ks', '1'); b.textContent = '⏳ ' + ksTotal(); b.addEventListener('click', function (ev) { ev.stopPropagation(); openKs(); }); acts.appendChild(b); }
     var tr = document.getElementById('tr'), s = S();
     if (tr && W.tab === 'r' && s.rq) {
       var det = tr.querySelector('.research-detail'), sel = tr.querySelector('[data-research-selected]');
@@ -231,5 +243,6 @@
   }
   function start() { if (!S() || !W.M || typeof W.fight !== 'function') { setTimeout(start, 400); return; } requestAnimationFrame(frame); }
   start();
-  W.ergenekonFarm = { openKs: openKs, openMf: openMf, addKs: addKs, goMonster: goMonster, claimMf: claim };
+  function nearestMonster() { var M = W.M || [], best = -1, bd = 1e9; M.forEach(function (m, i) { if (!alive(i) || lvOf(i) > maxAtk()) return; var d = dist(i); if (d < bd) { bd = d; best = i; } }); return best; }
+  W.ergenekonFarm = { nearestMonster: nearestMonster, openKs: openKs, openMf: openMf, addKs: addKs, goMonster: goMonster, claimMf: claim };
 })();

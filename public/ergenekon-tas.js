@@ -95,3 +95,34 @@
   var oldT = W.ekTema; W.ekTema = function (v) { oldT(v); if (!v) D.querySelectorAll('[data-tas]').forEach(clear); else sweep(); };
 
 })(window);
+/* Uzun başlık ve düğme yazılarını sığdır: taşarsa harf aralığı ve yazı boyu kademeli küçülür (her temada çalışır). */
+(function (W) {
+  'use strict';
+  var D = document;
+  var SEL = '.yk-head h2,.game-page-header h2,.game-page-heading h2,#ek-npcbar .nb-n,.yk-btn,.yk-main,.ek-ov .ek-btn,.np-tabs small,.ks-use button,.kh-det h3,.mgmt-category,.roster-section-choice,.research-branches button';
+  function fit(el) {
+    if (!el.offsetWidth) return;
+    var key = el.textContent + '|' + el.clientWidth;
+    if (el.__fitK === key) return;
+    el.style.removeProperty('font-size'); el.style.removeProperty('letter-spacing');
+    var over = el.scrollWidth - el.clientWidth;
+    if (over > 1) {
+      var cs = getComputedStyle(el), fs = parseFloat(cs.fontSize), ls = parseFloat(cs.letterSpacing) || 0, n = Math.max(1, el.textContent.length);
+      // önce harf aralığını daralt
+      if (ls > 1) { var nls = Math.max(1, ls - over / n); el.style.setProperty('letter-spacing', nls.toFixed(2) + 'px', 'important'); over = el.scrollWidth - el.clientWidth; }
+      // sonra yazı boyunu küçült (en az %62, en az 9px)
+      var min = Math.max(9, fs * .62);
+      for (var i = 0; i < 8 && over > 1 && fs > min; i++) {
+        fs = Math.max(min, Math.min(fs * .95, fs * (el.clientWidth - 2) / el.scrollWidth));
+        el.style.setProperty('font-size', fs.toFixed(1) + 'px', 'important'); over = el.scrollWidth - el.clientWidth;
+      }
+    }
+    el.__fitK = el.textContent + '|' + el.clientWidth;
+  }
+  function run(root) { try { (root || D).querySelectorAll(SEL).forEach(fit); } catch (e) {} }
+  var pend = false;
+  function soon() { if (pend) return; pend = true; requestAnimationFrame(function () { pend = false; run(); }); }
+  new MutationObserver(soon).observe(D.documentElement, { childList: true, subtree: true, characterData: true });
+  W.addEventListener('resize', function () { D.querySelectorAll(SEL).forEach(function (e) { e.__fitK = ''; }); soon(); });
+  setInterval(run, 1500);
+})(window);
