@@ -213,3 +213,29 @@ html.ao #cityv>canvas,html.ao #cityv .world3d,html.ao #cityv>div>canvas:not(.ao-
 @media (min-width:700px){#ao-jobs{top:84px;left:14px}}
 #ek-ao svg,#ao-jobs svg{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;margin:0!important;width:22px!important;height:22px!important}
 html body #ek-yapi .ya-card .yk-hero img.ya-art{height:100%!important;width:auto!important;max-width:80%;object-fit:contain;filter:drop-shadow(4px 8px 6px rgba(0,0,0,.45))}
+/* ===== Görevler düğmesi ve görevler penceresi (Tuğ Direği) ===== */
+html.tas.altay body #top .ek-topbtns .ek-rbtn[data-ek-gorev] svg{color:#ffe7a8!important}
+html.tas.altay body #top .ek-topbtns .ek-rbtn .ao-gdot{display:none;position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;box-shadow:inset -4px 2px 0 0 #ffd77a;filter:drop-shadow(0 0 3px #ffd77a)}
+html.tas.altay body #top .ek-topbtns .ek-rbtn.hil .ao-gdot{display:block}
+html.tas.altay body .gg-list{display:flex;flex-direction:column;gap:6px;padding:4px 10px}
+html.tas.altay body .gg-r{display:grid!important;grid-template-columns:44px minmax(0,1fr) auto!important;align-items:center;gap:8px;min-height:58px;padding:6px 52px 6px 6px!important}
+html.tas.altay body .gg-r>i{width:44px;height:44px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:22px;background:radial-gradient(circle at 40% 35%,#7a5230,#3a2412);border:1px solid #c89a4a}
+html.tas.altay body .gg-r>span{display:flex;flex-direction:column;gap:5px;min-width:0}
+html.tas.altay body .gg-r>span small{font:700 13.5px Georgia,serif!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.tas.altay body .gg-r>span u{display:block;height:7px;border-radius:4px;overflow:hidden}
+html.tas.altay body .gg-r>span u em{display:block;height:100%}
+html.tas.altay body .gg-r>b{font:700 12px Georgia!important}
+html.tas.altay body .gg-chest{display:flex!important;align-items:center;justify-content:center;gap:10px;width:calc(100% - 20px)!important;margin:10px!important;height:52px!important;border-radius:10px!important;background:linear-gradient(180deg,#6b4526,#432a15)!important;border:2px solid #1e1008!important;color:#e8cf9a!important;font:700 16px Georgia!important}
+html.tas.altay body .gg-chest.can{background:linear-gradient(180deg,#5fbf5a,#2c7a34)!important;border-color:#144a1c!important;color:#fff!important}
+html.tas.altay body .gg-chest i{font-style:normal;font-size:22px}
+/* ===== Posta: krem mektup kartları ===== */
+html.tas.altay body .management-workspace--p .mi{background:var(--apar)!important;border:1px solid #b98a43!important;border-radius:6px!important;box-shadow:0 2px 4px rgba(0,0,0,.35)!important;color:#3a2414!important}
+html.tas.altay body .management-workspace--p .mi *{color:#3a2414!important;text-shadow:none!important}
+html.tas.altay body .management-workspace--p .mi small,html.tas.altay body .management-workspace--p .mi .mt{color:#7a4a1c!important}
+html.tas.altay body .management-workspace--p .mi.on,html.tas.altay body .management-workspace--p .mi.sel{border-color:#c8341c!important;box-shadow:0 0 0 2px #c8341c!important}
+html.tas.altay body .management-workspace--p .mgmt-mail-detail{background:var(--apar)!important;color:#3a2414!important;border:1px solid #b98a43!important;border-radius:6px!important}
+html.tas.altay body .management-workspace--p .mgmt-mail-detail *{color:#3a2414!important;text-shadow:none!important}
+/* ===== Kahramanlar: portre kartları ===== */
+html.tas.altay body .kh-t{background:radial-gradient(circle at 50% 35%,#6b4a26,#21130a)!important;border:2px solid #8a5a22!important;border-radius:8px!important;box-shadow:inset 0 0 0 1px #3a2312,0 3px 6px rgba(0,0,0,.45)!important}
+html.tas.altay body .kh-t.on{border-color:#ffd77a!important;box-shadow:0 0 0 2px #ffd77a,0 0 12px rgba(255,215,122,.5)!important}
+html.tas.altay body .kh-t.lk img{filter:grayscale(1) brightness(.6)}

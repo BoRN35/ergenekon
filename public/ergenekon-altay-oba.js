@@ -209,6 +209,10 @@
     if (R.el.parentNode !== D.getElementById('cityv')) { var cv = D.getElementById('cityv'); if (cv) { cv.insertBefore(R.el, cv.firstChild); cv.appendChild(R.jobs); } }
     if (now - last < 500) return; last = now;
     try { update(); } catch (e) {}
+    // sağ sütuna Görevler düğmesi (Tuğ Direği › Günlük)
+    var tb = D.querySelector('#top .ek-topbtns');
+    if (tb && !tb.querySelector('[data-ek-gorev]')) { var gb = D.createElement('button'); gb.type = 'button'; gb.className = 'ek-rbtn'; gb.dataset.ekGorev = '1'; gb.dataset.lb = 'Görevler'; gb.setAttribute('aria-label', 'Görevler'); gb.innerHTML = svg('flag', 22) + '<i class="ao-gdot"></i>'; gb.addEventListener('click', function (e) { e.stopPropagation(); if (W.ekNpcOpen) W.ekNpcOpen('tug', 0); }); tb.appendChild(gb); }
+    if (tb) { var gb2 = tb.querySelector('[data-ek-gorev]'), dn = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'); if (gb2) gb2.classList.toggle('hil', !!dn); }
   }
   requestAnimationFrame(loop);
   var lw = 0; W.addEventListener('resize', function () { if (R.built && R.el.clientWidth !== lw) { lw = R.el.clientWidth; fit(); } });
