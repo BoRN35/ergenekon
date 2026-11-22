@@ -239,3 +239,4 @@ html.tas.altay body .management-workspace--p .mgmt-mail-detail *{color:#3a2414!i
 html.tas.altay body .kh-t{background:radial-gradient(circle at 50% 35%,#6b4a26,#21130a)!important;border:2px solid #8a5a22!important;border-radius:8px!important;box-shadow:inset 0 0 0 1px #3a2312,0 3px 6px rgba(0,0,0,.45)!important}
 html.tas.altay body .kh-t.on{border-color:#ffd77a!important;box-shadow:0 0 0 2px #ffd77a,0 0 12px rgba(255,215,122,.5)!important}
 html.tas.altay body .kh-t.lk img{filter:grayscale(1) brightness(.6)}
+html body:has(#pop:not([style*="none"])) #ek-hand,html body:has(.ek-ov) #ek-hand{display:none!important}
