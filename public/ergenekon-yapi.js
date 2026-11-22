@@ -75,7 +75,7 @@
     return '<div class="yk-card" role="dialog" aria-modal="true" aria-label="' + def.n + '">' +
       '<div class="yk-head"><button type="button" class="yk-info" data-yk="info" aria-label="Açıklama">!</button><h2>' + def.n + '</h2><button type="button" class="yk-x" data-yk="close" aria-label="Kapat">✕</button></div>' +
       '<div class="yk-hero">' + img + '<span class="yk-lv">' + L + '</span>' + (L < max && !q ? '<span class="yk-next">→ ' + (L + 1) + '</span>' : '') + '</div>' +
-      mid + '<div class="yk-foot">' + acts + '<button type="button" class="yk-ico" data-yk="detail" title="Diğer detaylar">⋯</button></div></div>';
+      (rows ? '<div class="yk-tab yk-tab-in">' + rows + '</div>' : '') + mid + '<div class="yk-foot">' + acts + '<button type="button" class="yk-ico" data-yk="detail" title="Diğer detaylar">⋯</button></div></div>';
   }
   var INJ = '.ek-prod,.dg-burn,.rm-row,[data-ek-fin],.era-chip,[data-ek-ks],[data-ek-bag]';
   function sig(e) { var c = (e.className && typeof e.className === 'string') ? e.className.trim().split(/\s+/)[0] : ''; return e.tagName.toLowerCase() + (c ? '.' + c : ''); }

@@ -85,7 +85,7 @@
   }
   var SG = { el: null, next: Date.now() + 20000, shown: 0 };
   function sage(now) {
-    if (W.tab !== 'c' || document.querySelector('.ek-ov') || document.getElementById('aw')) return;
+    if (W.tab !== 'c' || document.querySelector('.ek-ov') || document.getElementById('aw')) { if (SG.el && W.tab !== 'c') closeSage(); return; }
     if (SG.el && SG.el.isConnected) { if (now - SG.shown > 9000) closeSage(); return; }
     if (now < SG.next) return;
     var t = tip(); if (!t) return;

@@ -126,6 +126,48 @@ html body .ek-ov .yk-head h2{box-sizing:border-box!important;max-width:100%!impo
 html body .game-page-header h2,html body .game-page-heading h2{white-space:nowrap!important;overflow:hidden!important;max-width:100%!important}
 html body #ek-npcbar .nb-n{overflow:hidden;max-width:46vw}
 html body .yk-btn,html body .yk-main{white-space:nowrap!important;overflow:hidden!important}
-/* haritada "Katıl" alttaki hedef kartını (Saldır) örtmesin: sağ üste */
-html body:has(#tm:not([style*="none"])) #ek-rally{top:calc(env(safe-area-inset-top) + 116px)!important;bottom:auto!important;left:auto!important;right:8px!important;transform:none!important;margin:0!important}
-html body:has(#tm:not([style*="none"])) #ek-hand{top:calc(env(safe-area-inset-top) + 186px)!important;bottom:auto!important}
+
+/* ===== Responsive düzen (360 · 390 · 768 · 1280) ===== */
+/* üst kaynak çubuğu: telefonda tüm kaynaklar ve düğmeler sığsın, kaydırma gerekmesin */
+@media (max-width:480px){
+ html body #top#top{overflow:hidden!important;gap:3px!important;padding-right:4px!important}
+ html body #top #res#res{gap:3px!important;flex:1 1 auto!important;min-width:0!important}
+ html body #top #res > .ek-res{flex:0 1 auto!important;width:auto!important;min-width:0!important;max-width:none!important;padding:0 3px 0 1px!important;gap:1px!important}
+ html body #top #res > .ek-res .ek-l{display:none!important}
+ html body #top #res > .ek-res .reference-resource-art,html body #top #res > .ek-res .painted-game-icon{width:16px!important;height:16px!important;min-width:16px!important}
+ html body #top #res > .ek-res b{font-size:11px!important;white-space:nowrap}
+ html body #top #res > .ek-more{flex:0 0 22px!important;width:22px!important;min-width:0!important;padding:0!important}
+ html body #top .ek-topbtns{gap:3px!important;flex:none!important}
+ html body #top .ek-topbtns .ek-rbtn{width:28px!important;height:28px!important}
+ html body #top .ek-topbtns .ek-rbtn svg{width:16px!important;height:16px!important}
+ html body #top .ek-topbtns .ek-rbtn span{font-size:15px!important}
+ html body #top .ek-topbtns .ek-rbtn::after{content:'';position:absolute;inset:-7px -2px}
+ html body #ek-npcbar .nb-n{max-width:34vw!important}
+}
+/* danışman notu: profil düğmesini ve sayfa üst düğmelerini örtmesin */
+html body #ek-sage{left:auto!important;max-width:min(320px,calc(100vw - 72px))!important}
+/* boy toplanması (Katıl): haritada üst kontrolleri ve sağ paneli örtmesin */
+@media (max-width:699px){
+ html body:has(#tm:not([style*="none"])) #ek-rally{top:calc(env(safe-area-inset-top) + 246px)!important;bottom:auto!important;left:auto!important;right:6px!important;transform:none!important;padding:6px 10px 6px 6px!important;gap:6px!important}
+ html body:has(#tm:not([style*="none"])) #ek-rally i{font-size:20px!important}
+ html body:has(#tm:not([style*="none"])) #ek-hand{top:calc(env(safe-area-inset-top) + 186px)!important;bottom:auto!important}
+}
+@media (min-width:700px){
+ html body:has(#tm:not([style*="none"])) #ek-rally{top:230px!important;bottom:auto!important;left:96px!important;right:auto!important;transform:none!important}
+ html body #mapv #ek-world{bottom:76px!important}
+ html body:has(#tc:not([style*="none"]) #cityv) #ek-hand{bottom:calc(env(safe-area-inset-bottom) + 230px)!important;right:14px!important}
+}
+/* yapı penceresi: özellik tablosu görünür, pencere kaydırılabilir, kapat hep erişilebilir */
+html body .ek-ov .yk-card .yk-tab-in{margin:0 14px 10px!important;border-radius:6px!important}
+html body .ek-ov .yk-card .yk-tab-in .yk-row{padding:7px 12px!important;font-size:13.5px!important}
+html body .ek-ov .yk-card{overscroll-behavior:contain}
+html body .ek-ov .yk-card>.yk-head{position:sticky!important;top:0!important;z-index:3!important}
+/* dokunma alanı */
+html body .ek-ov .yk-x,html body .ek-ov .ek-x{min-width:36px!important;min-height:36px!important}
+@media (max-width:699px){
+ html body:has(#tm.world-detail-open:not([style*="none"])) #ek-strip{top:calc(env(safe-area-inset-top) + 236px)!important;bottom:auto!important}
+}
+@media (min-width:700px){ html body:has(#tm:not([style*="none"])) #ek-hand{top:290px!important;bottom:auto!important;left:104px!important;right:auto!important} }
+/* küçük düğmelerin dokunma alanı (görünüm değişmez) */
+html body .ek-st::after,html body .ek-hl::after,html body #ek-strip .sp-fold::after,html body #ek-strip .sp::after,html body #ek-jclose::after{content:'';position:absolute;inset:-8px}
+html body #ek-strip .sp-fold,html body #ek-strip .sp,html body #ek-jclose{position:relative}

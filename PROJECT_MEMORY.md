@@ -289,3 +289,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Kum saati 5 tür: s.ek.ks {m1,m5,m30,h1,h8} (60/300/1800/3600/28800 sn). Eski m5/h1 korunur. ekHourglass.add(küçük, büyük) türlere düşer: küçük ⏳ m1 55·m5 33·m30 10·h1 2; büyük ⌛ m30 50·h1 42·h8 8. addT({tür:n}) doğrudan. Akıllı hızlandırma çok türlü.
 - Başlık/düğme sığdırma (tas.js alt bölüm): taşarsa önce harf aralığı sonra yazı boyu (en az %62/9px).
 - Haritada Katıl sağ üstte, 🤝 onun altında (hedef kartını örtmesin).
+- 22 Kasım responsive: üst çubuk telefonda kaydırmasız (kompakt kaynak, 28px düğme+geniş dokunma), danışman notu sağda ve obadan çıkınca kapanır, Katıl/🤝 harita konumları 360-1280, keşif şeridi hedef paneli açıkken yukarı, yapı penceresinde özellik tablosu görünür (yk-tab-in), küçük düğmelere dokunma alanı.
