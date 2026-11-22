@@ -75,3 +75,62 @@ html.tas.altay body #ek-sage .sg-tx b{color:#8a2a18!important}
 html.tas.altay body .wrap>.game-page.game-page{background:radial-gradient(ellipse at 50% 0%,rgba(255,200,120,.08),transparent 60%),linear-gradient(180deg,#3a2312,#21130a)!important;background-color:#21130a!important}
 html.tas.altay body .kz-tg.on{border-color:#ffd77a!important}
 html.tas.altay body .kz-tg.on u{background:#ffd77a!important;box-shadow:0 0 6px #ffd77a}
+/* yanıp sönen bildirimler ve "Topla" düğmesi: sabit (animasyon yok) */
+html body .ek-st-up i,html body .ek-st-fx,html body #ek-goal em,html body .ek-moon,html body .ek-hl i,html body .np-mk .np-hil,html body #ek-hand,html body #ek-rally,html body #ek-stat .ek-st-amb,html body .gg-chest.can,html body .ed-t.can,html body #ek-oc .oc-gift.has,html body #ek-us.on,html body .ek-mk.ek-stump,html body .ek-lb.mk,html body .ek-kgm.ready,html body .nv-bird,html body #ek-tarla i.rd b,html body .research-node.is-ready::before,html body #tr .research-node.ek-rec .research-medallion,html body .mt-fire,html body #ek-all,html body #ek-all *,html body .ek-pb.fast .ek-pbfin,html body .ek-ov .dc-chest{animation:none!important}
+html body .ek-ov .yk-card .yk-foot *,html body #ek-all{transition:none!important}
+/* ===== Tam ekran yapı penceresi (King of Altay düzeni) ===== */
+html body #ek-yapi .ya-card{display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:0!important;height:min(860px,calc(100dvh - 24px))!important;max-height:none!important;width:min(520px,100%)!important}
+html body.ek-thumb #ek-yapi .ya-card{height:calc(100dvh - 72px - env(safe-area-inset-bottom))!important;width:100%!important}
+html body #ek-yapi .ya-card>.yk-head{flex:none}
+html body #ek-yapi .ya-sv{align-self:center;margin-top:-2px;padding:1px 14px;border-radius:0 0 8px 8px;background:#2c1408;border:1px solid #8a5a22;border-top:0;color:#f3d68e;font:700 12px Georgia,serif;z-index:2}
+html body #ek-yapi .ya-card .yk-hero{flex:none;height:min(190px,24vh);display:flex;justify-content:center;align-items:center;margin:0;background:radial-gradient(ellipse at 50% 60%,rgba(200,150,80,.35),transparent 70%)}
+html body #ek-yapi .ya-card .yk-hero img,html body #ek-yapi .ya-card .yk-hero canvas{max-height:100%!important;width:auto!important;object-fit:contain}
+html body #ek-yapi .ya-lv{flex:none;display:flex;align-items:center;gap:8px;margin:4px 34px 8px}
+html body #ek-yapi .ya-lv>b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#3a5a9a,#1d2f5a);border:2px solid #d9a441;color:#fff;font:700 16px Georgia}
+html body #ek-yapi .ya-lvb{flex:1;height:7px;border-radius:4px;background:#2c1a0c;border:1px solid #8a5a22;overflow:hidden}
+html body #ek-yapi .ya-lvb i{display:block;height:100%;background:#e2a93a}
+html body #ek-yapi .ya-arr{color:#f3d68e;font:700 13px Georgia;letter-spacing:-1px}
+html body #ek-yapi .ya-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:2px 0 10px;background:var(--apar,#efe3c6);border-top:2px solid #b98a43;color:#3a2414}
+html body #ek-yapi .ya-sec{display:flex;align-items:center;gap:8px;margin:12px 14px 6px;font:700 11px Georgia,serif;letter-spacing:.18em;text-transform:uppercase;color:#7a4a1c}
+html body #ek-yapi .ya-sec:before,html body #ek-yapi .ya-sec:after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#a7783a,transparent)}
+html body #ek-yapi .ya-list{margin:0 12px;display:flex;flex-direction:column;gap:6px}
+html body #ek-yapi .ya-ln{display:flex;align-items:center;gap:10px;padding:7px 10px;background:#f8eed6;border:1px solid #cfae73;border-radius:6px;font:14px Georgia,serif;color:#3a2414;min-height:40px;box-sizing:border-box}
+html body #ek-yapi .ya-ln.z{opacity:.55}
+html body #ek-yapi .ya-ln>i{width:30px;height:30px;flex:none;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:16px;background:radial-gradient(circle at 40% 35%,#6b4a26,#3a2412);border:1px solid #c89a4a;color:#ffd77a}
+html body #ek-yapi .ya-ln>span{flex:1;min-width:0}
+html body #ek-yapi .ya-ln small{color:#8a5a22;font-size:12px}
+html body #ek-yapi .ya-ok{color:#2f8a2f;font-size:18px}
+html body #ek-yapi .ya-plus{color:#2f8a2f}
+html body #ek-yapi .ya-git,html body #ek-yapi .ya-gold{flex:none;min-height:30px!important;padding:3px 14px!important;border-radius:8px!important;font:800 12.5px Georgia,serif!important;cursor:pointer}
+html body #ek-yapi .ya-git{background:linear-gradient(180deg,#5e95e6,#2c5fb5 55%,#1d3f80)!important;border:1px solid #102a5a!important;color:#fff!important}
+html body #ek-yapi .ya-gold{background:linear-gradient(180deg,#ffe39a,#e2a93a 55%,#a86a18)!important;border:1px solid #6b3f0e!important;color:#3a1d04!important}
+html body #ek-yapi .ya-gold[disabled]{filter:grayscale(.8) opacity(.6)}
+html body #ek-yapi .yk-tab-in{margin:0 12px!important}
+html body #ek-yapi .yk-cost{margin:0 12px!important;padding:8px 10px!important;display:flex;flex-wrap:wrap;justify-content:space-around;gap:6px;background:#f8eed6;border:1px solid #cfae73;border-radius:6px;color:#3a2414!important;font-weight:700}
+html body #ek-yapi .yk-cost .cg{background:transparent!important;color:#3a2414!important;border:0!important}
+html body #ek-yapi .yk-cost .cr,html body #ek-yapi .yk-cost .cg.no{color:#c8341c!important}
+html body #ek-yapi .yk-req{margin:0!important}
+html body #ek-yapi .ya-run{display:flex!important;align-items:center;gap:12px;margin:12px 12px 0!important;padding:10px!important;background:#f8eed6!important;border:1px solid #cfae73!important;border-radius:8px!important;color:#3a2414!important}
+html body #ek-yapi .ya-ring{width:58px;height:58px;flex:none;border-radius:50%;background:conic-gradient(#2f8a2f calc(var(--p)*1%),#d9c79c 0);display:grid;place-items:center}
+html body #ek-yapi .ya-ring i{width:46px;height:46px;border-radius:50%;background:#f8eed6;display:grid;place-items:center;font-style:normal;font-size:22px}
+html body #ek-yapi .ya-rt{flex:1;display:flex;flex-direction:column;gap:2px}
+html body #ek-yapi .ya-rt small{font:12px Georgia;color:#7a4a1c}
+html body #ek-yapi .ya-rt b{font:700 24px Georgia;color:#2c1a0c}
+html body #ek-yapi .ya-pb{display:block;height:7px;border-radius:4px;background:#d9c79c;overflow:hidden}
+html body #ek-yapi .ya-pb u{display:block;height:100%;background:#2f8a2f}
+html body #ek-yapi .ya-pc{align-self:flex-start;color:#2f8a2f;font:700 13px Georgia}
+html body #ek-yapi .yk-foot{margin:14px 0 0!important}
+html body #ek-yapi .ya-bar{flex:none;display:flex;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#4a2c16,#2c1a0c);border-top:2px solid #b98a43}
+html body #ek-yapi .ya-bar .yk-acts{display:flex;gap:10px;width:100%;margin:0!important}
+html body #ek-yapi .ya-bar .yk-acts>*{flex:1;height:52px!important;margin:0!important}
+html body #ek-yapi .ya-bar .yk-acts [data-ek-ks]{display:none!important}
+html body #ek-yapi .ya-bar .yk-main{flex:1;width:auto!important;margin:0 auto!important;max-width:320px;height:56px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:0}
+html body #ek-yapi .ya-bar .yk-main small{font:600 12px Georgia!important;opacity:.85;letter-spacing:0}
+html body #ek-yapi .ya-bar .ya-pray{background:linear-gradient(180deg,#ffe39a,#e2a93a 55%,#a86a18)!important;border-color:#6b3f0e!important;color:#3a1d04!important;text-shadow:none!important}
+html body #ek-yapi .ek-prod,html body #ek-yapi .dg-burn,html body #ek-yapi .rm-row{margin-left:12px!important;margin-right:12px!important}
+html body #ek-yapi [data-ek-fin]{display:block;width:calc(100% - 24px)!important;margin:8px 12px 0!important}
+html body #ek-yapi .ya-ln button{width:auto!important;margin:0!important;flex:none!important;height:auto!important;white-space:nowrap}
+html body #ek-yapi .ya-body{display:flex;flex-direction:column}
+html body #ek-yapi .ya-body>*{flex:none}
+html body #ek-yapi .ya-body>.ek-prod,html body #ek-yapi .ya-body>.dg-burn{order:-1;margin-top:10px!important}
+html body #ek-yapi .ya-body>.ya-run{order:-2}

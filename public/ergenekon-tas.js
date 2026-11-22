@@ -64,7 +64,7 @@
     if (e.__tasc === e.className && e.dataset.tas !== undefined) return;
     if (e.__tasc === e.className && e.__tasn) return;
     e.__tasc = e.className; clear(e);
-    if (SKIP.test(e.id) || (e.classList && e.classList.contains('kz-tg')) || e.tagName === 'IMG' || e.tagName === 'CANVAS' || e.closest('svg,.world3d')) { e.__tasn = 1; return; }
+    if (SKIP.test(e.id) || (e.matches && e.matches('.kz-tg,.yk-ico,.yk-btn,.yk-main,.yk-x,.yk-info,.ek-btn,.np-mk,.gg-r,.ed-g,.ek-st,.ek-hl,#ek-all')) || e.tagName === 'IMG' || e.tagName === 'CANVAS' || e.closest('svg,.world3d')) { e.__tasn = 1; return; }
     var st = e.getAttribute('style') || ''; if (/background/.test(st)) { e.__tasn = 1; return; }
     var cs = getComputedStyle(e), bi = cs.backgroundImage, bg = bi !== 'none' ? bi : cs.backgroundColor;
     if (/url\(/.test(bi)) { e.__tasn = 1; return; }
@@ -126,7 +126,7 @@
   function run(root) { try { (root || D).querySelectorAll(SEL).forEach(fit); } catch (e) {} }
   var pend = false;
   function soon() { if (pend) return; pend = true; requestAnimationFrame(function () { pend = false; run(); }); }
-  new MutationObserver(soon).observe(D.documentElement, { childList: true, subtree: true, characterData: true });
+  new MutationObserver(function () { run(); }).observe(D.documentElement, { childList: true, subtree: true, characterData: true }); // boyamadan önce: yazı bir kare büyük görünüp küçülmesin
   W.addEventListener('resize', function () { D.querySelectorAll(SEL).forEach(function (e) { e.__fitK = ''; }); soon(); });
   setInterval(run, 1500);
 })(window);

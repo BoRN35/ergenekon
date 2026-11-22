@@ -244,5 +244,8 @@
   function start() { if (!S() || !W.M || typeof W.fight !== 'function') { setTimeout(start, 400); return; } requestAnimationFrame(frame); }
   start();
   function nearestMonster() { var M = W.M || [], best = -1, bd = 1e9; M.forEach(function (m, i) { if (!alive(i) || lvOf(i) > maxAtk()) return; var d = dist(i); if (d < bd) { bd = d; best = i; } }); return best; }
+  function useKs(id, type) { var t = timers().find(function (x) { return x.id === id; }), k = ks(); if (!t || !KD[type] || !k[type]) return false; k[type]--; t.q.left = Math.max(1, t.q.left - KD[type][1]); try { navigator.vibrate && navigator.vibrate(15); W.snd(880, .05); } catch (e) {} save(); rer(); return true; }
+  function autoKs(id) { var t = timers().find(function (x) { return x.id === id; }), k = ks(); if (!t) return false; var c = combo(t.q.left, k); if (!c) return false; var sec = 0; KT.forEach(function (x) { var n = c[x[0]] || 0; k[x[0]] -= n; sec += n * x[1]; }); t.q.left = Math.max(1, t.q.left - sec); save(); rer(); return true; }
+  W.ekHourglass.use = useKs; W.ekHourglass.auto = autoKs; W.ekHourglass.combo = function (L) { return combo(L, ks()); };
   W.ergenekonFarm = { nearestMonster: nearestMonster, openKs: openKs, openMf: openMf, addKs: addKs, goMonster: goMonster, claimMf: claim };
 })();

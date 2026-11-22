@@ -156,7 +156,7 @@
     });
     for (var id in L.pool) if (!seen[id] && !L.pool[id].hidden) L.pool[id].hidden = true;
     for (var pk in PROD) if (ready(pk)) anyBin = true;
-    allBtn(anyBin);
+    allBtn(Object.keys(PROD).some(function (k) { try { return ready(k); } catch (x) { return false; } }));
   }
   var AB = null;
   function allBtn(on) {
