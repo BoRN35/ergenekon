@@ -134,3 +134,23 @@ html body #ek-yapi .ya-body{display:flex;flex-direction:column}
 html body #ek-yapi .ya-body>*{flex:none}
 html body #ek-yapi .ya-body>.ek-prod,html body #ek-yapi .ya-body>.dg-burn{order:-1;margin-top:10px!important}
 html body #ek-yapi .ya-body>.ya-run{order:-2}
+/* ===== Oba arayüzü (King of Altay düzeni) ===== */
+html.tas.altay body #tabs#tabs>button[data-lb]:not(#pfb){flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:1px!important;height:54px!important}
+html.tas.altay body #tabs#tabs>button[data-lb]:not(#pfb)::after{content:attr(data-lb);font:700 9.5px Georgia,serif;letter-spacing:.02em;color:#e8cf9a;white-space:nowrap;line-height:1}
+html.tas.altay body #tabs#tabs>button.on[data-lb]:not(#pfb)::after{color:#ffe39a}
+html.tas.altay body #tabs#tabs>button[data-lb]:not(#pfb) svg{width:22px!important;height:22px!important}
+@media (max-width:699px){
+ html.tas.altay body #cityv #ek-world#ek-world{left:auto!important;right:8px!important;bottom:calc(env(safe-area-inset-bottom) + 70px)!important;top:auto!important;width:78px!important;height:78px!important;border:3px solid #ffd77a!important;box-shadow:0 0 0 3px #3a0f07,0 6px 14px rgba(0,0,0,.6)!important}
+ html.tas.altay body #cityv #ek-goal#ek-goal{left:8px!important;right:96px!important;max-width:none!important;bottom:calc(env(safe-area-inset-bottom) + 86px)!important;height:44px!important;border-radius:6px!important;background:rgba(40,16,8,.92)!important;border:1px solid #c8923a!important}
+ html.tas.altay body #cityv #ek-all{left:8px!important;bottom:calc(env(safe-area-inset-bottom) + 140px)!important}
+}
+html.tas.altay body #cityv #ek-goal#ek-goal{background:rgba(40,16,8,.92)!important;border:1px solid #c8923a!important;border-radius:6px!important;color:#fbe9c0!important}
+html.tas.altay body #cityv #ek-goal b{color:#fbe9c0!important;font-family:Georgia,serif!important}
+html.tas.altay body #cityv #ek-goal i{background:radial-gradient(circle at 40% 35%,#ffe39a,#c8923a)!important;color:#3a1d04!important}
+html.tas.altay body #cityv #ek-goal em{width:20px;height:20px;border-radius:50%;background:#c8341c;color:#fff!important;display:grid;place-items:center;border:1px solid #fbe9c0;font-size:0!important}
+html.tas.altay body #cityv #ek-goal em::before{content:'!';font:900 13px Georgia}
+html.tas.altay body #ek-all{border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#ffe39a,#c8923a)!important;border:2px solid #6b3f0e!important;color:#3a1d04!important}
+@media (max-width:699px){
+ html.tas.altay body:has(#tc:not([style*="none"])) #ek-rally#ek-rally{bottom:calc(env(safe-area-inset-bottom) + 236px)!important}
+ html.tas.altay body:has(#tc:not([style*="none"])) #ek-hand#ek-hand{bottom:calc(env(safe-area-inset-bottom) + 240px)!important;right:14px!important}
+}

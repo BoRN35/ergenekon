@@ -76,6 +76,14 @@
   var ok = false, last = 0;
   function loop(now) {
     requestAnimationFrame(loop);
+  // alt menü / yan ray: simge altına kısa ad (King of Altay gibi)
+  var LB = { c: 'Oba', m: 'Harita', k: 'Kale', r: 'İlim', u: 'Alpler', a: 'İttifak', p: 'Posta', e: 'Etkinlik', y: 'Arena', g: 'Ayarlar' };
+  setInterval(function () {
+    D.querySelectorAll('#tabs>button:not(#pfb)').forEach(function (b) {
+      if (b.dataset.lb) return; var t = b.dataset.t, n = (t && LB[t]) || b.title || b.getAttribute('aria-label') || '';
+      if (n === 'Şehir') n = 'Oba'; if (n === 'Etkinlikler') n = 'Etkinlik'; if (n) b.dataset.lb = n;
+    });
+  }, 1000);
   // Ayarlar › Grafik: Oba görünümü 2.5D / 3D
   setInterval(function () {
     var gfx = D.querySelector('#ek-set [data-sec="gfx"] .st-body'); if (!gfx || gfx.querySelector('#ek-oba25')) return;
