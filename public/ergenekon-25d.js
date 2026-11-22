@@ -84,6 +84,8 @@
       if (n === 'Şehir') n = 'Oba'; if (n === 'Etkinlikler') n = 'Etkinlik'; if (n) b.dataset.lb = n;
     });
   }, 1000);
+  // üst çubuktaki kartal / düzen düğmelerine ad (sağ sütunda gösterilir)
+  setInterval(function () { D.querySelectorAll('.ek-topbtns .ek-rbtn:not([data-lb])').forEach(function (b) { b.dataset.lb = b.dataset.ekPet ? 'Evcil' : b.dataset.ek === 'gear' ? 'Düzen' : b.dataset.ek === 'bag' ? 'Çanta' : ''; }); }, 1000);
   // Ayarlar › Grafik: Oba görünümü 2.5D / 3D
   setInterval(function () {
     var gfx = D.querySelector('#ek-set [data-sec="gfx"] .st-body'); if (!gfx || gfx.querySelector('#ek-oba25')) return;

@@ -152,7 +152,7 @@ html.tas.altay body #cityv #ek-goal em::before{content:'!';font:900 13px Georgia
 html.tas.altay body #ek-all{border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#ffe39a,#c8923a)!important;border:2px solid #6b3f0e!important;color:#3a1d04!important}
 @media (max-width:699px){
  html.tas.altay body:has(#tc:not([style*="none"])) #ek-rally#ek-rally{bottom:calc(env(safe-area-inset-bottom) + 236px)!important}
- html.tas.altay body:has(#tc:not([style*="none"])) #ek-hand#ek-hand{bottom:calc(env(safe-area-inset-bottom) + 240px)!important;right:14px!important}
+ html.tas.altay body:has(#tc:not([style*="none"])) #ek-hand#ek-hand{bottom:calc(env(safe-area-inset-bottom) + 240px)!important;right:62px!important}
 }
 /* ===== Geniş ekran: soldaki dikey ray kalkar, menü King of Altay gibi altta yatay şerit ===== */
 @media (min-width:700px){
@@ -163,3 +163,15 @@ html.tas.altay body #ek-all{border-radius:50%!important;background:radial-gradie
  html.tas.altay body .wrap>#tc,html.tas.altay body .wrap>#tm,html.tas.altay body .wrap>.ovp{left:0!important;right:0!important;width:auto!important;height:auto!important;bottom:calc(64px + env(safe-area-inset-bottom))!important}
  html.tas.altay body #top#top{left:92px!important}
 }
+/* ===== Üst çubuktaki Kartal / Çanta / Düzen düğmeleri: oba ekranında sağ sütuna (King of Altay gibi); Çanta zaten alt menüde ===== */
+html.tas.altay body #top .ek-topbtns{position:fixed!important;right:8px!important;top:calc(env(safe-area-inset-top) + 64px)!important;flex-direction:column!important;gap:12px!important;z-index:40!important}
+html.tas.altay body #top .ek-topbtns .ek-rbtn[data-ek="bag"]{display:none!important}
+html.tas.altay body #top#top .ek-topbtns .ek-rbtn{width:46px!important;height:46px!important;overflow:visible!important;background:radial-gradient(circle at 40% 35%,#c8341c,#6b1a0c)!important;border:2px solid #f2c766!important;box-shadow:0 3px 6px rgba(0,0,0,.5)!important}
+html.tas.altay body #top#top .ek-topbtns .ek-rbtn svg{width:24px!important;height:24px!important;color:#ffe7a8!important}
+html.tas.altay body #top#top .ek-topbtns .ek-rbtn span{font-size:22px!important}
+html.tas.altay body #top .ek-topbtns .ek-rbtn[data-lb]::before{content:attr(data-lb);position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:1px;font:700 10px Georgia,serif;color:#fff;text-shadow:0 1px 2px #000,0 0 3px #000;white-space:nowrap;pointer-events:none}
+html.tas.altay body #top .ek-topbtns .ek-rbtn::after{inset:-4px!important}
+html.tas.altay body:not(:has(#tc:not([style*="none"]))) #top .ek-topbtns,html.tas.altay body:has(.ek-ov) #top .ek-topbtns{display:none!important}
+html.tas.altay body #ek-sage{right:66px!important}
+@media (min-width:700px){html.tas.altay body #top .ek-topbtns{top:84px!important;right:14px!important}}
+html.tas.altay body #top#top .ek-topbtns .ek-rbtn[data-ek="gear"] svg{filter:brightness(0) invert(.92) sepia(.6) saturate(2)!important}
