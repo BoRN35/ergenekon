@@ -3,7 +3,8 @@ html.tas{--tg1:#45484b;--tg2:#2c2e30;--tgk:#1b1c1d;--tl:#5fd0d8;--tld:#2f8c94;--
  --tstone:repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.025) 0 2px,rgba(0,0,0,.035) 2px 5px),linear-gradient(180deg,var(--tg1),var(--tg2));
  --tbev:inset 0 2px 0 rgba(255,255,255,.12),inset 0 -3px 0 rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.6);
  --tgold:linear-gradient(180deg,#f0d690,#c49a3c 55%,#8f6a22);
- --tarrow:polygon(14px 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,14px 100%,0 50%)}
+ --tarrow:polygon(14px 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,14px 100%,0 50%);
+ --sw-p:#222324;--sw-pt:rgba(30,31,32,.86);--sw-b:linear-gradient(180deg,#36383a,#26282a);--sw-bsh:inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45);--sw-on:linear-gradient(180deg,#2a2b2c,#1f2021);--sw-onsh:inset 0 -2px 0 #e8c66a,0 0 10px rgba(95,208,216,.22);--sw-onc:#e8c66a}
 
 /* --- üst çubuk --- */
 html.tas body #top#top{background:var(--tstone)!important;border:0!important;border-bottom:3px solid var(--tgk)!important;box-shadow:var(--tbev)!important;border-radius:0!important}

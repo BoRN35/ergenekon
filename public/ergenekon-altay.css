@@ -1,0 +1,77 @@
+/* ===== ALTAY teması (King of Altay tarzı): ahşap-deri gövde, kırmızı başlık şeridi, altın ana / mavi ikinci düğme,
+   krem parşömen satırlar. Taş Yazıt altyapısını (html.tas) kullanır; yalnız renk ve biçim değişir. ===== */
+html.tas.altay{--tg1:#5c3b20;--tg2:#3a2312;--tgk:#1e1008;--tl:#f2c766;--ta:#ffd77a;--tt:#fbe9c0;--tm:#c9a874;
+ --tstone:repeating-linear-gradient(90deg,rgba(255,225,170,.025) 0 2px,rgba(0,0,0,.05) 2px 7px),linear-gradient(180deg,#5c3b20,#3a2312);
+ --tbev:inset 0 1px 0 rgba(255,220,150,.2),inset 0 -2px 0 rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.55);
+ --tgold:linear-gradient(180deg,#ffe39a,#e2a93a 55%,#a86a18);
+ --ared:linear-gradient(180deg,#8f2c18,#5c170b);--ablue:linear-gradient(180deg,#5e95e6,#2c5fb5 55%,#1d3f80);
+ --apar:linear-gradient(180deg,#f6ead0,#ead6ac);
+ --sw-p:#3a2312;--sw-pt:rgba(46,26,12,.88);--sw-b:linear-gradient(180deg,#6b4526,#432a15);--sw-bsh:inset 0 1px 0 rgba(255,220,150,.18),0 2px 6px rgba(0,0,0,.45);
+ --sw-on:linear-gradient(180deg,#7a5230,#4a2c16);--sw-onsh:inset 0 0 0 2px #ffd77a,0 0 8px rgba(255,215,122,.3);--sw-onc:#ffe39a;
+ --bg:#2c1a0c;--sky:#3a2312;--card:#3a2312;--slate:#2c1a0c;--wood:#3a2312;--map:#2c1a0c;--bar:#4a2c16;--line:#6b4526;--acc:#d9a441;--teal:#f2c766;--bronze:#d9a441;--bronze-bright:#ffe39a;--mut:#c9a874;--ink:#fbe9c0;--roster-teal:#f2c766;--research-teal:#f2c766}
+
+/* üst çubuk ve alt menü: ahşap, altın kenar */
+html.tas.altay body #top#top{border-bottom:2px solid #c8923a!important}
+html.tas.altay body #tabs#tabs{border-top:3px solid #c8923a!important}
+html.tas.altay body #tabs#tabs>button:not(#pfb){color:#e8cf9a!important}
+html.tas.altay body #tabs#tabs>button.on:not(#pfb),html.tas.altay body #tabs#tabs>button.ek-on:not(#pfb){color:#ffe39a!important;background:radial-gradient(ellipse at 50% 100%,rgba(255,200,90,.28),transparent 70%)!important;box-shadow:inset 0 -3px 0 #ffd77a!important}
+html.tas.altay body #tabs#tabs>#pfb,html.tas.altay body #tabs#tabs>#pfb img{clip-path:circle(50%)!important}
+html.tas.altay body #tabs#tabs>#pfb{background:linear-gradient(180deg,#ffe39a,#b57d24)!important;padding:3px!important;box-sizing:border-box}
+html.tas.altay body #top#top .ek-rbtn{border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#7a5230,#3a2312)!important;border:1.5px solid #c8923a!important;color:#ffd77a!important}
+html.tas.altay body #top#top .ek-rbtn svg{color:#ffd77a!important}
+
+/* pencere ve sayfa başlıkları: kırmızı şerit + altın alt kenar */
+html.tas.altay body .ek-ov .yk-head,html.tas.altay body .game-page .game-page-header{background:var(--ared)!important;border-bottom:3px solid #d9a441!important;box-shadow:0 3px 0 #3a0f07,0 6px 12px rgba(0,0,0,.4)!important}
+html.tas.altay body .ek-ov .yk-head h2,html.tas.altay body .game-page .game-page-header h2,html.tas.altay body .game-page .game-page-heading h2{color:#fbe9c0!important;letter-spacing:.1em!important;text-shadow:0 2px 0 #2b0904!important}
+html.tas.altay body .ek-ov .yk-head img,html.tas.altay body .ek-ov .yk-head svg{filter:sepia(1) saturate(2.2) brightness(1.15) opacity(.75)!important}
+html.tas.altay body #ek-npcbar#ek-npcbar{background:var(--ared)!important;border-bottom:3px solid #d9a441!important}
+html.tas.altay body #ek-npcbar .nb-n{color:#fbe9c0!important}
+html.tas.altay body .ek-ov .yk-x,html.tas.altay body .ek-ov .ek-x,html.tas.altay body #ek-npcbar .nb-x,html.tas.altay body .ek-ov .yk-head .yk-info{border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#ffe39a,#b57d24)!important;border:2px solid #5a3410!important;color:#4a2a08!important;font-weight:900!important}
+html.tas.altay body .ek-ov .yk-card,html.tas.altay body .ek-ov .ek-modal,html.tas.altay body #aw .awc{border:2px solid #b98a43!important}
+html.tas.altay body .ek-ov h3,html.tas.altay body .ek-ov h4{color:#ffd77a!important}
+
+/* düğmeler: altın ana (yuvarlak köşe), mavi ikinci */
+html.tas.altay body .yk-main.yk-main,html.tas.altay body .ek-ov .yk-main,html.tas.altay body .ek-ov .ek-btn.gold,html.tas.altay body .ek-btn.gold,html.tas.altay body .ar-acts .ek-btn.gold,html.tas.altay body .ek-ov .dm-go{clip-path:none!important;border-radius:10px!important;border:2px solid #6b3f0e!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 3px 0 #4a2a08!important;color:#3a1d04!important;text-transform:none!important;letter-spacing:.04em!important}
+html.tas.altay body .ek-ov .ek-btn:not(.gold),html.tas.altay body .ek-btn:not(.gold),html.tas.altay body .ek-ov .yk-btn,html.tas.altay body .ek-ov .yk-more,html.tas.altay body .ar-acts .ek-btn:not(.gold){background:var(--ablue)!important;border:2px solid #102a5a!important;border-radius:10px!important;color:#fff!important;text-shadow:0 1px 0 #0c1f44!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #0c1f44!important}
+html.tas.altay body .ek-ov .yk-btn[disabled],html.tas.altay body .ek-ov .ek-btn[disabled]{filter:grayscale(.6) brightness(.8)!important}
+html.tas.altay body .ek-ov .yk-ico{border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#7a5230,#3a2312)!important;border:2px solid #c8923a!important;color:#ffd77a!important}
+
+/* sekmeler: seçili altın, diğerleri ahşap */
+html.tas.altay body .np-tabs button,html.tas.altay body .ek-ov .ek-tabs button,html.tas.altay body .ek-ov .ci-tabs button,html.tas.altay body .ek-ov .ci-kadim .ci-tabs button{background:linear-gradient(180deg,#6b4526,#432a15)!important;border:1px solid #1e1008!important;border-radius:6px 6px 0 0!important;color:#e8cf9a!important}
+html.tas.altay body .np-tabs button.on,html.tas.altay body .ek-ov .ek-tabs button.on,html.tas.altay body .ek-ov .ci-tabs button.on,html.tas.altay body .ek-ov .ci-kadim .ci-tabs button.on{background:linear-gradient(180deg,#ffe39a,#d9a441)!important;border-color:#6b3f0e!important;color:#3a1d04!important;box-shadow:none!important}
+html.tas.altay body .np-tabs button.on i,html.tas.altay body .np-tabs button.on small{color:#3a1d04!important}
+
+/* parşömen satırlar (koyu yazı) */
+html.tas.altay body .ek-ov .yk-card .yk-tab-in{border:1px solid #b98a43!important}
+html.tas.altay body .ek-ov .yk-card .yk-tab-in .yk-row{background:var(--apar)!important;border-bottom:1px solid #d6bd8a}
+html.tas.altay body .ek-ov .yk-card .yk-tab-in .yk-row span{color:#5a3a1c!important}
+html.tas.altay body .ek-ov .yk-card .yk-tab-in .yk-row b{color:#2c1a0c!important}
+html.tas.altay body .ek-ov .yk-card .yk-tab-in .yk-row em{color:#2f8a2f!important;font-weight:800}
+html.tas.altay body .gg-r,html.tas.altay body .ed-g{background:var(--apar)!important;border:1px solid #cfae73!important;border-radius:6px!important;color:#3a2414!important}
+html.tas.altay body .gg-r small,html.tas.altay body .ed-g small{color:#3a2414!important;font-weight:700}
+html.tas.altay body .gg-r b,html.tas.altay body .ed-g b{color:#8a4a10!important}
+html.tas.altay body .gg-r u,html.tas.altay body .ed-g u{background:#d9c79c!important}
+html.tas.altay body .gg-r em,html.tas.altay body .ed-g em{background:#2f8a2f!important}
+html.tas.altay body .gg-r.ok,html.tas.altay body .ed-g.ok{background:linear-gradient(180deg,#e4f0cf,#cfe3b0)!important}
+html.tas.altay body .gg-r[data-go]:not(.ok)::after,html.tas.altay body .ed-g[data-go]:not(.ok)::after{content:'GİT'!important;font:800 11px Georgia!important;color:#fff!important;background:var(--ablue);border:1px solid #102a5a;border-radius:6px;padding:3px 7px;right:8px!important;opacity:1!important}
+html.tas.altay body .gg-r[data-go]:not(.ok),html.tas.altay body .ed-g[data-go]:not(.ok){padding-right:52px!important}
+
+/* oba NPC işaretleri: altın madalyon */
+html.tas.altay body .np-mk{width:44px!important;height:44px!important;padding-top:0!important}
+html.tas.altay body .np-mk::before{clip-path:circle(50%)!important;background:radial-gradient(circle at 40% 35%,#ffe39a,#c8923a 60%,#7a4a14)!important;box-shadow:none!important;filter:drop-shadow(0 3px 4px rgba(0,0,0,.55))!important}
+html.tas.altay body .np-mk i{color:#4a1d06!important}
+html.tas.altay body .np-mk i svg{filter:none!important}
+html.tas.altay body .np-mk.lk::before{background:radial-gradient(circle at 40% 35%,#cdbb98,#7a6a50)!important}
+html.tas.altay body #ek-arena-npc{width:44px!important;height:44px!important;padding-top:0!important}
+html.tas.altay body #ek-arena-npc::before{clip-path:circle(50%)!important;background:radial-gradient(circle at 40% 35%,#ffe39a,#c8923a 60%,#7a4a14)!important}
+html.tas.altay body #ek-arena-npc b{color:#4a1d06!important}
+html.tas.altay body #ek-world{border-color:#ffd77a!important;background:radial-gradient(circle at 40% 35%,#3f8fa8,#14394a)!important}
+html.tas.altay body #ek-goal,html.tas.altay body #ek-dmk,html.tas.altay body #ek-rally#ek-rally,html.tas.altay body #ek-sage#ek-sage{border-color:#c8923a!important}
+html.tas.altay body #ek-sage#ek-sage{background:#fbf3df!important;border:1px solid #b98a43!important;border-left:4px solid #c8341c!important}
+html.tas.altay body #ek-sage#ek-sage>*,html.tas.altay body #ek-sage .sg-tx,html.tas.altay body #ek-sage .sg-tx b{background:transparent!important;color:#3a2414!important}
+html.tas.altay body #ek-sage .sg-tx b{color:#8a2a18!important}
+
+/* sayfa zemini: koyu ahşap */
+html.tas.altay body .wrap>.game-page.game-page{background:radial-gradient(ellipse at 50% 0%,rgba(255,200,120,.08),transparent 60%),linear-gradient(180deg,#3a2312,#21130a)!important;background-color:#21130a!important}
+html.tas.altay body .kz-tg.on{border-color:#ffd77a!important}
+html.tas.altay body .kz-tg.on u{background:#ffd77a!important;box-shadow:0 0 6px #ffd77a}

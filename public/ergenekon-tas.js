@@ -2,9 +2,13 @@
 (function (W) {
   'use strict';
   var D = document, H = D.documentElement;
-  function on() { try { return localStorage.getItem('ek_tema') !== 'eski'; } catch (e) { return true; } }
-  W.ekTema = function (v) { try { localStorage.setItem('ek_tema', v ? 'tas' : 'eski'); } catch (e) {} H.classList.toggle('tas', !!v); };
-  H.classList.toggle('tas', on());
+  /* tema: 'altay' (varsayılan, King of Altay tarzı) · 'tas' (Taş Yazıt) · 'eski' */
+  function tema() { try { return localStorage.getItem('ek_tema') || 'altay'; } catch (e) { return 'altay'; } }
+  function on() { return tema() !== 'eski'; }
+  function paintT() { var t = tema(); H.classList.toggle('tas', t !== 'eski'); H.classList.toggle('altay', t === 'altay'); }
+  W.ekTema = function (v) { try { localStorage.setItem('ek_tema', v === true ? 'altay' : v === false ? 'eski' : v); } catch (e) {} paintT(); };
+  W.ekTemaAdi = tema;
+  paintT();
   /* pencere her saniye yeniden çizilse de giriş kayması yalnız ilk açılışta oynar (yanıp sönme olmaz) */
   new MutationObserver(function (ms) {
     for (var i = 0; i < ms.length; i++) for (var j = 0; j < ms[i].addedNodes.length; j++) {
@@ -38,10 +42,10 @@
   setInterval(patch, 400);
   /* --- kalan eski renkli kutuları taşa çevir (yalnız arka plan; tıklama/mantık değişmez) --- */
   var ST = {
-    p: [['background', '#222324'], ['border-color', '#1b1c1d']],
-    pt: [['background', 'rgba(30,31,32,.86)'], ['border-color', '#1b1c1d']],
-    b: [['background', 'linear-gradient(180deg,#36383a,#26282a)'], ['border-color', '#1b1c1d'], ['box-shadow', 'inset 0 1px 0 rgba(255,255,255,.07),0 2px 6px rgba(0,0,0,.45)'], ['color', '#e9e2d0']],
-    on: [['background', 'linear-gradient(180deg,#2a2b2c,#1f2021)'], ['border-color', '#5fd0d8'], ['box-shadow', 'inset 0 -2px 0 #e8c66a,0 0 10px rgba(95,208,216,.22)'], ['color', '#e8c66a']]
+    p: [['background', 'var(--sw-p)'], ['border-color', 'var(--tgk)']],
+    pt: [['background', 'var(--sw-pt)'], ['border-color', 'var(--tgk)']],
+    b: [['background', 'var(--sw-b)'], ['border-color', 'var(--tgk)'], ['box-shadow', 'var(--sw-bsh)'], ['color', 'var(--tt)']],
+    on: [['background', 'var(--sw-on)'], ['border-color', 'var(--tl)'], ['box-shadow', 'var(--sw-onsh)'], ['color', 'var(--sw-onc)']]
   };
   var PROPS = ['background', 'border-color', 'box-shadow', 'color'];
   function clear(e) { if (!e.dataset.tas) return; PROPS.forEach(function (k) { e.style.removeProperty(k); }); delete e.dataset.tas; }
@@ -92,7 +96,7 @@
     flush();
   }).observe(D.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'hidden'] });
   setInterval(sweep, 1200);
-  var oldT = W.ekTema; W.ekTema = function (v) { oldT(v); if (!v) D.querySelectorAll('[data-tas]').forEach(clear); else sweep(); };
+  var oldT = W.ekTema; W.ekTema = function (v) { oldT(v); if (!on()) D.querySelectorAll('[data-tas]').forEach(clear); else sweep(); };
 
 })(window);
 /* Uzun başlık ve düğme yazılarını sığdır: taşarsa harf aralığı ve yazı boyu kademeli küçülür (her temada çalışır). */
@@ -125,4 +129,15 @@
   new MutationObserver(soon).observe(D.documentElement, { childList: true, subtree: true, characterData: true });
   W.addEventListener('resize', function () { D.querySelectorAll(SEL).forEach(function (e) { e.__fitK = ''; }); soon(); });
   setInterval(run, 1500);
+})(window);
+/* Ayarlar › Grafik: Tema seçimi */
+(function (W) {
+  var D = document;
+  setInterval(function () {
+    var gfx = D.querySelector('#ek-set [data-sec="gfx"] .st-body'); if (!gfx || gfx.querySelector('#ek-tema') || !W.ekTemaAdi) return;
+    var r = D.createElement('div'); r.id = 'ek-tema'; r.className = 'st-row';
+    var paint = function () { var t = W.ekTemaAdi(); r.innerHTML = '<i>🎨</i><span>Tema</span><span class="st-seg">' + [['altay', 'Altay'], ['tas', 'Taş'], ['eski', 'Eski']].map(function (o) { return '<button type="button" data-tm="' + o[0] + '" class="' + (t === o[0] ? 'on' : '') + '">' + o[1] + '</button>'; }).join('') + '</span>'; };
+    r.addEventListener('click', function (ev) { var b = ev.target.closest('[data-tm]'); if (!b) return; W.ekTema(b.dataset.tm); paint(); });
+    paint(); gfx.insertBefore(r, gfx.firstChild);
+  }, 800);
 })(window);
