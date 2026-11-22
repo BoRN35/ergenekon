@@ -171,3 +171,15 @@ html body .ek-ov .yk-x,html body .ek-ov .ek-x{min-width:36px!important;min-heigh
 /* küçük düğmelerin dokunma alanı (görünüm değişmez) */
 html body .ek-st::after,html body .ek-hl::after,html body #ek-strip .sp-fold::after,html body #ek-strip .sp::after,html body #ek-jclose::after{content:'';position:absolute;inset:-8px}
 html body #ek-strip .sp-fold,html body #ek-strip .sp,html body #ek-jclose{position:relative}
+/* ===== 2.5D oba levhaları (King of Altay tarzı) ===== */
+#ek-plates{position:absolute;inset:0;pointer-events:none;z-index:4}
+#ek-plates[hidden]{display:none}
+#ek-plates .pl{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:auto;cursor:pointer;will-change:transform}
+#ek-plates .pl[hidden]{display:none}
+#ek-plates .pl-n{display:flex;align-items:center;gap:4px;padding:1px 7px 1px 1px;white-space:nowrap;border-radius:4px;background:rgba(32,16,7,.86);border:1px solid #c8923a;box-shadow:0 2px 4px rgba(0,0,0,.5);font:700 11px Georgia,'Times New Roman',serif;color:#fbe9c0;text-shadow:0 1px 1px #000}
+#ek-plates .pl-n b{min-width:16px;text-align:center;border-radius:3px;background:linear-gradient(180deg,#ffe39a,#c8923a);color:#3a1d04;font:800 11px Georgia;padding:0 3px;text-shadow:none}
+#ek-plates .pl-t{padding:0 6px;border-radius:4px;background:#1d3f80;border:1px solid #9cc0ff;color:#fff;font:700 10.5px system-ui;white-space:nowrap}
+#ek-plates .pl-bar{width:54px;height:5px;border-radius:3px;background:#2c1a0c;border:1px solid #c8923a;overflow:hidden}
+#ek-plates .pl-bar i{display:block;height:100%;background:#5fbf5a}
+#ek-plates.far .pl-n{font-size:9.5px}
+#ek-plates.far .pl-t,#ek-plates.far .pl-bar{display:none}

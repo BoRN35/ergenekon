@@ -290,3 +290,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Başlık/düğme sığdırma (tas.js alt bölüm): taşarsa önce harf aralığı sonra yazı boyu (en az %62/9px).
 - Haritada Katıl sağ üstte, 🤝 onun altında (hedef kartını örtmesin).
 - 22 Kasım responsive: üst çubuk telefonda kaydırmasız (kompakt kaynak, 28px düğme+geniş dokunma), danışman notu sağda ve obadan çıkınca kapanır, Katıl/🤝 harita konumları 360-1280, keşif şeridi hedef paneli açıkken yukarı, yapı penceresinde özellik tablosu görünür (yk-tab-in), küçük düğmelere dokunma alanı.
+- 22 Kasım: ergenekon-25d.js — oba 2.5D: city3d kamerası sabit (fov 18, polar .78, azimut .56), döndürme kapalı, iki parmak yakınlaştır+kaydır, mesafe homeDist*.42–1.12 (tel 300, masaüstü 250), sis ölçeklendi; #ek-plates bina levhaları (seviye+ad, süre, çubuk; dokununca openBuilding). Ayarlar›Grafik›Oba görünümü 2.5D/3D (ek_oba). html.oba25 sınıfı.
