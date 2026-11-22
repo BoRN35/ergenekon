@@ -1,8 +1,9 @@
 # Görsel listesi üretici — dosya adları yeni/gorsel.js ile aynı tutulur
-STYLE=("Hand-painted semi-realistic mobile strategy game art, rich fine detail, warm golden-hour sunlight from the upper left, "
-"soft ambient occlusion, earthy natural palette (steppe greens, warm browns, felt white) with accents of deep red, gold and turquoise. "
-"Theme: ancient Turkic steppe peoples of the Altai mountains: felt yurts, carved timber, horse-tail tug standards, "
-"crescent-moon and wolf-head ornaments, Orhun-style runic carvings. Original design, do not imitate any existing game, logo or brand. "
+STYLE=("Realistic high-detail painterly 3D render look of a premium mobile strategy game, physically plausible materials (weathered stone, aged timber, felt, wrought iron), "
+"natural soft sunlight from the upper left with gentle realistic shadows, muted earthy realistic colors with accents of deep red banners and gold. "
+"NOT cartoon, NOT chibi, NOT toy-like, no exaggerated proportions, realistic scale and detail. "
+"Theme: medieval Turkic steppe fortress-city of the Altai (Gokturk and Uyghur era inspiration): stone keeps and walls, timber galleries, felt yurts inside courtyards, "
+"horse-tail tug standards, crescent-moon and wolf-head ornaments, Orhun-style runic carvings. Original design, do not imitate any existing game, logo or brand. "
 "No text, no letters, no numbers, no watermark, no UI.")
 ISO="Isometric 3/4 top-down view, camera about 45 degrees, same angle for every building. "
 TR="Single object centered, fully transparent background (PNG with alpha). Nothing outside the object and its own square ground base; keep 6% empty margin on all sides."
@@ -12,40 +13,40 @@ def add(sec,f,size,tr,pri,p): rows.append((sec,f,size,tr,pri,p))
 
 # 1 Şehir
 add("Şehir","sehir_zemin.png","1024x1536","Hayır",1,
- "Top-down isometric painted terrain for a mobile city-building screen, portrait. A green Altai mountain valley seen from above at 45 degrees: "
- "at the very top a dark iron mountain (Demir Dag) with thin glowing orange molten veins; below it grassy terraces, a winding dirt road from bottom to top, "
- "one grey rocky cliff band with stone stairs across the middle, a clear river with a small waterfall along the right edge, scattered pines and birches at the edges, "
- "wildflowers. Leave large flat empty grass clearings in the central 70% of the width (buildings will be placed there later). No buildings, no people, no animals. "+STYLE+" "+OPQ)
+ "Top-down isometric realistic terrain for a mobile city-building screen, portrait, camera about 45 degrees. The inside of a hill fortress in a green Altai valley: "
+ "at the very top a dark iron mountain (Demir Dag) with thin glowing orange molten veins; an outer stone city wall with square towers runs along the left edge, the right edge and the bottom edge, "
+ "with an open gate gap at the bottom center; inside the walls grassy terraces, cobbled paths and packed-earth yards, one low stone retaining wall with stairs across the middle; "
+ "outside the right wall a river with a small waterfall; a few pines and birches. Leave large flat empty clearings in the central 70% of the width (buildings will be placed there later). "
+ "No buildings inside the walls, no people, no animals. "+STYLE+" "+OPQ)
 add("Şehir","sehir_kilit.png","1024x1024","Evet",1,
- ISO+"A locked empty building plot marker: a short carved wooden post with an iron chain wrapped around it and a round stone medallion engraved with a crescent tamga, "
- "standing on a small square of packed earth with four stone corner markers. "+STYLE+" "+TR)
+ ISO+"A locked empty building plot: a square of packed earth with stone corner blocks, a short stone pillar carved with a crescent tamga and wrapped with an iron chain. "+STYLE+" "+TR)
 add("Şehir","sehir_insaat.png","1024x1024","Evet",2,
  ISO+"A construction site overlay: timber scaffolding, ropes, stacked logs and a small crane frame, on a square dirt base. "+STYLE+" "+TR)
 
 # 2 Binalar
-B=[("ocak","Kutsal Ocak","the sacred hearth of the tribe: a great fire burning in a circular carved stone fire pit, ringed by standing balbal stones and two tug poles with horse-tail standards"),
-("oba","Boy Obası","the chieftain's camp: a large white felt otag yurt with a red-and-gold door, smaller yurts around it, enclosed by a wooden palisade with a gate"),
-("yurt","Yurt","a cluster of family felt yurts with smoke from the roof rings, firewood and water jars"),
-("odunluk","Odunluk","a lumber camp: stacked logs, a chopping block with axes, a timber saw frame under a thatched lean-to"),
-("avci","Avcı Çadırı","a hunters' tent: hides stretched on drying racks, bows and quivers, antlers over the entrance, a meat smoking rack"),
-("demirci","Börteçine Demirhanesi","an iron forge and mine: a mine entrance cut into a rock face, ore carts on a short rail, a clay smelting furnace with leather bellows and glowing coals"),
-("sifa","Şifahane","a healing house: a white felt yurt with herb bundles hanging, clay pots, a small herb garden and wooden cots"),
-("kisla","Kışla","a barracks: a training yard with straw target dummies, spear and shield racks, rows of soldiers' tents"),
-("sur","Sur","a fortified gate section of the town wall: a sturdy gatehouse flanked by two short wall segments"),
-("ambar","Ambar","a storehouse: a raised timber granary with grain sacks, barrels and covered crates"),
-("gozcu","Gözcü Kulesi","a tall wooden watchtower with a lookout platform, signal horn and banner"),
-("bilgelik","Bilgelik Ocağı","a house of wisdom: a round building with a domed felt roof, carved runic stone steles in front, scroll shelves visible through the open door"),
-("komurluk","Kömürlük","charcoal kilns: domed earthen kilns with smoke, stacks of charcoal and wood, a covered coal pile"),
-("harpakademi","Harp Ocağı","a war academy: an armory hall with weapon racks and a glowing orange fire-crystal on a stone pedestal in the courtyard")]
-T=[(1,"humble and small: rough timber, felt and rope, very simple"),
-(5,"slightly larger and sturdier: proper timber frame, a few red cloth banners"),
-(10,"larger: carved wooden details, a low stone foundation"),
-(15,"stone-based, bronze fittings, red and gold banners with crescent emblems"),
-(20,"an expanded complex with stone walls and carved wolf-head beam ends"),
-(25,"grand: turquoise glazed tile accents, multiple connected structures"),
-(30,"monumental: gilded roof finials with crescents, ornate carvings"),
-(35,"majestic: black iron and gold, glowing braziers, tall standards"),
-(40,"legendary final form: gold and turquoise, faint orange molten-iron glow, sky-blue banners, a subtle magical aura")]
+B=[("ocak","Kutsal Ocak","the sacred fire sanctuary of the fortress: an eternal flame on a large stepped stone altar, carved runic standing stones around it, low stone walls and two tug standards"),
+("oba","Boy Obası (ana kale)","the main fortress of the tribe: a tall square stone keep tower with a timber upper gallery and red banners, an attached timber hall, a white felt yurt in the inner courtyard, surrounded by stone-and-timber walls with a gate and stairs"),
+("yurt","Yurt","the people's quarter: stone-based timber houses and a few felt yurts inside a low stone wall"),
+("odunluk","Odunluk","a sawmill: a timber-frame saw hall with stacked logs and a log ramp"),
+("avci","Avcı Çadırı","a hunters' lodge: a timber lodge with hide-drying racks, antlers over the door and a smokehouse"),
+("demirci","Börteçine Demirhanesi","an iron mine and smelter: a mine entrance with timber supports cut into a rock face, a stone smelting furnace with leather bellows and glowing coals, ore carts"),
+("sifa","Şifahane","an infirmary: a stone and timber healing house with a herb garden and covered beds"),
+("kisla","Kışla","barracks: a stone barracks hall with a training yard, archery targets and weapon racks"),
+("sur","Sur","the city wall gate: a fortified stone gatehouse with timber hoardings, flanked by two short wall segments"),
+("ambar","Ambar","a storehouse: a stone granary with a timber roof, grain sacks and barrels"),
+("gozcu","Gözcü Kulesi","a watchtower: a tall stone-based tower with a timber lookout top and a signal brazier"),
+("bilgelik","Bilgelik Ocağı","an academy of wisdom: a stone hall with a domed roof and a courtyard of carved runic stelae"),
+("komurluk","Kömürlük","charcoal works: domed stone kilns with smoke, stacks of charcoal and covered sheds"),
+("harpakademi","Harp Ocağı","a war academy: a fortified stone armory hall with a glowing orange fire-crystal on a stone pedestal in the courtyard")]
+T=[(1,"small and humble: rough timber, wattle and packed earth"),
+(5,"sturdier: timber on a stone footing, a few red banners"),
+(10,"larger: stone lower walls with timber upper floors"),
+(15,"mostly stone, iron fittings, red and gold banners with crescent emblems"),
+(20,"expanded: crenellated stone walls, carved wolf-head beam ends"),
+(25,"grand: several connected stone buildings, turquoise glazed tile accents"),
+(30,"monumental fortified stone, gilded crescent finials on the roofs"),
+(35,"majestic: dark stone and gold, burning braziers, tall standards"),
+(40,"legendary citadel form: gold and turquoise details, a faint orange molten-iron glow, sky-blue banners")]
 for k,ad,d in B:
   for lv,td in T:
     add("Binalar",f"bina_{k}_{lv}.png","1024x1024","Evet",1 if lv==1 else (2 if lv in (10,20,30,40) else 3),
@@ -72,7 +73,7 @@ for k,d in [("odun","a forest resource site: felled logs and a woodcutter's stum
  ("demir","an iron ore resource site: dark rocks with rusty-red ore veins"),("komur","a coal resource site: black coal seams in a small rocky hollow")]:
   add("Harita",f"maden_{k}.png","1024x1024","Evet",1,"Top-down 45 degree view, map object: "+d+". "+STYLE+" "+TR)
 for i in range(1,6):
-  add("Harita",f"harita_oba_{i}.png","1024x1024","Evet",1 if i==1 else 2,f"Top-down 45 degree view, a player's steppe settlement as seen on the world map, size stage {i} of 5 (1 = a few yurts in a fence, 5 = a large fortified town with a golden-crescent otag). "+STYLE+" "+TR)
+  add("Harita",f"harita_oba_{i}.png","1024x1024","Evet",1 if i==1 else 2,f"Top-down 45 degree view, a player's fortress as seen on the world map, size stage {i} of 5 (1 = a small timber fort with a watchtower, 5 = a large stone citadel with towers and red banners). "+STYLE+" "+TR)
 add("Harita","harita_kurgan.png","1024x1024","Evet",2,"Top-down 45 degree view, an ancient burial mound (kurgan) with standing stones, partly covered by mist. "+STYLE+" "+TR)
 
 # 5 Canavarlar

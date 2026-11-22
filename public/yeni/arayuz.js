@@ -37,8 +37,11 @@
       '<path d="M-10 150L60 70 110 112 170 30 235 104 290 58 400 150z" fill="#3a3a40"/><path d="M170 30L200 64 186 80 210 102M290 58l-8 30 14 22" stroke="#ff8a2a" stroke-width="2.2" fill="none" opacity=".85"/>' +
       '<path d="M-10 150C60 170 120 150 200 165S330 150 400 160V200H-10z" fill="#5d7c37"/>' +
       '<path d="M344 140C352 260 330 380 356 520S350 760 372 844H404V140z" fill="#4f8fb5"/><path d="M350 140C356 250 338 380 362 520S356 760 378 844" stroke="#bfe6f5" stroke-width="3" fill="none" opacity=".6"/>' +
+      '<g fill="#8f8a80" stroke="#55514a" stroke-width="1.5"><path d="M4 170h18v540H4z"/><path d="M322 170h18v540h-18z"/><path d="M4 700h160v22H4zM226 700h114v22H226z"/>' +
+      [[13,190],[13,330],[13,470],[13,610],[331,190],[331,330],[331,470],[331,610],[13,708],[150,708],[240,708],[331,708]].map(function (p) { return '<rect x="' + (p[0] - 14) + '" y="' + (p[1] - 18) + '" width="28" height="34" rx="2" fill="#9a958a"/><path d="M' + (p[0] - 14) + ' ' + (p[1] - 18) + 'h6v-5h5v5h6v-5h5v5h6" fill="none"/>'; }).join('') + '</g>' +
+      '<path d="M8 170v540M336 170v540" stroke="#6f6a61" stroke-width="2" stroke-dasharray="5 4"/>' +
       '<path d="M190 844C186 780 210 730 196 690S170 600 192 540 200 420 196 370" stroke="#b29466" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M190 844C186 780 210 730 196 690S170 600 192 540 200 420 196 370" stroke="#c9ab7b" stroke-width="14" fill="none" stroke-linecap="round"/>' +
-      '<path d="M-10 520C60 530 120 512 175 528M215 528C270 512 320 530 340 522" stroke="#8c8a7a" stroke-width="16" fill="none"/><path d="M-10 520C60 530 120 512 175 528M215 528C270 512 320 530 340 522" stroke="#aaa797" stroke-width="9" fill="none"/>' +
+      '<path d="M22 528H176M216 528H322" stroke="#7d796e" stroke-width="14"/><path d="M22 524H176M216 524H322" stroke="#a8a396" stroke-width="6"/>' +
       [[20, 220], [372, 230], [16, 440], [26, 700], [366, 470], [12, 610], [380, 640], [140, 150], [250, 152]].map(function (p) { return '<path d="M' + p[0] + ' ' + (p[1] - 34) + 'l-12 34h24z" fill="#2f5a2a"/><path d="M' + p[0] + ' ' + (p[1] - 22) + 'l-14 26h28z" fill="#386b31"/>'; }).join('') + '</svg>';
   }
 

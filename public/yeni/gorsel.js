@@ -15,8 +15,10 @@
   G.bina = function (k, lv) {
     lv = Math.max(1, lv || 1);
     for (var i = TIERS.indexOf(tierOf(lv)); i >= 0; i--) { var y = G.yeni('bina_' + k + '_' + TIERS[i]); if (y) return y; }
+    // Geçici: gerçekçi 3D önizlemeler (eski Tripo çıktıları)
+    if (k === 'ocak') return '../assets/ocak-previews/ocak-sv' + tierOf(lv) + '.webp';
+    if (OLDB[k]) return '../assets/building-previews/' + k + '-sv' + (lv >= 5 ? 5 : 1) + '.webp';
     if (k === 'oba') return OLD + 'kale_' + Math.min(5, 1 + Math.floor(lv / 8)) + '.webp';
-    if (OLDB[k]) return OLD + 'bina_' + k + '_t' + (lv < 10 ? 1 : lv < 20 ? 2 : lv < 30 ? 3 : 4) + '.webp';
     return null;
   };
   var PLACE_OLD = { kurultay: 'dekor_cadir', tug: 'dekor_bayrak_kirmizi', agil: 'pet_bozkurt_yavrusu', hazine: 'sandik', arena: 'npc_alper' };
