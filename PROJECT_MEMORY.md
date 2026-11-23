@@ -323,3 +323,4 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - tas.js tarama atlama listesine .ah-gv ve .ar-pick içerikleri eklendi.
 - Ayarlar (tab g) KoA ızgarası: altay-hud.js setUp() #ek-set önüne .ah-setg ekler (Ses/Grafik/Bildirim/Hesap/Dil/Otomasyon/Kayıt); dokununca yalnız o bölüm (#tg.ah-setg-on section.ah-cur), Kayıt → management-workspace "Kayıt ve bulut". Kayıt/yedek işlevleri olduğu gibi.
 - HUD öğeleri artık .wrap içinde (profil #pop z120 gibi pencereler üstünü örtsün). ek.css `html body .wrap > :not(#tabs){left:0!important}` kuralı yüzünden konumlar `html body .wrap>#ah-x#ah-x` ile verilir.
+- Posta sadeleşti (altay.css): mühür, "📬 Posta" satırı, "Gelen ulaklar" başlığı, boş mektup ayrıntısı ve yinelenen #ek-mbar gizli; sekmeler tek sıra.

@@ -410,3 +410,10 @@ html body .wrap>#ah-nav#ah-nav{left:0!important;top:auto!important}
   html body .wrap>#ah-left#ah-left{left:14px!important}
   html body .wrap>#ah-pw#ah-pw{left:14px!important}
 }
+/* Posta: sade (KoA) */
+html.altay #tp .mgmt-mail-seal,html.altay #tp .mgmt-mail-tools .mh,html.altay #tp .mgmt-inbox>.mgmt-room-heading,html.altay #tp .mgmt-mail-detail:has(.mgmt-empty-note){display:none!important}
+html.altay #tp .mgmt-mail-tools .mt{display:flex!important;flex-wrap:nowrap!important;gap:4px!important;grid-template-columns:none!important}
+html.altay #tp .mgmt-mail-tools .mt>button{flex:1 1 0!important;min-width:0!important;width:auto!important;height:38px!important;min-height:0!important;padding:0 4px!important;font:800 12px 'Nunito',sans-serif!important;white-space:nowrap!important}
+html.altay #tp .mgmt-mail-tools .mt>button:last-child{flex:0 0 40px!important}
+html.altay #tp .mgmt-mail-tools{min-height:0!important;padding-bottom:6px!important}
+html.ah-on body #ek-mbar{display:none!important}
