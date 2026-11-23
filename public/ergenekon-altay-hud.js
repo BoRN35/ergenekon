@@ -72,6 +72,38 @@
   }
   W.ekGorevler = gorevOpen;
   var R = {};
+  /* ---------- Ayarlar: yuvarlak simge ızgarası, dokununca tek bölüm ---------- */
+  var SI = {
+    ses: '<svg viewBox="0 0 48 48"><path d="M10 19h8l10-8v26l-10-8h-8z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><path d="M33 17c3 4 3 10 0 14M37 13c5 6 5 16 0 22" fill="none" stroke="#f3e3c0" stroke-width="3" stroke-linecap="round"/></svg>',
+    grafik: '<svg viewBox="0 0 48 48"><path d="M24 8c9 0 17 6 17 14 0 5-4 7-8 7h-4c-2 0-3 2-2 4 2 3 0 7-4 7C14 40 7 32 7 23 7 15 15 8 24 8z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><circle cx="16" cy="21" r="3" fill="#c8341c"/><circle cx="23" cy="15" r="3" fill="#3f7ea0"/><circle cx="31" cy="17" r="3" fill="#2f7d3a"/></svg>',
+    bildirim: '<svg viewBox="0 0 48 48"><path d="M24 7c-7 0-11 5-11 12v8l-4 6h30l-4-6v-8c0-7-4-12-11-12z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><path d="M19 36c1 3 3 5 5 5s4-2 5-5" fill="#e8c66a" stroke="#4a3010" stroke-width="2"/></svg>',
+    hesap: '<svg viewBox="0 0 48 48"><circle cx="24" cy="17" r="8" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><path d="M9 41c1-9 7-14 15-14s14 5 15 14z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/></svg>',
+    dil: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="#3f7ea0" stroke="#f3e3c0" stroke-width="2.4"/><path d="M8 24h32M24 8c-6 5-6 27 0 32M24 8c6 5 6 27 0 32" fill="none" stroke="#f3e3c0" stroke-width="2"/></svg>',
+    oto: '<svg viewBox="0 0 48 48"><path d="M20 6h8l1 5 4 2 5-3 5 6-3 5 1 4 5 1v8l-5 1-1 4 3 5-6 5-5-3-4 2-1 5h-8l-1-5-4-2-5 3-5-6 3-4-1-5-5-1v-8l5-1 1-4-3-5 6-5 4 3 4-2z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2" transform="scale(.82) translate(5 5)"/><circle cx="24" cy="24" r="6" fill="#4a3010"/></svg>',
+    kayit: '<svg viewBox="0 0 48 48"><path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 3 7.5 7.5 0 0 1-1 15z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><path d="M24 22v11M19 28l5 5 5-5" fill="none" stroke="#3f7ea0" stroke-width="3" stroke-linecap="round"/></svg>'
+  };
+  var SET = [['ses', 'Ses', 0], ['grafik', 'Grafik', 1], ['bildirim', 'Bildirim', 2], ['hesap', 'Hesap', 3], ['dil', 'Dil', 4], ['oto', 'Otomasyon', 5], ['kayit', 'Kayıt', 'mw']];
+  function setUp() {
+    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg || !es) return;
+    if (!R.sg || !R.sg.isConnected) {
+      R.sg = el('div', '', 'ah-setg', '<div class="asg-head">Ayarlar</div><div class="asg-grid">' + SET.map(function (x) { return '<button type="button" data-asg="' + x[2] + '"><i>' + SI[x[0]] + '</i><b>' + x[1] + '</b></button>'; }).join('') + '</div><button type="button" class="asg-back" hidden>‹ Ayarlar</button>');
+      es.parentNode.insertBefore(R.sg, es);
+      R.sg.addEventListener('click', function (ev) {
+        var b = ev.target.closest('[data-asg]'); if (b) { R.sc = b.dataset.asg; setMode(); try { tg.scrollTop = 0; } catch (e) {} if (R.sc === 'mw') { var kb = [].slice.call(tg.querySelectorAll('.mgmt-navigation button')).filter(function (x) { return /Kayıt/.test(x.textContent); })[0]; if (kb) kb.click(); } return; }
+        if (ev.target.closest('.asg-back')) { R.sc = null; setMode(); }
+      });
+      R.sc = null;
+    }
+    setMode();
+  }
+  function setMode() {
+    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg || !es || !R.sg) return;
+    var sc = R.sc, secs = es.querySelectorAll(':scope>section');
+    tg.classList.add('ah-setg-on'); tg.classList.toggle('ah-setg-grid', sc == null); tg.classList.toggle('ah-setg-mw', sc === 'mw');
+    secs.forEach(function (x, i) { x.classList.toggle('ah-cur', String(i) === String(sc)); });
+    R.sg.querySelector('.asg-grid').hidden = sc != null; R.sg.querySelector('.asg-back').hidden = sc == null;
+  }
+
   function el(tag, id, cls, html) { var e = D.createElement(tag); if (id) e.id = id; if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function build() {
     if (!D.body || !S()) return false;
@@ -139,6 +171,7 @@
     bd(R.nav.querySelector('[data-ah="boy"]'), (s.al && s.al.hq) || '');
     // obaya özel parçalar
     [R.strip, R.left, R.right, R.act, R.pw].forEach(function (x) { x.hidden = !(tab === 'c'); });
+    if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     if (tab !== 'c') return;
     // görev şeridi
     var g = D.getElementById('ek-goal'), gt = g ? (g.querySelector('b') || g).textContent.trim() : '';

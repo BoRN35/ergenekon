@@ -379,3 +379,21 @@ html.ah-on body .wrap>.ovp,html.ah-on body #win{padding-bottom:calc(64px + env(s
 .ah-gv .gv-go{flex:none!important;width:auto!important;min-width:58px!important;height:32px!important;min-height:0!important;padding:0 10px!important;border-radius:7px!important;background:linear-gradient(180deg,#5fb0e8,#1f5fa8)!important;border:1.5px solid #0d2f5a!important;color:#fff!important;font:900 13px 'Nunito',sans-serif!important;text-shadow:0 1px 1px #000!important;box-shadow:0 2px 0 #0d2f5a!important}
 .ah-gv .gv-ok{flex:none!important;width:32px!important;height:32px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:#2f7d3a!important;color:#fff!important;font:900 16px sans-serif!important}
 .ah-gv .gv-tm{flex:none!important;font:900 12px 'Nunito',sans-serif!important;color:#1c5a2a!important}
+/* Ayarlar ızgarası */
+#tg.ah-setg-on #ek-set>section{display:none!important}
+#tg.ah-setg-on #ek-set>section.ah-cur{display:block!important}
+#tg.ah-setg-on .management-workspace{display:none!important}
+#tg.ah-setg-mw .management-workspace{display:block!important}
+#tg.ah-setg-on:not(.ah-setg-grid) .ek-ver{display:none!important}
+#tg .ah-setg{padding:8px 6px 4px!important}
+#tg .ah-setg .asg-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:14px 6px!important;padding:12px 6px!important;border-radius:10px!important;background:linear-gradient(180deg,rgba(251,240,212,.96),rgba(234,213,164,.96))!important;border:1.5px solid #9a6a2a!important}
+#tg .ah-setg .asg-grid[hidden],#tg .ah-setg .asg-back[hidden]{display:none!important}
+#tg .ah-setg [data-asg]{all:unset;cursor:pointer;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;min-height:0!important;width:auto!important;height:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;gap:4px!important;-webkit-tap-highlight-color:transparent}
+#tg .ah-setg [data-asg] i{display:grid!important;place-items:center!important;width:54px!important;height:54px!important;border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important;border:2.5px solid #d9ad55!important;box-shadow:0 3px 6px rgba(0,0,0,.45)!important;padding:0!important}
+#tg .ah-setg [data-asg] i svg{width:32px!important;height:32px!important;background:none!important;border:0!important;box-shadow:none!important;margin:0!important;padding:0!important;border-radius:0!important}
+#tg .ah-setg [data-asg] b{font:800 12px 'Nunito',sans-serif!important;color:#3a2610!important;text-align:center!important}
+#tg .ah-setg .asg-back{all:unset;cursor:pointer;margin:0 0 6px!important;width:auto!important;min-height:0!important;box-shadow:none!important;display:inline-flex!important;align-items:center!important;height:32px!important;padding:0 14px!important;border-radius:16px!important;background:linear-gradient(180deg,#5a3a1e,#3a2410)!important;border:1.5px solid #c99a45!important;color:#fbecc8!important;font:800 13px 'Nunito',sans-serif!important}
+#tg.ah-setg-on>.game-page-header{display:none!important}
+#tg .ah-setg .asg-head{height:44px!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0 0 8px!important;border-radius:8px!important;background:linear-gradient(180deg,#a8281a,#6a140a)!important;border:2px solid #e9bf62!important;color:#ffe9b8!important;font:900 17px 'Nunito',sans-serif!important;letter-spacing:1.5px!important;text-transform:uppercase!important;text-shadow:0 1px 2px #000!important}
+#tg .ah-setg{padding:6px 8px 4px 52px!important}
+#tg .ah-setg .asg-grid{margin-left:-44px!important}
