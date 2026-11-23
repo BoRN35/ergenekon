@@ -263,3 +263,96 @@ html body:has(#pop:not([style*="none"])) #ek-hand,html body:has(.ek-ov) #ek-hand
 #ek-ao .ao-acts .big i{width:60px;height:60px;margin-top:-6px}
 #ek-ao .ao-acts small{font:700 12px Georgia,serif;color:#fff;text-shadow:0 1px 2px #000,0 0 4px #000}
 #ek-ao .ao-acts svg{width:24px!important;height:24px!important}
+
+/* ===== Altay ön arayüzü (ergenekon-altay-hud.js) — KoA düzeni, 23.11.2026 ===== */
+html.altay body :is(#_a#_b#_c,*):not(svg):not(svg *):not(code):not(pre):not(.mono){font-family:'Nunito','Nunito Sans',system-ui,-apple-system,'Segoe UI',sans-serif!important}
+html.ah-on #tabs>*:not(#pfb){visibility:hidden!important;pointer-events:none!important}
+html.ah-on #tabs{background:transparent!important;border:0!important;box-shadow:none!important}
+html.ah-on body #ek-world,html.ah-on body #ek-goal,html.ah-on body #top .ek-topbtns,html.ah-on body #ao-jobs,html.ah-on body #ek-hand,html.ah-on body #ek-rally,html.ah-on body #ek-sage,html.ah-on body #ek-all,html.ah-on body #top .infb,html.ah-on body #infb{display:none!important}
+#ah-nav,#ah-strip,#ah-left,#ah-right,#ah-act,#ah-pw,#ah-toast{font-family:'Nunito',system-ui,sans-serif!important;-webkit-tap-highlight-color:transparent!important;user-select:none!important}
+#ah-nav button,#ah-strip button,#ah-left button,#ah-right button,#ah-act button{box-sizing:border-box!important;cursor:pointer!important;position:relative!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;min-height:0!important;min-width:0!important;width:auto!important;height:auto!important;border-radius:0!important;color:inherit!important;text-align:center!important;outline:none!important;-webkit-appearance:none!important;appearance:none!important;transform:none!important;filter:none!important;animation:none!important;overflow:visible!important;line-height:normal!important}
+#ah-nav i,#ah-strip i,#ah-left i,#ah-right i,#ah-act i{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0!important;font-style:normal!important}
+#ah-nav svg,#ah-strip svg,#ah-left svg,#ah-right svg,#ah-act svg,#ah-pw svg{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0!important}
+#ah-nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:62!important;height:calc(60px + env(safe-area-inset-bottom))!important;padding:0 96px env(safe-area-inset-bottom) 4px!important;display:flex!important;align-items:stretch!important;justify-content:space-around!important;background:linear-gradient(180deg,#5b3a1e 0,#3a2410 14%,#24160a 100%)!important;border-top:2px solid #c99a45!important;box-shadow:0 -3px 10px rgba(0,0,0,.55)!important}
+#ah-nav::before{content:''!important;position:absolute!important;left:0!important;right:0!important;top:3px!important;height:1px!important;background:rgba(255,220,150,.25)!important}
+#ah-nav>button{flex:1!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:1px!important;min-width:0!important}
+#ah-nav>button i{display:block!important;width:34px!important;height:34px!important;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))!important}
+#ah-nav>button i svg{width:100%!important;height:100%!important;display:block!important}
+#ah-nav>button b{font:800 11px/1.1 'Nunito',system-ui,sans-serif!important;color:#fbecc8!important;text-shadow:0 1px 2px #000,0 0 2px #000!important;white-space:nowrap!important}
+#ah-nav>button.on b{color:#ffd77a!important}
+#ah-nav>button.on::after{content:''!important;position:absolute!important;left:18%!important;right:18%!important;bottom:2px!important;height:3px!important;border-radius:2px!important;background:#ffd77a!important}
+#ah-nav .ah-bd{position:absolute!important;top:4px!important;left:calc(50% + 8px)!important;min-width:16px!important;height:16px!important;padding:0 4px!important;box-sizing:border-box!important;border-radius:8px!important;background:#c8281c!important;border:1.5px solid #fbe9c0!important;color:#fff!important;font:900 10px/13px 'Nunito',sans-serif!important;text-align:center!important;font-style:normal!important}
+#ah-nav .ah-bd[hidden]{display:none!important}
+#ah-nav>#ah-world{position:absolute!important;right:6px!important;bottom:calc(6px + env(safe-area-inset-bottom))!important;width:86px!important;height:86px!important;flex:none!important;border-radius:50%!important;background:radial-gradient(circle at 42% 36%,#5fb0c8,#1d5468 62%,#0d2a36)!important;border:3px solid #e9bf62!important;box-shadow:0 0 0 2px #4a2c0e,0 4px 10px rgba(0,0,0,.6),inset 0 0 12px rgba(0,0,0,.45)!important;justify-content:center!important}
+#ah-nav>#ah-world i{width:46px!important;height:46px!important;margin-top:-10px!important}
+#ah-nav>#ah-world b{position:absolute!important;bottom:-3px!important;left:50%!important;transform:translateX(-50%)!important;padding:1px 10px!important;border-radius:9px!important;background:linear-gradient(180deg,#f3d27a,#b98426)!important;border:1px solid #5a3a10!important;color:#3a1d04!important;text-shadow:none!important;font-size:12px!important}
+/* görev ve sohbet şeridi */
+#ah-strip{position:fixed!important;left:6px!important;right:98px!important;bottom:calc(66px + env(safe-area-inset-bottom))!important;z-index:34!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+#ah-strip[hidden],#ah-left[hidden],#ah-right[hidden],#ah-act[hidden],#ah-pw[hidden]{display:none!important}
+#ah-strip #ah-q{display:flex!important;align-items:center!important;gap:6px!important;height:38px!important;padding:0 10px 0 4px!important;border-radius:6px!important;background:linear-gradient(180deg,#fbf0d4,#ead5a4)!important;border:1.5px solid #9a6a2a!important;box-shadow:0 2px 5px rgba(0,0,0,.5)!important}
+#ah-q i{flex:none!important;width:30px!important;height:30px!important}
+#ah-q i svg{width:100%!important;height:100%!important}
+#ah-q span{min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font:700 13px/1.2 'Nunito',sans-serif!important;color:#3a2610!important}
+#ah-q span b{color:#b8281c!important;font-weight:900!important}
+#ah-strip #ah-chat{display:flex!important;align-items:center!important;gap:6px!important;height:24px!important;padding:0 8px!important;border-radius:5px!important;background:rgba(14,10,6,.72)!important}
+#ah-chat i{flex:none!important;width:16px!important;height:16px!important}
+#ah-chat i svg{width:100%!important;height:100%!important}
+#ah-chat span{min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font:700 11.5px/1 'Nunito',sans-serif!important;color:#efe3c6!important}
+/* sol iş sütunu */
+#ah-left{position:fixed!important;left:6px!important;top:calc(env(safe-area-inset-top) + 104px)!important;z-index:34!important;display:flex!important;flex-direction:column!important;gap:8px!important}
+#ah-left button{width:44px!important;height:44px!important;border-radius:9px!important;display:grid!important;place-items:center!important;background:linear-gradient(180deg,rgba(58,36,18,.9),rgba(24,14,6,.9))!important;border:1.5px solid #b98a3e!important;box-shadow:0 2px 4px rgba(0,0,0,.5)!important}
+#ah-left button i{width:30px!important;height:30px!important;display:block!important}
+#ah-left button i svg{width:100%!important;height:100%!important}
+#ah-left button em{position:absolute!important;right:-4px!important;top:-6px!important;font:900 italic 12px 'Nunito',sans-serif!important;color:#d9e6f0!important;text-shadow:0 1px 2px #000,0 0 3px #000!important}
+#ah-left button small{position:absolute!important;left:50%!important;bottom:-6px!important;transform:translateX(-50%)!important;padding:0 4px!important;border-radius:4px!important;background:#1c5a2a!important;border:1px solid #7fd08a!important;font:800 9.5px/13px 'Nunito',sans-serif!important;color:#fff!important;white-space:nowrap!important}
+#ah-left button:not(.busy) i{opacity:.85!important}
+/* sağ sütun */
+#ah-right{position:fixed!important;right:6px!important;top:calc(env(safe-area-inset-top) + 60px)!important;z-index:34!important;display:flex!important;flex-direction:column!important;gap:6px!important}
+#ah-right button,#ah-act button{width:54px!important;display:flex!important;flex-direction:column!important;align-items:center!important}
+#ah-right button i,#ah-act button i{width:40px!important;height:40px!important;display:block!important;filter:drop-shadow(0 2px 2px rgba(0,0,0,.7))!important}
+#ah-right button i svg,#ah-act button i svg{width:100%!important;height:100%!important}
+#ah-right button b,#ah-act button b{margin-top:-2px!important;font:800 10.5px/1.1 'Nunito',sans-serif!important;color:#fff!important;text-align:center!important;text-shadow:0 1px 2px #000,0 0 3px #000,0 0 3px #000!important}
+#ah-right .ah-hil{position:absolute!important;top:-2px!important;right:4px!important;width:13px!important;height:13px!important;border-radius:50%!important;box-shadow:inset -4px 2px 0 0 #ffd77a!important;filter:drop-shadow(0 0 3px #ffb84a)!important}
+#ah-right .ah-hil[hidden]{display:none!important}
+#ah-act{position:fixed!important;right:6px!important;bottom:calc(140px + env(safe-area-inset-bottom))!important;z-index:34!important;display:flex!important;flex-direction:column!important;gap:8px!important}
+#ah-act button i{width:44px!important;height:44px!important;border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#6a4524,#2a180a)!important;border:2px solid #c99a45!important;padding:5px!important;box-sizing:border-box!important}
+#ah-act .ah-bd{position:absolute!important;top:-3px!important;right:2px!important;min-width:16px!important;height:16px!important;padding:0 4px!important;box-sizing:border-box!important;border-radius:8px!important;background:#2f7d3a!important;border:1.5px solid #e9f5d0!important;color:#fff!important;font:900 10px/13px 'Nunito',sans-serif!important;text-align:center!important;font-style:normal!important}
+#ah-act .ah-bd[hidden]{display:none!important}
+/* güç */
+#ah-pw{position:fixed!important;left:54px!important;top:calc(env(safe-area-inset-top) + 54px)!important;z-index:34!important;display:flex!important;align-items:center!important;gap:5px!important;pointer-events:none!important}
+#ah-pw .ah-pwv{display:flex!important;align-items:center!important;gap:4px!important;height:22px!important;padding:0 10px 0 3px!important;border-radius:11px!important;background:linear-gradient(180deg,#c8341c,#7a1a0c)!important;border:1.5px solid #f0c66a!important;box-shadow:0 2px 4px rgba(0,0,0,.5)!important}
+#ah-pw .ah-pwv i{width:17px!important;height:17px!important;display:block!important}
+#ah-pw .ah-pwv i svg{width:100%!important;height:100%!important}
+#ah-pw b{font:900 13px/1 'Nunito',sans-serif!important;color:#fff!important;text-shadow:0 1px 1px #000!important}
+#ah-pw .ah-er{height:18px!important;padding:0 7px!important;border-radius:9px!important;background:rgba(20,12,6,.75)!important;font:800 10px/18px 'Nunito',sans-serif!important;color:#ffd9a0!important}
+#ah-toast{position:fixed!important;left:50%!important;top:42%!important;transform:translate(-50%,-50%)!important;z-index:9500!important;padding:9px 16px!important;border-radius:10px!important;background:rgba(24,14,6,.92)!important;border:1.5px solid #c99a45!important;color:#fbecc8!important;font:800 14px 'Nunito',sans-serif!important;display:flex!important;gap:10px!important;flex-wrap:wrap!important;justify-content:center!important;max-width:86vw!important;pointer-events:none!important;box-shadow:0 4px 14px rgba(0,0,0,.6)!important}
+#ah-toast[hidden]{display:none!important}
+#ah-toast span{color:#9fe08a!important}
+/* obada kalabalığı azalt: yükseltme oku, madalyonlar */
+#ek-ao .ao-ar{display:none!important}
+#ek-ao .ao-md .ao-mdi{display:none!important}
+#ek-ao .ao-md b{padding:1px 9px!important;border-radius:5px!important;background:rgba(32,16,7,.82)!important;border:0!important;font:800 13px 'Nunito',sans-serif!important}
+#ek-ao .ao-md .ao-hil{top:-7px!important;right:-7px!important;width:13px!important;height:13px!important}
+#ek-ao .ao-n{border:0!important;background:rgba(28,14,6,.8)!important;padding:1px 9px 1px 2px!important;font:800 13.5px 'Nunito',sans-serif!important}
+#ek-ao .ao-n b{background:none!important;color:#ffd77a!important;font:900 14px 'Nunito',sans-serif!important;min-width:0!important;padding:0 2px 0 4px!important}
+/* pencereler ve sayfalar alt şeridin üstünde kalsın */
+html.ah-on body .wrap>.ovp,html.ah-on body #win{padding-bottom:calc(64px + env(safe-area-inset-bottom))!important}
+/* geniş ekran */
+@media (min-width:700px){
+  #ah-nav{left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(620px,100%)!important;border-radius:14px 14px 0 0!important;border:2px solid #c99a45!important;border-bottom:0!important}
+  #ah-strip{left:calc(50% - 300px)!important;right:auto!important;width:400px!important}
+  #ah-left{left:14px!important;top:128px!important}
+  #ah-pw{left:14px!important;top:94px!important}
+  #ah-right{right:14px!important;top:84px!important}
+  #ah-act{right:14px!important}
+}
+/* rakip seç (arena) */
+.ar-pick .arp-list{display:flex!important;flex-direction:column!important;gap:8px!important;padding:10px!important}
+.ar-pick .arp{all:unset!important;box-sizing:border-box!important;cursor:pointer!important;display:flex!important;align-items:center!important;gap:10px!important;padding:8px 10px!important;border-radius:8px!important;background:linear-gradient(180deg,#fbf0d4,#ead5a4)!important;border:1.5px solid #9a6a2a!important;color:#3a2610!important}
+.ar-pick .arp-av{flex:none!important;width:40px!important;height:40px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important;border:2px solid #c99a45!important;color:#ffe39a!important;font:900 18px 'Nunito',sans-serif!important}
+.ar-pick .arp-t{flex:1!important;min-width:0!important;display:flex!important;flex-direction:column!important}
+.ar-pick .arp-t b{font:900 14px 'Nunito',sans-serif!important;color:#3a2610!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ar-pick .arp-t small{font:800 12px 'Nunito',sans-serif!important;color:#8a2a1a!important}
+.ar-pick .arp em{flex:none!important;font:900 12px 'Nunito',sans-serif!important;font-style:normal!important;padding:3px 10px!important;border-radius:12px!important;color:#fff!important}
+.ar-pick .arp-k em{background:#2f7d3a!important}.ar-pick .arp-d em{background:#b98426!important}.ar-pick .arp-z em{background:#b8281c!important}
+.ar-pick .arp-n{text-align:center!important;margin:0 0 10px!important;font:900 13px 'Nunito',sans-serif!important}

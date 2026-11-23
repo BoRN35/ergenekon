@@ -311,3 +311,11 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Uyum testi: yeni oyun kayda yazdıktan sonra eski oyun hatasız açılıyor; kök ve ek alanlar silinmiyor.
 - 23 Kasım: oba King of Altay şehir düzenine geçti (ergenekon-altay-oba.js yeniden): dünya 1000x6250, telefon genişliğine oturur (s=w/1000), yalnız dikey kaydırma (atalet), basamaklı yaylalar CLIFF=[820,1900,3000,4080,5120] kaya duvarı+merdiven+şelale, kıvrımlı ana yol roadX(y), her yapı çitli toprak alanda. Sıra: üst Kömürlük/Gözcü · Boy Obası · Kurultay/Boy Meclisi · Kutsal Ocak · Yurt/Şifahane · Odunluk/Avcı · Ambar/Demirci · Kışla/Harp Akademisi · Bilgelik/Tuğ/Hazine · Sur · dışarıda Sefer/Arena/Ağıl. Binaya dokununca ad şeridi + Bilgi/Geliştir(/Araştır/Eğit/Ocak) yuvarlak düğmeleri; ikinci dokunuş açar. Etiketlerde yeşil ok.
 - 23 Kasım: şehir 2 yönlü: dünya 1700x5250, ekran ~1000 birim genişlik gösterir; sağa-sola ve yukarı-aşağı serbest kaydırma (atalet), yakınlaştırma yok. Binalar 3 sütuna yayıldı (sol x≈300, orta 850, sağ ≈1380); yan binalar kaydırınca görünür. Seçilen bina kenardaysa kamera onu ortalar. CLIFF=[820,1900,3000,4080].
+
+## 23.11.2026 — Altay ön arayüzü (KoA düzeni)
+- Yeni `public/ergenekon-altay-hud.js` (+ stiller `ergenekon-altay.css` sonunda): alt şerit Kahramanlar (tab u) · Çanta · Posta (p) · Boy (a) + büyük Dünya/Oba düğmesi; obada bölüm görevi (#ek-goal'a tıklar) + sohbet satırı (#cpm son mesaj), solda iş sütunu (usta/ilim/eğitim/oba işi, boşsa "Zz"), sağda Görevler (Tuğ) / Etkinlik / Ayarlar, sağ altta Yardım et (#ek-hand) ve Tümünü topla (W.ekCollectAll + sonuç bildirimi), güç ve erime hapı.
+- Eski #tabs düğmeleri görünmez (yalnız #pfb kalır, düğmeler programla tıklanır); #ek-world, #ek-goal, .ek-topbtns, #ao-jobs, #ek-hand, #ek-rally, #ek-all gizli.
+- Obada yükseltme oku (.ao-ar) ve NPC madalyonları kaldırıldı; etiketler sade koyu hap.
+- Yazı tipi: Nunito (700/800/900) Altay temasında her yerde.
+- Arena "Mücadele Et" artık rakip seçme penceresi açar (arPick, ergenekon-ek.js) → W.arena(i) + rapor.
+- Not: index.html innerHTML önbelleği `__h` kullanır; modüllerde `__ah` gibi başka ad kullan.

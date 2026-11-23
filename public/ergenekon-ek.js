@@ -888,7 +888,7 @@
       box = document.createElement('div'); box.id = 'ek-arena'; box.className = 'ek-arena-box';
       box.addEventListener('click', function (ev) {
         var t = ev.target;
-        if (t.closest('[data-ar-go]')) { var b = ty.querySelector('[data-ar="1"]') || ty.querySelector('[data-ar]'); if (b) { b.scrollIntoView({ block: 'center', behavior: 'smooth' }); b.classList.add('ek-pulse'); setTimeout(function () { b.classList.remove('ek-pulse'); }, 1600); } }
+        if (t.closest('[data-ar-go]')) { arPick(); return; }
         if (t.closest('[data-ar-hist]')) { var l = (S().log || []).filter(function (x) { return /Arena/.test(String(x)); }).slice(0, 12); alertBox('Arena geçmişi', l.length ? l.map(function (x) { return '<p>' + esc(String(x).replace(/^🏟️\s*1v1 Arena:\s*/, '')) + '</p>'; }).join('') : '<p>Henüz arena mücadelesi yok.</p>'); }
         if (t.closest('[data-ar-def]')) { try { goTab('k'); } catch (e) {} }
       });
@@ -896,6 +896,22 @@
     var arb = ty.querySelector('.mgmt-pane [data-ar]'), host = (arb && arb.closest('.mgmt-pane')) || ty;
     if (box.parentNode !== host) host.insertBefore(box, host.firstChild);
     var h = arenaHtml(); if (box.__ekh !== h || !box.firstElementChild) { box.__ekh = h; box.innerHTML = h; }
+  }
+  // Mücadele Et: rakip seç (kolay / dengeli / zor) ve doğrudan savaş
+  function arPick() {
+    var L = []; try { L = W.opps(); } catch (e) {} var a = S().ar || {};
+    if (!L.length || !(a.n > 0)) return;
+    var o = document.createElement('div'); o.className = 'ek-ov yk-ov';
+    o.innerHTML = '<div class="yk-card yk-small ar-pick"><div class="yk-head"><h2>Rakip Seç</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="arp-list">' +
+      L.map(function (x, i) { var f = x.f < 1 ? 'Kolay' : x.f > 1 ? 'Zor' : 'Dengeli', c = x.f < 1 ? 'k' : x.f > 1 ? 'z' : 'd'; return '<button type="button" class="arp arp-' + c + '" data-arp="' + i + '"><span class="arp-av">' + esc(String(x.n).slice(0, 1)) + '</span><span class="arp-t"><b>' + esc(String(x.n).replace(/\s*\((kolay|zor)\)/, '')) + '</b><small>⚔ ' + nf(x.atk + x.def) + '</small></span><em>' + f + '</em></button>'; }).join('') + '</div><p class="arp-n">⚔ ' + a.n + '/5</p></div>';
+    o.addEventListener('click', function (ev) {
+      if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; }
+      var b = ev.target.closest('[data-arp]'); if (!b) return; o.remove();
+      try { W.arena(+b.dataset.arp); } catch (e) {}
+      var m = (S().ar || {}).lastMatch; if (m && W.ekReport) W.ekReport({ title: m.won ? 'Zafer' : 'Yenilgi', win: m.won, sub: m.opponent, rows: [['🏆', (m.delta > 0 ? '+' : '') + m.delta], ['⚔', nf(m.points)]] });
+      try { W.render(); } catch (e) {}
+    });
+    document.body.appendChild(o);
   }
   function alertBox(title, html) {
     var o = document.createElement('div'); o.className = 'ek-ov ek-sheet';

@@ -56,6 +56,7 @@
     draw(performance.now(), true);
   }
 
+  W.ekCollectAll = function () { var n = 0; for (var k in PROD) if (ready(k)) n++; collectAll(); return n; };
   /* --- geri bildirim --- */
   function beep(f, d) { try { var s = S(); if (s && s.snd === false) return; W.snd ? W.snd(f, d) : null; } catch (e) {} }
   function buzz(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
