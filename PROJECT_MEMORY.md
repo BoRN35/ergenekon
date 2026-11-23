@@ -319,3 +319,5 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Yazı tipi: Nunito (700/800/900) Altay temasında her yerde.
 - Arena "Mücadele Et" artık rakip seçme penceresi açar (arPick, ergenekon-ek.js) → W.arena(i) + rapor.
 - Not: index.html innerHTML önbelleği `__h` kullanır; modüllerde `__ah` gibi başka ad kullan.
+- Görevler penceresi (W.ekGorevler, altay-hud.js): Bölüm sekmesi = Ocak'ın bir sonraki seviyesi için gereken yapılar (buildingRequirements, 2 kat derin) + Ocak; satırda bina resmi, Sv, ilerleme, GİT (W.BMK ile yapı penceresi). Günlük sekmesi Tuğ Direği penceresini açar. Görev şeridinin simgesi pencereyi, yazısı hedefi açar. Ödül eklenmedi (ekonomi değişmesin).
+- tas.js tarama atlama listesine .ah-gv ve .ar-pick içerikleri eklendi.

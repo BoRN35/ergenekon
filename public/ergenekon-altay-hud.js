@@ -31,6 +31,46 @@
     topla: '<svg viewBox="0 0 48 48"><path d="M12 18c0-5 24-5 24 0l5 18c0 7-34 7-34 0z" fill="#c49a5a" stroke="#4a2a10" stroke-width="2"/><path d="M17 15c3-6 11-6 14 0" stroke="#4a2a10" stroke-width="2.6" fill="none"/><path d="M14 12l6 5M30 8l2 8M20 8l3 8" stroke="#d6a640" stroke-width="3" stroke-linecap="round"/></svg>',
     guc: '<svg viewBox="0 0 48 48"><path d="M8 40L34 12M30 8l10 10M40 40L14 12M18 8L8 18" stroke="#f3e3c0" stroke-width="4.4" stroke-linecap="round"/></svg>'
   };
+
+  /* ---------- Görevler penceresi: Bölüm (Ocak'ın bir sonraki seviyesine giden yol) + Günlük ---------- */
+  function openBld(k) { closeOv(); W.BMK = k; W.selB = k; W.tab = 'c'; rer(); }
+  function bname(k) { var b = (W.B || {})[k]; return b ? b.n : k; }
+  function reqs(k) { try { return W.buildingRequirements(k) || []; } catch (e) { return []; } }
+  function chapter() {
+    var s = S(), oc = (s.l && s.l.ocak) || 1, list = [], seen = {};
+    function addT(k, lv, depth) {
+      var key = k + ':' + lv; if (seen[key]) return; seen[key] = 1;
+      var cur = (s.l && s.l[k]) || 0;
+      if (cur < lv && depth < 2) reqs(k).forEach(function (r) { if (((s.l && s.l[r.key]) || 0) < r.level) addT(r.key, r.level, depth + 1); });
+      list.push({ k: k, lv: lv, cur: Math.min(cur, lv), done: cur >= lv });
+    }
+    reqs('ocak').forEach(function (r) { addT(r.key, r.level, 0); });
+    list.push({ k: 'ocak', lv: oc + 1, cur: oc, done: false, main: true });
+    return { n: oc, list: list, done: list.filter(function (t) { return t.done; }).length };
+  }
+  function gorevHtml() {
+    var c = chapter(), pct = Math.round(c.done / c.list.length * 100);
+    return '<div class="gv-ban"><b>' + c.n + '. BÖLÜM</b><span>Ocağı ' + (c.n + 1) + '. seviyeye çıkar</span><u><i style="width:' + pct + '%"></i></u><small>' + c.done + '/' + c.list.length + '</small></div>' +
+      '<div class="gv-list">' + c.list.map(function (t) {
+        var img = W.ekBinaArt ? W.ekBinaArt(t.k) : null, q = null; try { q = W.buildQueue(t.k); } catch (e) {}
+        return '<div class="gv-r' + (t.done ? ' ok' : '') + (t.main ? ' main' : '') + '"><span class="gv-im">' + (img ? '<img src="' + img + '" alt="">' : '') + '</span><span class="gv-t"><b>' + bname(t.k) + ' <em>Sv ' + t.lv + '</em></b><u><i style="width:' + Math.round(t.cur / t.lv * 100) + '%"></i></u></span>' +
+          (t.done ? '<span class="gv-ok">✔</span>' : q && q.left > 0 ? '<span class="gv-tm">' + ft(q.left) + '</span>' : '<button type="button" class="gv-go" data-gv="' + t.k + '">GİT</button>') + '</div>';
+      }).join('') + '</div>';
+  }
+  function gorevOpen() {
+    closeOv();
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-gv';
+    o.innerHTML = '<div class="yk-card"><div class="yk-head"><h2>Görevler</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="gv-tabs"><button type="button" class="on">Bölüm</button><button type="button" data-gvt="gunluk">Günlük</button></div><div class="gv-body"></div></div>';
+    var body = o.querySelector('.gv-body'), fill = function () { var h = gorevHtml(); if (body.__ah !== h) { body.__ah = h; body.innerHTML = h; } };
+    fill(); var iv = setInterval(function () { if (!o.isConnected) { clearInterval(iv); return; } fill(); }, 1000);
+    o.addEventListener('click', function (ev) {
+      if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; }
+      if (ev.target.closest('[data-gvt]')) { o.remove(); if (W.ekNpcOpen) W.ekNpcOpen('tug', 0); return; }
+      var g = ev.target.closest('[data-gv]'); if (g) { o.remove(); openBld(g.dataset.gv); }
+    });
+    D.body.appendChild(o);
+  }
+  W.ekGorevler = gorevOpen;
   var R = {};
   function el(tag, id, cls, html) { var e = D.createElement(tag); if (id) e.id = id; if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function build() {
@@ -61,7 +101,7 @@
     else if (k === 'posta') { closeOv(); tabGo('p'); }
     else if (k === 'boy') { closeOv(); tabGo('a'); }
     else if (k === 'dunya') { closeOv(); if (W.tab === 'm') tabGo('c'); else if (W.tab !== 'c') tabGo('c'); else { var w = D.getElementById('ek-world'); if (w) w.click(); else tabGo('m'); } }
-    else if (k === 'gorev') { if (W.ekNpcOpen) W.ekNpcOpen('tug', 0); }
+    else if (k === 'gorev') gorevOpen();
     else if (k === 'etkinlik') tabGo('e');
     else if (k === 'ayar') tabGo('g');
     else if (k === 'yardim') { var n = (s.al && s.al.hq) || 0, h = D.getElementById('ek-hand'); if (n && h) { h.click(); toast('🤝 ' + n + ' boydaşa yardım edildi'); } else toast('Yardım bekleyen boydaş yok'); }
@@ -82,6 +122,7 @@
   function onClick(ev) {
     var b = ev.target.closest && ev.target.closest('#ah-nav [data-ah],#ah-right [data-ah],#ah-act [data-ah],#ah-left [data-ah]'); 
     if (b) { ev.stopPropagation(); ev.preventDefault(); act(b.dataset.ah); return; }
+    if (ev.target.closest && ev.target.closest('#ah-q i')) { ev.stopPropagation(); gorevOpen(); return; }
     if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); var g = D.getElementById('ek-goal'); if (g) g.click(); return; }
     if (ev.target.closest && ev.target.closest('#ah-chat')) { ev.stopPropagation(); var c = D.querySelector('#tabs>button[title="Sohbet"]') || D.querySelector('#cp [data-ct="x"]'); if (c) c.click(); }
   }

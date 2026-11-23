@@ -356,3 +356,26 @@ html.ah-on body .wrap>.ovp,html.ah-on body #win{padding-bottom:calc(64px + env(s
 .ar-pick .arp em{flex:none!important;font:900 12px 'Nunito',sans-serif!important;font-style:normal!important;padding:3px 10px!important;border-radius:12px!important;color:#fff!important}
 .ar-pick .arp-k em{background:#2f7d3a!important}.ar-pick .arp-d em{background:#b98426!important}.ar-pick .arp-z em{background:#b8281c!important}
 .ar-pick .arp-n{text-align:center!important;margin:0 0 10px!important;font:900 13px 'Nunito',sans-serif!important}
+/* Görevler penceresi (Bölüm) */
+.ah-gv .gv-tabs{display:flex!important;gap:6px!important;padding:8px 10px 0!important}
+.ah-gv .gv-tabs button{flex:1!important;width:auto!important;height:34px!important;min-height:0!important;padding:0!important;border-radius:6px 6px 0 0!important;background:linear-gradient(180deg,#5a3a1e,#3a2410)!important;border:1px solid #9a6a2a!important;border-bottom:0!important;color:#e8d6b0!important;font:800 13px 'Nunito',sans-serif!important;box-shadow:none!important}
+.ah-gv .gv-tabs button.on{background:linear-gradient(180deg,#f3dd9e,#d9b25e)!important;color:#3a1d04!important}
+.ah-gv .gv-body{padding:10px!important;max-height:calc(100dvh - 210px)!important;overflow:auto!important}
+.ah-gv .gv-ban{position:relative!important;display:grid!important;grid-template-columns:1fr auto!important;gap:3px 8px!important;padding:10px 12px!important;border-radius:8px!important;background:linear-gradient(180deg,#a8281a,#6a140a)!important;border:2px solid #e9bf62!important;box-shadow:0 3px 8px rgba(0,0,0,.5)!important;margin-bottom:10px!important}
+.ah-gv .gv-ban b{grid-column:1/3!important;font:900 17px 'Nunito',sans-serif!important;color:#ffe39a!important;letter-spacing:.5px!important;text-shadow:0 1px 2px #000!important}
+.ah-gv .gv-ban span{grid-column:1/3!important;font:800 13px 'Nunito',sans-serif!important;color:#fbecc8!important}
+.ah-gv .gv-ban u,.ah-gv .gv-r u{display:block!important;width:100%!important;height:8px!important;border-radius:4px!important;background:rgba(0,0,0,.45)!important;overflow:hidden!important;align-self:center!important;text-decoration:none!important}
+.ah-gv .gv-ban u i,.ah-gv .gv-r u i{display:block!important;height:100%!important;background:linear-gradient(180deg,#9fe08a,#3f9a3a)!important;border-radius:4px!important}
+.ah-gv .gv-ban small{font:900 12px 'Nunito',sans-serif!important;color:#fff!important}
+.ah-gv .gv-list{display:flex!important;flex-direction:column!important;gap:7px!important}
+.ah-gv .gv-r{display:flex!important;align-items:center!important;gap:10px!important;padding:6px 8px!important;border-radius:8px!important;background:linear-gradient(180deg,#fbf0d4,#ead5a4)!important;border:1.5px solid #9a6a2a!important}
+.ah-gv .gv-r.main{border-color:#c8341c!important;box-shadow:0 0 0 1px #e9bf62 inset!important}
+.ah-gv .gv-r.ok{opacity:.72!important}
+.ah-gv .gv-im{flex:none!important;width:46px!important;height:46px!important;border-radius:8px!important;background:radial-gradient(circle at 50% 40%,#6a8a4a,#2c3a1c)!important;border:1.5px solid #6b4a1e!important;overflow:hidden!important;display:grid!important;place-items:center!important}
+.ah-gv .gv-im img{width:54px!important;height:54px!important;object-fit:contain!important}
+.ah-gv .gv-t{flex:1!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:5px!important}
+.ah-gv .gv-t b{font:900 14px 'Nunito',sans-serif!important;color:#3a2610!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ah-gv .gv-t b em{font-style:normal!important;color:#b8281c!important}
+.ah-gv .gv-go{flex:none!important;width:auto!important;min-width:58px!important;height:32px!important;min-height:0!important;padding:0 10px!important;border-radius:7px!important;background:linear-gradient(180deg,#5fb0e8,#1f5fa8)!important;border:1.5px solid #0d2f5a!important;color:#fff!important;font:900 13px 'Nunito',sans-serif!important;text-shadow:0 1px 1px #000!important;box-shadow:0 2px 0 #0d2f5a!important}
+.ah-gv .gv-ok{flex:none!important;width:32px!important;height:32px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:#2f7d3a!important;color:#fff!important;font:900 16px sans-serif!important}
+.ah-gv .gv-tm{flex:none!important;font:900 12px 'Nunito',sans-serif!important;color:#1c5a2a!important}
