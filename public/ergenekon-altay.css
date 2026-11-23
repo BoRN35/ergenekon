@@ -417,3 +417,28 @@ html.altay #tp .mgmt-mail-tools .mt>button{flex:1 1 0!important;min-width:0!impo
 html.altay #tp .mgmt-mail-tools .mt>button:last-child{flex:0 0 40px!important}
 html.altay #tp .mgmt-mail-tools{min-height:0!important;padding-bottom:6px!important}
 html.ah-on body #ek-mbar{display:none!important}
+/* Harita hedef kartı (canavar): tek ekran */
+#mapi.ah-mon>.ah-mc~.card{display:none!important}
+#mapi.ah-mon.ah-tak>.ah-mc+.card{display:block!important}
+#mapi.ah-mon .ah-mc{display:grid!important;grid-template-columns:88px 1fr 92px!important;column-gap:10px!important;row-gap:6px!important;align-items:center!important}
+#mapi.ah-mon .ah-mc>*{grid-column:1/-1!important;margin:0!important}
+#mapi.ah-mon:not(.ah-tak) .ah-mc>*:not(.ah-mimg):not(h3):not(.ek-ti):not(.ah-mst):not(.ah-matk):not(.ek-x5):not(.ah-takb){display:none!important}
+#mapi.ah-mon .ah-mc>.ah-mimg{grid-column:1!important;grid-row:1/4!important;width:88px!important;height:88px!important;border-radius:50%!important;overflow:hidden!important;background:radial-gradient(circle,#4a3a26,#1e150c)!important;border:2px solid #c99a45!important;display:grid!important;place-items:center!important}
+#mapi.ah-mon .ah-mc>.ah-mimg img{width:96px!important;height:96px!important;object-fit:contain!important;margin:0!important}
+#mapi.ah-mon .ah-mc>h3{grid-column:2/-1!important;grid-row:1!important;font:900 17px 'Nunito',sans-serif!important}
+#mapi.ah-mon .ah-mc>.ek-ti{grid-column:2/-1!important;grid-row:2!important}
+#mapi.ah-mon .ah-mc>.ah-mst{grid-column:2/-1!important;grid-row:3!important;font:800 13px 'Nunito',sans-serif!important}
+#mapi.ah-mon .ah-mc>.ah-takb{grid-column:1!important;height:46px!important;min-height:0!important;width:auto!important;padding:0 6px!important;border-radius:8px!important;background:linear-gradient(180deg,#5a3a1e,#3a2410)!important;border:1.5px solid #c99a45!important;color:#fbecc8!important;font:800 13px 'Nunito',sans-serif!important}
+#mapi.ah-mon .ah-mc>.ah-matk{grid-column:2!important;height:46px!important;min-height:0!important;width:auto!important;font:900 16px 'Nunito',sans-serif!important}
+#mapi.ah-mon .ah-mc>.ek-x5{grid-column:3!important;height:46px!important;min-height:0!important;width:auto!important}
+#mapi.ah-mon.ah-tak .ah-mc>.ah-mimg,#mapi.ah-mon.ah-tak .ah-mc>p,#mapi.ah-mon.ah-tak .ah-mc>.ex{display:none!important}
+#mapi.ah-mon.ah-tak .ah-mc>h3,#mapi.ah-mon.ah-tak .ah-mc>.ek-ti,#mapi.ah-mon.ah-tak .ah-mc>.ah-mst{grid-column:1/-1!important;grid-row:auto!important}
+#mapi.ah-mon.ah-tak .ah-mc>.ah-mst{display:block!important}
+/* NPC: işlev seçimi obada halka düğmelerle; pencerelerde sekme şeridi ve üst NPC çubuğu yok */
+html.ah-on body #ek-npcbar{display:none!important}
+html.ah-on body.ek-npcbar-on #tu,html.ah-on body.ek-npcbar-on #ta,html.ah-on body.ek-npcbar-on #te,html.ah-on body.ek-npcbar-on #tk,html.ah-on body.ek-npcbar-on #ty{padding-top:0!important}
+html.ah-on body .np-win .np-tabs{display:none!important}
+#ek-ao .ao-npa{flex-wrap:wrap!important;justify-content:center!important;width:290px!important;gap:10px 12px!important}
+#ek-ao .ao-npa i{font-size:24px!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important}
+#ek-ao .ao-acts small{font:800 12px 'Nunito',sans-serif!important;white-space:nowrap!important}
+#ek-ao .ao-npa button{width:62px!important;flex:0 0 62px!important;min-width:0!important}

@@ -325,3 +325,8 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - HUD öğeleri artık .wrap içinde (profil #pop z120 gibi pencereler üstünü örtsün). ek.css `html body .wrap > :not(#tabs){left:0!important}` kuralı yüzünden konumlar `html body .wrap>#ah-x#ah-x` ile verilir.
 - Posta sadeleşti (altay.css): mühür, "📬 Posta" satırı, "Gelen ulaklar" başlığı, boş mektup ayrıntısı ve yinelenen #ek-mbar gizli; sekmeler tek sıra.
 - 23.11: Geçerli ChatGPT istemleri GORSEL-ISTEMLERI.md (düz önden binalar 4 sayfa, 2 simge sayfası, arazi 4, karakter 1). GORSEL-LISTESI.md eski/izometrik.
+- 23.11 (video 106243): Harita yanıp sönmesinin kaynağı: index.html harita render'ı #mapv.innerHTML'e eski SVG'yi yazıyor, city3d.bundle Om() ise #mapv'de tek çocuk görmezse replaceChildren ile tüm katmanları (ek-coord, ek-us, ek-find, ek-lvl…) siliyordu; modüller yeniden ekleyince her ~1,7 sn yanıp sönme. Düzeltme: has-world3d varken SVG yazılmaz; Om yalnız eksikse world-map3d'yi başa ekler ve svg'leri siler.
+- altay-hud.js stopLoops: sonsuz döngülü tüm CSS/JS animasyonları (Infinity) iptal edilir (animationstart + 1,5 sn).
+- Harita canavar kartı tek ekran (#mapi.ah-mon): resim+ad+zorluk+can, Taktik | Saldır | ×5. "Taktik" ayrı görünüm: taktik/öncü ve Alp yetenekleri.
+- NPC'ye dokununca obada ad şeridi + işlev düğmeleri halkası (selectNpc, oba.js); pencerelerde .np-tabs ve #ek-npcbar gizli. Tuğ'da ilk düğme Görevler (W.ekGorevler).
+- Görev şeridi "Hasadı topla" ise artık Odunluk'u açmaz, Tümünü topla çalışır.

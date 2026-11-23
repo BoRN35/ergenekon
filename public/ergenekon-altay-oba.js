@@ -170,7 +170,8 @@
   var SPEC = { bilgelik: ['Araştır', 'book', function () { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }], kisla: ['Eğit', 'swords', function (k) { openB(k, 'detail'); }], ocak: ['Ocak', 'fire', function () { try { W.city3d.hearthGallery.open(); } catch (e) { openB('ocak'); } }] };
   function openB(k, then) { W.BMK = k; W.selB = k; W.tab = 'c'; try { W.render(); } catch (e) {} if (then) setTimeout(function () { var b = D.querySelector('#ek-yapi [data-yk="' + then + '"]'); if (b) b.click(); }, 120); }
   function select(k) {
-    if (!R.sel) { R.sel = D.createElement('div'); R.sel.className = 'ao-sel'; R.world.appendChild(R.sel); R.sel.addEventListener('pointerup', function (e) { e.stopPropagation(); }); R.sel.addEventListener('pointerdown', function (e) { e.stopPropagation(); }); R.sel.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b) return; e.stopPropagation(); var a = b.dataset.act, kk = R.sel.dataset.k; deselect(); if (a === 'up') openB(kk); else if (a === 'info') openB(kk, 'info'); else if (SPEC[kk]) SPEC[kk][2](kk); }); }
+    if (!R.sel) { R.sel = D.createElement('div'); R.sel.className = 'ao-sel'; R.world.appendChild(R.sel); R.sel.addEventListener('pointerup', function (e) { e.stopPropagation(); }); R.sel.addEventListener('pointerdown', function (e) { e.stopPropagation(); }); R.sel.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b) return; e.stopPropagation(); var a = b.dataset.act, kk = R.sel.dataset.k; deselect(); if (a === 'npt') { npcAct(kk, b.dataset.nt); return; } if (a === 'up') openB(kk); else if (a === 'info') openB(kk, 'info'); else if (SPEC[kk]) SPEC[kk][2](kk); }); }
+    if (k === '__npc') { R.sel.hidden = false; R.world.classList.add('sel'); R.world.querySelectorAll('.ao-b.on').forEach(function (x) { x.classList.remove('on'); }); return; }
     var b = SL[k], def = (W.B || {})[k] || {}, L = (S().l && S().l[k]) || 0;
     R.sel.dataset.k = k;
     R.sel.innerHTML = '<div class="ao-ban" style="left:' + b[0] + 'px;top:' + (b[1] - b[2] * .95) + 'px">' + (def.n || k).toLocaleUpperCase('tr') + ' <em>SV. ' + L + '</em></div>' +
@@ -183,6 +184,22 @@
     if (sx < m || sx > w - m) { var tx = w / 2 - b[0] * R.s, x0 = R.x, t0 = performance.now(); (function an(now) { var e = Math.min(1, (now - t0) / 260); R.x = x0 + (tx - x0) * (1 - Math.pow(1 - e, 3)); clamp(); apply(); if (e < 1) requestAnimationFrame(an); })(t0); }
     R.world.querySelectorAll('.ao-b.on').forEach(function (x) { x.classList.remove('on'); }); var im = R.items[k] && R.items[k].im; if (im) im.classList.add('on');
   }
+  /* NPC: ad şeridi + her işlev için yuvarlak düğme; dokununca doğrudan o sayfa */
+  function npcTabs(id) { var N = (W.ergenekonNpc && W.ergenekonNpc.NPCS) || [], n = N.filter(function (x) { return x.id === id; })[0]; return n; }
+  function npcAct(id, nt) { if (nt === 'gorev') { if (W.ekGorevler) W.ekGorevler(); return; } if (W.ekNpcOpen) W.ekNpcOpen(id, +nt); }
+  function selectNpc(id) {
+    var n = npcTabs(id), p = NP[id]; if (!n || !p) { if (W.ekNpcOpen) W.ekNpcOpen(id); return; }
+    if (((S().l && S().l.ocak) || 1) < (n.lv || 1)) { if (W.ekNpcOpen) W.ekNpcOpen(id); return; }
+    select('__npc'); // kabı kur
+    var bt = [];
+    if (id === 'tug') bt.push(['gorev', '📜', 'Görevler']);
+    n.tabs.forEach(function (t, i) { if (id === 'tug' && t.n === 'Günlük') return; bt.push([String(i), t.e, t.n.split(' ')[0]]); });
+    R.sel.dataset.k = id;
+    R.sel.innerHTML = '<div class="ao-ban" style="left:' + p[0] + 'px;top:' + (p[1] - p[2] * .95) + 'px">' + n.n.toLocaleUpperCase('tr') + '</div>' +
+      '<div class="ao-acts ao-npa" style="left:' + p[0] + 'px;top:' + (p[1] + 30) + 'px">' + bt.map(function (x) { return '<button type="button" data-act="npt" data-nt="' + x[0] + '"><i>' + x[1] + '</i><small>' + x[2] + '</small></button>'; }).join('') + '</div>';
+    var w = R.el.clientWidth, h = R.el.clientHeight, tx = w / 2 - p[0] * R.s, ty = h * .38 - p[1] * R.s, x0 = R.x, y0 = R.y, t0 = performance.now();
+    (function an(now) { var e = Math.min(1, (now - t0) / 280), q = 1 - Math.pow(1 - e, 3); R.x = x0 + (tx - x0) * q; R.y = y0 + (ty - y0) * q; clamp(); apply(); if (e < 1) requestAnimationFrame(an); })(t0);
+  }
   function deselect() { if (R.sel) R.sel.hidden = true; if (R.world) { R.world.classList.remove('sel'); R.world.querySelectorAll('.ao-b.on').forEach(function (x) { x.classList.remove('on'); }); } }
   function tap(t) {
     if (!t || !t.closest) return; var b = t.closest('[data-b]'), n = t.closest('[data-npc]');
@@ -190,7 +207,7 @@
     if (t.closest('.ao-sel')) return;
     if (b) { var k = b.dataset.b; if (!(S().l[k] > 0)) { openB(k); return; } if (R.sel && !R.sel.hidden && R.sel.dataset.k === k) { deselect(); openB(k); } else select(k); return; }
     deselect();
-    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (W.ekNpcOpen) W.ekNpcOpen(id); }
+    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (R.sel && !R.sel.hidden && R.sel.dataset.k === id) { deselect(); if (W.ekNpcOpen) W.ekNpcOpen(id); } else selectNpc(id); }
   }
 
   /* ---------- her an güncellenen durum ---------- */

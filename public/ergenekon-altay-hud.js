@@ -71,7 +71,39 @@
     D.body.appendChild(o);
   }
   W.ekGorevler = gorevOpen;
+
+  /* ---------- yanıp sönme yok: oyun genelinde sonsuz döngülü CSS/JS animasyonları durdurulur ---------- */
+  function stopLoops() {
+    try { D.getAnimations().forEach(function (a) { var t = a.effect && a.effect.getTiming && a.effect.getTiming(); if (t && t.iterations === Infinity && a.playState !== 'idle') a.cancel(); }); } catch (e) {}
+  }
+  var slq = 0;
+  D.addEventListener('animationstart', function () { if (slq) return; slq = requestAnimationFrame(function () { slq = 0; stopLoops(); }); }, true);
+  setInterval(stopLoops, 1500);
   var R = {};
+  /* ---------- Haritada hedef (canavar) kartı: tek ekran, taktikler ayrı görünümde ---------- */
+  function monMark() {
+    var m = D.getElementById('mapi'); if (!m) return;
+    var card = null; for (var i = 0; i < m.children.length; i++) { var c = m.children[i]; if (c.classList.contains('card') && c.querySelector('.tt-row')) { card = c; break; } }
+    m.classList.toggle('ah-mon', !!card); m.classList.toggle('ah-tak', !!card && !!R.tak);
+    if (!card) return;
+    if (!card.classList.contains('ah-mc')) card.classList.add('ah-mc');
+    for (var j = 0; j < card.children.length; j++) {
+      var x = card.children[j], t = (x.textContent || '').trim(), k = '';
+      if (j === 0 && x.tagName === 'DIV' && x.querySelector('img')) k = 'ah-mimg';
+      else if (x.tagName === 'P' && /^Can:/.test(t)) k = 'ah-mst';
+      else if (x.tagName === 'BUTTON' && !x.classList.contains('ek-x5') && /Saldır/.test(t)) k = 'ah-matk';
+      if (k && !x.classList.contains(k)) x.classList.add(k);
+    }
+    var tb = card.querySelector(':scope>.ah-takb');
+    if (!tb) { tb = D.createElement('button'); tb.type = 'button'; tb.className = 'ah-takb'; tb.addEventListener('click', function (ev) { ev.stopPropagation(); R.tak = !R.tak; monMark(); }); var at = card.querySelector(':scope>.ah-matk'); card.insertBefore(tb, at || null); }
+    var lbl = R.tak ? '‹ Geri' : '☾ Taktik'; if (tb.textContent !== lbl) tb.textContent = lbl;
+  }
+  function monWatch() {
+    var m = D.getElementById('mapi'); if (!m || m.__ahmo) return; m.__ahmo = 1;
+    new MutationObserver(function () { monMark(); }).observe(m, { childList: true, subtree: true });
+    monMark();
+  }
+
   /* ---------- Ayarlar: yuvarlak simge ızgarası, dokununca tek bölüm ---------- */
   var SI = {
     ses: '<svg viewBox="0 0 48 48"><path d="M10 19h8l10-8v26l-10-8h-8z" fill="#f3e3c0" stroke="#4a3010" stroke-width="2"/><path d="M33 17c3 4 3 10 0 14M37 13c5 6 5 16 0 22" fill="none" stroke="#f3e3c0" stroke-width="3" stroke-linecap="round"/></svg>',
@@ -155,7 +187,7 @@
     var b = ev.target.closest && ev.target.closest('#ah-nav [data-ah],#ah-right [data-ah],#ah-act [data-ah],#ah-left [data-ah]'); 
     if (b) { ev.stopPropagation(); ev.preventDefault(); act(b.dataset.ah); return; }
     if (ev.target.closest && ev.target.closest('#ah-q i')) { ev.stopPropagation(); gorevOpen(); return; }
-    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); var g = D.getElementById('ek-goal'); if (g) g.click(); return; }
+    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); var g0 = D.getElementById('ek-goal'); if (g0 && /topla/i.test(g0.textContent)) { act('topla'); return; } var g = D.getElementById('ek-goal'); if (g) g.click(); return; }
     if (ev.target.closest && ev.target.closest('#ah-chat')) { ev.stopPropagation(); var c = D.querySelector('#tabs>button[title="Sohbet"]') || D.querySelector('#cp [data-ct="x"]'); if (c) c.click(); }
   }
   function bd(e, n) { var b = e && e.querySelector('.ah-bd'); if (!b) return; var t = n ? String(n) : ''; b.hidden = !t; if (b.textContent !== t) b.textContent = t; }
@@ -171,6 +203,7 @@
     bd(R.nav.querySelector('[data-ah="boy"]'), (s.al && s.al.hq) || '');
     // obaya özel parçalar
     [R.strip, R.left, R.right, R.act, R.pw].forEach(function (x) { x.hidden = !(tab === 'c'); });
+    if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     if (tab !== 'c') return;
     // görev şeridi
