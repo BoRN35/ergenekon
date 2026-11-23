@@ -119,7 +119,7 @@
     R.act = el('div', 'ah-act', '', '<button type="button" data-ah="yardim"><i>' + I.yardim + '</i><b>Yardım et</b><em class="ah-bd" hidden></em></button><button type="button" data-ah="topla"><i>' + I.topla + '</i><b>Tümünü topla</b></button>');
     R.pw = el('div', 'ah-pw', '', '<span class="ah-pwv"><i>' + I.guc + '</i><b></b></span><span class="ah-er"></span>');
     R.toast = el('div', 'ah-toast'); R.toast.hidden = true;
-    [R.nav, R.strip, R.left, R.right, R.act, R.pw, R.toast].forEach(function (x) { D.body.appendChild(x); });
+    var host = D.querySelector('.wrap') || D.body; [R.nav, R.strip, R.left, R.right, R.act, R.pw].forEach(function (x) { host.appendChild(x); }); D.body.appendChild(R.toast);
     D.body.addEventListener('click', onClick, true);
     return true;
   }

@@ -397,3 +397,16 @@ html.ah-on body .wrap>.ovp,html.ah-on body #win{padding-bottom:calc(64px + env(s
 #tg .ah-setg .asg-head{height:44px!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0 0 8px!important;border-radius:8px!important;background:linear-gradient(180deg,#a8281a,#6a140a)!important;border:2px solid #e9bf62!important;color:#ffe9b8!important;font:900 17px 'Nunito',sans-serif!important;letter-spacing:1.5px!important;text-transform:uppercase!important;text-shadow:0 1px 2px #000!important}
 #tg .ah-setg{padding:6px 8px 4px 52px!important}
 #tg .ah-setg .asg-grid{margin-left:-44px!important}
+/* .wrap içinde: dört kenar açıkça (ek.css: html body .wrap > :not(#tabs){left:0!important}) */
+html body .wrap>#ah-right#ah-right{left:auto!important;bottom:auto!important}
+html body .wrap>#ah-act#ah-act{left:auto!important;top:auto!important}
+html body .wrap>#ah-left#ah-left{left:6px!important;right:auto!important;bottom:auto!important}
+html body .wrap>#ah-pw#ah-pw{left:54px!important;right:auto!important;bottom:auto!important}
+html body .wrap>#ah-strip#ah-strip{left:6px!important;top:auto!important}
+html body .wrap>#ah-nav#ah-nav{left:0!important;top:auto!important}
+@media (min-width:700px){
+  html body .wrap>#ah-nav#ah-nav{left:50%!important}
+  html body .wrap>#ah-strip#ah-strip{left:calc(50% - 300px)!important;right:auto!important}
+  html body .wrap>#ah-left#ah-left{left:14px!important}
+  html body .wrap>#ah-pw#ah-pw{left:14px!important}
+}
