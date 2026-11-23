@@ -248,3 +248,18 @@ html body:has(#pop:not([style*="none"])) #ek-hand,html body:has(.ek-ov) #ek-hand
  html.tas.altay body:has(#tc:not([style*="none"])) #ek-rally small{display:none!important}
  html.tas.altay body:has(#tc:not([style*="none"])) #ek-hand#ek-hand{top:calc(env(safe-area-inset-top) + 330px)!important;bottom:auto!important;right:8px!important}
 }
+/* ===== KoA şehir: seçim şeridi ve işlem düğmeleri, etiket oku ===== */
+#ek-ao{cursor:default}
+#ek-ao .ao-n .ao-ar{display:grid;place-items:center;width:16px;height:16px;margin-left:3px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#8ef08a,#2c9a34);color:#fff;font-style:normal}
+#ek-ao .ao-n .ao-ar svg{width:11px!important;height:11px!important}
+#ek-ao .ao-b.on{filter:drop-shadow(0 0 14px #ffe9a8) brightness(1.08)!important}
+#ek-ao .ao-sel[hidden]{display:none}
+#ek-ao .ao-ban,#ek-ao .ao-acts{position:absolute;transform:translate(-50%,0) scale(calc(.8 / var(--s,.6)));transform-origin:50% 0;z-index:9000;pointer-events:auto}
+#ek-ao .ao-ban{padding:4px 18px;border-radius:6px;background:linear-gradient(180deg,rgba(28,22,18,.92),rgba(14,10,8,.92));border:1px solid #6b5537;color:#fff;font:700 14px Georgia,serif;letter-spacing:.06em;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,.5)}
+#ek-ao .ao-ban em{font-style:normal;color:#ffd77a}
+#ek-ao .ao-acts{display:flex;align-items:flex-start;gap:14px}
+#ek-ao .ao-acts button{display:flex;flex-direction:column;align-items:center;gap:2px;background:none!important;border:0!important;padding:0!important;min-height:0!important;box-shadow:none!important;cursor:pointer}
+#ek-ao .ao-acts i{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:radial-gradient(circle at 40% 35%,#3a4a7a,#141c38);border:3px solid #d9a441;color:#fff;box-shadow:0 0 0 2px #2a1606,0 4px 8px rgba(0,0,0,.55)}
+#ek-ao .ao-acts .big i{width:60px;height:60px;margin-top:-6px}
+#ek-ao .ao-acts small{font:700 12px Georgia,serif;color:#fff;text-shadow:0 1px 2px #000,0 0 4px #000}
+#ek-ao .ao-acts svg{width:24px!important;height:24px!important}
