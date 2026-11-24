@@ -112,7 +112,7 @@
     R.uq.hidden = force === false ? true : !R.uq.hidden;
     if (!R.uq.hidden) uqFill();
   }
-  function uqFill() { if (!R.uq || R.uq.hidden) return; var b = D.querySelector('#ah-left [data-ah="job:usta"]'); if (b) { var r = b.getBoundingClientRect(); R.uq.style.setProperty('top', r.top + 'px', 'important'); R.uq.style.setProperty('left', (r.right + 8) + 'px', 'important'); R.uq.style.setProperty('right', 'auto', 'important'); } var h = uqHtml(); if (R.uq.__ah !== h) { R.uq.__ah = h; R.uq.innerHTML = h; } }
+  function uqFill() { if (!R.uq || R.uq.hidden) return; var b = D.querySelector('#ah-left [data-ah="job:usta"]'); if (b) { var r = b.getBoundingClientRect(); R.uq.style.setProperty('top', r.top + 'px', 'important'); var uw = R.uq.offsetWidth || 300; R.uq.style.setProperty('left', Math.max(4, Math.min(r.right + 8, W.innerWidth - uw - 14)) + 'px', 'important'); R.uq.style.setProperty('right', 'auto', 'important'); } var h = uqHtml(); if (R.uq.__ah !== h) { R.uq.__ah = h; R.uq.innerHTML = h; } }
   D.addEventListener('pointerdown', function (ev) { if (R.uq && !R.uq.hidden && !ev.target.closest('#ah-uq,#ah-left')) R.uq.hidden = true; }, true);
 
   /* ---------- Başarımlar: Alp profili Genel'den ---------- */

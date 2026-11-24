@@ -660,3 +660,12 @@ html.ah-on .ovp>.game-page-header .ek-why,html.ah-on .ovp>.game-page-header .ek-
 html.ah-on #tr .research-branches{padding-left:8px!important;padding-right:54px!important}
 html.ah-on #tr .research-branches{width:calc(100% - 50px)!important;margin-right:50px!important;padding-right:0!important;box-sizing:border-box!important}
 html.ah-on #tg .ah-setg .asg-head{margin-right:46px!important}
+/* profil: yalnız portre, sarı zemin; halka/rozet yok */
+html.ah-on body #tabs>#pfb#pfb{background:#e8c66a!important;box-shadow:none!important;padding:0!important;width:46px!important;height:46px!important;overflow:hidden!important;cursor:pointer!important}
+html.ah-on body #tabs>#pfb#pfb img{width:46px!important;height:46px!important;background:none!important}
+html.ah-on body #tabs>#pfb#pfb>span{display:none!important}
+/* usta sırası: boş yuvalar görünür */
+#ah-uq .uqf.slot,#ah-uq .uqf.free{background:rgba(255,226,160,.06)!important;border:1.5px dashed rgba(233,191,98,.75)!important;opacity:1!important}
+html.ah-on body #tabs>#pfb#pfb>span:not(.ah-x),html.ah-on body #tabs>#pfb#pfb>span.kut-ring{display:none!important}
+html.ah-on.ah-oba body #wx#wx,html.ah-on.ah-map body #wx#wx{display:none!important}
+html.ah-on body #tabs>#pfb#pfb{min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important;aspect-ratio:1/1!important;flex:none!important;box-sizing:border-box!important}html.ah-on body #tabs>#pfb#pfb img{min-width:46px!important;max-width:46px!important;max-height:46px!important}

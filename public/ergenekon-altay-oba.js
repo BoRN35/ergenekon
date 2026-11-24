@@ -192,8 +192,7 @@
     if (((S().l && S().l.ocak) || 1) < (n.lv || 1)) { if (W.ekNpcOpen) W.ekNpcOpen(id); return; }
     select('__npc'); // kabı kur
     var bt = [];
-    if (id === 'tug') bt.push(['gorev', '📜', 'Görevler']);
-    n.tabs.forEach(function (t, i) { if (id === 'tug' && t.n === 'Günlük') return; bt.push([String(i), t.e, t.n.split(' ')[0]]); });
+    n.tabs.forEach(function (t, i) { if (id === 'tug' && /^(Günlük|Açılış|Emek|Şan)/.test(t.n)) return; bt.push([String(i), t.e, t.n.split(' ')[0]]); });
     R.sel.dataset.k = id;
     R.sel.innerHTML = '<div class="ao-ban" style="left:' + p[0] + 'px;top:' + (p[1] - p[2] * .95) + 'px">' + n.n.toLocaleUpperCase('tr') + '</div>' +
       '<div class="ao-acts ao-npa" style="left:' + p[0] + 'px;top:' + (p[1] + 30) + 'px">' + bt.map(function (x) { return '<button type="button" data-act="npt" data-nt="' + x[0] + '"><i>' + x[1] + '</i><small>' + x[2] + '</small></button>'; }).join('') + '</div>';
