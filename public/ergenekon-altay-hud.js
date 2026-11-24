@@ -86,6 +86,38 @@
   D.addEventListener('animationstart', function () { if (slq) return; slq = requestAnimationFrame(function () { slq = 0; stopLoops(); }); }, true);
   setInterval(stopLoops, 1500);
   var R = {};
+  /* ---------- Akın Tuğu: savaş etkinlikleri tek pencerede (Nevruz akını · Destan canavarı · Dünya canavarı) ---------- */
+  function akRows() {
+    var s = S(), now = Date.now(), out = [];
+    try { var n = s.nv || {}, wait = 1728e5 - (now - (n.last || 0)), run = n.run > 0, done = wait > 0 && !run;
+      out.push({ k: 'nv', e: '🔥', n: 'Nevruz · Simurg', p: null, st: run ? 'Akında · ' + ft(n.run) : done ? 'Sonraki ' + ft(wait / 1000) : 'Hazır', sub: '⚔ ' + nf(n.total || 0) + ' bu hafta', ok: !run && !done, bt: run ? 'Akında' : done ? 'Bekle' : 'Akına çık' }); } catch (e) {}
+    try { var d = W.ekDestan(), x = W.ekDestanName(), cd = d.cd > now, en = s.en ? s.en.v : 0;
+      out.push({ k: 'db', e: x.e, n: x.n, p: d.hp / d.max, st: d.hp <= 0 ? 'Yenildi' : cd ? ft((d.cd - now) / 1000) : en < 30 ? '⚡ 30 gerekli' : 'Hazır', sub: '⚔ ' + nf(d.dmg), ok: d.hp > 0 && !cd && en >= 30, bt: d.hp <= 0 ? 'Bitti' : 'Saldır ⚡30' }); } catch (e) {}
+    try { var b = s.wb; if (b && b.max) out.push({ k: b.hp > 0 ? 'wb' : 'wc', e: '🐲', n: b.n, p: b.hp / b.max, st: b.hp <= 0 ? (b.cl ? 'Ganimet alındı' : 'Yenildi') : b.cd > 0 ? ft(b.cd) : 'Hazır', sub: '⚔ ' + nf(b.dmg), ok: b.hp > 0 ? !(b.cd > 0) : !b.cl && b.dmg > 0, bt: b.hp > 0 ? 'Saldır' : b.cl ? 'Alındı' : 'Ganimet' }); } catch (e) {}
+    return out;
+  }
+  function akHtml() {
+    return '<div class="ak-l">' + akRows().map(function (r) {
+      return '<div class="ak-r' + (r.ok ? ' on' : '') + '"><span class="ak-i">' + r.e + '</span><span class="ak-t"><b>' + r.n + '</b>' + (r.p != null ? '<u><i style="width:' + Math.max(0, Math.round(r.p * 100)) + '%"></i></u>' : '') + '<small><em>' + r.st + '</em> · ' + r.sub + '</small></span><button type="button" data-ak="' + r.k + '"' + (r.ok ? '' : ' disabled') + '>' + r.bt + '</button></div>';
+    }).join('') + '</div><button type="button" class="ak-dmg" data-ak="dmg">🩸 Hasar tablosu</button>';
+  }
+  function akOpen() {
+    closeOv();
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-ak';
+    o.innerHTML = '<div class="yk-card"><div class="yk-head"><h2>Akın Tuğu</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="np-body"></div></div>';
+    var body = o.querySelector('.np-body'), fill = function () { var h = akHtml(); if (body.__ah !== h) { body.__ah = h; body.innerHTML = h; } };
+    fill(); var iv = setInterval(function () { if (!o.isConnected) { clearInterval(iv); return; } fill(); }, 1000);
+    o.addEventListener('click', function (ev) {
+      if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; }
+      var b = ev.target.closest('[data-ak]'); if (!b || b.disabled) return; var k = b.dataset.ak;
+      if (k === 'dmg') { o.remove(); if (W.ekDmgTable) W.ekDmgTable(); return; }
+      try { if (k === 'nv') W.nvStart(); else if (k === 'db') { o.remove(); W.ekHitDestan(); return; } else if (k === 'wb') W.wbHit(); else if (k === 'wc') W.wbClaim(); } catch (e) {}
+      try { W.save(); } catch (e) {} rer(); body.__ah = ''; fill();
+    });
+    D.body.appendChild(o);
+  }
+  W.ekAkinTugu = akOpen;
+
   /* ---------- Usta sırası: çekice dokununca sağa açılan şerit (sürenler + sıradakiler) ---------- */
   function uqHtml() {
     var s = S(), B = W.B || {}, act = [], n = 1, q = (s.ek && s.ek.uq) || [];

@@ -669,3 +669,18 @@ html.ah-on body #tabs>#pfb#pfb>span{display:none!important}
 html.ah-on body #tabs>#pfb#pfb>span:not(.ah-x),html.ah-on body #tabs>#pfb#pfb>span.kut-ring{display:none!important}
 html.ah-on.ah-oba body #wx#wx,html.ah-on.ah-map body #wx#wx{display:none!important}
 html.ah-on body #tabs>#pfb#pfb{min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important;aspect-ratio:1/1!important;flex:none!important;box-sizing:border-box!important}html.ah-on body #tabs>#pfb#pfb img{min-width:46px!important;max-width:46px!important;max-height:46px!important}
+/* Akın Tuğu */
+.ah-ak .np-body{padding:10px!important}
+.ah-ak .ak-l{display:flex!important;flex-direction:column!important;gap:8px!important}
+.ah-ak .ak-r{display:flex!important;align-items:center!important;gap:10px!important;padding:8px 10px!important;border-radius:10px!important;background:rgba(0,0,0,.25)!important;border:1.5px solid rgba(201,154,69,.45)!important}
+.ah-ak .ak-r.on{border-color:#e9bf62!important;background:linear-gradient(180deg,rgba(168,40,26,.35),rgba(60,14,8,.35))!important}
+.ah-ak .ak-i{flex:none!important;width:46px!important;height:46px!important;border-radius:50%!important;display:grid!important;place-items:center!important;font-size:26px!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important;border:2px solid #c99a45!important}
+.ah-ak .ak-t{flex:1!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:4px!important}
+.ah-ak .ak-t b{font:900 14px 'Nunito',sans-serif!important;color:#fbecc8!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ah-ak .ak-t u{display:block!important;height:6px!important;border-radius:3px!important;background:rgba(0,0,0,.5)!important;overflow:hidden!important;text-decoration:none!important}
+.ah-ak .ak-t u i{display:block!important;height:100%!important;background:linear-gradient(90deg,#a8322a,#e0663a)!important}
+.ah-ak .ak-t small{font:700 11.5px 'Nunito',sans-serif!important;color:#d9c49a!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ah-ak .ak-t small em{font-style:normal!important;color:#9fe08a!important;font-weight:900!important}
+.ah-ak .ak-r button{flex:none!important;width:auto!important;min-width:84px!important;height:36px!important;min-height:0!important;padding:0 10px!important;margin:0!important;border-radius:8px!important;background:linear-gradient(180deg,#f3d27a,#b98426)!important;border:1.5px solid #5a3a10!important;color:#3a1d04!important;font:900 12.5px 'Nunito',sans-serif!important;box-shadow:none!important}
+.ah-ak .ak-r button:disabled{background:linear-gradient(180deg,#5a4a3a,#3a2e22)!important;color:#bba98a!important;border-color:#2a2018!important}
+.ah-ak .ak-dmg{width:100%!important;height:38px!important;min-height:0!important;margin:10px 0 0!important;border-radius:8px!important;font:800 13px 'Nunito',sans-serif!important}

@@ -27,7 +27,7 @@
   // NPC yerleri: [x, y, genişlik, görsel, ad, simge]
   var NP = {
     kurultay: [320, 1280, 380, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1390, 1280, 320, 'dekor_cadir', 'Boy Meclisi', 'fire'],
-    tug: [600, 1790, 200, 'dekor_bayrak_kirmizi', 'Tuğ', 'flag'],
+    tug: [600, 1790, 200, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'],
     sefer: [330, 5060, 300, 'kafile', 'Sefer', 'compass'], arena: [850, 5080, 200, 'npc_alper', 'Arena', 'swords'], agil: [1370, 5060, 250, 'npc_atli', 'Ağıl', 'horse']
   };
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }
@@ -206,7 +206,7 @@
     if (t.closest('.ao-sel')) return;
     if (b) { var k = b.dataset.b; if (!(S().l[k] > 0)) { openB(k); return; } if (R.sel && !R.sel.hidden && R.sel.dataset.k === k) { deselect(); openB(k); } else select(k); return; }
     deselect();
-    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (R.sel && !R.sel.hidden && R.sel.dataset.k === id) { deselect(); if (W.ekNpcOpen) W.ekNpcOpen(id); } else selectNpc(id); }
+    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (id === 'tug' && W.ekAkinTugu) W.ekAkinTugu(); else if (R.sel && !R.sel.hidden && R.sel.dataset.k === id) { deselect(); if (W.ekNpcOpen) W.ekNpcOpen(id); } else selectNpc(id); }
   }
 
   /* ---------- her an güncellenen durum ---------- */
