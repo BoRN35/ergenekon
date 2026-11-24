@@ -648,3 +648,15 @@ html body .wrap>#ah-left#ah-left{top:calc(env(safe-area-inset-top) + 76px)!impor
 html.ah-on #ek-kh .kh-det>.kh-quote .kh-qt{margin:0!important;font:700 italic 13px/1.4 'Nunito',sans-serif!important;color:#f3e3c0!important;display:block!important}
 html.ah-on:not(.ah-oba):not(.ah-map) body #tabs>#pfb#pfb{display:none!important}
 html.ah-on body #tabs>#pfb#pfb>span:not(.kut-ring){bottom:0!important}
+/* 24.11: sayfa kapatma düğmesi sağ üstte, başlığın içinde, çerçeveli; anlamsız süs elmasları yok */
+html.ah-on body #wx#wx{left:auto!important;right:10px!important;top:calc(env(safe-area-inset-top) + 13px)!important;bottom:auto!important;width:38px!important;height:38px!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;border-radius:9px!important;background:linear-gradient(180deg,#5a1a10,#2c0c06)!important;border:2px solid #e2b55a!important;box-shadow:0 0 0 2px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,226,160,.25),0 3px 6px rgba(0,0,0,.5)!important;color:#ffe9b8!important;font:900 18px/1 'Nunito',sans-serif!important;display:grid!important;place-items:center!important;z-index:70!important;transform:none!important}
+html.ah-on body #wx#wx svg{width:18px!important;height:18px!important}
+html.ah-on .ovp>.game-page-header{padding-right:56px!important}
+html.ah-on .ovp>.game-page-header .game-page-heading h2{padding-left:0!important}
+html body .management-workspace:before,html body .management-workspace:after,html body .roster-rail:after,html body .city-context-header::before,html body .city-context-header::after{content:none!important;display:none!important}
+html body .roster-workspace:after,html body .roster-stage-caption:after,html body .tf:before{content:none!important;display:none!important}
+html.ah-on .ovp .game-section-title::after,html.ah-on .ovp .game-section-title::before,html.ah-on .ovp .mgmt-room-heading::after{content:none!important;display:none!important}
+html.ah-on .ovp>.game-page-header .ek-why,html.ah-on .ovp>.game-page-header .ek-seal{display:none!important}
+html.ah-on #tr .research-branches{padding-left:8px!important;padding-right:54px!important}
+html.ah-on #tr .research-branches{width:calc(100% - 50px)!important;margin-right:50px!important;padding-right:0!important;box-sizing:border-box!important}
+html.ah-on #tg .ah-setg .asg-head{margin-right:46px!important}
