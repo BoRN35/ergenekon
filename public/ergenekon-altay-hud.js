@@ -80,6 +80,60 @@
   D.addEventListener('animationstart', function () { if (slq) return; slq = requestAnimationFrame(function () { slq = 0; stopLoops(); }); }, true);
   setInterval(stopLoops, 1500);
   var R = {};
+  /* ---------- Alp profili: sekmeye göre sade görünüm ---------- */
+  function profTidy() {
+    var pop = D.getElementById('pop'); if (!pop || pop.style.display === 'none') return;
+    var pb = pop.querySelector('.pb'); if (!pb || !pb.querySelector(':scope>.ptb')) { if (pb) pb.classList.remove('ah-pf'); return; }
+    var on = pb.querySelector(':scope>.ptb button.on'), k = on ? on.dataset.ptb : 'gen';
+    pb.classList.add('ah-pf'); ['gen', 'esy', 'gel', 'yol', 'paz'].forEach(function (x) { pb.classList.toggle('ah-pf-' + x, x === k); });
+    pb.classList.toggle('ah-pf-oth', k !== 'gen' && k !== 'esy');
+    var hs = pb.querySelectorAll(':scope>h4'); hs.forEach(function (h) { var t = h.textContent; var v = /Vitrin|Son savaş/.test(t); h.classList.toggle('ah-pfx', v && k === 'gen'); var n = h.nextElementSibling; if (n) n.classList.toggle('ah-pfx', v && k === 'gen'); });
+  }
+
+  /* ---------- Sayfa bölücü: uzun sayfaların ana blokları sekmelere ayrılır, kaydırma yerine sekme ---------- */
+  var PGL = { 'ek-army': 'Ordu', 'ek-ed': 'Emek', 'ek-oc': 'Akıncı', 'ek-kh': 'Kahramanlar', 'ek-em': 'Emek' };
+  var PGC = [['roster-workspace--army', 'Kuşatma'], ['management-workspace--e', 'Takvim'], ['management-workspace--y', 'Arena'], ['management-workspace--a', 'Boy'], ['roster-workspace', 'Liste']];
+  R.pg = {};
+  function pgLabel(b, i) {
+    if (b.id && PGL[b.id]) return PGL[b.id];
+    for (var j = 0; j < PGC.length; j++) if (b.classList.contains(PGC[j][0])) return PGC[j][1];
+    var h = b.querySelector('h2,h3,h4,b'); var t = h ? h.textContent.replace(/[^\wçğıöşüÇĞİÖŞÜ ]/g, '').trim().split(' ').slice(0, 2).join(' ') : '';
+    return t || ('Bölüm ' + (i + 1));
+  }
+  function pager() {
+    var t = W.tab; if (t === 'c' || t === 'm' || t === 'g' || t === 'r' || t === 'p') return;
+    var P = D.getElementById('t' + t); if (!P || !P.offsetHeight) return;
+    if (PGV[t]) { vpager(t, P); return; }
+    var bl = [].filter.call(P.children, function (x) { return /^(DIV|SECTION|ASIDE|ARTICLE)$/.test(x.tagName) && !x.matches('.reference-frame-corners,.ek-ver,#ah-pg') && (x.offsetHeight || x.classList.contains('ah-pgb')) && !x.hidden; });
+    var bar = P.querySelector(':scope>#ah-pg');
+    if (bl.length < 2) { if (bar) bar.remove(); P.classList.remove('ah-pgon'); bl.forEach(function (x) { x.classList.remove('ah-pgb', 'ah-pgsel'); }); return; }
+    var sel = Math.min(R.pg[t] || 0, bl.length - 1);
+    var labels = bl.map(pgLabel), key = labels.join('|') + ':' + sel;
+    if (!bar) { bar = D.createElement('div'); bar.id = 'ah-pg'; bar.addEventListener('click', function (ev) { var b = ev.target.closest('[data-pg]'); if (!b) return; R.pg[W.tab] = +b.dataset.pg; bar.__k = ''; pager(); try { P.scrollTop = 0; } catch (e) {} }); }
+    var hd = P.querySelector(':scope>header'); if (bar.parentNode !== P || bar.previousElementSibling !== hd) P.insertBefore(bar, hd ? hd.nextSibling : P.firstChild);
+    if (bar.__k !== key) { bar.__k = key; bar.innerHTML = labels.map(function (l, i) { return '<button type="button" data-pg="' + i + '" class="' + (i === sel ? 'on' : '') + '">' + l + '</button>'; }).join(''); }
+    P.classList.add('ah-pgon');
+    bl.forEach(function (x, i) { x.classList.add('ah-pgb'); x.classList.toggle('ah-pgsel', i === sel); });
+  }
+
+  /* sayfa içinden seçilmiş bölümlerle sekmeler (iç içe yapılarda) */
+  var PGV = { a: [['Boy', '#ek-oc'], ['Fetih', '.mgmt-council-hall'], ['Dayanışma', '.mgmt-council-support'], ['Yapılar', '#management-a-buildings'], ['Sohbet', '.mgmt-chat-fold']] };
+  function vpager(t, P) {
+    var L = PGV[t].map(function (x) { return [x[0], P.querySelector(x[1])]; }).filter(function (x) { return x[1]; });
+    var sel = Math.min(R.pg[t] || 0, L.length - 1);
+    var bar = P.querySelector(':scope>#ah-pg');
+    if (!bar) { bar = D.createElement('div'); bar.id = 'ah-pg'; bar.addEventListener('click', function (ev) { var b = ev.target.closest('[data-pg]'); if (!b) return; R.pg[W.tab] = +b.dataset.pg; bar.__k = ''; pager(); try { P.scrollTop = 0; } catch (e) {} }); }
+    var hd = P.querySelector(':scope>header'); if (bar.parentNode !== P || bar.previousElementSibling !== hd) P.insertBefore(bar, hd ? hd.nextSibling : P.firstChild);
+    var key = L.map(function (x) { return x[0]; }).join('|') + ':' + sel;
+    if (bar.__k !== key) { bar.__k = key; bar.innerHTML = L.map(function (x, i) { return '<button type="button" data-pg="' + i + '" class="' + (i === sel ? 'on' : '') + '">' + x[0] + '</button>'; }).join(''); }
+    P.classList.add('ah-pv');
+    L.forEach(function (x, i) { var on = i === sel; x[1].classList.toggle('ah-pv-on', on); x[1].classList.toggle('ah-pv-off', !on); if (on && x[1].tagName === 'DETAILS' && !x[1].open) x[1].open = true; });
+  }
+  function pgWatch() {
+    var t = W.tab, P = D.getElementById('t' + t); if (!P || P.__ahpg) return; P.__ahpg = 1;
+    new MutationObserver(function () { if (W.tab === t) pager(); }).observe(P, { childList: true, subtree: !!PGV[t] });
+  }
+
   /* ---------- Haritada hedef (canavar) kartı: tek ekran, taktikler ayrı görünümde ---------- */
   function monMark() {
     var m = D.getElementById('mapi'); if (!m) return;
@@ -90,7 +144,8 @@
     for (var j = 0; j < card.children.length; j++) {
       var x = card.children[j], t = (x.textContent || '').trim(), k = '';
       if (j === 0 && x.tagName === 'DIV' && x.querySelector('img')) k = 'ah-mimg';
-      else if (x.tagName === 'P' && /^Can:/.test(t)) k = 'ah-mst';
+      else if (x.tagName === 'P' && /^Can:/.test(t)) { k = 'ah-mst'; var mm = t.match(/Can:\s*([\d.,BKM]+)\s*·\s*Saldırı:\s*([\d.,BKM]+)(?:\s*·\s*XP:\s*([\d.,BKM]+))?/); if (mm) { var nh = '<span>❤️ ' + mm[1] + '</span><span>⚔️ ' + mm[2] + '</span>' + (mm[3] ? '<span>✨ ' + mm[3] + '</span>' : ''); if (x.innerHTML !== nh) x.innerHTML = nh; } }
+      else if (x.tagName === 'P' && x.classList.contains('ah-mst')) k = 'ah-mst';
       else if (x.tagName === 'BUTTON' && !x.classList.contains('ek-x5') && /Saldır/.test(t)) k = 'ah-matk';
       if (k && !x.classList.contains(k)) x.classList.add(k);
     }
@@ -204,6 +259,8 @@
     // obaya özel parçalar
     [R.strip, R.left, R.right, R.act, R.pw].forEach(function (x) { x.hidden = !(tab === 'c'); });
     if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
+    if (tab !== 'c' && tab !== 'm') { pgWatch(); pager(); }
+    profTidy();
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     if (tab !== 'c') return;
     // görev şeridi

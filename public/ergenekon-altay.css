@@ -442,3 +442,152 @@ html.ah-on body .np-win .np-tabs{display:none!important}
 #ek-ao .ao-npa i{font-size:24px!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important}
 #ek-ao .ao-acts small{font:800 12px 'Nunito',sans-serif!important;white-space:nowrap!important}
 #ek-ao .ao-npa button{width:62px!important;flex:0 0 62px!important;min-width:0!important}
+/* Sayfa bölücü (#ah-pg) ve sadeleştirme */
+.ovp.ah-pgon>.ah-pgb:not(.ah-pgsel){display:none!important}
+.ovp>#ah-pg{display:flex!important;gap:6px!important;padding:6px 8px!important;margin:0!important;position:sticky!important;top:0!important;z-index:5!important;background:linear-gradient(180deg,#2a1a0c,#1c1208)!important;border-bottom:1px solid #6b4a1e!important;overflow-x:auto!important;scrollbar-width:none!important;grid-column:1/-1!important}
+.ovp>#ah-pg button{flex:1 0 auto!important;width:auto!important;height:34px!important;min-height:0!important;padding:0 12px!important;margin:0!important;border-radius:17px!important;background:linear-gradient(180deg,#5a3a1e,#3a2410)!important;border:1.5px solid #9a6a2a!important;color:#e8d6b0!important;font:800 13px 'Nunito',sans-serif!important;box-shadow:none!important;white-space:nowrap!important}
+.ovp>#ah-pg button.on{background:linear-gradient(180deg,#f3dd9e,#d9b25e)!important;color:#3a1d04!important;border-color:#fff3c4!important}
+html.ah-on .ovp .reference-frame-corners,html.ah-on .ovp .mgmt-alliance-crest,html.ah-on .ovp .mgmt-room-heading small,html.ah-on .ovp .game-page-kicker{display:none!important}
+html.ah-on .ovp .roster-army-art{max-height:110px!important;height:110px!important}
+html.ah-on .ovp .roster-army-art img{height:110px!important;width:auto!important;object-fit:contain!important}
+html.ah-on .ovp>.ek-back{display:none!important}
+/* Kahramanlar (tab u): üstte yatay şerit, altta sıkı ayrıntı */
+html.ah-on #ek-kh .kh-wrap{display:flex!important;flex-direction:column!important;gap:8px!important;height:auto!important;min-height:0!important}
+html.ah-on #ek-kh #kh-links{display:none!important}
+html.ah-on #ek-kh .kh-grid{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;gap:6px!important;height:auto!important;padding:4px 6px!important;scrollbar-width:none!important;grid-template-columns:none!important;order:0!important}
+html.ah-on #ek-kh .kh-grid .kh-t{flex:0 0 76px!important;width:76px!important;height:96px!important;min-height:0!important;padding:2px!important;position:relative!important;left:auto!important;top:auto!important;transform:none!important;margin:0!important}
+html.ah-on #ek-kh .kh-grid .kh-t img{width:62px!important;height:62px!important;object-fit:cover!important}
+html.ah-on #ek-kh .kh-grid .kh-t *{font-size:9px!important}
+html.ah-on #ek-kh .kh-det{display:grid!important;grid-template-columns:128px 1fr!important;column-gap:10px!important;row-gap:6px!important;align-items:center!important;justify-items:start!important;padding:8px 10px!important;height:auto!important;order:1!important}
+html.ah-on #ek-kh .kh-det>*{grid-column:2!important;margin:0!important}
+html.ah-on #ek-kh .kh-det>.kh-big{grid-column:1!important;grid-row:1/6!important;width:124px!important;height:124px!important}
+html.ah-on #ek-kh .kh-det>.kh-big img{width:124px!important;height:124px!important}
+html.ah-on #ek-kh .kh-det>.kh-card,html.ah-on #ek-kh .kh-det>.kh-up,html.ah-on #ek-kh .kh-det>button{grid-column:1/-1!important;justify-self:stretch!important}
+html.ah-on #ek-kh .kh-det h3{font-size:18px!important}
+/* Boy (tab a) bölüm sekmeleri */
+.ovp.ah-pv .ah-pv-off{display:none!important}
+.ovp.ah-pv .mgmt-pane[hidden]:has(.ah-pv-on),.ovp.ah-pv .mgmt-pane.ah-pv-on{display:block!important}
+.ovp.ah-pv .mgmt-pane:not(:has(.ah-pv-on)):not(.ah-pv-on){display:none!important}
+#ta.ah-pv .mgmt-navigation,#ta.ah-pv .mgmt-room-heading,#ta.ah-pv .mgmt-chat-fold>summary{display:none!important}
+#ta.ah-pv .mgmt-council-grid{display:block!important}
+#management-a-buildings .card,#management-a-buildings .card .card{padding:6px 8px!important;margin:0 0 6px!important;min-height:0!important}
+#management-a-buildings button{height:34px!important;min-height:0!important;margin:4px 0 0!important}
+/* Sefer Otağı / roster: süs başlığı ve büyük resim yok, seçimler küçük */
+html.ah-on .ovp .roster-stage-caption,html.ah-on .ovp .roster-army-art,html.ah-on .ovp .roster-rail .roster-section-icon{display:none!important}
+html.ah-on .ovp .roster-rail .roster-section-choice{height:38px!important;min-height:0!important;padding:0 10px!important}
+html.ah-on .ovp .roster-army-choice{height:auto!important;min-height:0!important;padding:6px!important}
+html.ah-on .ovp .roster-army-choice .roster-small-medallion{width:46px!important;height:46px!important}
+html.ah-on .ovp .roster-stage{padding-top:6px!important;min-height:0!important}
+/* yönetim odaları: sekme kartları küçük, süs başlıkları yok */
+html.ah-on .ovp .mgmt-navigation .mgmt-medallion,html.ah-on .ovp .mgmt-category-chevron{display:none!important}
+html.ah-on .ovp .mgmt-navigation{padding:6px!important;min-height:0!important}
+html.ah-on .ovp .mgmt-category{height:38px!important;min-height:0!important;padding:0 10px!important;font-size:12.5px!important}
+html.ah-on .ovp .management-workspace .game-section-title,html.ah-on .ovp .management-workspace .mgmt-room-heading{display:none!important}
+html.ah-on #te .mgmt-event-calendar .mgmt-room-heading{display:none!important}
+/* Arena: eski rakip ızgarası gizli (Mücadele Et rakip seçme penceresini açar) */
+html.ah-on #management-y-duels>.mgmt-arena-grid,html.ah-on #management-y-duels>.game-page-section{display:none!important}
+html.ah-on #te .mgmt-event-content .card p:last-child:not(:has(button)){font-size:11px!important}
+html.ah-on #te .mgmt-event-content .card{padding:8px!important}
+html.ah-on #te .gt .gl{display:none!important}
+html.ah-on #ek-arena .ar-list{max-height:210px!important;overflow-y:auto!important}
+html.ah-on #te .mgmt-event-calendar{display:none!important}
+/* Başarımlar: tek satırlık sıkı liste */
+.ach-l{display:flex!important;flex-direction:column!important;gap:4px!important;padding:6px!important}
+.ach-l .ach-r{display:flex!important;align-items:center!important;gap:8px!important;min-height:34px!important;padding:2px 4px 2px 8px!important;border-radius:6px!important;background:rgba(0,0,0,.18)!important}
+.ach-l .ach-r span{flex:1!important;min-width:0!important;font:700 12.5px 'Nunito',sans-serif!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ach-l .ach-r button{flex:none!important;width:auto!important;min-width:48px!important;height:28px!important;min-height:0!important;padding:0 10px!important;margin:0!important;font:800 12px 'Nunito',sans-serif!important}
+.ach-l .ach-r.ok{opacity:.6!important}
+.ach-l .ach-r.can button{background:linear-gradient(180deg,#f3d27a,#b98426)!important;color:#3a1d04!important}
+/* Destan Defteri ızgarası: küçük hücreler, yalnız ızgara kendi içinde kayar */
+html.ah-on .ovp .dfg{grid-template-columns:repeat(6,1fr)!important;gap:4px!important;max-height:calc(100dvh - 420px)!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+html.ah-on .ovp .dfg>*{min-height:0!important;height:52px!important;padding:2px!important;font-size:9px!important}
+html.ah-on .ovp .dfg>* img{width:30px!important;height:30px!important}
+html.ah-on .ovp .ach-l{max-height:calc(100dvh - 340px)!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+html.ah-on .ovp .dfg{max-height:280px!important}
+/* canavar kartı: tek halka, "anında" yok, simgeli değerler */
+#mapi.ah-mon .ah-mc>.ah-mimg{border:0!important;background:none!important;border-radius:0!important;overflow:visible!important}
+#mapi.ah-mon .ah-mc>.ah-mimg img{width:88px!important;height:88px!important;border-radius:0!important;box-shadow:none!important;border:0!important;background:none!important}
+#mapi.ah-mon .ah-mc>.ek-ti{display:flex!important;flex-wrap:nowrap!important;gap:6px!important}
+#mapi.ah-mon .ah-mc>.ek-ti>span:nth-child(n+3){display:none!important}
+#mapi.ah-mon .ah-mc>.ek-ti>span{height:28px!important;padding:0 10px!important;font-size:13px!important}
+#mapi.ah-mon .ah-mc>.ah-mst{display:flex!important;gap:12px!important;font:900 14px 'Nunito',sans-serif!important;color:#fbecc8!important}
+#mapi.ah-mon .ah-mc>h3{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font-size:16px!important}
+/* Nevruz: sıkı */
+.nv-top,.nv-st{display:flex!important;justify-content:space-between!important;gap:8px!important;font:800 12.5px 'Nunito',sans-serif!important;margin:0 0 6px!important}
+.nv-st b{color:#ffd77a!important}
+.nv-od{margin-top:6px!important;font:800 12px 'Nunito',sans-serif!important;opacity:.85!important;text-align:center!important}
+.nv-g{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+.nv-g .card{padding:6px!important;margin:0!important}
+.nv-r{display:flex!important;gap:4px!important;align-items:center!important;font:700 11.5px 'Nunito',sans-serif!important;padding:2px 0!important}
+.nv-r b{width:16px!important;color:#ffd77a!important}
+.nv-r span{flex:1!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.nv-r em{font-style:normal!important;font-size:10.5px!important;opacity:.85!important}
+.nv-r.me{color:#9fe08a!important}
+/* Bilge Meclisi rehberi: açıklamasız, iki sütun */
+html.ah-on .np-guide{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+html.ah-on .np-guide .np-g{min-height:0!important;height:48px!important;padding:4px 8px!important;width:auto!important;margin:0!important}
+html.ah-on .np-guide .np-g small,html.ah-on .np-guide .np-g em{display:none!important}
+html.ah-on .np-guide .np-g b{font:800 13px 'Nunito',sans-serif!important;white-space:nowrap!important}
+/* Yapı penceresi: tek ekrana sığsın */
+html.ah-on .ya-card .yk-hero{height:96px!important;min-height:0!important}
+html.ah-on .ya-card .yk-hero img{height:92px!important;max-height:92px!important;width:auto!important;max-width:none!important;transform:none!important}
+html.ah-on .ya-card .rm-row{display:none!important}
+html.ah-on .ya-card .ya-sec{margin:6px 0 3px!important;height:auto!important}
+html.ah-on .ya-card .yk-row{min-height:0!important;height:28px!important;padding:0 10px!important}
+html.ah-on .ya-card .ya-ln{min-height:0!important;height:38px!important;padding:0 8px!important}
+html.ah-on .ya-card .ya-ln .yk-btn,html.ah-on .ya-card .ya-ln button{height:28px!important;min-height:0!important}
+html.ah-on .ya-card .yk-cost{min-height:0!important;padding:4px!important}
+html.ah-on .ya-card .yk-foot{margin-top:4px!important}
+html.ah-on .ya-card .ya-lv{margin:2px 0!important}
+html.ah-on body #ek-yapi .ya-card .yk-hero img.ya-art{width:auto!important;height:92px!important;max-height:none!important;max-width:none!important}
+/* Alp profili */
+#pop .pb.ah-pf .ah-pfx,#pop .pb.ah-pf>.reference-frame-corners{display:none!important}
+#pop .pb.ah-pf-gen>.pfg,#pop .pb.ah-pf-oth>.pfg{display:none!important}
+#pop .pb.ah-pf-gen>.card .pfv{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:4px!important}
+#pop .pb.ah-pf-gen>.card .pfv>*{min-height:0!important;padding:4px!important;font-size:11px!important}
+#pop .pb.ah-pf-gen>.card h3{font-size:16px!important;margin:0!important}
+#pop .pb.ah-pf-gen .ek-vt .vt-acts{display:grid!important;grid-template-columns:repeat(7,1fr)!important;gap:4px!important}
+#pop .pb.ah-pf .ptb{display:flex!important;flex-wrap:nowrap!important;gap:4px!important}
+#pop .pb.ah-pf .ptb button{flex:1 1 0!important;min-width:0!important;padding:0 2px!important;font-size:11.5px!important;white-space:nowrap!important}
+#pop .pb.ah-pf-oth>.card:not(:has(.ptb)),#pop .pb.ah-pf-esy>.card{padding:6px 8px!important;margin:0 0 4px!important;min-height:0!important}
+#pop .pb.ah-pf-gen .ek-vt .sef-box{display:none!important}
+#pop .pb.ah-pf-gen .ek-vt .vt-acts{grid-template-columns:repeat(8,1fr)!important}
+#pop .pb.ah-pf-gen .ek-vt .vt-acts>*{width:auto!important;min-width:0!important;height:38px!important;padding:0!important}
+/* Eşya sekmesi: yuvalar üstteki resimde; tekrar eden yuva listesi ve açıklama yok */
+#pop .pb.ah-pf-esy>.card[data-psl],#pop .pb.ah-pf-esy>p,#pop .pb.ah-pf-esy>h4:first-of-type{display:none!important}
+#pop .pb.ah-pf-esy>.card{padding:6px 8px!important}
+/* profil: XP kartı yalnız Genel'de; sekmeler üstte sabit, içerik altında */
+#pop .pb.ah-pf:not(.ah-pf-gen)>.card:has(+.ptb){display:none!important}
+#pop .pb.ah-pf>.ptb{position:sticky!important;top:-1px!important;z-index:6!important;background:#2a1a0c!important;margin:0 -2px 6px!important;padding:4px 2px!important}
+#pop .pb.ah-pf-gel .tlg,#pop .pb.ah-pf-yol .tlg{gap:6px!important}
+/* açıklama mühürleri (!) küçük */
+html.ah-on .ek-seal,html.ah-on button.ek-why,html.ah-on button.inf{width:24px!important;height:24px!important;min-width:0!important;min-height:0!important;padding:0!important;font-size:12px!important;flex:none!important}
+html.ah-on .ek-seal svg,html.ah-on button.ek-why svg{width:16px!important;height:16px!important}
+html.ah-on h4:has(.ek-why),html.ah-on h4:has(.inf){min-height:0!important;height:auto!important}
+/* Çanta: pencere sabit, yalnız eşya ızgarası kendi içinde kayar */
+html.ah-on .ci-modal .ci-grid{max-height:max(160px,calc(100dvh - 650px))!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+/* Araştırma: ağaç kendi içinde kayar, ayrıntı sıkı, sayfa sabit */
+html.ah-on #tr .research-header,html.ah-on #tr .research-detail-emblem,html.ah-on #tr .research-hint,html.ah-on #tr .research-eyebrow,html.ah-on #tr .research-queue:has(.research-queue-sigil):not(:has(.research-queue-item)){display:none!important}
+html.ah-on #tr .research-tree-region{height:calc(100dvh - 500px)!important;min-height:200px!important;max-height:none!important}
+html.ah-on #tr .research-tree-region{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+html.ah-on #tr .research-tree-region .research-tree-toolbar{display:none!important}
+html.ah-on #tr .research-tree-region .research-tree-scroll{flex:1 1 0!important;height:auto!important;min-height:0!important;max-height:none!important}
+html.ah-on #tr .research-detail{display:grid!important;grid-template-columns:1fr auto!important;gap:4px 8px!important;padding:8px 10px!important;align-items:center!important}
+html.ah-on #tr .research-detail>*{margin:0!important}
+html.ah-on #tr .research-detail>h2{font-size:16px!important}
+html.ah-on #tr .research-detail>.ek-prev,html.ah-on #tr .research-detail>.research-requirements,html.ah-on #tr .research-detail>.research-costs,html.ah-on #tr .research-detail>.research-cta{grid-column:1/-1!important}
+html.ah-on #tr .research-detail>.research-costs{min-height:0!important;padding:4px!important}
+html.ah-on #tr .research-detail>.research-requirements{min-height:0!important;padding:4px 8px!important}
+html.ah-on #tr .research-detail>.research-cta{height:42px!important;min-height:0!important}
+html.ah-on #tr .research-detail>.research-duration{min-height:0!important;padding:0!important;grid-column:2!important;grid-row:1!important}
+html.ah-on #tr .research-branches .research-branch{min-height:0!important;height:48px!important;padding:2px!important}
+/* küçük ekran: arena listesi ve boy özetleri daha kısa */
+@media (max-height:760px){
+  html.ah-on #ek-arena .ar-list{max-height:122px!important}
+  html.ah-on #ek-arena .ar-podium{transform:scale(.88)!important;transform-origin:50% 0!important;margin-bottom:-16px!important}
+  html.ah-on #ek-oc .oc-mem{display:none!important}
+}
+html.ah-on #tr .research-branches{padding-left:50px!important}
+#ta.ah-pv .management-workspace{display:block!important;grid-template-columns:none!important}
+#ta.ah-pv .mgmt-deck,#ta.ah-pv .mgmt-pane,#ta.ah-pv .mgmt-council-grid>*{width:auto!important;max-width:none!important}
+@media (min-width:700px){#ta.ah-pv .mgmt-deck{max-width:640px!important;margin:0 auto!important}}
