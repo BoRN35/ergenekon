@@ -86,6 +86,24 @@
   D.addEventListener('animationstart', function () { if (slq) return; slq = requestAnimationFrame(function () { slq = 0; stopLoops(); }); }, true);
   setInterval(stopLoops, 1500);
   var R = {};
+  /* ---------- Kahramanlar: ileri / geri ---------- */
+  function heroNav() {
+    var det = D.querySelector('#ek-kh .kh-det'); if (!det) return;
+    var ts = [].slice.call(D.querySelectorAll('#ek-kh .kh-grid .kh-t')); if (!ts.length) return;
+    var i = ts.findIndex(function (t) { return t.classList.contains('on'); }); if (i < 0) i = 0;
+    if (!det.querySelector(':scope>.kh-nav')) {
+      det.insertAdjacentHTML('afterbegin', '<button type="button" class="kh-nav pv" aria-label="Önceki">‹</button><button type="button" class="kh-nav nx" aria-label="Sonraki">›</button><span class="kh-cnt"></span>');
+    }
+    var c = det.querySelector(':scope>.kh-cnt'), ct = (i + 1) + '/' + ts.length; if (c && c.textContent !== ct) c.textContent = ct;
+  }
+  D.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('#ek-kh .kh-nav'); if (!b) return;
+    ev.stopPropagation(); ev.preventDefault();
+    var ts = [].slice.call(D.querySelectorAll('#ek-kh .kh-grid .kh-t')), i = ts.findIndex(function (t) { return t.classList.contains('on'); }); if (i < 0) i = 0;
+    var n = ts[(i + (b.classList.contains('nx') ? 1 : -1) + ts.length) % ts.length]; if (n) n.click();
+    setTimeout(heroNav, 30);
+  }, true);
+
   /* ---------- Alp profili: sekmeye göre sade görünüm ---------- */
   function profTidy() {
     var pop = D.getElementById('pop'); if (!pop || pop.style.display === 'none') return;
@@ -248,7 +266,7 @@
     var b = ev.target.closest && ev.target.closest('#ah-nav [data-ah],#ah-right [data-ah],#ah-act [data-ah],#ah-left [data-ah]'); 
     if (b) { ev.stopPropagation(); ev.preventDefault(); act(b.dataset.ah); return; }
     if (ev.target.closest && ev.target.closest('#ah-q i')) { ev.stopPropagation(); gorevOpen(); return; }
-    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); openBld(R.qk || 'ocak'); return; }
+    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); gorevOpen(); return; }
     if (ev.target.closest && ev.target.closest('#ah-chat')) { ev.stopPropagation(); var c = D.querySelector('#tabs>button[title="Sohbet"]') || D.querySelector('#cp [data-ct="x"]'); if (c) c.click(); }
   }
   function bd(e, n) { var b = e && e.querySelector('.ah-bd'); if (!b) return; var t = n ? String(n) : ''; b.hidden = !t; if (b.textContent !== t) b.textContent = t; }
@@ -273,6 +291,7 @@
     if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
     if (tab !== 'c' && tab !== 'm') { pgWatch(); pager(); }
     profTidy();
+    if (tab === 'u') heroNav();
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     if (tab !== 'c') return;
     // görev şeridi

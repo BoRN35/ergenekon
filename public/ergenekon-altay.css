@@ -451,19 +451,14 @@ html.ah-on .ovp .reference-frame-corners,html.ah-on .ovp .mgmt-alliance-crest,ht
 html.ah-on .ovp .roster-army-art{max-height:110px!important;height:110px!important}
 html.ah-on .ovp .roster-army-art img{height:110px!important;width:auto!important;object-fit:contain!important}
 html.ah-on .ovp>.ek-back{display:none!important}
-/* Kahramanlar (tab u): üstte yatay şerit, altta sıkı ayrıntı */
-html.ah-on #ek-kh .kh-wrap{display:flex!important;flex-direction:column!important;gap:8px!important;height:auto!important;min-height:0!important}
-html.ah-on #ek-kh #kh-links{display:none!important}
-html.ah-on #ek-kh .kh-grid{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;gap:6px!important;height:auto!important;padding:4px 6px!important;scrollbar-width:none!important;grid-template-columns:none!important;order:0!important}
-html.ah-on #ek-kh .kh-grid .kh-t{flex:0 0 76px!important;width:76px!important;height:96px!important;min-height:0!important;padding:2px!important;position:relative!important;left:auto!important;top:auto!important;transform:none!important;margin:0!important}
-html.ah-on #ek-kh .kh-grid .kh-t img{width:62px!important;height:62px!important;object-fit:cover!important}
-html.ah-on #ek-kh .kh-grid .kh-t *{font-size:9px!important}
-html.ah-on #ek-kh .kh-det{display:grid!important;grid-template-columns:128px 1fr!important;column-gap:10px!important;row-gap:6px!important;align-items:center!important;justify-items:start!important;padding:8px 10px!important;height:auto!important;order:1!important}
-html.ah-on #ek-kh .kh-det>*{grid-column:2!important;margin:0!important}
-html.ah-on #ek-kh .kh-det>.kh-big{grid-column:1!important;grid-row:1/6!important;width:124px!important;height:124px!important}
-html.ah-on #ek-kh .kh-det>.kh-big img{width:124px!important;height:124px!important}
-html.ah-on #ek-kh .kh-det>.kh-card,html.ah-on #ek-kh .kh-det>.kh-up,html.ah-on #ek-kh .kh-det>button{grid-column:1/-1!important;justify-self:stretch!important}
-html.ah-on #ek-kh .kh-det h3{font-size:18px!important}
+/* Kahramanlar (tab u): toplu kahraman ızgarası yok; büyük portrenin iki yanında ileri/geri */
+html.ah-on #ek-kh .kh-grid,html.ah-on #ek-kh #kh-links{display:none!important}
+html.ah-on #ek-kh .kh-wrap{height:auto!important;min-height:0!important}
+html.ah-on #ek-kh .kh-det{position:relative!important;padding-top:10px!important}
+html.ah-on #ek-kh .kh-nav{position:absolute!important;top:58px!important;width:46px!important;height:46px!important;min-height:0!important;padding:0!important;margin:0!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:radial-gradient(circle at 40% 35%,#7a5230,#2c1a0c)!important;border:2px solid #d9ad55!important;box-shadow:0 3px 6px rgba(0,0,0,.5)!important;color:#ffe39a!important;font:900 24px/1 'Nunito',sans-serif!important;z-index:3!important}
+html.ah-on #ek-kh .kh-nav.pv{left:calc(50% - 128px)!important}
+html.ah-on #ek-kh .kh-nav.nx{right:calc(50% - 128px)!important}
+html.ah-on #ek-kh .kh-cnt{position:absolute!important;top:14px!important;right:12px!important;font:800 12px 'Nunito',sans-serif!important;color:#d9c49a!important}
 /* Boy (tab a) bölüm sekmeleri */
 .ovp.ah-pv .ah-pv-off{display:none!important}
 .ovp.ah-pv .mgmt-pane[hidden]:has(.ah-pv-on),.ovp.ah-pv .mgmt-pane.ah-pv-on{display:block!important}
