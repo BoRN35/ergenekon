@@ -104,6 +104,23 @@
     var A = NP.arena; g.fillStyle = '#dcc48c'; g.beginPath(); g.ellipse(A[0], A[1] - 30, 150, 64, 0, 0, 7); g.fill(); g.strokeStyle = '#7a5230'; g.lineWidth = 5; g.stroke();
   }
 
+  /* yamaç duvarı görseli (Tripo modelinden çevrilen tekrar eden şerit, 25 Kasım): yüklenince çizilmiş kaya bandının üstüne serilir; merdiven ve şelale yeniden üstte */
+  function paintWalls(cv) {
+    var im = new Image();
+    im.onload = function () {
+      var g = cv.getContext('2d'), K = cv.width / WW; g.setTransform(K, 0, 0, K, 0, 0);
+      var h = 168, w = h * im.naturalWidth / im.naturalHeight;
+      CLIFF.forEach(function (cy) {
+        var top = cy - 40, bot = cy + 90, y0 = top - h * .1, x, y;
+        for (x = 0; x < WW; x += w - 1) g.drawImage(im, x, y0, w, h);
+        var sx = roadX(cy); for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
+        var wx = 55 + 22 * Math.sin(cy / 300); var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
+        g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
+      });
+    };
+    im.src = IMGP + 'yamac_duvar.webp';
+  }
+
   /* ---------- sahne ---------- */
   var R = { el: null, world: null, s: .5, x: 0, y: 0, items: {}, built: false };
   function fit(keep) {
@@ -123,7 +140,7 @@
     var cv = D.getElementById('cityv'); if (!cv || !S()) return false;
     R.el = D.createElement('div'); R.el.id = 'ek-ao';
     R.world = D.createElement('div'); R.world.className = 'ao-world'; R.world.style.width = WW + 'px'; R.world.style.height = WH + 'px';
-    var c = D.createElement('canvas'); c.className = 'ao-ground'; paintGround(c); R.world.appendChild(c);
+    var c = D.createElement('canvas'); c.className = 'ao-ground'; paintGround(c); paintWalls(c); R.world.appendChild(c);
     R.el.appendChild(R.world); cv.insertBefore(R.el, cv.firstChild);
     // süs: kenarlarda ağaçlar, yollarda köylüler
     var occ = []; for (var q in SL) occ.push(SL[q]); for (q in NP) occ.push(NP[q]);
