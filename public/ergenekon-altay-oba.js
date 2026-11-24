@@ -229,6 +229,7 @@
       var hil = !!(src2 && src2.querySelector('.np-hil')), lk = !!(src2 && src2.classList.contains('lk'));
       x.md.classList.toggle('hil', hil); x.md.classList.toggle('lk', lk); x.im.classList.toggle('lk', lk);
     }
+    if (H.classList.contains('ah-on')) return; // yeni arayüzde iş sütunu altay-hud.js'te
     // oba işleri: 3D katmanındaki parsel düğmelerinden
     var L2 = W.ekParcelList ? W.ekParcelList() : [], jh = '';
     // önce sürenler, sonra yapılabilecek işler; en çok 5
@@ -250,16 +251,6 @@
   var last = 0;
   function loop(now) {
     requestAnimationFrame(loop);
-  // alt menü / yan ray: simge altına kısa ad (King of Altay gibi)
-  var LB = { c: 'Oba', m: 'Harita', k: 'Kale', r: 'İlim', u: 'Alpler', a: 'İttifak', p: 'Posta', e: 'Etkinlik', y: 'Arena', g: 'Ayarlar' };
-  setInterval(function () {
-    D.querySelectorAll('#tabs>button:not(#pfb)').forEach(function (b) {
-      if (b.dataset.lb) return; var t = b.dataset.t, n = (t && LB[t]) || b.title || b.getAttribute('aria-label') || '';
-      if (n === 'Şehir') n = 'Oba'; if (n === 'Etkinlikler') n = 'Etkinlik'; if (n) b.dataset.lb = n;
-    });
-  }, 1000);
-  // üst çubuktaki kartal / düzen düğmelerine ad (sağ sütunda gösterilir)
-  setInterval(function () { D.querySelectorAll('.ek-topbtns .ek-rbtn:not([data-lb])').forEach(function (b) { b.dataset.lb = b.dataset.ekPet ? 'Evcil' : b.dataset.ek === 'gear' ? 'Düzen' : b.dataset.ek === 'bag' ? 'Çanta' : ''; }); }, 1000);
     var o = on(); H.classList.toggle('ao', o);
     if (!o) { if (R.el) R.el.hidden = true; if (R.jobs) R.jobs.hidden = true; return; }
     if (!R.built) { if (!build()) return; }
@@ -269,10 +260,6 @@
     if (now - last < 500) return; last = now;
     var cw = R.el.clientWidth; if (cw && cw !== R.lw) { var first = !R.lw; R.lw = cw; if (!first) fit(); else { clamp(); apply(); } }
     try { update(); } catch (e) {}
-    // sağ sütuna Görevler düğmesi (Tuğ Direği › Günlük)
-    var tb = D.querySelector('#top .ek-topbtns');
-    if (tb && !tb.querySelector('[data-ek-gorev]')) { var gb = D.createElement('button'); gb.type = 'button'; gb.className = 'ek-rbtn'; gb.dataset.ekGorev = '1'; gb.dataset.lb = 'Görevler'; gb.setAttribute('aria-label', 'Görevler'); gb.innerHTML = svg('flag', 22) + '<i class="ao-gdot"></i>'; gb.addEventListener('click', function (e) { e.stopPropagation(); if (W.ekNpcOpen) W.ekNpcOpen('tug', 0); }); tb.appendChild(gb); }
-    if (tb) { var gb2 = tb.querySelector('[data-ek-gorev]'), dn = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'); if (gb2) gb2.classList.toggle('hil', !!dn); }
   }
   requestAnimationFrame(loop);
   var lw = 0; W.addEventListener('resize', function () { if (R.built && R.el.clientWidth !== lw) { lw = R.el.clientWidth; fit(true); } });
