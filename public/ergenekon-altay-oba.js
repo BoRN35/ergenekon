@@ -155,7 +155,7 @@
   function input() {
     var st = null, moved = false, vx = 0, vy = 0, lt = 0, lx = 0, ly = 0, raf = 0;
     function glide() { if (Math.abs(vx) + Math.abs(vy) < .03) return; R.x += vx * 16; R.y += vy * 16; vx *= .93; vy *= .93; clamp(); apply(); raf = requestAnimationFrame(glide); }
-    R.el.addEventListener('pointerdown', function (e) { if (st) return; cancelAnimationFrame(raf); vx = vy = 0; st = { x: e.clientX, y: e.clientY, ox: R.x, oy: R.y, id: e.pointerId, t: e.target }; moved = false; lx = e.clientX; ly = e.clientY; lt = performance.now(); try { R.el.setPointerCapture(e.pointerId); } catch (x) {} });
+    R.el.addEventListener('pointerdown', function (e) { if (st && st.id === e.pointerId) st = null; if (st && performance.now() - lt > 1500) st = null; if (st) return; cancelAnimationFrame(raf); vx = vy = 0; st = { x: e.clientX, y: e.clientY, ox: R.x, oy: R.y, id: e.pointerId, t: e.target }; moved = false; lx = e.clientX; ly = e.clientY; lt = performance.now(); try { R.el.setPointerCapture(e.pointerId); } catch (x) {} });
     R.el.addEventListener('pointermove', function (e) {
       if (!st || e.pointerId !== st.id) return; var dx = e.clientX - st.x, dy = e.clientY - st.y;
       if (!moved && Math.hypot(dx, dy) > 8) moved = true; if (!moved) return;
@@ -163,7 +163,7 @@
       R.x = st.ox + dx; R.y = st.oy + dy; clamp(); apply();
     });
     function up(e) { if (!st || e.pointerId !== st.id) return; var was = st; st = null; if (!moved) tap(D.elementFromPoint(e.clientX, e.clientY) || was.t); else if (performance.now() - lt < 80) glide(); }
-    R.el.addEventListener('pointerup', up); R.el.addEventListener('pointercancel', function () { st = null; });
+    R.el.addEventListener('pointerup', up); R.el.addEventListener('pointercancel', function () { st = null; }); R.el.addEventListener('lostpointercapture', function (e) { if (st && e.pointerId === st.id) st = null; });
     R.el.addEventListener('wheel', function (e) { e.preventDefault(); R.x -= e.deltaX; R.y -= e.deltaY; clamp(); apply(); }, { passive: false });
   }
   /* seçim: ad şeridi + yuvarlak işlem düğmeleri (King of Altay gibi) */

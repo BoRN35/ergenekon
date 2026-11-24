@@ -211,4 +211,5 @@
   function start() { if (!S() || typeof W.hsUp !== 'function') { setTimeout(start, 400); return; } requestAnimationFrame(frame); }
   start();
   W.ergenekonKahraman = { pairs: PAIRS, best: bestFormation, destan: destan, openDestan: openDestan };
+  W.ekHeroView = function () { try { heroView(); } catch (e) {} };
 })();

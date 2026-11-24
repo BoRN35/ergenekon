@@ -726,3 +726,8 @@ html.ah-on #ek-kh .kh-det>.kh-nav.nx{right:calc(50% - 118px)!important}
 #ah-uq .uqf-sep{width:2px!important;height:30px!important;align-self:center!important;margin:0 1px!important}
 html.ah-on #ek-kh .kh-det>*{height:auto}html.ah-on #ek-kh .kh-det>h3,html.ah-on #ek-kh .kh-det>.kh-st,html.ah-on #ek-kh .kh-det>.kh-quote,html.ah-on #ek-kh .kh-det>.kh-card{height:auto!important;width:auto!important}
 html.ah-on #ek-kh .kh-det .kh-pw,html.ah-on #ek-kh .kh-det .kh-pair{flex-direction:row!important;width:auto!important}
+/* Kahramanlar: eski kahraman odası hiç görünmesin */
+html.ah-on #tu>:not(#ek-kh):not(.game-page-header):not(#ah-pg){display:none!important}
+html.ah-on #tg #ek-set>section:not(.ah-cur){display:none!important}
+html.ah-on #tg:not(.ah-setg-mw) .management-workspace{display:none!important}
+html.ah-on #tg>:not(.ah-setg):not(#ek-set):not(.management-workspace):not(.ek-ver){display:none!important}

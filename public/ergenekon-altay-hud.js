@@ -283,21 +283,23 @@
   };
   var SET = [['ses', 'Ses', 0], ['grafik', 'Grafik', 1], ['bildirim', 'Bildirim', 2], ['hesap', 'Hesap', 3], ['dil', 'Dil', 4], ['oto', 'Otomasyon', 5], ['kayit', 'Kayıt', 'mw']];
   function setUp() {
-    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg || !es) return;
+    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg) return;
     if (!R.sg || !R.sg.isConnected) {
       R.sg = el('div', '', 'ah-setg', '<div class="asg-head">Ayarlar</div><div class="asg-grid">' + SET.map(function (x) { return '<button type="button" data-asg="' + x[2] + '"><i>' + SI[x[0]] + '</i><b>' + x[1] + '</b></button>'; }).join('') + '</div><button type="button" class="asg-back" hidden>‹ Ayarlar</button>');
-      es.parentNode.insertBefore(R.sg, es);
+      tg.insertBefore(R.sg, tg.firstChild);
       R.sg.addEventListener('click', function (ev) {
         var b = ev.target.closest('[data-asg]'); if (b) { R.sc = b.dataset.asg; setMode(); try { tg.scrollTop = 0; } catch (e) {} if (R.sc === 'mw') { var kb = [].slice.call(tg.querySelectorAll('.mgmt-navigation button')).filter(function (x) { return /Kayıt/.test(x.textContent); })[0]; if (kb) kb.click(); } return; }
         if (ev.target.closest('.asg-back')) { R.sc = null; setMode(); }
       });
       R.sc = null;
     }
+    if (tg.firstChild !== R.sg) tg.insertBefore(R.sg, tg.firstChild);
     setMode();
   }
+  (function tgWatch() { var tg = D.getElementById('tg'); if (!tg) { setTimeout(tgWatch, 500); return; } new MutationObserver(function () { if (W.tab === 'g' && (!R.sg || !R.sg.isConnected || !tg.classList.contains('ah-setg-on'))) setUp(); }).observe(tg, { childList: true, subtree: true }); })();
   function setMode() {
-    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg || !es || !R.sg) return;
-    var sc = R.sc, secs = es.querySelectorAll(':scope>section');
+    var tg = D.getElementById('tg'), es = D.getElementById('ek-set'); if (!tg || !R.sg) return;
+    var sc = R.sc, secs = es ? es.querySelectorAll(':scope>section') : [];
     tg.classList.add('ah-setg-on'); tg.classList.toggle('ah-setg-grid', sc == null); tg.classList.toggle('ah-setg-mw', sc === 'mw');
     secs.forEach(function (x, i) { x.classList.toggle('ah-cur', String(i) === String(sc)); });
     R.sg.querySelector('.asg-grid').hidden = sc != null; R.sg.querySelector('.asg-back').hidden = sc == null;
@@ -404,10 +406,19 @@
     bd(R.act.querySelector('[data-ah="yardim"]'), (s.al && s.al.hq) || '');
     var tg = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'), gh = R.right.querySelector('[data-ah="gorev"] .ah-hil'); if (gh) gh.hidden = !tg;
   }
+  /* render() sonrası arayüz düzeni aynı karede uygulanır: eski görünüm bir an bile görünmesin */
+  var myRender = null;
+  function hookRender() {
+    if (typeof W.render !== 'function' || W.render === myRender) return;
+    var orig = W.render;
+    myRender = function () { var r = orig.apply(this, arguments); try { if (W.tab === 'u' && W.ekHeroView) W.ekHeroView(); if (R.nav) update(); } catch (e) {} return r; };
+    W.render = myRender;
+  }
   var last = 0;
   function loop(now) {
     requestAnimationFrame(loop);
     if (!R.nav) { if (!build()) return; }
+    hookRender();
     if (now - last < 400) return; last = now;
     try { update(); } catch (e) {}
   }

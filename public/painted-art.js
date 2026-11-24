@@ -42,7 +42,7 @@
  function kind(value){var key=String(value||'').trim().toLowerCase();if(Object.prototype.hasOwnProperty.call(aliases,key))return aliases[key];if(key.indexOf('wos_')===0){for(var i=0;i<families.length;i++)if(families[i][0].test(key))return families[i][1];return 'astrolabe'}return ''}
  function art(value){var key=kind(value),index=names.indexOf(key);if(index<0)return null;var x=index%cols,y=Math.floor(index/cols);return {url:url,key:key,index:index,x:x,y:y,cols:cols,rows:rows,width:1254,height:1254,position:(x*100/(cols-1))+'% '+(y*100/(rows-1))+'%'}}
  function escape(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
- function html(value,className){var image=art(value);if(!image)return '';return '<span class="painted-game-icon painted-game-art'+(className?' '+escape(className):'')+'" data-painted-kind="'+image.key+'" aria-hidden="true" style="display:inline-block;background-image:url(\''+image.url+'\');background-size:400% 400%;background-position:'+image.position+';background-repeat:no-repeat"></span>'}
+ function html(value,className){var image=art(value);if(!image)return '';return '<span class="painted-game-icon painted-game-art'+(className?' '+escape(className):'')+'" data-painted-kind="'+image.key+'" aria-hidden="true" style="display:inline-block;background-image:url(\'./assets/interface/painted/t/'+image.key+'.webp\');background-size:contain;background-position:center;background-repeat:no-repeat"></span>'}
  art.kind=kind;art.keys=names.slice();art.atlas={url:url,cols:cols,rows:rows,width:1254,height:1254};
  root.paintedGameArt=art;root.paintedGameIconHtml=html;
 })(typeof window!=='undefined'?window:globalThis);

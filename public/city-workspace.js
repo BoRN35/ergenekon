@@ -87,7 +87,7 @@
       var milestone = [1, 5, 10, 15, 20, 25, 30, 35, 40].filter(function (n) { return n <= Math.max(1, level); }).pop();
       var jobs = typeof window.buildQueues === 'function' ? window.buildQueues() : [];
       var count = typeof window.builders === 'function' ? window.builders() : 1;
-      var h = '<div class="city-hearth-medallion"><img src="./assets/ocak-previews/ocak-sv' + milestone + '.webp" alt="Kutsal Ocak, mevcut görünüm"><span>Sv ' + level + '</span></div>';
+      var h = '<div class="city-hearth-medallion"><img loading="lazy" src="./assets/ocak-previews/ocak-sv' + milestone + '.webp" alt="Kutsal Ocak, mevcut görünüm"><span>Sv ' + level + '</span></div>';
       h += '<div class="city-overview-title"><span>BOYUN YÜREĞİ</span><h3>Kutsal Ocak</h3><p>Demir dağın ardında, bir boy yükseliyor.</p></div>';
       h += '<div class="city-domain-levels"><button data-bm="oba"><span>Boy Obası</span><b>Sv ' + oba + '</b><i>↗</i></button><button data-bm="ocak"><span>Kutsal Ocak</span><b>Sv ' + level + '</b><i>↗</i></button></div>';
       h += '<section class="city-builders"><header><h3>Ustaların çalışmaları</h3><span>' + jobs.length + ' / ' + count + '</span></header>';
