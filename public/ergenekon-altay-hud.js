@@ -86,6 +86,42 @@
   D.addEventListener('animationstart', function () { if (slq) return; slq = requestAnimationFrame(function () { slq = 0; stopLoops(); }); }, true);
   setInterval(stopLoops, 1500);
   var R = {};
+  /* ---------- Kışla (asker eğit) ve Şifahane (yaralılar): kendi penceresi; eski yapı ayrıntı paneli yok ---------- */
+
+  function ordHtml() {
+    var s = S(), tot = (s.tr || []).reduce(function (a, b) { return a + b; }, 0), cap = W.tcap(), n = W.tb(), FI = ['⚖️', '🗡️', '🐎', '🏹'];
+    var h = '<div class="or-top"><span>🪖 <b>' + nf(tot) + '</b>/' + nf(cap) + '</span><span>⚔ <b>' + nf(W.tpow()) + '</b></span></div>';
+    if (s.tq) h += '<div class="or-q"><span>' + W.TRN[s.tq.k][1] + ' ' + (s.tq.kind === 'promote' ? 'T' + s.tq.targetTier : '+' + nf(s.tq.n)) + '</span><u><i style="width:' + Math.round(100 - s.tq.left / s.tq.tot * 100) + '%"></i></u><b>' + ft(s.tq.left) + '</b></div>';
+    h += '<div class="or-f">' + W.FORMATIONS.map(function (nm, i) { return '<button type="button" data-formation="' + i + '"' + (s.formation === i ? ' class="on" disabled' : '') + '><i>' + FI[i] + '</i><small>' + nm.split(' ')[0] + '</small></button>'; }).join('') + '</div>';
+    h += W.TRN.map(function (t, i) {
+      var c0 = W.tcost(i), c = { et: c0.et * n / 10, odun: c0.odun * n / 10, demir: c0.demir * n / 10 }, ok = !!s.l.kisla && !s.tq && tot + n <= cap && s.r.et >= c.et && s.r.odun >= c.odun && s.r.demir >= c.demir, p = W.promotion(i), cp = p && !s.tq && Object.keys(p.cost).every(function (r) { return s.r[r] >= p.cost[r]; });
+      return '<div class="or-r"><span class="or-i">' + t[1] + '</span><span class="or-t"><b>' + t[0] + ' <em>T' + W.troopTier(i) + '</em></b><small>🪖 ' + nf(s.tr[i] || 0) + '</small></span><span class="or-b"><button type="button" data-tn="' + i + '"' + (ok ? '' : ' disabled') + '>+' + nf(n) + ' · ⏱ ' + ft(W.ttime(i)) + '</button><small>' + W.crs(c) + '</small>' + (p ? '<button type="button" class="or-p" data-promote="' + i + '"' + (cp ? '' : ' disabled') + '>⬆ T' + p.to + ' · ⏱ ' + ft(p.time) + '</button>' : '') + '</span></div>';
+    }).join('');
+    return h;
+  }
+
+  function yarHtml() {
+    var s = S(), HV = W.HV; for (var i = 0; i < 3; i++) HV[i] = Math.min(HV[i], s.wd[i]);
+    var h = '<div class="or-top"><span>🏥 <b>' + nf(W.wsum()) + '</b>/' + nf(W.wcap()) + '</span></div>';
+    if (s.hq) return h + '<div class="or-q"><span>🩹 ' + nf(s.hq.n[0] + s.hq.n[1] + s.hq.n[2]) + '</span><u><i style="width:' + Math.round(100 - s.hq.left / s.hq.tot * 100) + '%"></i></u><b>' + ft(s.hq.left) + '</b></div>';
+    if (!W.wsum()) return h + '<div class="yr-none">🛡️<small>Yaralı yok</small></div>';
+    h += W.TRN.map(function (t, j) { return '<div class="or-r"><span class="or-i">' + t[1] + '</span><span class="or-t"><b>' + t[0] + '</b><small>🩹 ' + nf(s.wd[j]) + '</small></span><span class="yr-c"><button type="button" data-hvx="' + j + ':-10">−10</button><button type="button" data-hvx="' + j + ':-1">−</button><b>' + HV[j] + '</b><button type="button" data-hvx="' + j + ':1">+</button><button type="button" data-hvx="' + j + ':10">+10</button></span></div>'; }).join('');
+    var sum = W.hsum();
+    h += '<div class="yr-f"><small>' + (sum ? W.crs(W.hcost()) + ' · ⏱ ' + ft(W.htime()) : '—') + '</small><span><button type="button" data-hqk="1">Hızlı seç</button><button type="button" class="go" data-hlx="1"' + (W.hOk() ? '' : ' disabled') + '>🩹 İyileştir</button></span></div>';
+    return h;
+  }
+  function yapiPanel(k) {
+    var f = k === 'kisla' ? ordHtml : k === 'sifa' ? yarHtml : null; if (typeof f !== 'function') return;
+    D.querySelectorAll('.ah-yp').forEach(function (x) { x.remove(); });
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-yp';
+    o.innerHTML = '<div class="yk-card"><div class="yk-head"><h2>' + (k === 'kisla' ? 'Asker Eğit' : 'Yaralılar') + '</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="np-body"></div></div>';
+    var body = o.querySelector('.np-body'), fill = function () { var h = ''; try { h = f(); } catch (e) {} if (body.__ah !== h) { var st = body.scrollTop; body.__ah = h; body.innerHTML = h; body.scrollTop = st; } };
+    fill(); var iv = setInterval(function () { if (!o.isConnected) { clearInterval(iv); return; } fill(); }, 700);
+    o.addEventListener('click', function (ev) { if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; } setTimeout(fill, 50); });
+    D.body.appendChild(o);
+  }
+  W.ekYapiPanel = yapiPanel;
+
   /* ---------- Akın Tuğu: savaş etkinlikleri tek pencerede (Nevruz akını · Destan canavarı · Dünya canavarı) ---------- */
   function akRows() {
     var s = S(), now = Date.now(), out = [];
@@ -214,9 +250,9 @@
   }
   function pager() {
     var t = W.tab; if (t === 'c' || t === 'm' || t === 'g' || t === 'r' || t === 'p') return;
-    var P = D.getElementById('t' + t); if (!P || !P.offsetHeight) return;
+    var P = D.getElementById('t' + t); if (!P) return;
     if (PGV[t]) { vpager(t, P); return; }
-    var bl = [].filter.call(P.children, function (x) { return /^(DIV|SECTION|ASIDE|ARTICLE)$/.test(x.tagName) && !x.matches('.reference-frame-corners,.ek-ver,#ah-pg') && (x.offsetHeight || x.classList.contains('ah-pgb')) && !x.hidden; });
+    var bl = [].filter.call(P.children, function (x) { return /^(DIV|SECTION|ASIDE|ARTICLE)$/.test(x.tagName) && !x.matches('.reference-frame-corners,.ek-ver,#ah-pg') && !x.hidden && x.style.display !== 'none' && (x.childNodes.length > 0); });
     var bar = P.querySelector(':scope>#ah-pg');
     if (bl.length < 2) { if (bar) bar.remove(); P.classList.remove('ah-pgon'); bl.forEach(function (x) { x.classList.remove('ah-pgb', 'ah-pgsel'); }); return; }
     var sel = Math.min(R.pg[t] || 0, bl.length - 1);
@@ -349,7 +385,7 @@
   function jobGo(j) {
     if (j === 'usta') uqToggle();
     else if (j === 'ilim') tabGo('r');
-    else if (j === 'egitim') { W.BMK = 'kisla'; W.tab = 'c'; rer(); setTimeout(function () { var b = D.querySelector('#ek-yapi [data-yk="detail"]'); if (b) b.click(); }, 150); }
+    else if (j === 'egitim') yapiPanel('kisla');
     else if (j === 'is') { var L = W.ekParcelList ? W.ekParcelList() : [], p = L.filter(function (x) { return !x.t && x.kind !== 'field' && !x.dim; })[0] || L[0]; if (p && W.ekOpenParcel) W.ekOpenParcel(p.id); }
   }
   function onClick(ev) {
@@ -385,7 +421,7 @@
     uqFill(); if (R.uq && !R.uq.hidden && !main) R.uq.hidden = true;
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     // güç ve erime
-    var pv = 0; try { pv = W.power(); } catch (e) {}
+    var pv = R.pwv || 0, nw = Date.now(); if (!R.pwt || nw - R.pwt > 1500) { try { pv = W.power(); } catch (e) {} R.pwv = pv; R.pwt = nw; }
     var pt = nf(pv), pb2 = R.pw.querySelector('b'); if (pb2.textContent !== pt) pb2.textContent = pt;
     var me = D.getElementById('melt'), et = me ? me.textContent.trim() : '';
     var er = R.pw.querySelector('.ah-er em'); if (er.textContent !== et) er.textContent = et;
@@ -411,7 +447,7 @@
   function hookRender() {
     if (typeof W.render !== 'function' || W.render === myRender) return;
     var orig = W.render;
-    myRender = function () { var r = orig.apply(this, arguments); try { if (W.tab === 'u' && W.ekHeroView) W.ekHeroView(); if (R.nav) update(); } catch (e) {} return r; };
+    myRender = function () { var r = orig.apply(this, arguments); try { if (W.tab === 'u' && W.ekHeroView) W.ekHeroView(); if (R.nav) { update(); R.upd = performance.now(); } } catch (e) {} return r; };
     W.render = myRender;
   }
   var last = 0;
@@ -419,7 +455,7 @@
     requestAnimationFrame(loop);
     if (!R.nav) { if (!build()) return; }
     hookRender();
-    if (now - last < 400) return; last = now;
+    if (now - last < 400 || now - (R.upd || 0) < 350) return; last = now;
     try { update(); } catch (e) {}
   }
   requestAnimationFrame(loop);

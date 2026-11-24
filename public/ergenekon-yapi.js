@@ -119,8 +119,7 @@
         var a = b.getAttribute('data-yk');
         if (a === 'close') close();
         else if (a === 'info') { var ov = document.createElement('div'); ov.className = 'ek-ov yk-ov'; ov.innerHTML = '<div class="yk-card yk-small"><div class="yk-head"><h2>Bilgi</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div>' + (W.__ykInfo || '') + '</div>'; ov.addEventListener('click', function (e2) { if (e2.target === ov || e2.target.closest('.yk-x')) ov.remove(); }); document.body.appendChild(ov); }
-        else if (a === 'detail') { detail = true; document.body.classList.add('ek-detail'); o.remove(); cur = null; }
-        else if (a === 'hearth') { o.remove(); cur = null; try { W.city3d.hearthGallery.open(); } catch (e) {} }
+        else if (a === 'detail') { var kk = o.dataset.k; if (W.ekYapiPanel) { W.ekYapiPanel(kk); } }
         else if (a.indexOf('tab:') === 0) { o.remove(); cur = null; try { W.BMK = ''; } catch (e) {} var tb = document.querySelector('#tabs [data-t="' + a.slice(4) + '"]'); if (tb) tb.click(); else if (a === 'tab:m') { var w = document.getElementById('ek-world'); if (w) w.click(); } }
       });
     }

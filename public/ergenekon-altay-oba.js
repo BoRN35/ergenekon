@@ -108,11 +108,11 @@
   var R = { el: null, world: null, s: .5, x: 0, y: 0, items: {}, built: false };
   function fit(keep) {
     var host = R.el; if (!host) return; var w = host.clientWidth, h = host.clientHeight, ox = R.x, oy = R.y;
-    R.s = w < 700 ? w / 1000 : Math.min(1, Math.max(.5, (w - 160) / 1000));
+    R.s = w < 700 ? w / 1000 : Math.max(w / WW, Math.min(.68, Math.max(.5, (w - 160) / 1000)));
     if (keep && R.built) { R.x = ox; R.y = oy; } else { R.x = w / 2 - CX * R.s; R.y = -(SL.oba[1] - SL.oba[2] * .9 - 140) * R.s + 60; }
     clamp(); apply();
   }
-  function clamp() { var w = R.el.clientWidth, h = R.el.clientHeight, ww = WW * R.s, wh = WH * R.s; R.x = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, R.x)); R.y = Math.min(62, Math.max(h - wh - 96, R.y)); }
+  function clamp() { var w0 = R.el.clientWidth; if (w0 && WW * R.s < w0) R.s = w0 / WW; var w = R.el.clientWidth, h = R.el.clientHeight, ww = WW * R.s, wh = WH * R.s; R.x = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, R.x)); R.y = Math.min(62, Math.max(h - wh - 96, R.y)); }
   function apply() { R.world.style.transform = 'translate(' + R.x.toFixed(1) + 'px,' + R.y.toFixed(1) + 'px) scale(' + R.s.toFixed(4) + ')'; R.world.style.setProperty('--s', R.s.toFixed(4)); }
   function sprite(src, x, y, w, cls) {
     var im = D.createElement('img'); im.src = src; im.alt = ''; im.draggable = false; im.className = 'ao-sp' + (cls ? ' ' + cls : '');
@@ -167,7 +167,7 @@
     R.el.addEventListener('wheel', function (e) { e.preventDefault(); R.x -= e.deltaX; R.y -= e.deltaY; clamp(); apply(); }, { passive: false });
   }
   /* seçim: ad şeridi + yuvarlak işlem düğmeleri (King of Altay gibi) */
-  var SPEC = { bilgelik: ['Araştır', 'book', function () { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }], kisla: ['Eğit', 'swords', function (k) { openB(k, 'detail'); }] };
+  var SPEC = { bilgelik: ['Araştır', 'book', function () { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }], kisla: ['Eğit', 'swords', function () { if (W.ekYapiPanel) W.ekYapiPanel('kisla'); }], sifa: ['Yaralı', 'swords', function () { if (W.ekYapiPanel) W.ekYapiPanel('sifa'); }] };
   function openB(k, then) { W.BMK = k; W.selB = k; W.tab = 'c'; try { W.render(); } catch (e) {} if (then) setTimeout(function () { var b = D.querySelector('#ek-yapi [data-yk="' + then + '"]'); if (b) b.click(); }, 120); }
   function select(k) {
     if (!R.sel) { R.sel = D.createElement('div'); R.sel.className = 'ao-sel'; R.world.appendChild(R.sel); R.sel.addEventListener('pointerup', function (e) { e.stopPropagation(); }); R.sel.addEventListener('pointerdown', function (e) { e.stopPropagation(); }); R.sel.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b) return; e.stopPropagation(); var a = b.dataset.act, kk = R.sel.dataset.k; deselect(); if (a === 'npt') { npcAct(kk, b.dataset.nt); return; } if (a === 'up') openB(kk); else if (a === 'info') openB(kk, 'info'); else if (SPEC[kk]) SPEC[kk][2](kk); }); }
@@ -267,6 +267,7 @@
     var vis = W.tab === 'c'; R.el.hidden = !vis; R.jobs.hidden = !vis || !R.jobs.innerHTML; if (!vis) return;
     if (R.el.parentNode !== D.getElementById('cityv')) { var cv = D.getElementById('cityv'); if (cv) { cv.insertBefore(R.el, cv.firstChild); cv.appendChild(R.jobs); } }
     if (now - last < 500) return; last = now;
+    var cw = R.el.clientWidth; if (cw && cw !== R.lw) { var first = !R.lw; R.lw = cw; if (!first) fit(); else { clamp(); apply(); } }
     try { update(); } catch (e) {}
     // sağ sütuna Görevler düğmesi (Tuğ Direği › Günlük)
     var tb = D.querySelector('#top .ek-topbtns');
