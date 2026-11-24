@@ -10,25 +10,24 @@
   function on() { return true; } // 3D oba kaldırıldı (22 Kasım)
   var IMGP = './assets/img/';
   /* King of Altay düzeni: telefon genişliğinde dikey şehir, basamaklı yaylalar (kaya duvarlarıyla ayrılır), yalnız yukarı-aşağı kaydırma */
-  var WW = 1700, WH = 5250, CX = 850, CY = 1300;
-  var CLIFF = [820, 1900, 3000, 4080];
-  // bina yuvaları: [x, y(taban), genişlik, görsel] — ekran ~1000 birim gösterir; sağa sola kaydırınca yeni alanlar açılır
+  /* 25 Kasım: King of Altay şehir düzeni — saray (Boy Obası) en üst yaylada, iki yanında Kurultay ve Boy Meclisi;
+     aşağı indikçe her yaylada sol·orta·sağ sıkı 3'lü sıralar; sur en altta, dışında Sefer/Arena/Ağıl. Boş çayır yok. */
+  var WW = 1700, WH = 4500, CX = 850, CY = 1000;
+  var CLIFF = [1290, 2360, 3430];
+  // bina yuvaları: [x, y(taban), genişlik, görsel] — ekran ~1000 birim gösterir (x 350..1350)
   var SL = {
-    komurluk: [420, 650, 360, 'bina_odunluk'], gozcu: [1300, 600, 280, 'bina_gozcu'],
-    oba: [850, 1330, 600, 'kale'],
-    ocak: [850, 2450, 520, 'bina_ocak'],
-    yurt: [330, 2380, 380, 'bina_yurt'], sifa: [1370, 2380, 360, 'bina_sifa'],
-    odunluk: [340, 2860, 400, 'bina_odunluk'], avci: [1360, 2860, 400, 'bina_avci'],
-    ambar: [600, 3440, 380, 'bina_ambar'], demirci: [1110, 3440, 420, 'bina_demirci'],
-    kisla: [290, 3920, 420, 'bina_kisla'], harpakademi: [1410, 3920, 400, 'bina_kisla'],
-    bilgelik: [850, 3960, 360, 'bina_yurt'],
-    sur: [850, 4560, 520, 'bina_sur']
+    oba: [850, 1060, 520, 'kale'],
+    yurt: [490, 1700, 310, 'bina_yurt'], ocak: [850, 1660, 420, 'bina_ocak'], sifa: [1215, 1700, 310, 'bina_sifa'],
+    komurluk: [490, 2190, 300, 'bina_odunluk'], bilgelik: [850, 2170, 300, 'bina_yurt'], gozcu: [1215, 2170, 240, 'bina_gozcu'],
+    odunluk: [490, 2780, 330, 'bina_odunluk'], demirci: [850, 2760, 340, 'bina_demirci'], avci: [1215, 2780, 330, 'bina_avci'],
+    kisla: [490, 3260, 340, 'bina_kisla'], ambar: [850, 3250, 310, 'bina_ambar'], harpakademi: [1215, 3260, 330, 'bina_kisla'],
+    sur: [850, 3880, 500, 'bina_sur']
   };
   // NPC yerleri: [x, y, genişlik, görsel, ad, simge]
   var NP = {
-    kurultay: [320, 1280, 380, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1390, 1280, 320, 'dekor_cadir', 'Boy Meclisi', 'fire'],
-    tug: [600, 1790, 200, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'],
-    sefer: [330, 5060, 300, 'kafile', 'Sefer', 'compass'], arena: [850, 5080, 200, 'npc_alper', 'Arena', 'swords'], agil: [1370, 5060, 250, 'npc_atli', 'Ağıl', 'horse']
+    kurultay: [480, 1050, 280, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1225, 1050, 260, 'dekor_cadir', 'Boy Meclisi', 'fire'],
+    tug: [1080, 1215, 150, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'],
+    sefer: [480, 4330, 270, 'kafile', 'Sefer', 'compass'], arena: [850, 4350, 200, 'npc_alper', 'Arena', 'swords'], agil: [1225, 4330, 230, 'npc_atli', 'Ağıl', 'horse']
   };
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }
   var ICON = {
@@ -100,7 +99,7 @@
       g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
     });
     // dış çit (sur önü)
-    g.strokeStyle = '#6a4526'; g.lineWidth = 8; g.beginPath(); g.moveTo(140, 4600); g.lineTo(560, 4600); g.moveTo(1140, 4600); g.lineTo(1600, 4600); g.stroke();
+    g.strokeStyle = '#6a4526'; g.lineWidth = 8; g.beginPath(); g.moveTo(140, 3920); g.lineTo(560, 3920); g.moveTo(1140, 3920); g.lineTo(1600, 3920); g.stroke();
     // arena kum çemberi, ağıl
     var A = NP.arena; g.fillStyle = '#dcc48c'; g.beginPath(); g.ellipse(A[0], A[1] - 30, 150, 64, 0, 0, 7); g.fill(); g.strokeStyle = '#7a5230'; g.lineWidth = 5; g.stroke();
   }
@@ -155,8 +154,8 @@
     for (var i = 0; i < 380; i++) { var x = 120 + rnd(i * 4.4) * (WW - 140), y = 480 + rnd(i * 2.2) * (WH - 520), sz = 110 + rnd(i) * 80; if (free(x, y, sz * .4)) sprite(IMGP + 'dekor_agac_yaz.webp', x, y, sz, 'ao-dec'); }
     // kaya kümeleri (Tripo modelinden, 25 Kasım)
     for (i = 0; i < 90; i++) { x = 140 + rnd(i * 6.7 + 11) * (WW - 180); y = 500 + rnd(i * 3.9 + 5) * (WH - 560); sz = 70 + rnd(i * 1.9 + 3) * 60; if (free(x, y, sz * .5)) { var kim = sprite(IMGP + 'dekor_kaya_' + (1 + (i % 2)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 2.3) < .5) kim.style.transform = 'scaleX(-1)'; } }
-    [[720, 1500, 'dekor_bayrak_mavi', 110], [980, 1500, 'dekor_bayrak_mavi', 110], [720, 4640, 'dekor_bayrak_kirmizi', 100], [980, 4640, 'dekor_bayrak_kirmizi', 100], [1100, 2700, 'dekor_saman_fici', 110], [600, 2700, 'dekor_cit_odun', 120], [860, 3200, 'dekor_saman_fici', 100], [1560, 3600, 'dekor_cit_odun', 120], [130, 3500, 'dekor_saman_fici', 100]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
-    [[960, 2700, 'npc_koylu_erkek', 95], [760, 2730, 'npc_koylu_kadin', 90], [540, 3060, 'npc_oduncu', 95], [1160, 3060, 'npc_avci', 95], [1250, 3600, 'npc_demirci', 95], [700, 1980, 'npc_kam', 95], [760, 4280, 'npc_okcu', 90], [1500, 1600, 'npc_koylu_erkek', 90], [200, 1650, 'npc_koylu_kadin', 88]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
+    [[690, 1150, 'dekor_bayrak_mavi', 100], [1010, 1150, 'dekor_bayrak_mavi', 100], [700, 3950, 'dekor_bayrak_kirmizi', 100], [1000, 3950, 'dekor_bayrak_kirmizi', 100], [660, 1840, 'dekor_saman_fici', 85], [1560, 2300, 'dekor_cit_odun', 110], [1060, 3360, 'dekor_saman_fici', 95], [1530, 2900, 'dekor_cit_odun', 120], [160, 3300, 'dekor_saman_fici', 100]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
+    [[960, 1880, 'npc_koylu_erkek', 85], [740, 1900, 'npc_koylu_kadin', 82], [640, 2950, 'npc_oduncu', 85], [1060, 2950, 'npc_avci', 85], [1050, 2870, 'npc_demirci', 82], [660, 2280, 'npc_kam', 85], [700, 3420, 'npc_okcu', 82], [1520, 1250, 'npc_koylu_erkek', 85], [200, 1900, 'npc_koylu_kadin', 82]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
     // NPC otağları
     for (var id in NP) (function (id) {
       var n = NP[id], im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
