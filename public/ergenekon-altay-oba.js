@@ -27,7 +27,7 @@
   // NPC yerleri: [x, y, genişlik, görsel, ad, simge]
   var NP = {
     kurultay: [320, 1280, 380, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1390, 1280, 320, 'dekor_cadir', 'Boy Meclisi', 'fire'],
-    tug: [600, 1790, 200, 'dekor_bayrak_kirmizi', 'Tuğ', 'flag'], hazine: [1110, 1800, 150, 'sandik', 'Hazine', 'gem'],
+    tug: [600, 1790, 200, 'dekor_bayrak_kirmizi', 'Tuğ', 'flag'],
     sefer: [330, 5060, 300, 'kafile', 'Sefer', 'compass'], arena: [850, 5080, 200, 'npc_alper', 'Arena', 'swords'], agil: [1370, 5060, 250, 'npc_atli', 'Ağıl', 'horse']
   };
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }

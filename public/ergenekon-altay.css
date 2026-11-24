@@ -601,3 +601,50 @@ html.ah-on #te .gt .ge,html.ah-on #te .gt .gn,html.ah-on #te .gt .gb,html.ah-on 
 html.ah-on #tr small{font-size:10.5px!important}
 html.ah-on #ek-kh .kh-grid .kh-t i.kh-g{font-size:11px!important}
 html.ah-on:not(.ah-main) #ah-act{z-index:61!important;bottom:calc(104px + env(safe-area-inset-bottom))!important}
+/* ===== 24.11 gece ===== */
+/* eski üst usta şeridi yok; çekice dokununca sağa açılan sıra */
+html.ah-on #ek-uq{display:none!important}
+#ah-uq{position:fixed;z-index:36;display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:10px;background:linear-gradient(180deg,rgba(58,36,18,.96),rgba(24,14,6,.96));border:1.5px solid #c99a45;box-shadow:0 4px 10px rgba(0,0,0,.55);font-family:'Nunito',sans-serif}
+#ah-uq[hidden]{display:none!important}
+#ah-uq .uqf{all:unset;box-sizing:border-box;position:relative;width:52px;height:56px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:2px;cursor:pointer;background:rgba(0,0,0,.3);border:1px solid rgba(201,154,69,.55)}
+#ah-uq .uqf img{width:36px;height:34px;object-fit:contain}
+#ah-uq .uqf span{font-size:22px;line-height:34px;color:#ffe39a}
+#ah-uq .uqf small{font:800 9.5px/1.2 'Nunito',sans-serif;color:#fbecc8;white-space:nowrap}
+#ah-uq .uqf u{position:absolute;left:4px;right:4px;bottom:3px;height:3px;border-radius:2px;background:rgba(0,0,0,.5);text-decoration:none}
+#ah-uq .uqf u i{display:block;height:100%;background:#7fd08a;border-radius:2px}
+#ah-uq .uqf.a small{color:#9fe08a}
+#ah-uq .uqf.free{border-style:dashed}
+#ah-uq .uqf.q i{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#b8281c;color:#fff;font:900 11px/18px sans-serif;text-align:center;font-style:normal}
+#ah-uq .uqf.slot{border-style:dashed;opacity:.45;cursor:default}
+#ah-uq .uqf-sep{width:1px;align-self:stretch;background:rgba(201,154,69,.5);margin:0 2px}
+/* güç + erime üst kaynak çubuğunun solunda */
+html body #top>#ah-pw#ah-pw{position:static!important;flex:none!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:1px!important;height:30px!important;padding:0 7px 0 4px!important;margin:0 2px 0 0!important;border:0!important;border-right:1px solid rgba(201,154,69,.45)!important;border-radius:0!important;background:none!important;box-shadow:none!important;pointer-events:none!important;left:auto!important;top:auto!important}
+#top>#ah-pw .ah-pwv{gap:3px!important}
+#top>#ah-pw .ah-pwv i{width:12px!important;height:12px!important}
+#top>#ah-pw b{font:900 12px/1 'Nunito',sans-serif!important;color:#ffe39a!important}
+#top>#ah-pw .ah-er{display:flex!important;align-items:center!important;gap:2px!important;padding:0!important;border:0!important;font:800 10.5px/1 'Nunito',sans-serif!important;color:#ffb070!important}
+#top>#ah-pw .ah-er img{width:12px!important;height:12px!important;object-fit:contain!important}
+#top>#ah-pw .ah-er em{font-style:normal!important}
+html.ah-on #top #res .ek-res{padding:0 3px!important;gap:2px!important}
+html.ah-on #top #res .ek-res img{width:18px!important;height:18px!important}
+html.ah-on #top #res{gap:2px!important;min-width:0!important;overflow:hidden!important}
+html.ah-on #top #res .ek-more{width:18px!important;min-width:0!important;padding:0!important}
+html body .wrap>#ah-left#ah-left{top:calc(env(safe-area-inset-top) + 66px)!important}
+/* Alp profili düğmesi: düzgün yuvarlak portre + seviye rozeti */
+html.ah-on body #tabs>#pfb#pfb{top:5px!important;left:5px!important;width:48px!important;height:48px!important;padding:2px!important;border-radius:50%!important;background:linear-gradient(180deg,#ffe39a,#a8701c)!important;border:0!important;box-shadow:0 0 0 2px #3a2410,0 3px 6px rgba(0,0,0,.55)!important;display:block!important;overflow:visible!important;clip-path:none!important}
+html.ah-on body #tabs>#pfb#pfb img{width:44px!important;height:44px!important;border-radius:50%!important;object-fit:cover!important;object-position:50% 15%!important;background:#2a1a0c!important;clip-path:none!important;display:block!important;margin:0!important}
+html.ah-on body #tabs>#pfb#pfb>span:not(.kut-ring){position:absolute!important;left:50%!important;bottom:-7px!important;transform:translateX(-50%)!important;padding:0 6px!important;height:15px!important;border-radius:8px!important;background:linear-gradient(180deg,#c8341c,#7a1a0c)!important;border:1px solid #f0c66a!important;color:#fff!important;font:900 9.5px/13px 'Nunito',sans-serif!important;white-space:nowrap!important;display:block!important}
+html.ah-on body #tabs>#pfb#pfb .kut-ring{position:absolute!important;right:-6px!important;top:-4px!important;left:auto!important;bottom:auto!important;width:18px!important;height:18px!important;transform:none!important;display:block!important}
+html.ah-on body #tabs>#pfb#pfb .kut-ring svg{width:18px!important;height:18px!important}
+html.ah-on body #tabs>#pfb#pfb .kut-ring b{position:absolute!important;inset:0!important;font:900 9px/18px 'Nunito',sans-serif!important;text-align:center!important;color:#fff!important}
+/* kahraman sözü: sabit, geniş kart; anlık baloncuk yok */
+html.ah-on #ek-bub{display:none!important}
+html.ah-on #ek-kh .kh-det>.kh-quote{align-self:stretch!important;margin:2px 6px 4px!important;padding:10px 14px!important;border-radius:10px!important;background:linear-gradient(180deg,rgba(251,240,212,.08),rgba(251,240,212,.03))!important;border:1px solid rgba(201,154,69,.45)!important;border-left:3px solid #c99a45!important;text-align:left!important}
+html.ah-on #ek-kh .kh-det>.kh-quote p{margin:0!important;font:700 italic 13px/1.4 'Nunito',sans-serif!important;color:#f3e3c0!important}
+html.ah-on #ek-kh .kh-det>.kh-quote small{display:block!important;margin-top:4px!important;text-align:right!important;font:800 11px 'Nunito',sans-serif!important;color:#c99a45!important}
+html.ah-on body #tabs>#pfb#pfb>span:not(.kut-ring){bottom:-5px!important;z-index:4!important}
+html.ah-on body #tabs>#pfb#pfb .kut-ring{width:18px!important;min-width:0!important;max-width:18px!important}
+html body .wrap>#ah-left#ah-left{top:calc(env(safe-area-inset-top) + 76px)!important}
+html.ah-on #ek-kh .kh-det>.kh-quote .kh-qt{margin:0!important;font:700 italic 13px/1.4 'Nunito',sans-serif!important;color:#f3e3c0!important;display:block!important}
+html.ah-on:not(.ah-oba):not(.ah-map) body #tabs>#pfb#pfb{display:none!important}
+html.ah-on body #tabs>#pfb#pfb>span:not(.kut-ring){bottom:0!important}
