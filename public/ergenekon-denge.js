@@ -169,7 +169,7 @@
     var i = +on.dataset.kh, h = W.HH[i], t = h && HW[h.n]; if (!t) return;
     var w = S().ch && S().ch.eq && S().ch.eq.w, fit = w && wtype(w) === t, key = i + ':' + fit;
     var el = det.querySelector('.kh-wp'); if (el && el.dataset.k === key) return; if (el) el.remove();
-    det.querySelector('h3').insertAdjacentHTML('afterend', '<div class="kh-wp' + (fit ? ' on' : '') + '" data-k="' + key + '">' + WI[t] + (fit ? ' ◆ +%3' : ' ◇') + '</div>');
+    det.querySelector('h3').insertAdjacentHTML('afterend', '<div class="kh-wp' + (fit ? ' on' : '') + '" data-k="' + key + '">' + WI[t] + (fit ? ' +%3' : '') + '</div>');
   }
 
   var l1 = 0, l2 = 0;

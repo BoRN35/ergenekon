@@ -128,7 +128,7 @@
     var kh = document.getElementById('ek-kh'); if (!kh || W.tab !== 'u') return;
     kh.querySelectorAll('.kh-t[data-kh]').forEach(function (t) { var h = W.HH[+t.dataset.kh], g = h && GH[h.n]; if (!g || t.querySelector('.kh-g')) return; t.insertAdjacentHTML('beforeend', '<i class="kh-g" title="Toplama uzmanı">' + RI[g[0]] + '</i>'); });
     var on = kh.querySelector('.kh-t.on'), det = kh.querySelector('.kh-det'); if (!on || !det) return; var h = W.HH[+on.dataset.kh], g = h && GH[h.n]; var ex = det.querySelector('.kh-gx');
-    var txt = g ? RI[g[0]] + ' toplama +%' + Math.round(gBonus(g[0]) * 100 || 5) + (S().hs[+on.dataset.kh] ? '' : ' ◇') : '';
+    var txt = g ? RI[g[0]] + ' +%' + Math.round(gBonus(g[0]) * 100 || 5) : '';
     if (!g) { if (ex) ex.remove(); return; } if (ex && ex.textContent === txt) return; if (ex) ex.remove();
     var h3 = det.querySelector('h3'); if (h3) h3.insertAdjacentHTML('afterend', '<div class="kh-gx">' + txt + '</div>');
   }
