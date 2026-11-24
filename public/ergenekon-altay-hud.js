@@ -250,6 +250,7 @@
   }
   function pager() {
     var t = W.tab; if (t === 'c' || t === 'm' || t === 'g' || t === 'r' || t === 'p') return;
+    if (t === 'u') { var tu = D.getElementById('tu'); if (tu && D.getElementById('ek-kh')) [].slice.call(tu.children).forEach(function (x) { if (x.id !== 'ek-kh' && !x.matches('.game-page-header')) x.remove(); }); return; }
     var P = D.getElementById('t' + t); if (!P) return;
     if (PGV[t]) { vpager(t, P); return; }
     var bl = [].filter.call(P.children, function (x) { return /^(DIV|SECTION|ASIDE|ARTICLE)$/.test(x.tagName) && !x.matches('.reference-frame-corners,.ek-ver,#ah-pg') && !x.hidden && x.style.display !== 'none' && (x.childNodes.length > 0); });

@@ -28,7 +28,7 @@
  function slug(text,index){return String(text||'bolum').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,42)+'-'+index}
  function direct(parent,cls){return Array.from(parent.children||[]).find(function(n){return n.classList&&n.classList.contains(cls)})}
  function groupSections(doc,panel,key){
-  if(direct(panel,'game-page-section')||direct(panel,'game-page-intro')||direct(panel,'management-workspace')||panel.querySelector('.game-page-section,.game-page-intro'))return;
+  if(panel.querySelector('#ek-kh')||direct(panel,'game-page-section')||direct(panel,'game-page-intro')||direct(panel,'management-workspace')||panel.querySelector('.game-page-section,.game-page-intro'))return;
   var children=Array.from(panel.childNodes||[]),hasHeadings=children.some(function(n){return n.nodeType===1&&n.tagName==='H4'}),current=null,body=null,index=0;
   if(!children.length)return;
   function section(title){var wrap=make(doc,'section','game-page-section');wrap.dataset.page=key;wrap.dataset.kind=slug(title.textContent,index++);title.classList.add('game-section-title');wrap.appendChild(title);var content=make(doc,'div','game-section-content');wrap.appendChild(content);panel.appendChild(wrap);current=wrap;body=content;}
