@@ -58,7 +58,7 @@
       { n: 'Evcil', e: '🦅', k: 'pop', f: call('ergenekonIlerleme.openPets') }, { n: 'Binek', e: '🐎', k: 'pop', f: call('ergenekonDenge.openHorses') }] },
     { id: 'tug', n: 'Tuğ Direği', e: '🚩', lv: 3, x: -22, z: -1, kind: 'tug', tabs: [
       { n: 'Nevruz', e: '🔥', k: 'html', f: html('rNevruz') }, { n: 'Destan canavarı', e: '👹', k: 'pop', f: call('ergenekonKahraman.openDestan') }, { n: 'Emek Defteri', e: '📒', k: 'tab', t: 'e', after: function () { var b = document.getElementById('ek-ed'); if (b) b.scrollIntoView({ block: 'start' }); } },
-      { n: 'Şan tabloları', e: '🏆', k: 'tab', t: 'y', after: function () { var b = document.querySelector('[data-mgmt-nav="ranking"]'); if (b) b.click(); } }, { n: 'Hasar tablosu', e: '🩸', k: 'pop', f: call('ekDmgTable') }] },
+      { n: 'Şan tabloları', e: '🏆', k: 'tab', t: 'y', after: function () { var b = document.querySelector('[data-mgmt-nav="duels"]'); if (b) b.click(); } }, { n: 'Hasar tablosu', e: '🩸', k: 'pop', f: call('ekDmgTable') }] },
     { id: 'hazine', n: 'Hazine Otağı', e: '💎', lv: 5, x: -5, z: -25, kind: 'tent', c: '#8f6512', tabs: [
       { n: 'Koleksiyon', e: '📖', k: 'pop', f: call('ergenekonDenge.openAlbum') }, { n: 'Başarımlar', e: '🏅', k: 'html', f: html('rAch') }, { n: 'Unvanlar', e: '🎖️', k: 'html', f: html('rTitles') }] }
   ];

@@ -591,3 +591,18 @@ html.ah-on #tr .research-branches{padding-left:50px!important}
 #ta.ah-pv .management-workspace{display:block!important;grid-template-columns:none!important}
 #ta.ah-pv .mgmt-deck,#ta.ah-pv .mgmt-pane,#ta.ah-pv .mgmt-council-grid>*{width:auto!important;max-width:none!important}
 @media (min-width:700px){#ta.ah-pv .mgmt-deck{max-width:640px!important;margin:0 auto!important}}
+/* 24.11: güç + erime üst çubuğa bağlı ince şerit; yan sütunlar yalnız oba ana görünümünde */
+#ah-act button[hidden]{display:none!important}
+html body .wrap>#ah-pw#ah-pw{left:50px!important;top:calc(env(safe-area-inset-top) + 50px)!important;height:24px!important;padding:0 10px 0 8px!important;gap:10px!important;border-radius:0 0 10px 0!important;background:linear-gradient(180deg,#3a2410,#24160a)!important;border:1.5px solid #9a6a2a!important;border-top:0!important;box-shadow:0 3px 6px rgba(0,0,0,.45)!important}
+#ah-pw .ah-pwv{height:auto!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;gap:4px!important}
+#ah-pw .ah-pwv i{width:15px!important;height:15px!important}
+#ah-pw b{font:900 13px/1 'Nunito',sans-serif!important;color:#ffe39a!important}
+#ah-pw .ah-er{height:auto!important;padding:0 0 0 10px!important;border-left:1px solid rgba(201,154,69,.5)!important;border-radius:0!important;background:none!important;font:800 11.5px/1 'Nunito',sans-serif!important;color:#ffb070!important}
+html body .wrap>#ah-left#ah-left{top:calc(env(safe-area-inset-top) + 92px)!important}
+@media (min-width:700px){html body .wrap>#ah-pw#ah-pw{left:60px!important;top:58px!important}html body .wrap>#ah-left#ah-left{top:100px!important}}
+/* boş "gerçek oyuncu sıralaması" sekmesi yok; küçük yazılar okunur */
+html.ah-on #ty [data-mgmt-nav="ranking"]{display:none!important}
+html.ah-on #te .gt .ge,html.ah-on #te .gt .gn,html.ah-on #te .gt .gb,html.ah-on #te .gt .gs{font-size:10.5px!important;letter-spacing:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+html.ah-on #tr small{font-size:10.5px!important}
+html.ah-on #ek-kh .kh-grid .kh-t i.kh-g{font-size:11px!important}
+html.ah-on:not(.ah-main) #ah-act{z-index:61!important;bottom:calc(104px + env(safe-area-inset-bottom))!important}

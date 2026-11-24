@@ -71,6 +71,12 @@
     D.body.appendChild(o);
   }
   W.ekGorevler = gorevOpen;
+  /* eski 3B galeri (Ocak görünümü / yapı modelleri) yok: her çağrı yapı penceresini açar */
+  (function galleryRedirect() {
+    var c = W.city3d; if (!c) { setTimeout(galleryRedirect, 500); return; }
+    try { if (c.hearthGallery) { c.hearthGallery.open = function () { openBld('ocak'); }; } if (c.buildingModels) { c.buildingModels.show = function () { openBld(W.selB || 'ocak'); }; } } catch (e) {}
+  })();
+
 
   /* ---------- yanıp sönme yok: oyun genelinde sonsuz döngülü CSS/JS animasyonları durdurulur ---------- */
   function stopLoops() {
@@ -242,7 +248,7 @@
     var b = ev.target.closest && ev.target.closest('#ah-nav [data-ah],#ah-right [data-ah],#ah-act [data-ah],#ah-left [data-ah]'); 
     if (b) { ev.stopPropagation(); ev.preventDefault(); act(b.dataset.ah); return; }
     if (ev.target.closest && ev.target.closest('#ah-q i')) { ev.stopPropagation(); gorevOpen(); return; }
-    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); var g0 = D.getElementById('ek-goal'); if (g0 && /topla/i.test(g0.textContent)) { act('topla'); return; } var g = D.getElementById('ek-goal'); if (g) g.click(); return; }
+    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); openBld(R.qk || 'ocak'); return; }
     if (ev.target.closest && ev.target.closest('#ah-chat')) { ev.stopPropagation(); var c = D.querySelector('#tabs>button[title="Sohbet"]') || D.querySelector('#cp [data-ct="x"]'); if (c) c.click(); }
   }
   function bd(e, n) { var b = e && e.querySelector('.ah-bd'); if (!b) return; var t = n ? String(n) : ''; b.hidden = !t; if (b.textContent !== t) b.textContent = t; }
@@ -257,15 +263,21 @@
     var pb = D.querySelector('#tabs [data-t="p"]'); bd(R.nav.querySelector('[data-ah="posta"]'), pb && (pb.querySelector('b,i,em,span:not(.ek-nxi)') || {}).textContent && /\d/.test(pb.textContent) ? pb.textContent.replace(/\D/g, '') : '');
     bd(R.nav.querySelector('[data-ah="boy"]'), (s.al && s.al.hq) || '');
     // obaya özel parçalar
-    [R.strip, R.left, R.right, R.act, R.pw].forEach(function (x) { x.hidden = !(tab === 'c'); });
+    // obanın ana görünümü dışında yan sütunlar yok; Yardım et yalnız istek varken ve pencere açık değilken
+    var pop = D.getElementById('pop'), modal = ov || (pop && pop.style.display && pop.style.display !== 'none') || !!D.querySelector('.hearth-gallery:not([hidden]),.building-gallery:not([hidden]),#aw') || (tab === 'c' && !!W.BMK);
+    var main = tab === 'c' && !modal, hq = (s.al && s.al.hq) || 0;
+    [R.strip, R.left, R.right, R.pw].forEach(function (x) { x.hidden = !main; });
+    R.act.hidden = !(main || (hq > 0 && !modal));
+    var tb = R.act.querySelector('[data-ah="topla"]'), yb = R.act.querySelector('[data-ah="yardim"]'); tb.hidden = !main; yb.hidden = !hq;
+    H.classList.toggle('ah-main', main);
     if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
     if (tab !== 'c' && tab !== 'm') { pgWatch(); pager(); }
     profTidy();
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
     if (tab !== 'c') return;
     // görev şeridi
-    var g = D.getElementById('ek-goal'), gt = g ? (g.querySelector('b') || g).textContent.trim() : '';
-    var qs = R.strip.querySelector('#ah-q span'), qh = '<b>' + ((s.l && s.l.ocak) || 1) + '. Bölüm</b> ' + (gt || 'Obanı büyüt');
+    var ch = chapter(), nx = ch.list.filter(function (t) { return !t.done; })[0]; R.qk = nx ? nx.k : 'ocak';
+    var qs = R.strip.querySelector('#ah-q span'), qh = '<b>' + ch.n + '. Bölüm</b> ' + (nx ? bname(nx.k) + ' Sv ' + nx.lv : 'Ocağı yükselt');
     if (qs.__ah !== qh) { qs.__ah = qh; qs.innerHTML = qh; }
     var cm = D.querySelector('#cpm'), last = cm && cm.lastElementChild, ct = last ? last.textContent.trim().replace(/\s+/g, ' ') : '';
     var cs = R.strip.querySelector('#ah-chat span'); if (cs.textContent !== ct) cs.textContent = ct || 'Boy sohbeti';

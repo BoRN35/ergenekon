@@ -167,7 +167,7 @@
     R.el.addEventListener('wheel', function (e) { e.preventDefault(); R.x -= e.deltaX; R.y -= e.deltaY; clamp(); apply(); }, { passive: false });
   }
   /* seçim: ad şeridi + yuvarlak işlem düğmeleri (King of Altay gibi) */
-  var SPEC = { bilgelik: ['Araştır', 'book', function () { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }], kisla: ['Eğit', 'swords', function (k) { openB(k, 'detail'); }], ocak: ['Ocak', 'fire', function () { try { W.city3d.hearthGallery.open(); } catch (e) { openB('ocak'); } }] };
+  var SPEC = { bilgelik: ['Araştır', 'book', function () { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }], kisla: ['Eğit', 'swords', function (k) { openB(k, 'detail'); }] };
   function openB(k, then) { W.BMK = k; W.selB = k; W.tab = 'c'; try { W.render(); } catch (e) {} if (then) setTimeout(function () { var b = D.querySelector('#ek-yapi [data-yk="' + then + '"]'); if (b) b.click(); }, 120); }
   function select(k) {
     if (!R.sel) { R.sel = D.createElement('div'); R.sel.className = 'ao-sel'; R.world.appendChild(R.sel); R.sel.addEventListener('pointerup', function (e) { e.stopPropagation(); }); R.sel.addEventListener('pointerdown', function (e) { e.stopPropagation(); }); R.sel.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b) return; e.stopPropagation(); var a = b.dataset.act, kk = R.sel.dataset.k; deselect(); if (a === 'npt') { npcAct(kk, b.dataset.nt); return; } if (a === 'up') openB(kk); else if (a === 'info') openB(kk, 'info'); else if (SPEC[kk]) SPEC[kk][2](kk); }); }

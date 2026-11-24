@@ -46,7 +46,6 @@
     if (k === 'kisla') a.push(['detail', '🪖 Asker Eğit']);
     if (k === 'sifa') a.push(['detail', '🩹 Yaralılar']);
     if (k === 'bilgelik' || k === 'harpakademi') a.push(['tab:r', '📚 Araştır']);
-    if (k === 'ocak') a.push(['hearth', '🔥 Ocağı aç']);
     if (k === 'gozcu') a.push(['tab:m', '🧭 Haritaya bak']);
     if (k === 'odunluk' || k === 'avci' || k === 'demirci') a.push(['tab:m', '🐎 Kafile gönder']);
     return a;
