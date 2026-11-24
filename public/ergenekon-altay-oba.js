@@ -106,19 +106,23 @@
 
   /* yamaç duvarı görseli (Tripo modelinden çevrilen tekrar eden şerit, 25 Kasım): yüklenince çizilmiş kaya bandının üstüne serilir; merdiven ve şelale yeniden üstte */
   function paintWalls(cv) {
-    var im = new Image();
-    im.onload = function () {
+    var im = new Image(), st = new Image(), left = 2;
+    function done() { if (--left) return;
       var g = cv.getContext('2d'), K = cv.width / WW; g.setTransform(K, 0, 0, K, 0, 0);
-      var h = 168, w = h * im.naturalWidth / im.naturalHeight;
+      var okW = im.naturalWidth > 0, okS = st.naturalWidth > 0; if (!okW && !okS) return;
+      var h = 168, w = okW ? h * im.naturalWidth / im.naturalHeight : 0;
       CLIFF.forEach(function (cy) {
         var top = cy - 40, bot = cy + 90, y0 = top - h * .1, x, y;
-        for (x = 0; x < WW; x += w - 1) g.drawImage(im, x, y0, w, h);
-        var sx = roadX(cy); for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
+        if (okW) for (x = 0; x < WW; x += w - 1) g.drawImage(im, x, y0, w, h);
+        var sx = roadX(cy);
+        if (okS) { var sh = 240, sw = sh * st.naturalWidth / st.naturalHeight; g.drawImage(st, sx - sw / 2, top - 50, sw, sh); }
+        else for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
         var wx = 55 + 22 * Math.sin(cy / 300); var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
         g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
       });
-    };
-    im.src = IMGP + 'yamac_duvar.webp';
+    }
+    im.onload = im.onerror = st.onload = st.onerror = done;
+    im.src = IMGP + 'yamac_duvar.webp'; st.src = IMGP + 'yamac_merdiven.webp';
   }
 
   /* ---------- sahne ---------- */
