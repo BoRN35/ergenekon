@@ -95,7 +95,8 @@
       // merdiven (yol üstünde)
       var sx = roadX(cy); for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
       // şelale
-      var wx = 55 + 22 * Math.sin(cy / 300); var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
+      var wx = 55 + 22 * Math.sin(cy / 300);
+        var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
       g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
     });
     // dış çit (sur önü)
@@ -106,10 +107,10 @@
 
   /* yamaç duvarı görseli (Tripo modelinden çevrilen tekrar eden şerit, 25 Kasım): yüklenince çizilmiş kaya bandının üstüne serilir; merdiven ve şelale yeniden üstte */
   function paintWalls(cv) {
-    var im = new Image(), st = new Image(), left = 2;
+    var im = new Image(), st = new Image(), wf = new Image(), left = 3;
     function done() { if (--left) return;
       var g = cv.getContext('2d'), K = cv.width / WW; g.setTransform(K, 0, 0, K, 0, 0);
-      var okW = im.naturalWidth > 0, okS = st.naturalWidth > 0; if (!okW && !okS) return;
+      var okW = im.naturalWidth > 0, okS = st.naturalWidth > 0, okF = wf.naturalWidth > 0; if (!okW && !okS && !okF) return;
       var h = 168, w = okW ? h * im.naturalWidth / im.naturalHeight : 0;
       CLIFF.forEach(function (cy) {
         var top = cy - 40, bot = cy + 90, y0 = top - h * .1, x, y;
@@ -117,12 +118,14 @@
         var sx = roadX(cy);
         if (okS) { var sh = 240, sw = sh * st.naturalWidth / st.naturalHeight; g.drawImage(st, sx - sw / 2, top - 50, sw, sh); }
         else for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
-        var wx = 55 + 22 * Math.sin(cy / 300); var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
+        var wx = 55 + 22 * Math.sin(cy / 300);
+        if (okF) { var fh = 300, fw = fh * wf.naturalWidth / wf.naturalHeight; g.drawImage(wf, Math.max(wx - fw / 2, -fw * .18), top - 95, fw, fh); return; }
+        var wg = g.createLinearGradient(0, top, 0, bot); wg.addColorStop(0, '#cfeaf5'); wg.addColorStop(1, '#6fb2d0'); g.fillStyle = wg; g.fillRect(wx - 30, top, 60, bot - top);
         g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
       });
     }
-    im.onload = im.onerror = st.onload = st.onerror = done;
-    im.src = IMGP + 'yamac_duvar.webp'; st.src = IMGP + 'yamac_merdiven.webp';
+    im.onload = im.onerror = st.onload = st.onerror = wf.onload = wf.onerror = done;
+    im.src = IMGP + 'yamac_duvar.webp'; st.src = IMGP + 'yamac_merdiven.webp'; wf.src = IMGP + 'yamac_selale.webp';
   }
 
   /* ---------- sahne ---------- */
