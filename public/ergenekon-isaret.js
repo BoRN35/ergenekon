@@ -137,6 +137,8 @@
     if (row.__ekh !== h) { row.__ekh = h; row.innerHTML = h; }
   }
 
+
+  (window.__ykInj = window.__ykInj || []).push(prodCard);
   /* ---------- 102 · 111 · 112: harita hedef kartı ---------- */
   function difficulty(m) {
     var M = W.M[m]; if (!M) return null; var s = S(), az = W.X6 && W.X6.isAz ? W.X6.isAz(m) : false, Lv = M[2] + (az ? 2 : 0), pg = (s.pg && s.pg.n) || 0, b = m === 11;

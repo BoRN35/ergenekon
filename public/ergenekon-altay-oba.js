@@ -240,14 +240,14 @@
     var s = S(), B = W.B || {};
     for (var k in SL) {
       var it = R.items[k]; if (!it) continue; var L = (s.l && s.l[k]) || 0, def = B[k];
-      var show = !!def && (L > 0 || reqOk(k)); it.im.hidden = it.pl.hidden = !show; if (!show) { it.up.hidden = true; continue; }
+      var show = !!def && (L > 0 || reqOk(k)); if (it.im.hidden === show) { it.im.hidden = it.pl.hidden = !show; } if (!show) { if (!it.up.hidden) it.up.hidden = true; continue; }
       var src = L > 0 ? art(k, L) : IMGP + 'dekor_cit_odun.webp'; if (it.src !== src) { it.src = src; it.im.src = src; it.im.classList.toggle('ao-plot', !L); }
       var q = null, can = false; try { q = W.buildQueue(k); can = !q && L > 0 && W.can(k); } catch (e) {}
       var nm = def.n.length > 14 ? def.n.split(' ')[0] : def.n;
       var h = L > 0 ? '<span class="ao-n"><b>' + L + '</b>' + nm + (can ? '<i class="ao-ar">' + svg('up', 13) + '</i>' : '') + '</span>' : '<span class="ao-n ao-new">🔨 ' + nm + '</span>';
       if (q && q.left > 0) h += '<span class="ao-t">⏱ ' + ft(q.left) + '</span><span class="ao-bar"><i style="width:' + Math.max(3, Math.min(100, 100 - q.left / (q.tot || 1) * 100)).toFixed(0) + '%"></i></span>';
       if (it.pl.__aoh !== h) { it.pl.__aoh = h; it.pl.innerHTML = h; }
-      it.up.hidden = true;
+      if (!it.up.hidden) it.up.hidden = true;
     }
     for (var id in NP) {
       var x = R.items['npc:' + id]; if (!x) continue; var src2 = D.querySelector('#ek-npcs [data-npc="' + id + '"]');

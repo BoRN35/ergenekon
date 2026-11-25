@@ -46,6 +46,8 @@
     if (!row) { row = document.createElement('div'); row.className = 'dg-burn'; var anchor = yk.querySelector('.yk-cost,.yk-prog,.yk-acts'); if (anchor) anchor.parentNode.insertBefore(row, anchor); else return; }
     row.classList.toggle('on', BURN.on); if (row.__ekh !== txt) { row.__ekh = txt; row.innerHTML = txt; }
   }
+
+  (window.__ykInj = window.__ykInj || []).push(ocakRow);
   var l1 = 0, l2 = 0;
   function frame(now) {
     requestAnimationFrame(frame); if (document.hidden) return;

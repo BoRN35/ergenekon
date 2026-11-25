@@ -707,7 +707,7 @@
       catch (e) { reportErr(e, 'render'); repairShell(); }
       afterRender(); return out;
     };
-    wrapped.__ek = true; W.render = wrapped;
+    for (var p in orig) wrapped[p] = orig[p]; wrapped.__ek = true; W.render = wrapped;
   }
   var lastSettle = 0;
   function tickVisual() {

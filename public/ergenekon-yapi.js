@@ -128,7 +128,7 @@
       var old = o.dataset.k === k ? o.firstElementChild : null, st = old ? old.scrollTop : 0, keep = [];
       // başka modüllerin karta eklediği satırları (üretim, kömür, yol haritası, hızlandırma…) koru: yeniden çizimde kaybolup yanıp sönmesin
       if (old) old.querySelectorAll(INJ).forEach(function (n) { var p = n.parentElement, nx = n.nextElementSibling; keep.push([n, p === old ? null : sig(p), nx && !nx.matches(INJ) ? sig(nx) : null]); });
-      o.__ekh = h; o.innerHTML = h;
+      o.__ekh = h; o.dataset.k = k; o.innerHTML = h;
       var c = o.firstElementChild;
       if (old && c) {
         c.style.animation = 'none';
@@ -141,6 +141,8 @@
       }
     }
     cur = k; o.dataset.k = k;
+    // diğer modüllerin eklemeleri aynı karede: sonradan eklenip içeriği kaydırmasın (25 Kasım)
+    (W.__ykInj || []).forEach(function (f) { try { f(); } catch (e) {} });
   }
   function sync() {
     var k = ''; try { k = W.BMK || ''; } catch (e) {}

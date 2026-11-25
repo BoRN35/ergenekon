@@ -766,3 +766,19 @@ html.ah-on #tg>:not(.ah-setg):not(#ek-set):not(.management-workspace):not(.ek-ve
 .ah-yp .yr-f button.go{background:linear-gradient(180deg,#9fe08a,#2f7d3a)!important;color:#0c2a10!important}
 html.ah-on #tc>#qp,html.ah-on #tc>.side{display:none!important}
 html.ah-on.ah-oba #qp{display:none!important}
+
+/* 25 Kasım: tek ekran — sayfa düğmeleri ve kısa ekranda sıkı bina penceresi */
+.ah-pgr{display:flex;align-items:center;justify-content:center;gap:14px;margin:6px auto 4px;flex:none}
+.ah-pgr button{width:40px;height:34px;border-radius:9px;border:2px solid #b98a43;background:linear-gradient(180deg,#5a3418,#2c1a0c);color:#f3d68e;font:900 20px Nunito,sans-serif;line-height:1;padding:0}
+.ah-pgr button:disabled{opacity:.35}
+.ah-pgr b{min-width:52px;text-align:center;color:#f3d68e;font:800 14px Nunito,sans-serif}
+.ar-list,.ab-grid,.kt-list,.rk-list,.tg-grid,.ci-grid,.bf-list{overflow-y:hidden!important;scrollbar-width:none}
+@media (max-height:760px){
+  html.ah-on .ya-card .yk-hero{height:68px!important}
+  html.ah-on .ya-card .yk-hero img,html.ah-on body #ek-yapi .ya-card .yk-hero img.ya-art{height:66px!important;max-height:66px!important}
+  html.ah-on .ya-card .yk-row{height:25px!important}
+  html.ah-on .ya-card .ya-ln{height:34px!important}
+  html.ah-on .ya-card .ya-sec{margin:4px 0 2px!important}
+  html body #ek-yapi .ya-bar{padding:7px 12px calc(7px + env(safe-area-inset-bottom))}
+  html body #ek-yapi .ya-bar .yk-main{height:50px!important}
+}

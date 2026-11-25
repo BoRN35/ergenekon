@@ -220,6 +220,8 @@
     else if (b) b.remove();
   }
 
+
+  (window.__ykInj = window.__ykInj || []).push(roadmap,cardFast);
   /* ---------- 54) tamga / hilal uyarı dili ---------- */
   function seals() {
     document.querySelectorAll('button.inf, .ek-why').forEach(function (b) { if (!b.classList.contains('ek-seal')) { b.classList.add('ek-seal'); b.setAttribute('aria-label', 'Bilgi'); } });

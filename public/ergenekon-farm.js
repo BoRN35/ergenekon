@@ -82,6 +82,8 @@
     }
   }
 
+
+  (window.__ykInj = window.__ykInj || []).push(ksButtons);
   /* ================= 66) Canavar arama ================= */
   var CS = { tab: 'k', sp: '', lv: 0, mat: '', list: [], pos: -1 };
   function maxAtk() { return S().l.ocak || 1; }

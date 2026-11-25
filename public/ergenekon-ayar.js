@@ -133,6 +133,8 @@
     if (miss) { var chip = document.querySelector('#res [data-ek-res="' + miss + '"]') || document.querySelector('#res > *:nth-child(' + (['odun', 'et', 'demir'].indexOf(miss) + 1) + ')'); if (chip) setTimeout(function () { chip.click(); }, 60); }
   }, true);
 
+
+  (window.__ykInj = window.__ykInj || []).push(bagButton);
   var l1 = 0, l2 = 0;
   function frame(now) {
     requestAnimationFrame(frame); if (document.hidden) return;

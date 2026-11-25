@@ -45,6 +45,8 @@
     var yk = document.getElementById('ek-yapi'); if (yk && yk.dataset.k === 'ocak' && !yk.querySelector('.era-chip')) { var hero = yk.querySelector('.yk-hero'); if (hero) hero.insertAdjacentHTML('beforeend', '<span class="era-chip">' + er[2] + ' ' + er[1] + ' Çağı</span>'); }
   }
 
+
+  (window.__ykInj = window.__ykInj || []).push(eraUI);
   /* ================= 213) günlük görevler ================= */
   var GT = [
     { k: 'kill', e: '🐺', n: '5 canavar avla', g: 5, v: function (s) { return (s.stat && s.stat.kills) || 0; } },

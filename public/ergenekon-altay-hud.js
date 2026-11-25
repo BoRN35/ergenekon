@@ -404,7 +404,7 @@
     // alt şerit
     R.nav.querySelectorAll('[data-ah]').forEach(function (b) { var k = b.dataset.ah; b.classList.toggle('on', (k === 'posta' && tab === 'p') || (k === 'boy' && tab === 'a') || (k === 'kahraman' && tab === 'u')); });
     var w = D.getElementById('ah-world'), onMap = tab === 'm' || tab !== 'c';
-    w.querySelector('b').textContent = tab === 'c' ? 'Dünya' : 'Oba'; var wi = tab === 'c' ? I.dunya : I.oba; if (w.__i !== wi) { w.__i = wi; w.querySelector('i').innerHTML = wi; }
+    var wl = tab === 'c' ? 'Dünya' : 'Oba', wb = w.querySelector('b'); if (wb.textContent !== wl) wb.textContent = wl; var wi = tab === 'c' ? I.dunya : I.oba; if (w.__i !== wi) { w.__i = wi; w.querySelector('i').innerHTML = wi; }
     var pb = D.querySelector('#tabs [data-t="p"]'); bd(R.nav.querySelector('[data-ah="posta"]'), pb && (pb.querySelector('b,i,em,span:not(.ek-nxi)') || {}).textContent && /\d/.test(pb.textContent) ? pb.textContent.replace(/\D/g, '') : '');
     bd(R.nav.querySelector('[data-ah="boy"]'), (s.al && s.al.hq) || '');
     // obaya özel parçalar
@@ -443,13 +443,74 @@
     bd(R.act.querySelector('[data-ah="yardim"]'), (s.al && s.al.hq) || '');
     var tg = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'), gh = R.right.querySelector('[data-ah="gorev"] .ah-hil'); if (gh) gh.hidden = !tg;
   }
+  /* 25 Kasım: TEK EKRAN — pencerelerde kaydırma yok.
+     1) Taşan pencere gövdesi ekrana sığana dek küçülür (zoom, en az %72).
+     2) Uzun listeler (arena sırası, koleksiyon, çanta…) kaydırılmaz; ‹ 1/3 › sayfa düğmeleriyle gezilir.
+     MutationObserver mikro görevinde çalışır: boyamadan önce, yanıp sönme olmaz. */
+  var FIT = '#aw>.tf,.ek-ov>.tf,.wrap>.ovp,#ek-yapi .ya-body,.np-win .np-body,.ek-ov .yk-card:not(.ya-card):not(.np-card),.ek-ov .np-card,.ek-ov .ek-modal';
+  var LIST = '.ar-list,.ab-grid,.kt-list,.rk-list,.tg-grid,.ci-grid,.bf-list,.ach-list,.ah-gv-list';
+  var PG = {};
+  function fitZoom(el) {
+    if (!el.offsetHeight) return;
+    var k = el.textContent.length + '|' + el.childElementCount + '|' + el.clientHeight + '|' + innerHeight;
+    if (el.__fz === k) return;
+    // zoom kabın kendisine değil çocuklarına: kabın yüksekliği (max-height) zoom ile birlikte küçülmesin
+    var kids = [].filter.call(el.children, function (c) { return !c.classList.contains('yk-head') && !c.classList.contains('np-tabs'); });
+    kids.forEach(function (c) { if (c.style.zoom) c.style.zoom = ''; }); var z = 1;
+    for (var i = 0; i < 5; i++) { var sh = el.scrollHeight, ch = el.clientHeight; if (sh <= ch + 2 || z <= .66) break; z = Math.max(.66, z * (ch / sh) - .01); kids.forEach(function (c) { c.style.zoom = z.toFixed(3); }); }
+    el.__fz = el.textContent.length + '|' + el.childElementCount + '|' + el.clientHeight + '|' + innerHeight;
+  }
+  function pageList(el, sel) {
+    if (!el.offsetHeight) return;
+    var items = [].filter.call(el.children, function (c) { return !c.classList.contains('ah-pgr'); });
+    var host = el.closest('.ek-ov,#ty,#tu,#tp,#ta,#tg,#tk,#te,#tr,#tc') || D.body, key = (host.id || host.className.split(' ')[0]) + sel + items.length;
+    var bar0 = el.nextElementSibling && el.nextElementSibling.classList.contains('ah-pgr'), sig = key + '|' + el.textContent.length + '|' + el.clientHeight + '|' + (PG[key] || 0) + '|' + innerHeight;
+    if (el.__pgs === sig && (bar0 || el.__pgn === 1)) return; // değişiklik yoksa yeniden ölçme
+    items.forEach(function (c) { if (c.style.display === 'none') c.style.display = ''; });
+    el.style.overflowY = 'hidden'; el.scrollTop = 0;
+    var bar = el.nextElementSibling && el.nextElementSibling.classList.contains('ah-pgr') ? el.nextElementSibling : null;
+    var ch = el.clientHeight;
+    if (items.length < 2 || el.scrollHeight <= ch + 4) { if (bar) bar.remove(); el.__pgs = sig; el.__pgn = 1; return; }
+    var er = el.getBoundingClientRect(), zs = el.offsetHeight ? er.height / el.offsetHeight : 1; ch = ch * zs; // zoom altındaysa ekran pikseline çevir
+    var top0 = er.top, starts = [0], pt = items[0].getBoundingClientRect().top - top0, base = pt;
+    items.forEach(function (c, i) { var r = c.getBoundingClientRect(); if (!i || !r.height) return; if (r.bottom - top0 - pt + base > ch - 2 && r.top - top0 > pt) { starts.push(i); pt = r.top - top0; } });
+    var n = starts.length, pg = Math.min(n - 1, PG[key] || 0); PG[key] = pg;
+    var a = starts[pg], b = pg + 1 < n ? starts[pg + 1] : items.length;
+    items.forEach(function (c, i) { if (i < a || i >= b) c.style.display = 'none'; });
+    if (!bar) { bar = D.createElement('div'); bar.className = 'ah-pgr'; el.insertAdjacentElement('afterend', bar); }
+    var h = '<button type="button" data-pg="-1"' + (pg ? '' : ' disabled') + '>‹</button><b>' + (pg + 1) + ' / ' + n + '</b><button type="button" data-pg="1"' + (pg < n - 1 ? '' : ' disabled') + '>›</button>';
+    if (bar.__ah !== h) { bar.__ah = h; bar.innerHTML = h; }
+    bar.__key = key; bar.__n = n; bar.__el = el; bar.__sel = sel;
+    el.__pgs = key + '|' + el.textContent.length + '|' + el.clientHeight + '|' + pg + '|' + innerHeight; el.__pgn = n;
+  }
+  function fitAll() {
+    try {
+      D.querySelectorAll(LIST).forEach(function (el) { var m = LIST.split(',').filter(function (q) { return el.matches(q); })[0]; pageList(el, m); });
+      D.querySelectorAll(FIT).forEach(fitZoom);
+      D.querySelectorAll(LIST).forEach(function (el) { var m = LIST.split(',').filter(function (q) { return el.matches(q); })[0]; pageList(el, m); });
+    } catch (e) {}
+  }
+  var fitQ = false;
+  function fitSoon() { if (fitQ) return; fitQ = true; Promise.resolve().then(function () { fitQ = false; fitAll(); }); }
+  new MutationObserver(function (ms) {
+    for (var i = 0; i < ms.length; i++) { var t = ms[i].target; if (t.closest && (t.closest('#ek-ao') || t.closest('.ah-pgr'))) continue; fitSoon(); return; }
+  }).observe(D.documentElement, { childList: true, subtree: true });
+  W.addEventListener('resize', function () { D.querySelectorAll(FIT).forEach(function (e) { e.__fz = ''; }); fitSoon(); });
+  D.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.ah-pgr [data-pg]'); if (!b) return; ev.stopPropagation(); ev.preventDefault();
+    var bar = b.parentNode; PG[bar.__key] = Math.max(0, Math.min(bar.__n - 1, (PG[bar.__key] || 0) + +b.dataset.pg));
+    pageList(bar.__el, bar.__sel); fitAll();
+  }, true);
   /* render() sonrası arayüz düzeni aynı karede uygulanır: eski görünüm bir an bile görünmesin */
   var myRender = null;
   function hookRender() {
     if (typeof W.render !== 'function' || W.render === myRender) return;
     var orig = W.render;
-    myRender = function () { var r = orig.apply(this, arguments); try { if (W.tab === 'u' && W.ekHeroView) W.ekHeroView(); if (R.nav) { update(); R.upd = performance.now(); } } catch (e) {} return r; };
-    W.render = myRender;
+    // 25 Kasım: diğer modüllerin işaretleri (__ekBoy, __yk, __ekOc, __ek…) kopyalanır; yoksa onlar her saniye yeniden sarıp
+    // zincir sonsuz uzuyordu (her çizimde aynı iş onlarca kez). Eski katmanlar artık iş yapmaz, yalnız en dıştaki.
+    var self = function () { var r = orig.apply(this, arguments); if (self === myRender) { try { if (W.tab === 'u' && W.ekHeroView) W.ekHeroView(); if (R.nav) { update(); R.upd = performance.now(); } } catch (e) {} } return r; };
+    for (var p in orig) self[p] = orig[p]; self.__ah = true;
+    myRender = self; W.render = myRender;
   }
   var last = 0;
   function loop(now) {
