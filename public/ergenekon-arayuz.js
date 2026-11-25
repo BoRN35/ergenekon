@@ -89,7 +89,7 @@
 
   /* ================= 163) yazı boyutu · 166) titreşim · ayar satırları ================= */
   function applyFs() { var f = ek().fs || 'm'; document.body.classList.toggle('ek-fs-s', f === 's'); document.body.classList.toggle('ek-fs-l', f === 'l'); }
-  (function () { try { var v = navigator.vibrate && navigator.vibrate.bind(navigator); if (!v) return; navigator.vibrate = function (p) { try { if (S() && ek().vib === 0) return false; } catch (e) {} return v(p); }; } catch (e) {} })();
+  (function () { try { var v = navigator.vibrate && navigator.vibrate.bind(navigator); if (!v) return; navigator.vibrate = function (p) { try { if (S() && ek().vib === 0) return false; } catch (e) {} if (typeof p === 'number' && p <= 30) return false; /* 25 Kasım: dokunuş titreşimi yok (NPC/bina/menü); yalnız önemli anlar (desenli titreşim) */ return v(p); }; } catch (e) {} })();
   function setRows() {
     var gfx = document.querySelector('#ek-set [data-sec="gfx"] .st-body');
     if (gfx && !gfx.querySelector('#ek-fs')) {
