@@ -213,14 +213,14 @@
     [[960, 1990, 'npc_koylu_erkek', 82], [760, 2120, 'npc_koylu_kadin', 80], [660, 5300, 'npc_oduncu', 85], [1080, 5260, 'npc_avci', 85], [660, 3420, 'npc_demirci', 82], [780, 3020, 'npc_koylu_erkek', 82], [700, 4040, 'npc_okcu', 82], [1500, 1400, 'npc_koylu_erkek', 82], [880, 4560, 'npc_koylu_kadin', 80], [820, 4950, 'npc_koylu_erkek', 80]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
     // NPC otağları
     for (var id in NP) (function (id) {
-      var n = NP[id], im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
+      var n = NP[id]; shadow(n[0], n[1], n[2] * .9); var im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
       var md = D.createElement('div'); md.className = 'ao-md'; md.dataset.npc = id; md.innerHTML = '<span class="ao-mdi">' + svg(n[5], 20) + '</span><b>' + n[4] + '</b><em class="ao-hil"></em>';
       md.style.cssText = 'left:' + lx(n[0]) + 'px;top:' + (n[1] - n[2] * .9) + 'px;z-index:' + (3000 + Math.round(n[1]));
       R.world.appendChild(md); R.items['npc:' + id] = { im: im, md: md };
     })(id);
     // binalar
     for (var k in SL) (function (k) {
-      var b = SL[k], im = sprite(art(k, 1), b[0], b[1], b[2], 'ao-b'); im.dataset.b = k;
+      var b = SL[k]; shadow(b[0], b[1] - b[2] * .02, b[2] * 1.05); var im = sprite(art(k, 1), b[0], b[1], b[2], 'ao-b'); im.dataset.b = k;
       var pl = D.createElement('div'); pl.className = 'ao-pl'; pl.dataset.b = k; pl.style.cssText = 'left:' + lx(b[0]) + 'px;top:' + (b[1] + 6) + 'px;z-index:' + (3000 + Math.round(b[1]));
       var up = D.createElement('div'); up.className = 'ao-up'; up.dataset.b = k; up.innerHTML = svg('up', 20); up.style.cssText = 'left:' + (b[0] + b[2] * .28) + 'px;top:' + (b[1] - b[2] * .78) + 'px;z-index:' + (3001 + Math.round(b[1]));
       var bb = D.createElement('button'); bb.type = 'button'; bb.className = 'ao-bb'; bb.dataset.bb = k; bb.hidden = true; bb.style.cssText = 'left:' + lx(b[0], 1) + 'px;top:' + (b[1] - b[2] * .52) + 'px;z-index:' + (3002 + Math.round(b[1]));

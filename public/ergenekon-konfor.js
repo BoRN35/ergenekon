@@ -232,7 +232,7 @@
   function frame(now) {
     requestAnimationFrame(frame);
     if (document.hidden) return;
-    try { bars(); } catch (e) {}
+    if (!document.documentElement.classList.contains('ao')) { try { bars(); } catch (e) {} } /* 26.11: gizli 3D yapım çubukları */
     if (now - lastFast > 300) { lastFast = now; try { rsFast(); bagBtn(); mapButtons(); roadmap(); cardFast(); seals(); flushReport(); } catch (e) {} }
     if (now - last > 3000) { last = now; try { autoHeal(); hookFightReport(); } catch (e) {} }
   }

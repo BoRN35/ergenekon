@@ -84,7 +84,7 @@
   function frame(now) {
     requestAnimationFrame(frame); if (document.hidden) return;
     if (!A.g) { if (now - t0 > 800) { t0 = now; try { build(); } catch (e) {} } return; }
-    if (W.tab === 'c') {
+    if (W.tab === 'c' && !document.documentElement.classList.contains('ao')) {
       var t = now / 1000; A.npc.position.y = .12 + Math.sin(t * 1.6) * .03; A.npc.rotation.y = -.6 + Math.sin(t * .4) * .25;
       A.g.children.forEach(function (o) { if (o.userData.flag) o.rotation.y = Math.sin(t * 2 + o.userData.flag) * .25; });
       try { marker(); } catch (e) {}

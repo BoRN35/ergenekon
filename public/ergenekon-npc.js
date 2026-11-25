@@ -226,7 +226,7 @@
     requestAnimationFrame(frame); if (document.hidden) return;
     var built = true; NPCS.forEach(function (n) { if (!G[n.id]) built = false; });
     if (!built && ts - t0 > 800) { t0 = ts; try { NPCS.forEach(function (n) { if (!G[n.id]) G[n.id] = build(n); }); } catch (e) {} }
-    if (W.tab === 'c') { anim(ts / 1000); try { markers(); } catch (e) {} } else if (L.el) L.el.hidden = true;
+    if (W.tab === 'c' && !document.documentElement.classList.contains('ao')) { anim(ts / 1000); try { markers(); } catch (e) {} } else if (L.el) L.el.hidden = true; /* 26.11: 2.5D obada eski 3D işaretler güncellenmez */
     if (ts - l1 > 300) { l1 = ts; try { barTick(); menu(); intro(); } catch (e) {} }
   }
   function start() { if (!S() || !W.city3d || !W.city3d.scene) { setTimeout(start, 500); return; } requestAnimationFrame(frame); }

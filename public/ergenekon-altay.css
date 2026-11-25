@@ -1582,3 +1582,10 @@ html body #pop .ah-hk button.hk-sl.hk-sl.on{border:2.5px solid var(--rc)!importa
 #ah-left img.ah-pi,#ah-right img.ah-pi,#ah-act img.ah-pi{width:100%!important;height:100%!important;object-fit:contain!important;display:block!important;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
 #ah-left button i{width:36px!important;height:36px!important}
 #ah-left button:not(.busy) img.ah-pi{filter:grayscale(.35) brightness(.85) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+/* 26 Kasım: telefonda titreme/yanıp sönme — obada hareketli katmanda filtre ve geçiş yok.
+   Gölgeler zemine boyanır (altay-oba.js shadow); dokunma parlaması kaldırıldı; seçili bina altın çerçeveyle değil, yalnız ad şeridi ve düğmelerle belirtilir. */
+html body #ek-ao .ao-sp,html body #ek-ao .ao-sp:active,html body #ek-ao .ao-b.on,html body #ek-ao .ao-md .ao-hil,html body #ek-ao svg{filter:none!important;transition:none!important}
+html body #ek-ao .ao-bb,html body #ek-ao .ao-bb *{transition:none!important}
+html body #ek-ao .ao-sp.ao-lock,html body #ek-ao .ao-npc.lk{filter:none!important;opacity:.55!important}
+html body #ek-ao .ao-md .ao-hil{box-shadow:inset -5px 2px 0 0 #ffd77a!important}
+#ek-ao,#ek-ao *{-webkit-tap-highlight-color:transparent!important}

@@ -924,7 +924,7 @@
     if (document.hidden) return;
     try { winMode(); } catch (e) {}
     try { if (W.tab === 'm') { tuneWorld(); badges(Date.now()); } coordBar(Date.now()); } catch (e) {}
-    try { tickVisual(); placeMarks(Date.now()); } catch (e) {}
+    if (!document.documentElement.classList.contains('ao')) { try { tickVisual(); placeMarks(Date.now()); } catch (e) {} } /* 26.11: gizli 3D tarla işaretleri */
   }
   function start() {
     if (!S() || typeof W.render !== 'function') { setTimeout(start, 400); return; }

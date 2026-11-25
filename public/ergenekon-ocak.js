@@ -43,6 +43,7 @@
   }
   var tEl = null;
   function toast(t) {
+    return; /* 26.11: ekranın üstünde beliren/kaybolan canlı haber balonu kapatıldı (yanıp sönme); haberler Boy sayfası ve sohbet şeridinde */
     if (document.hidden || document.querySelector('.ek-ov')) return;
     if (!tEl) { tEl = document.createElement('div'); tEl.id = 'ek-live'; document.body.appendChild(tEl); }
     tEl.textContent = t; tEl.classList.remove('on'); void tEl.offsetWidth; tEl.classList.add('on');

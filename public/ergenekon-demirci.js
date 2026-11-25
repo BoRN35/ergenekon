@@ -428,7 +428,7 @@
   function frame(now) {
     requestAnimationFrame(frame);
     if (document.hidden) return;
-    try { if (!G.ready) initScene(); animate(now); marker(); } catch (e) {}
+    if (!document.documentElement.classList.contains('ao')) { try { if (!G.ready) initScene(); animate(now); marker(); } catch (e) {} } /* 26.11: gizli 3D demirci sahnesi */
     if (now - lastSec > 1000) {
       lastSec = now;
       try { settle(); hookFight(); hookBonuses(); var o = document.getElementById('ek-forge'), el = o && o.querySelector('[data-dm-left]'); if (el) { var d = dm(); el.textContent = ft(Math.max(0, (d.t1 - Date.now()) / 1000)); } } catch (e) {}

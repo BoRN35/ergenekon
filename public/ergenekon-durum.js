@@ -177,7 +177,7 @@
     requestAnimationFrame(frame);
     if (document.hidden) return;
     if (now - lastSec > 1000) { lastSec = now; try { accrue(Date.now()); watch(now); } catch (x) {} }
-    try { draw(now); } catch (x) {}
+    if (!document.documentElement.classList.contains('ao')) { try { draw(now); } catch (x) {} } /* 26.11: 2.5D obada baloncuklar altay-oba.js'te; gizli 3D katman çizilmez */
   }
   function start() { if (!S() || !W.city3d || typeof W.can !== 'function') { setTimeout(start, 400); return; } accrue(Date.now()); requestAnimationFrame(frame); }
   start();
