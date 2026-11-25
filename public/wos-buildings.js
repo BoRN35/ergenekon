@@ -17,7 +17,9 @@
       var sb = level === (S().l[k] || 0) ? sub(k) : 0, r = row(k, level, sb);
       return r && Number.isFinite(r.t) ? { fromLevel: level, targetLevel: r.sub ? level : level + 1, cost: Object.assign({}, r.c), seconds: r.t, sub: !!r.sub, step: sb, label: r.lb } : null;
     };
-    root.cost = function (k) { if (!D[k]) return oCost(k); var q = root.buildingUpgradeAt(k, S().l[k] || 0); return q ? q.cost : {}; };
+    // oyuncunun araştırdığı yapı bedeli indirimi (Taş Ustalığı, en çok %10) wiki bedelinin üstüne uygulanır: kazanılmış hak korunur
+    function disc(c) { var d = 1 - Math.min(.1, .01 * ((S().rs || {}).masonry || 0)), o = {}; for (var r in c) o[r] = Math.ceil(c[r] * d); return o; }
+    root.cost = function (k) { if (!D[k]) return oCost(k); var q = root.buildingUpgradeAt(k, S().l[k] || 0); return q ? disc(q.cost) : {}; };
     root.dur = function (k) { if (!D[k]) return oDur(k); var q = root.buildingUpgradeAt(k, S().l[k] || 0); return q ? q.seconds : 0; };
     root.buildingRequirements = function (k) {
       if (!D[k]) return oReq(k);
@@ -27,9 +29,9 @@
     };
     root.can = function (k) {
       if (!D[k]) return oCan(k);
-      var s = S(), q = root.buildingUpgradeAt(k, s.l[k] || 0);
+      var s = S(), q = root.buildingUpgradeAt(k, s.l[k] || 0), c = q ? disc(q.cost) : null;
       return !!q && !root.buildQueue(k) && root.buildQueues().length < root.builders() && !root.buildingRequirements(k).length &&
-        Object.keys(q.cost).every(function (r) { return Number.isFinite(s.r[r]) && s.r[r] >= q.cost[r]; });
+        Object.keys(c).every(function (r) { return Number.isFinite(s.r[r]) && s.r[r] >= c[r]; });
     };
     root.buildingMaxLevel = function (k) { return D[k] ? maxL(k) : oMax ? oMax(k) : 40; };
     root.buildingLevelText = function (k, L) {

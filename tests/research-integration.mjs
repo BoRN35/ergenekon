@@ -52,7 +52,8 @@ better('command','tcap()');reset();const slots=E('sqn()');levels('command',4);as
 reset();E('HV=[10,20,30]');const healCost=read('hcost()');levels('medicine',10);const discounted=read('hcost()');for(const resource of Object.keys(healCost))assert.ok(discounted[resource]<healCost[resource]);
 better('rspeed',"researchQuote('bld',0).seconds",-1);
 reset();const buildCost=read("cost('ocak')");levels('masonry',10);const cheapBuild=read("cost('ocak')");assert.ok(cheapBuild.odun<buildCost.odun);
-for(const level of [0,3,10,25,39]){E(`s.l.ocak=${level};s.l.oba=${level}`);const ocak=read("cost('ocak')"),oba=read("cost('oba')");for(const resource of Object.keys(ocak))assert.equal(oba[resource],Math.ceil(ocak[resource]*1.4),'Oba keeps the requested 40% premium after material research');}
+// 26.11: Boy Obası artık Ocak×1,4 değil, wiki Embassy tablosu; Taş Ustalığı indirimi wiki bedeline uygulanır
+for(const level of [1,3,10,25]){E(`s.l.oba=${level}`);const base=read(`buildingUpgradeAt('oba',${level})`).cost,oba=read("cost('oba')");for(const resource of Object.keys(base))assert.equal(oba[resource],Math.ceil(base[resource]*0.9),'Boy Obası wiki bedeli + %10 Taş Ustalığı indirimi');}
 
 function produced(key,resource){reset();levels(key,10);E('tick(1,true)');return E(`s.r.${resource}`);}
 for(const [key,resource] of [['wood','odun'],['meat','et'],['iron','demir'],['fuel','odun'],['rations','et']]){reset();E('tick(1,true)');const plain=E(`s.r.${resource}`);assert.ok(produced(key,resource)>plain,`${key} changes real production or upkeep`);}

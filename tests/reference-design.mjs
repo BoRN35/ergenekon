@@ -13,10 +13,10 @@ for(const [name,get] of Object.entries({offsetHeight(){return this.id==='top'?76
 dom.HTMLElement.prototype.getBoundingClientRect=function(){return {x:0,y:0,left:0,top:0,width:800,height:400}};
 dom.HTMLElement.prototype.scrollTo=function(options){this.scrollTop=options.top||0;this.scrollLeft=options.left||0};
 let warnings=[];
-const ctx={console:{...console,warn(...args){warnings.push(args.map(String).join(' '))}},document,Element:dom.Element,Event:dom.Event,innerWidth:1440,innerHeight:900,localStorage:{getItem(){return null},setItem(){}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(fn){fn();return 1},cancelAnimationFrame(){},matchMedia(query){const max=query.match(/max-width:\s*(\d+)/),min=query.match(/min-width:\s*(\d+)/);return {matches:!!((max&&ctx.innerWidth<=+max[1])||(min&&ctx.innerWidth>=+min[1]))}},addEventListener(){},location:{search:'',hash:'',href:'https://test/'},URL,Blob,atob,btoa,performance:{now(){return 0}},Audio:function(){}};
+const ctx={MutationObserver:dom.MutationObserver,console:{...console,warn(...args){warnings.push(args.map(String).join(' '))}},document,Element:dom.Element,Event:dom.Event,innerWidth:1440,innerHeight:900,localStorage:{getItem(){return null},setItem(){}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(fn){fn();return 1},cancelAnimationFrame(){},matchMedia(query){const max=query.match(/max-width:\s*(\d+)/),min=query.match(/min-width:\s*(\d+)/);return {matches:!!((max&&ctx.innerWidth<=+max[1])||(min&&ctx.innerWidth>=+min[1]))}},addEventListener(){},location:{search:'',hash:'',href:'https://test/'},URL,Blob,atob,btoa,performance:{now(){return 0}},Audio:function(){}};
 ctx.window=ctx;vm.createContext(ctx);
 // Load the same classic helpers, in the same order, as the production HTML.
-const main=html.match(/<script>([\s\S]*?)<\/script>/);
+const main=html.match(/<script>((?:(?!<\/script>)[\s\S])*?function fresh\([\s\S]*?)<\/script>/);
 const scripts=[...html.slice(0,main.index).matchAll(/<script\b([^>]*)\bsrc=["']([^"']+)["'][^>]*><\/script>/g)].filter(m=>!(/\btype=["']module["']/.test(m[1]))).map(m=>m[2].split('?')[0]);
 for(const path of scripts){assert.match(path,/^\.\//,'Only project-local classic helpers are loaded');vm.runInContext(fs.readFileSync(repo+'/public/'+path.slice(2),'utf8'),ctx)}
 let source=main[1];source=source.slice(0,source.indexOf('try{(function(){for(var k in IMG)'));vm.runInContext(source,ctx);
@@ -26,8 +26,11 @@ E("s=fresh();mig();s.snd=false;s.l.ocak=15;s.l.bilgelik=10;s.l.yurt=5;s.l.kisla=
 assert.equal(typeof ctx.paintedGameArt,'function');
 assert.equal(typeof ctx.paintedGameIconHtml,'function');
 const atlas=ctx.paintedGameArt.atlas,bytes=fs.readFileSync(repo+'/public/'+atlas.url.slice(2));
-assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');
-assert.equal(bytes.readUInt32BE(16),atlas.width);assert.equal(bytes.readUInt32BE(20),atlas.height);
+// 22.11: atlas PNG → WebP (6 MB → 1 MB); başlık ve boyut WebP'den okunur
+assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+const chunk=bytes.toString('ascii',12,16);let ww,hh;
+if(chunk==='VP8X'){ww=1+bytes.readUIntLE(24,3);hh=1+bytes.readUIntLE(27,3);}else if(chunk==='VP8 '){ww=bytes.readUInt16LE(26)&0x3fff;hh=bytes.readUInt16LE(28)&0x3fff;}else{const b=bytes.readUInt32LE(21);ww=(b&0x3fff)+1;hh=((b>>14)&0x3fff)+1;}
+assert.equal(ww,atlas.width);assert.equal(hh,atlas.height);
 assert.ok(atlas.width>=1024&&atlas.height>=1024,'Real illustrated atlas has sufficient detail');
 assert.equal(ctx.paintedGameArt.keys.length,16);
 const tiles=ctx.paintedGameArt.keys.map(k=>ctx.paintedGameArt(k));
@@ -52,7 +55,8 @@ for(const viewport of [1440,390,320,760,761,1440]){
   assert.equal((rendered.match(/class="research-node(?: |")/g)||[]).length,layout.nodes.length);
   assert.match(rendered,/data-painted-kind=/);assert.match(rendered,/data-rs=/);assert.match(rendered,/research-connections/);assert.doesNotMatch(rendered,/NaN|undefined|data:image\//);
  }
- assert.equal(total,287);assert.equal(E('JSON.stringify(s)'),before,'Resizing and drawing preserves save data');
+ assert.equal(total,288); // 287 wiki + 1 Ergenekon eki (Bozkır Toplayıcıları, ergenekon-research-ek.js)
+ assert.equal(E('JSON.stringify(s)'),before,'Resizing and drawing preserves save data');
 }
 console.log('PASS all287 research nodes remain readable, bounded and non-overlapping on desktop/mobile and after repeated resize.');
 for(const page of ['c','m','r','a','k','y','p','g','u','e','z']){
