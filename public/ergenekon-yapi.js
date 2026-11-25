@@ -92,7 +92,7 @@
     var acts = actions(k, L).map(function (a) { return '<button type="button" class="yk-ico" data-yk="' + a[0] + '" title="' + a[1].replace(/^\S+\s/, '') + '">' + a[1].split(' ')[0] + '</button>'; }).join('');
     return '<div class="yk-card ya-card" role="dialog" aria-modal="true" aria-label="' + def.n + '">' +
       '<div class="yk-head"><button type="button" class="yk-info" data-yk="info" aria-label="Açıklama">!</button><h2>' + def.n + '</h2><button type="button" class="yk-x" data-yk="close" aria-label="Kapat">✕</button></div>' +
-      '<div class="ya-sv">Sv ' + L + ' / ' + max + '</div>' +
+      '<div class="ya-sv">' + (W.buildingLevelText && L ? W.buildingLevelText(k, L) : 'Sv ' + L) + ' / ' + (max > 30 && W.WOS_BUILDINGS && W.WOS_BUILDINGS[k] && W.WOS_BUILDINGS[k].fc ? 'Kor ' + (max - 30) : max) + '</div>' +
       '<div class="yk-hero">' + img + '</div>' + lvl +
       '<div class="ya-body">' + body + '<div class="yk-foot">' + acts + '<button type="button" class="yk-ico" data-yk="detail" title="Diğer detaylar">⋯</button></div></div>' +
       (bar ? '<div class="ya-bar">' + bar + '</div>' : '') + '</div>';

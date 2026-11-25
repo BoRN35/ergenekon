@@ -19,7 +19,7 @@
     names();
     wrap('pm', '__ekDg', function (o) { return function () { return o.apply(this, arguments) + (BURN.on ? .05 : 0); }; });
     wrap('tcost', '__ekDg', function (o) { return function (i, tier) { var c = o.apply(this, arguments); try { var t = tier || W.troopTier(i); if (t >= 4) c.komur = c.et * .5 * (1 + (t - 4) * .25); } catch (e) {} return c; }; });
-    wrap('cost', '__ekDg', function (o) { return function (k) { var c = o.apply(this, arguments); try { var L = S().l[k] || 0; if (L >= 15 && c && Object.keys(c).length) c.celik = Math.round(((c.demir || c.odun || 0) * .04) * Math.pow(1.05, L - 15)); } catch (e) {} return c; }; });
+    wrap('cost', '__ekDg', function (o) { return function (k) { var c = o.apply(this, arguments); try { var L = S().l[k] || 0; if ((W.WOS_BUILDINGS && W.WOS_BUILDINGS[k]) || (W.WHITEOUT_RESEARCH_BUILDINGS && W.WHITEOUT_RESEARCH_BUILDINGS[k])) return c; /* wiki birebir: ek çelik yok */ if (L >= 15 && c && Object.keys(c).length) c.celik = Math.round(((c.demir || c.odun || 0) * .04) * Math.pow(1.05, L - 15)); } catch (e) {} return c; }; });
     wrap('fight', '__ekDg', function (o) { return function () { var s = S(), k0 = s.stat.kills, r = o.apply(this, arguments); try { if (s.stat.kills > k0 && (s.l.ocak || 1) >= 25 && Math.random() < .03) { s.r.kristal = (s.r.kristal || 0) + 1; s.last = (s.last || '') + ' · 🔥 Kor +1'; } } catch (e) {} return r; }; });
   }
   var last = Date.now();

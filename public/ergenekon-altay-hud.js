@@ -249,7 +249,7 @@
     if (L === 4) nw.push('Bozkurt Yavrusu');
     var kale = './assets/img/kale_' + Math.max(1, Math.min(5, Math.ceil(L / 8))) + '.webp';
     var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-party';
-    o.innerHTML = '<div class="yk-card ah-pc"><div class="ah-pc-t">Kutsal Ocak</div><div class="ah-pc-sv">Sv ' + L + '</div><img src="' + kale + '" alt=""><p>Ocağın ateşi büyüdü, boyun gücü arttı.</p>' +
+    o.innerHTML = '<div class="yk-card ah-pc"><div class="ah-pc-t">Kutsal Ocak</div><div class="ah-pc-sv">' + (W.buildingLevelText ? W.buildingLevelText('ocak', L).replace(/ · .*/, '') : 'Sv ' + L) + '</div><img src="' + kale + '" alt=""><p>Ocağın ateşi büyüdü, boyun gücü arttı.</p>' +
       (nw.length ? '<div class="ah-pc-new"><small>Yeni açılanlar</small>' + nw.map(function (n) { return '<span>' + n + '</span>'; }).join('') + '</div>' : '') +
       '<button type="button" class="yk-main ah-pc-ok">Devam</button></div>';
     o.addEventListener('click', function (ev) { if (ev.target === o || ev.target.closest('.ah-pc-ok')) o.remove(); });

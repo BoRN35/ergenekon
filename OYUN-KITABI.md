@@ -85,6 +85,15 @@ Maliyet/süre tabloları: `public/upgrade-balance.js` (`ERGENEKON_UPGRADE_BALANC
 | `komurluk` | Kömürlük | Kömür üretimi | Ocak 1 |
 | `harpakademi` | Harp Ocağı | Kor teknolojileri, ileri talim | Ocak 31 |
 
+**26 Kasım 2026 — yapı değerleri Whiteout Survival Wiki'den birebir (kullanıcı kararı "A")**
+- Kaynak: `data/wos/buildings.json` → `scripts/wos-buildings.py` → `public/wos-buildings-data.js`; çalışma: `public/wos-buildings.js` (`installWosBuildings`). Aşağıdaki eski formüller (tablo × indirim, Oba ×1,4, `buildingRequirements` kuralları, ≥Sv15 ek çelik) bu yapılarda artık geçerli değildir; yalnız eski kuyruk kayıtları için koddadır.
+- Eşleme: Ocak = Furnace (1–30) + Fire Crystal Furnace (Kor 1–10 = Ocak 31–40) · Boy Obası = Embassy (+FC) · Şifahane = Infirmary (+FC) · Kışla = Infantry Camp (+FC) · Gözcü = Command Center (+FC) · Odunluk = Sawmill · Avcı = Hunter's Hut · Demirci = Iron Mine · Ambar = Storehouse · Yurt = Shelter · Sur = Barricade. (Bilgelik = Research Center, Harp Ocağı = War Academy, Kömürlük = Coal Mine zaten 17 Kasım'dan beri birebir.)
+- Bedel (et, odun, kömür, demir, ateş kristali, arıtılmış kristal) ve süre wiki tablosundaki değerdir; süre yalnız mevcut hız bonuslarıyla (araştırma, yardım, dua, Kurultay Günü, premium) kısalır.
+- Ön koşullar wiki satırından: Furnace→Ocak, Embassy→Boy Obası, Research Center→Bilgelik, Infantry/Marksman/Lancer Camp→Kışla, Infirmary→Şifahane, Command Center→Gözcü, Shelter→Yurt, Sawmill→Odunluk, Hunters' Hut→Avcı, Iron Mine→Demirci, Coal Mine→Kömürlük; "FC N" = 30+N. Hero Hall, Cookhouse, Clinic oyunda yok, yok sayılır. Piramit: Ocak dışı yapı Ocak'ı geçemez.
+- **Kor ara aşamaları:** Ocak, Boy Obası, Şifahane, Kışla, Gözcü 30'dan sonra her Kor seviyesine wiki'deki gibi 4 ara aşama + ana aşamayla çıkar (30-1…30-4, Kor 1; Kor 1-1…1-4, Kor 2 …). Ara aşama seviyeyi değiştirmez, `s.ek.fcs[yapı]` (0–4) sayacında tutulur; ana aşama bitince seviye +1, sayaç 0. Yazı: "Sv 30 · ara 2/4", "Kor 3".
+- Wiki'nin vermediği seviyeler: Odunluk/Avcı/Demirci/Ambar 31–40 ve Yurt 11–40 son wiki satırından eski Ergenekon eğrisinin büyüme oranıyla sürdürülür (veride `x:1`). Sur wiki'deki gibi en çok 10 (Barricade 10 seviye, Furnace 1–30'a yayılı); daha yüksek eski Sur seviyeleri korunur.
+- Örnek (wiki): Ocak 9→10 460 B odun, 92 B kömür, 23 B demir, 6 sa · Ocak 24→25 81 M et/odun, 16 M kömür, 4 M demir, 18 g 8 sa · Ocak 29→30 300 M et/odun, 60 M kömür, 15 M demir, 40 g 4 sa · Kor 1-1 72 M et/odun, 14 M kömür, 3,6 M demir, 158 kristal, 9 g.
+
 **Kurallar**
 - `cost(k)` = tablo × (1 − min(0,10; 0,01·rs.masonry)); `oba` için ×1,4.
 - `dur(k)` = tablo saniyesi (oba ×1,4). İnşaat hızı: `left -= dt × (Kurultay Günü ? 1,25 : 1) × (1 + 0,03·rs.bld + hb('b') + wosBonus('Construction Speed'))`; premium süreyi ÷1,35; Kut gücü −%0,5/sv.
