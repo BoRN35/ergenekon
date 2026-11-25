@@ -1575,3 +1575,10 @@ html body #pop .pb.ah-pf>.ph>button::before{content:'‹';font:900 30px/1 Georgi
 #pop .ah-hk .hk-bt b{color:#f1dfb6;font:900 12px 'Nunito',sans-serif}
 html body #pop .ah-hk button.hk-sl.hk-sl{border:2px solid #4a5a6a!important}
 html body #pop .ah-hk button.hk-sl.hk-sl.on{border:2.5px solid var(--rc)!important}
+/* 26 Kasım: gerçekçilik — kenar kararması (vinyet) ve bina gölgesi */
+#ek-ao::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:9;background:radial-gradient(ellipse 90% 80% at 50% 45%,transparent 55%,rgba(20,14,6,.38) 100%)}
+#ek-ao .ao-b{filter:drop-shadow(10px 14px 8px rgba(18,20,8,.4)) saturate(.92)!important}
+#ek-ao .ao-npc{filter:drop-shadow(8px 10px 6px rgba(18,20,8,.38)) saturate(.92)}
+#ah-left img.ah-pi,#ah-right img.ah-pi,#ah-act img.ah-pi{width:100%!important;height:100%!important;object-fit:contain!important;display:block!important;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+#ah-left button i{width:36px!important;height:36px!important}
+#ah-left button:not(.busy) img.ah-pi{filter:grayscale(.35) brightness(.85) drop-shadow(0 2px 2px rgba(0,0,0,.6))}

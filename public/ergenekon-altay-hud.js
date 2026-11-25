@@ -34,6 +34,9 @@
     guc: '<svg viewBox="0 0 48 48"><path d="M8 40L34 12M30 8l10 10M40 40L14 12M18 8L8 18" stroke="#f3e3c0" stroke-width="4.4" stroke-linecap="round"/></svg>'
   };
 
+  /* 26 Kasım: düz çizim simgeler yerine elle boyanmış simgeler (karikatür görünümü azaltır) */
+  (function () { var P = './assets/interface/painted/t/', m = { cekic: 'anvil', kitap: 'astrolabe', migfer: 'trainingrack', balta: 'wood', bina: 'encampment', etkinlik: 'banner', topla: 'food' };
+    for (var k in m) I[k] = '<img class="ah-pi" src="' + P + m[k] + '.webp" alt="">'; })();
   /* ---------- Görevler penceresi: Bölüm (Ocak'ın bir sonraki seviyesine giden yol) + Günlük ---------- */
   function openBld(k) { closeOv(); W.BMK = k; W.selB = k; W.tab = 'c'; rer(); }
   function bname(k) { var b = (W.B || {})[k]; return b ? b.n : k; }

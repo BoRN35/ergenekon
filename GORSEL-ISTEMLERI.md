@@ -132,3 +132,13 @@ Sheet 1536x1024, 3 columns x 2 rows, transparent background, same style. Full-bo
 Dosya adı: `alp_boy.webp` (dikey, 600x900, şeffaf ya da #00FF00 zemin)
 
 > Yarı gerçekçi, elle boyanmış dijital resim; karikatür değil. Genç bir Göktürk savaşçı beyi (Alp Tonga), tam boy, ayakta, hafif yandan önden duruş. Kürk yakalı koyu kahve deri kaftan, üstünde lamel zırh, belde kemer ve kılıç, omzunda yay. Başında kürklü sivri tolga (miğfer). Kendinden emin, ciddi yüz; uzun saçlar örgülü. Işık soldan sıcak altın tonlarda. Zemin düz #00FF00 yeşil (sonradan temizlenecek). Yazı, logo, imza yok.
+
+## Gerçekçi oba seti (26 Kasım 2026) — "oyun cartoon görünüyor" için
+Tarz: yarı gerçekçi, elle boyanmış, King of Altay şehir görüntüleri gibi; doygunluk düşük, zeytin yeşili ve toprak tonları, güneş sol üstten. Yazı/logo yok.
+
+1. `zemin_cimen.webp` — 1024x1024, **kenarları birleşen (seamless) tekrar eden doku**: kuşbakışı bozkır çimeni, küçük ot öbekleri, yer yer kuru ot ve toprak lekeleri, ufak taşlar. Bina/ağaç/yol yok.
+2. `zemin_toprak.webp` — 1024x1024 seamless: sıkıştırılmış toprak yol dokusu, araba tekerlek izleri, çakıl, kenarlarında ot.
+3. `dekor_cam_1.webp`, `dekor_cam_2.webp` — 512x512 #00FF00 zemin: tek çam ağacı, hafif yukarıdan (25°) bakış, gerçekçi koyu yeşil, gölgesi yok.
+4. `dekor_kayin_1.webp` — 512x512 #00FF00: tek huş/kayın ağacı, aynı açı.
+5. `dekor_cali_1.webp` — 256x256 #00FF00: alçak çalı öbeği.
+6. Alt menü simgeleri (aynı boyalı tarz, 256x256 #00FF00, tek nesne): `ikon_miğfer` (Kahramanlar), `ikon_canta` (deri heybe), `ikon_mektup` (mühürlü mektup), `ikon_kalkan` (Boy, kurt başlı kalkan), `ikon_harita` (Dünya, rulo harita).

@@ -62,37 +62,64 @@
   function rnd(a) { var x = Math.sin(a * 9301 + 49297) * 233280; return x - Math.floor(x); }
   function paintGround(cv) {
     var K = .5; cv.width = WW * K; cv.height = WH * K; var g = cv.getContext('2d'); g.scale(K, K);
-    // çimen
-    var gr = g.createLinearGradient(0, 0, 0, WH); gr.addColorStop(0, '#7fa646'); gr.addColorStop(.5, '#6f9a3f'); gr.addColorStop(1, '#5f8a36');
-    g.fillStyle = gr; g.fillRect(0, 0, WW, WH);
+    // çimen (26 Kasım: gerçekçi — çok ölçekli doku, zeytin/kuru ot tonları, fırça darbeleri)
     var i, x, y, r;
-    for (i = 0; i < 36000; i++) { x = rnd(i * 3.1) * WW; y = rnd(i * 7.7) * WH; g.fillStyle = rnd(i * 1.3) < .5 ? 'rgba(40,80,20,.18)' : 'rgba(200,225,130,.16)'; g.fillRect(x, y, 2 + rnd(i) * 3, 2); }
-    for (i = 0; i < 220; i++) { x = rnd(i * 5.3) * WW; y = rnd(i * 2.9) * WH; r = 40 + rnd(i * 8.1) * 110; var bg = g.createRadialGradient(x, y, 1, x, y, r); bg.addColorStop(0, rnd(i) < .5 ? 'rgba(170,200,90,.28)' : 'rgba(50,90,30,.25)'); bg.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = bg; g.beginPath(); g.ellipse(x, y, r * 1.5, r, 0, 0, 7); g.fill(); }
+    (function grass() {
+      var oc = D.createElement('canvas'); oc.width = Math.ceil(cv.width / 2); oc.height = Math.ceil(cv.height / 2); var og = oc.getContext('2d'), W2 = oc.width, H2 = oc.height, img = og.createImageData(W2, H2), d = img.data;
+      function grid(cell, seed) { var gw = Math.ceil(W2 / cell) + 2, gh = Math.ceil(H2 / cell) + 2, a = new Float32Array(gw * gh); for (var j = 0; j < a.length; j++) a[j] = rnd(j * 1.37 + seed); return { c: cell, w: gw, a: a }; }
+      function smp(G, px, py) { var fx = px / G.c, fy = py / G.c, ix = fx | 0, iy = fy | 0, tx = fx - ix, ty = fy - iy; tx = tx * tx * (3 - 2 * tx); ty = ty * ty * (3 - 2 * ty); var o = iy * G.w + ix, a = G.a; return (a[o] * (1 - tx) + a[o + 1] * tx) * (1 - ty) + (a[o + G.w] * (1 - tx) + a[o + G.w + 1] * tx) * ty; }
+      var G1 = grid(85, 11), G2 = grid(28, 23), G3 = grid(9, 37), G4 = grid(3, 41), G5 = grid(130, 53);
+      var P = [[66, 80, 36], [92, 106, 46], [114, 124, 58], [138, 134, 74]];
+      for (var py = 0; py < H2; py++) for (var px = 0; px < W2; px++) {
+        var n = smp(G1, px, py) * .5 + smp(G2, px, py) * .3 + smp(G3, px, py) * .2, f = smp(G4, px, py), dry = smp(G5, px, py);
+        var t = Math.max(0, Math.min(2.999, (n - .22) * 5.2)), k = t | 0, u = t - k, c0 = P[k], c1 = P[k + 1];
+        var sh = .86 + f * .26, dr = Math.max(0, dry - .62) * 1.6, o = (py * W2 + px) * 4;
+        d[o] = ((c0[0] + (c1[0] - c0[0]) * u) * sh + 40 * dr); d[o + 1] = ((c0[1] + (c1[1] - c0[1]) * u) * sh + 22 * dr); d[o + 2] = ((c0[2] + (c1[2] - c0[2]) * u) * sh + 8 * dr); d[o + 3] = 255;
+      }
+      og.putImageData(img, 0, 0); g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.imageSmoothingEnabled = true; g.drawImage(oc, 0, 0, cv.width, cv.height); g.restore();
+      // ot fırça darbeleri
+      g.lineCap = 'round';
+      for (i = 0; i < 26000; i++) { x = rnd(i * 3.1) * WW; y = rnd(i * 7.7) * WH; var l = 5 + rnd(i * 1.9) * 9, an = -1.57 + (rnd(i * 2.3) - .5) * .9, dk = rnd(i * 1.3) < .55;
+        g.strokeStyle = dk ? 'rgba(38,52,20,.32)' : 'rgba(170,172,96,.22)'; g.lineWidth = 1.6 + rnd(i * 5.1) * 1.4; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(an) * l, y + Math.sin(an) * l); g.stroke(); }
+      // çiçek ve taş serpintisi
+      for (i = 0; i < 1800; i++) { x = rnd(i * 6.1 + 3) * WW; y = rnd(i * 4.3 + 9) * WH; var q = rnd(i * 2.9); g.fillStyle = q < .5 ? 'rgba(150,146,130,.55)' : q < .75 ? 'rgba(220,214,170,.55)' : 'rgba(190,120,70,.45)'; g.beginPath(); g.arc(x, y, 1.4 + rnd(i) * 1.8, 0, 7); g.fill(); }
+    })();
     // dağlar ve Demir Dağ (en üst)
-    var mg = g.createLinearGradient(0, 0, 0, 420); mg.addColorStop(0, '#7d8aa0'); mg.addColorStop(1, '#8c9474');
+    var mg = g.createLinearGradient(0, 0, 0, 420); mg.addColorStop(0, '#76808e'); mg.addColorStop(1, '#6e7458');
     g.fillStyle = mg; g.beginPath(); g.moveTo(0, 430); for (i = 0; i <= 12; i++) g.lineTo(i / 12 * WW, 120 + Math.sin(i * 1.9) * 50 + rnd(i) * 90); g.lineTo(WW, 470); g.closePath(); g.fill();
     g.save(); g.translate(WW / 2 - 555, 0); g.fillStyle = '#45434f'; g.beginPath(); g.moveTo(330, 420); g.lineTo(470, 40); g.lineTo(560, 110); g.lineTo(640, 20); g.lineTo(780, 420); g.closePath(); g.fill();
     g.strokeStyle = 'rgba(255,120,40,.9)'; g.lineWidth = 5; g.shadowColor = '#ff6a1a'; g.shadowBlur = 18;
     [[470, 50, 455, 200, 480, 340], [640, 30, 655, 180, 620, 330], [560, 115, 575, 220, 550, 380]].forEach(function (q) { g.beginPath(); g.moveTo(q[0], q[1]); g.quadraticCurveTo(q[2], q[3], q[4], q[5]); g.stroke(); });
-    g.shadowBlur = 0; g.restore(); var fg = g.createLinearGradient(0, 360, 0, 520); fg.addColorStop(0, 'rgba(127,166,70,0)'); fg.addColorStop(1, '#7fa646'); g.fillStyle = fg; g.fillRect(0, 360, WW, 160);
-    // nehir (sol kenar) ve şelaleler
+    g.shadowBlur = 0; g.restore(); var fg = g.createLinearGradient(0, 360, 0, 520); fg.addColorStop(0, 'rgba(92,106,46,0)'); fg.addColorStop(1, 'rgba(92,106,46,1)'); g.fillStyle = fg; g.fillRect(0, 360, WW, 160);
+    // nehir (sol kenar): koyu dokulu su, yosunlu kıyı, dalga çizgileri
     g.lineCap = 'round'; g.lineJoin = 'round';
-    var riv = function (w, c) { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); g.moveTo(60, 380); for (y = 380; y <= WH; y += 60) g.lineTo(55 + 22 * Math.sin(y / 300), y); g.stroke(); };
-    riv(78, '#3d6f8c'); riv(56, '#4f8fb0'); riv(22, 'rgba(160,210,235,.55)');
-    // ana yol
-    var road = function (pts, w) { g.strokeStyle = 'rgba(110,80,45,.35)'; g.lineWidth = w + 14; g.beginPath(); pts.forEach(function (p, j) { j ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }); g.stroke(); g.strokeStyle = '#c7a670'; g.lineWidth = w; g.stroke(); g.strokeStyle = 'rgba(235,210,160,.55)'; g.lineWidth = w * .35; g.stroke(); };
-    var main = []; for (y = 460; y <= WH; y += 40) main.push([roadX(y), y]); road(main, 70);
+    var rx = function (yy) { return 55 + 22 * Math.sin(yy / 300); };
+    var riv = function (w, c, j) { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); g.moveTo(rx(380) + (j || 0), 380); for (y = 380; y <= WH; y += 30) g.lineTo(rx(y) + (j ? (rnd(y + j) - .5) * j : 0), y); g.stroke(); };
+    riv(96, 'rgba(48,58,28,.55)', 6); riv(80, '#5d5a46', 8); riv(66, '#2a4c50'); riv(48, '#33595c'); riv(22, 'rgba(90,130,130,.35)', 10);
+    for (i = 0; i < 700; i++) { y = 380 + rnd(i * 3.3) * (WH - 380); x = rx(y) + (rnd(i * 5.7) - .5) * 52; g.strokeStyle = 'rgba(190,215,210,' + (.1 + rnd(i) * .18) + ')'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 2, y + 8 + rnd(i * 2) * 10); g.stroke(); }
+    for (i = 0; i < 260; i++) { y = 380 + rnd(i * 7.1 + 2) * (WH - 380); x = rx(y) + (rnd(i * 2.2) < .5 ? -1 : 1) * (32 + rnd(i * 4.4) * 8); r = 3 + rnd(i * 9.9) * 5; g.fillStyle = 'rgba(120,116,100,.85)'; g.beginPath(); g.ellipse(x, y, r * 1.3, r, 0, 0, 7); g.fill(); }
+    // toprak yol: bozuk kenar, iz çukurları, çakıl, kenara taşan ot
+    var road = function (pts, w) {
+      var pass = function (lw, col, jit, seed) { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); pts.forEach(function (p, j) { var ox = (rnd(j * 3.7 + seed) - .5) * jit, oy = (rnd(j * 5.3 + seed) - .5) * jit; j ? g.lineTo(p[0] + ox, p[1] + oy) : g.moveTo(p[0] + ox, p[1] + oy); }); g.stroke(); };
+      pass(w + 16, 'rgba(52,44,24,.28)', w * .25, 1); pass(w + 4, '#76603e', w * .2, 2); pass(w, '#8c7450', w * .16, 3); pass(w * .75, 'rgba(160,136,96,.55)', w * .22, 4); pass(w * .4, 'rgba(176,152,110,.35)', w * .3, 5);
+      for (var j = 1; j < pts.length; j++) { var a = pts[j - 1], b = pts[j], L = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.ceil(L / 9);
+        for (var q = 0; q < n; q++) { var tt = q / n, px = a[0] + (b[0] - a[0]) * tt, py = a[1] + (b[1] - a[1]) * tt, sd = j * 97 + q;
+          if (rnd(sd * 1.1) < .55) { g.fillStyle = rnd(sd * 2.2) < .5 ? 'rgba(70,56,34,.45)' : 'rgba(196,180,146,.5)'; g.beginPath(); g.arc(px + (rnd(sd * 3.3) - .5) * w * .8, py + (rnd(sd * 4.4) - .5) * w * .8, 1 + rnd(sd) * 2.2, 0, 7); g.fill(); }
+          if (rnd(sd * 5.5) < .5) { var side = rnd(sd * 6.6) < .5 ? -1 : 1, nx = -(b[1] - a[1]) / L, ny = (b[0] - a[0]) / L, ex = px + nx * side * w * .5, ey = py + ny * side * w * .5; g.strokeStyle = 'rgba(70,86,34,.7)'; g.lineWidth = 2; g.beginPath(); g.moveTo(ex, ey); g.lineTo(ex - nx * side * (4 + rnd(sd) * 6), ey - ny * side * (4 + rnd(sd) * 6) - 4); g.stroke(); } } }
+    };
+    var main = []; for (y = 460; y <= WH; y += 40) main.push([roadX(y), y]); road(main, 64);
     // yapı yerlerine kollar
     var all = []; for (var k in SL) all.push(SL[k]); for (k in NP) all.push(NP[k]);
-    all.forEach(function (b) { var by = b[1] - b[2] * .05; road([[roadX(by), by], [(roadX(by) + b[0]) / 2, by + 10], [b[0], by]], 38); });
-    // yapı zeminleri: çitli toprak alanlar
-    all.forEach(function (b) {
-      var w = b[2] * 1.02, h = b[2] * .42, cx = b[0], cy = b[1] - b[2] * .1;
-      var dg = g.createLinearGradient(0, cy - h / 2, 0, cy + h / 2); dg.addColorStop(0, '#c9a874'); dg.addColorStop(1, '#a88552');
-      g.fillStyle = 'rgba(0,0,0,.18)'; g.beginPath(); g.ellipse(cx + 8, cy + 10, w / 2, h / 2, 0, 0, 7); g.fill();
-      g.fillStyle = dg; g.beginPath(); g.moveTo(cx - w * .46, cy - h * .5); g.lineTo(cx + w * .46, cy - h * .5); g.lineTo(cx + w * .5, cy + h * .5); g.lineTo(cx - w * .5, cy + h * .5); g.closePath(); g.fill();
-      g.strokeStyle = '#7a5230'; g.lineWidth = 4; g.stroke();
-      for (var t = 0; t <= 1.001; t += .1) { [[cx - w * .46 + t * w * .92, cy - h * .5], [cx - w * .5 + t * w, cy + h * .5]].forEach(function (p) { g.fillStyle = '#6a4526'; g.fillRect(p[0] - 3, p[1] - 14, 6, 15); g.fillStyle = '#a3753f'; g.fillRect(p[0] - 3, p[1] - 14, 2, 15); }); }
+    all.forEach(function (b) { var by = b[1] - b[2] * .05, mx = (roadX(by) + b[0]) / 2; road([[roadX(by), by], [mx * .5 + roadX(by) * .5, by + 6], [mx, by + 10], [mx * .5 + b[0] * .5, by + 6], [b[0], by]], 34); });
+    // yapı zeminleri: düzensiz sıkıştırılmış toprak, kenarı ota karışır (çit yok)
+    all.forEach(function (b, bi) {
+      var w = b[2] * .98, h = b[2] * .4, cx = b[0], cy = b[1] - b[2] * .12;
+      g.fillStyle = 'rgba(40,34,18,.22)'; g.beginPath(); g.ellipse(cx + 6, cy + 10, w * .52, h * .56, 0, 0, 7); g.fill();
+      for (var e = 0; e < 9; e++) { var ex = cx + (rnd(bi * 31 + e) - .5) * w * .35, ey = cy + (rnd(bi * 17 + e * 3) - .5) * h * .3, ew = w * (.3 + rnd(bi + e * 7) * .2), eh = h * (.32 + rnd(bi * 3 + e) * .18);
+        g.fillStyle = e % 3 ? 'rgba(134,110,74,.75)' : 'rgba(118,96,62,.7)'; g.beginPath(); g.ellipse(ex, ey, ew, eh, (rnd(e + bi) - .5) * .4, 0, 7); g.fill(); }
+      for (e = 0; e < 140; e++) { var a2 = rnd(bi * 7 + e * 1.3) * 6.283, rr = Math.sqrt(rnd(bi * 11 + e * 2.1)); var px = cx + Math.cos(a2) * rr * w * .48, py = cy + Math.sin(a2) * rr * h * .48;
+        g.fillStyle = rnd(e * 3.3 + bi) < .5 ? 'rgba(80,62,38,.4)' : 'rgba(190,170,130,.4)'; g.beginPath(); g.arc(px, py, 1 + rnd(e + bi * 2) * 2.4, 0, 7); g.fill(); }
+      for (e = 0; e < 60; e++) { var a3 = rnd(bi * 5 + e * 1.7) * 6.283, px2 = cx + Math.cos(a3) * w * .5, py2 = cy + Math.sin(a3) * h * .5; g.strokeStyle = 'rgba(70,86,34,.75)'; g.lineWidth = 2; g.beginPath(); g.moveTo(px2, py2); g.lineTo(px2 - Math.cos(a3) * 7, py2 - Math.sin(a3) * 5 - 5); g.stroke(); }
     });
     // yayla kaya duvarları + merdiven
     CLIFF.forEach(function (cy, ci) {
@@ -100,7 +127,7 @@
       g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(0, bot - 10, WW, 40);
       var rg = g.createLinearGradient(0, top, 0, bot); rg.addColorStop(0, '#9a9b90'); rg.addColorStop(1, '#5f6158'); g.fillStyle = rg; g.fillRect(0, top, WW, bot - top);
       for (i = 0; i < 360; i++) { x = rnd(ci * 991 + i * 1.7) * WW; y = top + 10 + rnd(ci * 557 + i * 2.3) * (bot - top - 20); r = 14 + rnd(i * 4.1 + ci) * 26; var sg = g.createRadialGradient(x - r * .3, y - r * .35, 2, x, y, r); sg.addColorStop(0, '#c7c8bc'); sg.addColorStop(.6, '#8a8c82'); sg.addColorStop(1, '#55574f'); g.fillStyle = sg; g.beginPath(); g.ellipse(x, y, r * 1.25, r, 0, 0, 7); g.fill(); }
-      g.fillStyle = '#6f9a3f'; g.beginPath(); g.moveTo(0, top); for (x = 0; x <= WW; x += 40) g.lineTo(x, top + 6 + rnd(x + ci) * 10); g.lineTo(WW, top - 20); g.lineTo(0, top - 20); g.closePath(); g.fill();
+      g.fillStyle = '#5c6a2e'; g.beginPath(); g.moveTo(0, top); for (x = 0; x <= WW; x += 40) g.lineTo(x, top + 6 + rnd(x + ci) * 10); g.lineTo(WW, top - 20); g.lineTo(0, top - 20); g.closePath(); g.fill();
       // merdiven (yol üstünde)
       var sx = roadX(cy); for (y = top; y < bot; y += 16) { g.fillStyle = '#b9b6a6'; g.fillRect(sx - 50, y, 100, 12); g.fillStyle = '#7b786c'; g.fillRect(sx - 50, y + 10, 100, 4); }
       // şelale
@@ -116,12 +143,14 @@
     for (x = 0; x < WW; x += 26) { if (Math.abs(x - SL.sur[0]) < 210) continue; var hh = 74 + rnd(x) * 10; g.fillStyle = '#6a4526'; g.fillRect(x, wy - hh, 22, hh); g.fillStyle = '#9a6a3a'; g.fillRect(x + 3, wy - hh, 6, hh); g.fillStyle = '#4a2e16'; g.beginPath(); g.moveTo(x, wy - hh); g.lineTo(x + 11, wy - hh - 16); g.lineTo(x + 22, wy - hh); g.fill(); }
     // çiftlik tarlaları (Avcı Çadırı çevresi) ve sebze bahçesi
     [[1240, 5440, 380, 120], [960, 5330, 200, 150]].forEach(function (f, j) {
-      g.save(); g.translate(f[0], f[1]); g.fillStyle = j ? '#6f8f3a' : '#d9b24a'; g.beginPath(); g.ellipse(0, 0, f[2] / 2, f[3] / 2, 0, 0, 7); g.fill();
+      g.save(); g.translate(f[0], f[1]); g.fillStyle = j ? '#56662c' : '#b8994a'; g.beginPath(); g.ellipse(0, 0, f[2] / 2, f[3] / 2, 0, 0, 7); g.fill();
       g.strokeStyle = 'rgba(120,90,30,.45)'; g.lineWidth = 3; for (var t2 = -f[2] / 2; t2 < f[2] / 2; t2 += 14) { g.beginPath(); g.moveTo(t2, -f[3] / 2 + 8); g.lineTo(t2 + 20, f[3] / 2 - 8); g.stroke(); }
       g.strokeStyle = '#8a8478'; g.lineWidth = 6; g.beginPath(); g.ellipse(0, 0, f[2] / 2, f[3] / 2, 0, 0, 7); g.stroke(); g.restore();
     });
     // arena kum çemberi, ağıl
-    var A = NP.arena; g.fillStyle = '#dcc48c'; g.beginPath(); g.ellipse(A[0], A[1] - 30, 150, 64, 0, 0, 7); g.fill(); g.strokeStyle = '#7a5230'; g.lineWidth = 5; g.stroke();
+    var A = NP.arena; g.fillStyle = 'rgba(176,154,112,.9)'; g.beginPath(); g.ellipse(A[0], A[1] - 30, 150, 64, 0, 0, 7); g.fill(); g.strokeStyle = 'rgba(90,70,40,.5)'; g.lineWidth = 3; g.stroke();
+    // son renk dokunuşu: sıcak, hafif soluk ışık (karikatür doygunluğunu kırar)
+    g.globalCompositeOperation = 'soft-light'; g.fillStyle = 'rgba(214,168,96,.35)'; g.fillRect(0, 0, WW, WH); g.globalCompositeOperation = 'source-over';
   }
 
   /* yamaç duvarı görseli (Tripo modelinden çevrilen tekrar eden şerit, 25 Kasım): yüklenince çizilmiş kaya bandının üstüne serilir; merdiven ve şelale yeniden üstte */
@@ -166,14 +195,17 @@
     var cv = D.getElementById('cityv'); if (!cv || !S()) return false;
     R.el = D.createElement('div'); R.el.id = 'ek-ao';
     R.world = D.createElement('div'); R.world.className = 'ao-world'; R.world.style.width = WW + 'px'; R.world.style.height = WH + 'px';
-    var c = D.createElement('canvas'); c.className = 'ao-ground'; paintGround(c); paintWalls(c); R.world.appendChild(c);
+    var c = D.createElement('canvas'); c.className = 'ao-ground'; var t0 = performance.now(); paintGround(c); W.__aoPaint = Math.round(performance.now() - t0); paintWalls(c); R.world.appendChild(c);
     R.el.appendChild(R.world); cv.insertBefore(R.el, cv.firstChild);
     // süs: kenarlarda ağaçlar, yollarda köylüler
     var occ = []; for (var q in SL) occ.push(SL[q]); for (q in NP) occ.push(NP[q]);
     function free(x, y, r) { if (Math.abs(x - roadX(y)) < 90) return false; if (Math.abs(y - WALLY + 60) < 120) return false; if (y > 5230 && x > 800) return false; if (x < 130) return false; for (var j = 0; j < occ.length; j++) { var o = occ[j]; if (Math.abs(x - o[0]) < o[2] * .55 + r && y > o[1] - o[2] * .9 - r * .5 && y < o[1] + 60 + r * .3) return false; } for (j = 0; j < CLIFF.length; j++) if (y > CLIFF[j] - 70 && y < CLIFF[j] + 140) return false; return y > 470; }
-    for (var i = 0; i < 380; i++) { var x = 120 + rnd(i * 4.4) * (WW - 140), y = 480 + rnd(i * 2.2) * (WH - 520), sz = 110 + rnd(i) * 80; if (free(x, y, sz * .4)) sprite(IMGP + 'dekor_agac_yaz.webp', x, y, sz, 'ao-dec'); }
+    // zemine düşen yumuşak gölge (ağaç ve kayalar; güneş sol üstten)
+    var sg = c.getContext('2d'), SK = c.width / WW; sg.setTransform(SK, 0, 0, SK, 0, 0);
+    function shadow(x, y, w) { var gr = sg.createRadialGradient(x + w * .12, y - w * .04, 1, x + w * .12, y - w * .04, w * .42); gr.addColorStop(0, 'rgba(20,26,8,.42)'); gr.addColorStop(1, 'rgba(20,26,8,0)'); sg.fillStyle = gr; sg.beginPath(); sg.ellipse(x + w * .12, y - w * .04, w * .42, w * .17, 0, 0, 7); sg.fill(); }
+    for (var i = 0; i < 380; i++) { var x = 120 + rnd(i * 4.4) * (WW - 140), y = 480 + rnd(i * 2.2) * (WH - 520), sz = 110 + rnd(i) * 80; if (free(x, y, sz * .4)) { shadow(x, y, sz); var tim = sprite(IMGP + 'dekor_agac_' + (1 + Math.floor(rnd(i * 6.6) * 3)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 8.8) < .5) tim.style.transform = 'scaleX(-1)'; } }
     // kaya kümeleri (Tripo modelinden, 25 Kasım)
-    for (i = 0; i < 90; i++) { x = 140 + rnd(i * 6.7 + 11) * (WW - 180); y = 500 + rnd(i * 3.9 + 5) * (WH - 560); sz = 70 + rnd(i * 1.9 + 3) * 60; if (free(x, y, sz * .5)) { var kim = sprite(IMGP + 'dekor_kaya_' + (1 + (i % 2)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 2.3) < .5) kim.style.transform = 'scaleX(-1)'; } }
+    for (i = 0; i < 90; i++) { x = 140 + rnd(i * 6.7 + 11) * (WW - 180); y = 500 + rnd(i * 3.9 + 5) * (WH - 560); sz = 70 + rnd(i * 1.9 + 3) * 60; if (free(x, y, sz * .5)) { shadow(x, y, sz * .9); var kim = sprite(IMGP + 'dekor_kaya_' + (1 + (i % 2)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 2.3) < .5) kim.style.transform = 'scaleX(-1)'; } }
     [[300, 760, 'dekor_kaya_1', 150], [630, 720, 'dekor_kaya_2', 130], [250, 960, 'dekor_kaya_2', 120], [660, 960, 'dekor_kaya_1', 110], [380, 640, 'dekor_kaya_2', 100], [700, 1260, 'dekor_bayrak_mavi', 100], [1000, 1260, 'dekor_bayrak_mavi', 100], [640, 4790, 'dekor_bayrak_kirmizi', 100], [1060, 4790, 'dekor_bayrak_kirmizi', 100], [660, 2330, 'dekor_saman_fici', 85], [1040, 3420, 'dekor_saman_fici', 90], [1560, 2330, 'dekor_cit_odun', 110], [680, 5250, 'dekor_cit_odun', 120], [1010, 5440, 'dekor_saman_fici', 95], [1060, 4000, 'dekor_saman_fici', 90]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
     [[960, 1990, 'npc_koylu_erkek', 82], [760, 2120, 'npc_koylu_kadin', 80], [660, 5300, 'npc_oduncu', 85], [1080, 5260, 'npc_avci', 85], [660, 3420, 'npc_demirci', 82], [780, 3020, 'npc_koylu_erkek', 82], [700, 4040, 'npc_okcu', 82], [1500, 1400, 'npc_koylu_erkek', 82], [880, 4560, 'npc_koylu_kadin', 80], [820, 4950, 'npc_koylu_erkek', 80]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
     // NPC otağları
