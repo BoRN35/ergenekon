@@ -27,6 +27,7 @@
   var NP = {
     kurultay: [480, 1050, 280, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1225, 1050, 260, 'dekor_cadir', 'Boy Meclisi', 'fire'],
     tug: [1080, 1215, 150, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'],
+    kurt: [620, 1225, 150, 'pet_bozkurt_yavrusu', 'Kurt İni', 'paw'], kam: [1050, 1885, 120, 'npc_kam', 'Kam', 'book'],
     sefer: [480, 4330, 270, 'kafile', 'Sefer', 'compass'], arena: [850, 4350, 200, 'npc_alper', 'Arena', 'swords'], agil: [1225, 4330, 230, 'npc_atli', 'Ağıl', 'horse']
   };
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }
@@ -34,7 +35,8 @@
     crown: '<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>', fire: '<path d="M12 3c3 4 6 6 6 10a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-2 0-4 0-6z"/>',
     compass: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>', horse: '<path d="M5 20l2-6-2-3 4-6 5 1 5 4-2 2-3-1-1 3 2 6"/>',
     flag: '<path d="M6 21V3M6 4c4-2 7 2 12 0v8c-5 2-8-2-12 0"/>', gem: '<path d="M6 4h12l3 5-9 11L3 9zM3 9h18M9 4l3 16M15 4l-3 16"/>',
-    book: '<path d="M4 5c3-1 6-1 8 1v14c-2-2-5-2-8-1zM20 5c-3-1-6-1-8 1v14c2-2 5-2 8-1z"/>', info: '<path d="M12 10v7M12 7h.01"/><circle cx="12" cy="12" r="9"/>', swords: '<path d="M5 19L17 7M14 5l5 5M19 19L7 7M10 5L5 10M4 20l2-2M20 20l-2-2"/>', up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    book: '<path d="M4 5c3-1 6-1 8 1v14c-2-2-5-2-8-1zM20 5c-3-1-6-1-8 1v14c2-2 5-2 8-1z"/>', info: '<path d="M12 10v7M12 7h.01"/><circle cx="12" cy="12" r="9"/>', swords: '<path d="M5 19L17 7M14 5l5 5M19 19L7 7M10 5L5 10M4 20l2-2M20 20l-2-2"/>', lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>', up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    paw: '<circle cx="7" cy="9" r="2"/><circle cx="12" cy="6.5" r="2"/><circle cx="17" cy="9" r="2"/><path d="M7.5 17c0-3 2-5.5 4.5-5.5s4.5 2.5 4.5 5.5c0 2-2 2.5-4.5 2.5S7.5 19 7.5 17z"/>', check: '<path d="M5 12l5 5 9-10"/>', helm: '<path d="M4 15c0-5 3.5-9 8-9s8 4 8 9v3H4zM12 6V3M9 18v3h6v-3"/>', heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
     axe: '<path d="M14 4l6 6-3 3-6-6zM11 7L3 21"/>', wheat: '<path d="M12 21V8M12 8c-3 0-4-3-4-5 3 0 4 2 4 5zm0 0c3 0 4-3 4-5-3 0-4 2-4 5zM12 13c-3 0-4-3-4-5 3 0 4 2 4 5zm0 0c3 0 4-3 4-5-3 0-4 2-4 5z"/>'
   };
   function svg(n, sz) { return '<svg viewBox="0 0 24 24" width="' + sz + '" height="' + sz + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICON[n] || '') + '</svg>'; }
@@ -155,7 +157,7 @@
     // kaya kümeleri (Tripo modelinden, 25 Kasım)
     for (i = 0; i < 90; i++) { x = 140 + rnd(i * 6.7 + 11) * (WW - 180); y = 500 + rnd(i * 3.9 + 5) * (WH - 560); sz = 70 + rnd(i * 1.9 + 3) * 60; if (free(x, y, sz * .5)) { var kim = sprite(IMGP + 'dekor_kaya_' + (1 + (i % 2)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 2.3) < .5) kim.style.transform = 'scaleX(-1)'; } }
     [[690, 1150, 'dekor_bayrak_mavi', 100], [1010, 1150, 'dekor_bayrak_mavi', 100], [700, 3950, 'dekor_bayrak_kirmizi', 100], [1000, 3950, 'dekor_bayrak_kirmizi', 100], [660, 1840, 'dekor_saman_fici', 85], [1560, 2300, 'dekor_cit_odun', 110], [1060, 3360, 'dekor_saman_fici', 95], [1530, 2900, 'dekor_cit_odun', 120], [160, 3300, 'dekor_saman_fici', 100]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
-    [[960, 1880, 'npc_koylu_erkek', 85], [740, 1900, 'npc_koylu_kadin', 82], [640, 2950, 'npc_oduncu', 85], [1060, 2950, 'npc_avci', 85], [1050, 2870, 'npc_demirci', 82], [660, 2280, 'npc_kam', 85], [700, 3420, 'npc_okcu', 82], [1520, 1250, 'npc_koylu_erkek', 85], [200, 1900, 'npc_koylu_kadin', 82]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
+    [[1110, 2020, 'npc_koylu_erkek', 85], [740, 1900, 'npc_koylu_kadin', 82], [640, 2950, 'npc_oduncu', 85], [1060, 2950, 'npc_avci', 85], [1050, 2870, 'npc_demirci', 82], [660, 2290, 'npc_koylu_erkek', 85], [700, 3420, 'npc_okcu', 82], [1520, 1250, 'npc_koylu_erkek', 85], [200, 1900, 'npc_koylu_kadin', 82]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
     // NPC otağları
     for (var id in NP) (function (id) {
       var n = NP[id], im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
@@ -168,7 +170,8 @@
       var b = SL[k], im = sprite(art(k, 1), b[0], b[1], b[2], 'ao-b'); im.dataset.b = k;
       var pl = D.createElement('div'); pl.className = 'ao-pl'; pl.dataset.b = k; pl.style.cssText = 'left:' + b[0] + 'px;top:' + (b[1] + 6) + 'px;z-index:' + (3000 + Math.round(b[1]));
       var up = D.createElement('div'); up.className = 'ao-up'; up.dataset.b = k; up.innerHTML = svg('up', 20); up.style.cssText = 'left:' + (b[0] + b[2] * .28) + 'px;top:' + (b[1] - b[2] * .78) + 'px;z-index:' + (3001 + Math.round(b[1]));
-      R.world.appendChild(pl); R.world.appendChild(up); R.items[k] = { im: im, pl: pl, up: up, src: '' };
+      var bb = D.createElement('button'); bb.type = 'button'; bb.className = 'ao-bb'; bb.dataset.bb = k; bb.hidden = true; bb.style.cssText = 'left:' + b[0] + 'px;top:' + (b[1] - b[2] * .52) + 'px;z-index:' + (3002 + Math.round(b[1]));
+      R.world.appendChild(pl); R.world.appendChild(up); R.world.appendChild(bb); R.items[k] = { im: im, pl: pl, up: up, bb: bb, src: '' };
     })(k);
     // oba işleri (sol sütun)
     R.jobs = D.createElement('div'); R.jobs.id = 'ao-jobs'; cv.appendChild(R.jobs);
@@ -229,18 +232,55 @@
     if (!t || !t.closest) return; var b = t.closest('[data-b]'), n = t.closest('[data-npc]');
     try { navigator.vibrate && navigator.vibrate(8); } catch (e) {}
     if (t.closest('.ao-sel')) return;
+    var bub = t.closest('[data-bb]'); if (bub) { deselect(); bubbleTap(bub.dataset.bb, bub.dataset.kind); return; }
     if (b) { var k = b.dataset.b; if (!(S().l[k] > 0)) { openB(k); return; } if (R.sel && !R.sel.hidden && R.sel.dataset.k === k) { deselect(); openB(k); } else select(k); return; }
     deselect();
-    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (id === 'tug' && W.ekAkinTugu) W.ekAkinTugu(); else if (R.sel && !R.sel.hidden && R.sel.dataset.k === id) { deselect(); if (W.ekNpcOpen) W.ekNpcOpen(id); } else selectNpc(id); }
+    if (n) { var id = n.dataset.npc; deselect(); if (id === 'arena') { if (W.ekGoArena) W.ekGoArena(); } else if (id === 'kurt') openWolf(); else if (id === 'kam') { if (W.ekGorevler) W.ekGorevler(); } else if (id === 'tug' && W.ekAkinTugu) W.ekAkinTugu(); else if (R.sel && !R.sel.hidden && R.sel.dataset.k === id) { deselect(); if (W.ekNpcOpen) W.ekNpcOpen(id); } else selectNpc(id); }
   }
 
   /* ---------- her an güncellenen durum ---------- */
+  /* 25 Kasım: King of Altay gibi bina üstü baloncuklar (yanıp sönmez): hasat, ücretsiz bitir, boşta kışla/şifahane/bilgelik */
+  var RESI = { odunluk: 'ikon_odun', avci: 'ikon_et', demirci: 'ikon_demir', komurluk: '' };
+  function unlockAt(k) { try { var r = (W.buildingRequirements(k) || []).filter(function (x) { return x.key === 'ocak'; })[0]; return r ? r.level : 0; } catch (e) { return 0; } }
+  function wolfReady() { var s = S(), p = s.pt || {}, e = s.en || {}; try { if (p.adv) return p.adv.end <= Date.now(); return Date.now() >= (e.pet || 0) && (e.v || 0) < (W.EN_MAX || 200); } catch (x) { return false; } }
+  function bubbleFor(k, L, q) {
+    var s = S(), F = W.ekFinish, D2 = W.ergenekonDurum;
+    if (q && q.left > 0 && q.left <= 300 && F) return ['fin', '<i>' + svg('check', 26) + '</i>', 'Bitir'];
+    if (q) return null;
+    if (D2 && D2.ready && RESI[k] != null) { try { if (D2.ready(k)) return ['bin', RESI[k] ? '<img src="' + IMGP + RESI[k] + '.webp" alt="">' : '<img src="./assets/interface/painted/t/coal.webp" alt="">', 'Topla']; } catch (e) {} }
+    if (k === 'kisla' && !s.tq) return ['idle', '<i>' + svg('swords', 24) + '</i>', 'Eğit'];
+    if (k === 'sifa' && !s.hq && s.wd && (s.wd[0] + s.wd[1] + s.wd[2]) > 0) return ['idle', '<i>' + svg('heart', 24) + '</i>', 'İyileştir'];
+    if (k === 'bilgelik') { if (s.rq && s.rq.left > 0 && s.rq.left <= 300 && F) return ['fin', '<i>' + svg('check', 26) + '</i>', 'Bitir']; if (!s.rq) return ['idle', '<i>' + svg('book', 24) + '</i>', 'Araştır']; }
+    return null;
+  }
+  function bubble(it, b) {
+    var bb = it.bb; if (!bb) return;
+    if (!b) { if (!bb.hidden) bb.hidden = true; return; }
+    var h = '<span class="ao-bbi ao-bb-' + b[0] + '">' + b[1] + '</span>';
+    if (bb.__aoh !== h) { bb.__aoh = h; bb.innerHTML = h; bb.dataset.kind = b[0]; bb.setAttribute('aria-label', b[2]); }
+    if (bb.hidden) bb.hidden = false;
+  }
+  function bubbleTap(k, kind) {
+    try { navigator.vibrate && navigator.vibrate(12); } catch (e) {}
+    if (kind === 'bin') { if (W.ergenekonDurum && W.ergenekonDurum.collect) W.ergenekonDurum.collect(k); }
+    else if (kind === 'fin') { if (k === 'bilgelik') W.ekFinish.research(); else W.ekFinish.build(k); }
+    else if (k === 'kisla' || k === 'sifa') { if (W.ekYapiPanel) W.ekYapiPanel(k); }
+    else if (k === 'bilgelik') { var t = D.querySelector('#tabs [data-t="r"]'); if (t) t.click(); else { W.tab = 'r'; W.render(); } }
+    try { W.save(); } catch (e) {}
+    update();
+  }
+  function openWolf() { var s = S(); if (((s.l && s.l.ocak) || 0) < 4) { try { W.add('🐺 Bozkurt Yavrusu Kutsal Ocak Sv 4’te boya katılır.'); } catch (e) {} return; } W.PTP = true; try { W.render(); } catch (e) {} }
+  W.ekObaPos = function (k) { var b = SL[k]; if (!b || !R.el || W.tab !== 'c') return null; var r = R.el.getBoundingClientRect(); return { x: r.left + R.x + b[0] * R.s, y: r.top + R.y + (b[1] - b[2] * .7) * R.s, off: false }; };
   function reqOk(k) { var s = S(); try { return (W.buildingRequirements(k) || []).every(function (r) { return (s.l[r.key] || 0) >= r.level; }); } catch (e) { return false; } }
   function update() {
     var s = S(), B = W.B || {};
     for (var k in SL) {
       var it = R.items[k]; if (!it) continue; var L = (s.l && s.l[k]) || 0, def = B[k];
-      var show = !!def && (L > 0 || reqOk(k)); if (it.im.hidden === show) { it.im.hidden = it.pl.hidden = !show; } if (!show) { if (!it.up.hidden) it.up.hidden = true; continue; }
+      var show = !!def && (L > 0 || reqOk(k)), lock = !!def && !show;
+      if (it.im.hidden === (show || lock)) { it.im.hidden = it.pl.hidden = !(show || lock); }
+      it.im.classList.toggle('ao-lock', lock);
+      if (lock) { var ol = unlockAt(k), lh = '<span class="ao-n ao-lk">' + svg('lock', 13) + ' ' + (def.n.length > 14 ? def.n.split(' ')[0] : def.n) + (ol ? ' · Ocak ' + ol : '') + '</span>'; var ls = IMGP + 'dekor_cit_odun.webp'; if (it.src !== ls) { it.src = ls; it.im.src = ls; it.im.classList.add('ao-plot'); } if (it.pl.__aoh !== lh) { it.pl.__aoh = lh; it.pl.innerHTML = lh; } bubble(it, null); if (!it.up.hidden) it.up.hidden = true; continue; }
+      if (!show) { if (!it.up.hidden) it.up.hidden = true; bubble(it, null); continue; }
       var src = L > 0 ? art(k, L) : IMGP + 'dekor_cit_odun.webp'; if (it.src !== src) { it.src = src; it.im.src = src; it.im.classList.toggle('ao-plot', !L); }
       var q = null, can = false; try { q = W.buildQueue(k); can = !q && L > 0 && W.can(k); } catch (e) {}
       var nm = def.n.length > 14 ? def.n.split(' ')[0] : def.n;
@@ -248,10 +288,13 @@
       if (q && q.left > 0) h += '<span class="ao-t">⏱ ' + ft(q.left) + '</span><span class="ao-bar"><i style="width:' + Math.max(3, Math.min(100, 100 - q.left / (q.tot || 1) * 100)).toFixed(0) + '%"></i></span>';
       if (it.pl.__aoh !== h) { it.pl.__aoh = h; it.pl.innerHTML = h; }
       if (!it.up.hidden) it.up.hidden = true;
+      bubble(it, L > 0 ? bubbleFor(k, L, q) : null);
     }
     for (var id in NP) {
       var x = R.items['npc:' + id]; if (!x) continue; var src2 = D.querySelector('#ek-npcs [data-npc="' + id + '"]');
       var hil = !!(src2 && src2.querySelector('.np-hil')), lk = !!(src2 && src2.classList.contains('lk'));
+      if (id === 'kurt') { lk = ((s.l && s.l.ocak) || 0) < 4; hil = !lk && wolfReady(); }
+      if (id === 'kam') { var tg = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'); hil = !!tg; lk = false; }
       x.md.classList.toggle('hil', hil); x.md.classList.toggle('lk', lk); x.im.classList.toggle('lk', lk);
     }
     if (H.classList.contains('ah-on')) return; // yeni arayüzde iş sütunu altay-hud.js'te

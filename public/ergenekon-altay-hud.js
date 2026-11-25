@@ -29,6 +29,7 @@
     ayar: '<svg viewBox="0 0 48 48"><path d="M24 6l4 5 6-2 1 6 6 2-3 6 3 5-6 2-1 6-6-2-4 5-4-5-6 2-1-6-6-2 3-5-3-6 6-2 1-6 6 2z" fill="#c9a25a" stroke="#4a3010" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="#4a3010"/></svg>',
     yardim: '<svg viewBox="0 0 48 48"><path d="M4 26l10-9 9 5 9-5 12 9-12 10-8-4-7 4z" fill="#c3ccd4" stroke="#2c343c" stroke-width="2" stroke-linejoin="round"/><path d="M14 17l4 12M34 17l-4 12" stroke="#2c343c" stroke-width="1.5"/></svg>',
     topla: '<svg viewBox="0 0 48 48"><path d="M12 18c0-5 24-5 24 0l5 18c0 7-34 7-34 0z" fill="#c49a5a" stroke="#4a2a10" stroke-width="2"/><path d="M17 15c3-6 11-6 14 0" stroke="#4a2a10" stroke-width="2.6" fill="none"/><path d="M14 12l6 5M30 8l2 8M20 8l3 8" stroke="#d6a640" stroke-width="3" stroke-linecap="round"/></svg>',
+    bina: '<svg viewBox="0 0 48 48"><path d="M6 24L24 9l18 15v16H6z" fill="#efe0c2" stroke="#6b4a1e" stroke-width="2"/><path d="M18 40V28h12v12" fill="#b5652a" stroke="#4a2410" stroke-width="2"/><path d="M3 25L24 7l21 18" fill="none" stroke="#8a5a22" stroke-width="3" stroke-linecap="round"/></svg>',
     guc: '<svg viewBox="0 0 48 48"><path d="M8 40L34 12M30 8l10 10M40 40L14 12M18 8L8 18" stroke="#f3e3c0" stroke-width="4.4" stroke-linecap="round"/></svg>'
   };
 
@@ -71,6 +72,64 @@
     D.body.appendChild(o);
   }
   W.ekGorevler = gorevOpen;
+  /* 25 Kasım: Binalar — tüm yapılar tek listede (seviye, durum); dokununca yapı penceresi */
+  function ocakAt(k) { var r = reqs(k).filter(function (x) { return x.key === 'ocak'; })[0]; return r ? r.level : 0; }
+  function binaHtml() {
+    var s = S(), B = W.B || {}, rows = [];
+    Object.keys(B).forEach(function (k) {
+      var L = (s.l && s.l[k]) || 0, q = null, can = false; try { q = W.buildQueue(k); can = !q && W.can(k); } catch (e) {}
+      var open = L > 0 || reqs(k).every(function (r) { return ((s.l && s.l[r.key]) || 0) >= r.level; });
+      var rank = q ? 0 : can ? 1 : open ? 2 : 3;
+      var img = W.ekBinaArt ? W.ekBinaArt(k) : null;
+      var right = q && q.left > 0 ? '<span class="gv-tm">' + ft(q.left) + '</span>' : !open ? '<span class="gv-lk">Ocak ' + ocakAt(k) + '</span>' : '<button type="button" class="gv-go' + (can ? ' up' : '') + '" data-gv="' + k + '">' + (can ? '▲' : 'GİT') + '</button>';
+      rows.push([rank, L, '<div class="gv-r' + (!open ? ' lk' : '') + '"><span class="gv-im">' + (img ? '<img src="' + img + '" alt="">' : '') + '</span><span class="gv-t"><b>' + B[k].n + ' <em>Sv ' + L + '</em></b></span>' + right + '</div>']);
+    });
+    rows.sort(function (a, b) { return a[0] - b[0] || b[1] - a[1]; });
+    return '<div class="gv-list ah-bl">' + rows.map(function (r) { return r[2]; }).join('') + '</div>';
+  }
+  function binaOpen() {
+    closeOv();
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-gv';
+    o.innerHTML = '<div class="yk-card"><div class="yk-head"><h2>Binalar</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="gv-body"></div></div>';
+    var body = o.querySelector('.gv-body'), fill = function () { var h = binaHtml(); if (body.__ah !== h) { body.__ah = h; body.innerHTML = h; } };
+    fill(); var iv = setInterval(function () { if (!o.isConnected) { clearInterval(iv); return; } fill(); }, 1000);
+    o.addEventListener('click', function (ev) {
+      if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; }
+      var g = ev.target.closest('[data-gv]'); if (g) { o.remove(); openBld(g.dataset.gv); }
+    });
+    D.body.appendChild(o);
+  }
+  W.ekBinalar = binaOpen;
+  /* 25 Kasım: Kutsal Ocak yükselince tek seferlik kutlama (sonsuz animasyon yok) */
+  function ocakParty() {
+    var s = S(); if (!s || !s.l) return; s.ek = s.ek || {}; var L = s.l.ocak || 1;
+    if (s.ek.okut == null) { s.ek.okut = L; return; }
+    if (L <= s.ek.okut) return; s.ek.okut = L; try { W.save(); } catch (e) {}
+    var B = W.B || {}, nw = Object.keys(B).filter(function (k) { return k !== 'ocak' && ocakAt(k) === L; }).map(function (k) { return B[k].n; });
+    if (L === 4) nw.push('Bozkurt Yavrusu');
+    var kale = './assets/img/kale_' + Math.max(1, Math.min(5, Math.ceil(L / 8))) + '.webp';
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-party';
+    o.innerHTML = '<div class="yk-card ah-pc"><div class="ah-pc-t">Kutsal Ocak</div><div class="ah-pc-sv">Sv ' + L + '</div><img src="' + kale + '" alt=""><p>Ocağın ateşi büyüdü, boyun gücü arttı.</p>' +
+      (nw.length ? '<div class="ah-pc-new"><small>Yeni açılanlar</small>' + nw.map(function (n) { return '<span>' + n + '</span>'; }).join('') + '</div>' : '') +
+      '<button type="button" class="yk-main ah-pc-ok">Devam</button></div>';
+    o.addEventListener('click', function (ev) { if (ev.target === o || ev.target.closest('.ah-pc-ok')) o.remove(); });
+    D.body.appendChild(o);
+    try { navigator.vibrate && navigator.vibrate([20, 60, 30]); } catch (e) {}
+  }
+  /* 25 Kasım: pencereyi başlığından aşağı çekince kapanır */
+  (function swipeClose() {
+    var st = null;
+    D.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { st = null; return; } var t = e.target.closest && e.target.closest('.yk-head,.ph,.ek-mh,.gv-ban,.ya-sv,.yk-hero');
+      st = t ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: t } : null;
+    }, { passive: true });
+    D.addEventListener('touchend', function (e) {
+      if (!st) return; var c = e.changedTouches[0], dy = c.clientY - st.y, dx = Math.abs(c.clientX - st.x), t = st.t; st = null;
+      if (dy < 80 || dx > 60) return;
+      var box = t.closest('.ek-ov,#pop'); if (!box) return;
+      var x = box.querySelector('.yk-x,[data-yk="close"],[data-pcl],.ek-x,.nb-x'); if (x) x.click(); else if (box.classList.contains('ek-ov')) box.remove();
+    }, { passive: true });
+  })();
   /* eski 3B galeri (Ocak görünümü / yapı modelleri) yok: her çağrı yapı penceresini açar */
   (function galleryRedirect() {
     var c = W.city3d; if (!c) { setTimeout(galleryRedirect, 500); return; }
@@ -353,7 +412,7 @@
     // sol: boştaki işler
     R.left = el('div', 'ah-left');
     // sağ üst ve sağ alt
-    R.right = el('div', 'ah-right', '', [['gorev', 'Görevler'], ['etkinlik', 'Etkinlik'], ['ayar', 'Ayarlar']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
+    R.right = el('div', 'ah-right', '', [['gorev', 'Görevler'], ['bina', 'Binalar'], ['etkinlik', 'Etkinlik'], ['ayar', 'Ayarlar']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
     R.act = el('div', 'ah-act', '', '<button type="button" data-ah="yardim"><i>' + I.yardim + '</i><b>Yardım et</b><em class="ah-bd" hidden></em></button><button type="button" data-ah="topla"><i>' + I.topla + '</i><b>Tümünü topla</b></button>');
     R.pw = el('div', 'ah-pw', '', '<span class="ah-pwv"><i>' + I.guc + '</i><b></b></span><span class="ah-er"><img src="./assets/img/ikon_erime.webp" alt=""><em></em></span>');
     R.toast = el('div', 'ah-toast'); R.toast.hidden = true;
@@ -372,6 +431,7 @@
     else if (k === 'boy') { closeOv(); tabGo('a'); }
     else if (k === 'dunya') { closeOv(); if (W.tab === 'm') tabGo('c'); else if (W.tab !== 'c') tabGo('c'); else { var w = D.getElementById('ek-world'); if (w) w.click(); else tabGo('m'); } }
     else if (k === 'gorev') gorevOpen();
+    else if (k === 'bina') binaOpen();
     else if (k === 'etkinlik') tabGo('e');
     else if (k === 'ayar') tabGo('g');
     else if (k === 'yardim') { var n = (s.al && s.al.hq) || 0, h = D.getElementById('ek-hand'); if (n && h) { h.click(); toast('🤝 ' + n + ' boydaşa yardım edildi'); } else toast('Yardım bekleyen boydaş yok'); }
@@ -417,7 +477,7 @@
     H.classList.toggle('ah-main', main);
     if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
     if (tab !== 'c' && tab !== 'm') { pgWatch(); pager(); }
-    profTidy();
+    profTidy(); ocakParty();
     if (tab === 'u') { if (!R.uOpen) R.uOpen = Date.now(); heroNav(); heroQuote(); } else R.uOpen = 0;
     uqFill(); if (R.uq && !R.uq.hidden && !main) R.uq.hidden = true;
     if (tab === 'g') setUp(); else if (R.sc != null) R.sc = null;
@@ -448,7 +508,7 @@
      2) Uzun listeler (arena sırası, koleksiyon, çanta…) kaydırılmaz; ‹ 1/3 › sayfa düğmeleriyle gezilir.
      MutationObserver mikro görevinde çalışır: boyamadan önce, yanıp sönme olmaz. */
   var FIT = '.research-tree-scroll.ah-rts,#aw>.tf,.ek-ov>.tf,.wrap>.ovp,#ek-yapi .ya-body,.np-win .np-body,.ek-ov .yk-card:not(.ya-card):not(.np-card),.ek-ov .np-card,.ek-ov .ek-modal';
-  var LIST = '.ar-list,.ab-grid,.kt-list,.rk-list,.tg-grid,.ci-grid,.bf-list,.ach-list,.ah-gv-list';
+  var LIST = '.gv-list,.ar-list,.ab-grid,.kt-list,.rk-list,.tg-grid,.ci-grid,.bf-list,.ach-list,.ah-gv-list';
   var PG = {};
   function fitZoom(el) {
     if (!el.offsetHeight) return;
@@ -488,8 +548,9 @@
     var items = [].filter.call(el.children, function (c) { return !c.classList.contains('ah-pgr'); });
     var host = el.closest('.ek-ov,#ty,#tu,#tp,#ta,#tg,#tk,#te,#tr,#tc') || D.body, key = (host.id || host.className.split(' ')[0]) + sel + items.length;
     var bar0 = el.nextElementSibling && el.nextElementSibling.classList.contains('ah-pgr'), sig = key + '|' + el.textContent.length + '|' + el.clientHeight + '|' + (PG[key] || 0) + '|' + innerHeight;
-    if (el.__pgs === sig && (bar0 || el.__pgn === 1)) return; // değişiklik yoksa yeniden ölçme
-    items.forEach(function (c) { if (c.style.display === 'none') c.style.display = ''; });
+    if (el.__pgs === sig && (bar0 || el.__pgn === 1) && items[0] && items[0].__pgm) return; // değişiklik yoksa yeniden ölçme (satırlar yenilendiyse işaret kaybolur)
+    if (items[0]) items[0].__pgm = 1;
+    items.forEach(function (c) { if (c.classList.contains('ah-pgh')) c.classList.remove('ah-pgh'); });
     el.style.overflowY = 'hidden'; el.scrollTop = 0;
     var bar = el.nextElementSibling && el.nextElementSibling.classList.contains('ah-pgr') ? el.nextElementSibling : null;
     var ch = el.clientHeight;
@@ -499,12 +560,13 @@
     items.forEach(function (c, i) { var r = c.getBoundingClientRect(); if (!i || !r.height) return; if (r.bottom - top0 - pt + base > ch - 2 && r.top - top0 > pt) { starts.push(i); pt = r.top - top0; } });
     var n = starts.length, pg = Math.min(n - 1, PG[key] || 0); PG[key] = pg;
     var a = starts[pg], b = pg + 1 < n ? starts[pg + 1] : items.length;
-    items.forEach(function (c, i) { if (i < a || i >= b) c.style.display = 'none'; });
-    if (!bar) { bar = D.createElement('div'); bar.className = 'ah-pgr'; el.insertAdjacentElement('afterend', bar); }
+    items.forEach(function (c, i) { if (i < a || i >= b) c.classList.add('ah-pgh'); });
+    var fresh = !bar; if (!bar) { bar = D.createElement('div'); bar.className = 'ah-pgr'; el.insertAdjacentElement('afterend', bar); }
     var h = '<button type="button" data-pg="-1"' + (pg ? '' : ' disabled') + '>‹</button><b>' + (pg + 1) + ' / ' + n + '</b><button type="button" data-pg="1"' + (pg < n - 1 ? '' : ' disabled') + '>›</button>';
     if (bar.__ah !== h) { bar.__ah = h; bar.innerHTML = h; }
     bar.__key = key; bar.__n = n; bar.__el = el; bar.__sel = sel;
     el.__pgs = key + '|' + el.textContent.length + '|' + el.clientHeight + '|' + pg + '|' + innerHeight; el.__pgn = n;
+    if (fresh && el.clientHeight !== Math.round(ch / zs)) { el.__pgs = ''; pageList(el, sel); } // düğme eklenince liste kısaldı: yeniden böl
   }
   /* 25 Kasım: araştırma ağacı kaydırılmaz — her dalda I…VII kat sekmeleri, seçili katın araştırmaları ızgarada */
   var RT = {};

@@ -93,6 +93,7 @@
 
   /* --- işaret katmanı --- */
   function screenPos(k) {
+    if (W.ekObaPos) { var op = W.ekObaPos(k); if (op) return op; } // 2.5D oba (25 Kasım)
     var c = W.city3d, cv = document.getElementById('cityv'), p = slots() && slots()[k]; if (!c || !cv || !p) return null;
     if (!L.v) L.v = new c.camera.position.constructor();
     L.v.set(p[0], p[1], p[2]).project(c.camera);
@@ -180,5 +181,5 @@
   }
   function start() { if (!S() || !W.city3d || typeof W.can !== 'function') { setTimeout(start, 400); return; } accrue(Date.now()); requestAnimationFrame(frame); }
   start();
-  W.ergenekonDurum = { collectAll: collectAll, ready: ready, rate: rate };
+  W.ergenekonDurum = { collectAll: collectAll, ready: ready, rate: rate, collect: function (k) { var g = collect(k); if (g) { try { W.save(); } catch (e) {} } return g; } };
 })();

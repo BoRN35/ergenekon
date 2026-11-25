@@ -365,3 +365,11 @@ Ana oyun koduna dokunmadan, `index.html` sonunda tek `<script>` ve `<head>` sonu
 - Hoş geldin penceresinin düğmeleri kısa ekranda ekran dışında kalıyordu; artık sığıyor.
 - 25.11 (devam): Araştırma ağacı artık kaydırılmaz: altay-hud.js researchTiers() her dalda I…VII kat sekmeleri (.ah-rtb) ekler; canvas .ah-rtg ile 4 sütun ızgara (svg çizgileri gizli, düğümler position:static, order=eski top), yalnız seçili kat görünür; açılışta seçili düğümün katı. Kısa ekranda madalyon 46 px, Sv yazısı gizli. "Ward Expansion VII" çevirisi düzeldi (whiteout-research.js: -vi-2 gibi anahtarlar, aşama adı ismin sonundaki rakamdan).
 - Kalabalık bina penceresi (yaTabs): .ya-body taşarsa küçültmeden önce iki sekme: Yükseltme (Gereksinimler+Maliyet) | Kazanç (Sonraki seviye+Ödüller); üretim/kömür/… satırları ve alt düğmeler ortak. Sekme seçimi binaya göre hatırlanır (oturum içi).
+- 25.11 KoA arayüz adımları (kural/ekonomi değişmedi):
+  - Bina üstü baloncuklar (altay-oba.js bubbleFor/bubble/bubbleTap, .ao-bb): hasat hazırsa kaynak simgesi (durum.js hasat birikimi; dokununca W.ergenekonDurum.collect, kaynak üst çubuğa uçar — durum.js screenPos artık W.ekObaPos'u kullanır), ≤5 dk kalan yapım/araştırmada turkuaz ✓ (W.ekFinish), boşta Kışla (kılıç → Eğit), yaralı varken boşta Şifahane (kalp), boşta Bilgelik (kitap → Araştır). Yanıp sönmez.
+  - Kilitli binalar artık gizli değil: gri arsa + "🔒 Ad · Ocak N" levhası; dokununca yapı penceresi (gereksinimler).
+  - Yeni oba NPC'leri: Kurt İni (620,1225; pet_bozkurt_yavrusu; Ocak 4 öncesi kilitli; dokununca PTP kurt sayfası; hazır yetenek/macera dönüşünde hilal) ve Kam (1050,1885; npc_kam; dokununca Görevler; Tuğ'da görev hilali varken hilal).
+  - Sağ sütunda "Binalar" (W.ekBinalar): tüm yapılar sıralı liste (yapılıyor > yükseltilebilir ▲ > açık > kilitli "Ocak N"), sayfalı.
+  - Kutsal Ocak yükselince tek seferlik kutlama (ocakParty; s.ek.okut son kutlanan seviye, ilk açılışta yalnız kaydedilir), yeni açılan yapılar listelenir.
+  - Pencere başlığından aşağı çekince kapanır (yk-head/ph/ek-mh/gv-ban/ya-sv/yk-hero, ≥80 px).
+  - Sayfalayıcı düzeltmesi: gizleme sınıfla (.ah-pgh, yüksek öncelik; satırların display:flex!important'ı inline display'i eziyordu), düğme eklenince yeniden bölme, satırlar yenilenince yeniden uygulama. Görevler listesi de sayfalı.
