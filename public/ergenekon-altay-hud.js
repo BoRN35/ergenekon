@@ -479,7 +479,17 @@
   }
   function pgWatch() {
     var t = W.tab, P = D.getElementById('t' + t); if (!P || P.__ahpg) return; P.__ahpg = 1;
-    new MutationObserver(function () { if (W.tab === t) pager(); }).observe(P, { childList: true, subtree: !!PGV[t] });
+    new MutationObserver(function (ms) {
+      if (W.tab !== t) return;
+      /* 26.11: oyun sayfayı baştan yazınca (geri sayım her saniye) modüllerin eklediği bölümler (ör. Emek Defteri #ek-ed) silinip
+         ancak sonraki döngüde geri geliyordu → sekme şeridi kaybolup içerik yukarı-aşağı zıplıyordu. Aynı mikro görevde geri konur. */
+      ms.forEach(function (m) { if (m.target !== P) return; [].forEach.call(m.removedNodes, function (n) {
+        if (n.nodeType !== 1 || !n.id || n.id === 'ah-pg' || n.isConnected || D.getElementById(n.id)) return;
+        var hd = P.querySelector(':scope>header'), bar = P.querySelector(':scope>#ah-pg'), ref = (bar || hd) ? (bar || hd).nextSibling : P.firstChild;
+        P.insertBefore(n, ref);
+      }); });
+      pager();
+    }).observe(P, { childList: true, subtree: !!PGV[t] });
   }
 
   /* ---------- Haritada hedef (canavar) kartı: tek ekran, taktikler ayrı görünümde ---------- */
