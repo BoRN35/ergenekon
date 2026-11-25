@@ -38,6 +38,9 @@
     arena: [1230, 3860, 210, 'npc_alper', 'Arena', 'swords'],
     agil: [480, 4400, 230, 'npc_atli', 'Ağıl', 'horse'], sefer: [1230, 4400, 270, 'kafile', 'Sefer', 'compass']
   };
+  /* 26 Kasım: yan sütunların (iş düğmeleri / Hediyeler-Binalar-Etkinlik) altında kalmasın diye kenardaki yapıların
+     etiketi, Zz/hasat baloncuğu ve NPC adı ekranın görünür orta bölümüne çekilir; yapının kendisi yerinde kalır */
+  function lx(x, bub) { var a = bub ? 560 : 590, b2 = bub ? 1135 : 1110; return Math.max(a, Math.min(b2, x)); }
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }
   var ICON = {
     crown: '<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>', fire: '<path d="M12 3c3 4 6 6 6 10a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-2 0-4 0-6z"/>',
@@ -212,15 +215,15 @@
     for (var id in NP) (function (id) {
       var n = NP[id], im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
       var md = D.createElement('div'); md.className = 'ao-md'; md.dataset.npc = id; md.innerHTML = '<span class="ao-mdi">' + svg(n[5], 20) + '</span><b>' + n[4] + '</b><em class="ao-hil"></em>';
-      md.style.cssText = 'left:' + n[0] + 'px;top:' + (n[1] - n[2] * .9) + 'px;z-index:' + (3000 + Math.round(n[1]));
+      md.style.cssText = 'left:' + lx(n[0]) + 'px;top:' + (n[1] - n[2] * .9) + 'px;z-index:' + (3000 + Math.round(n[1]));
       R.world.appendChild(md); R.items['npc:' + id] = { im: im, md: md };
     })(id);
     // binalar
     for (var k in SL) (function (k) {
       var b = SL[k], im = sprite(art(k, 1), b[0], b[1], b[2], 'ao-b'); im.dataset.b = k;
-      var pl = D.createElement('div'); pl.className = 'ao-pl'; pl.dataset.b = k; pl.style.cssText = 'left:' + b[0] + 'px;top:' + (b[1] + 6) + 'px;z-index:' + (3000 + Math.round(b[1]));
+      var pl = D.createElement('div'); pl.className = 'ao-pl'; pl.dataset.b = k; pl.style.cssText = 'left:' + lx(b[0]) + 'px;top:' + (b[1] + 6) + 'px;z-index:' + (3000 + Math.round(b[1]));
       var up = D.createElement('div'); up.className = 'ao-up'; up.dataset.b = k; up.innerHTML = svg('up', 20); up.style.cssText = 'left:' + (b[0] + b[2] * .28) + 'px;top:' + (b[1] - b[2] * .78) + 'px;z-index:' + (3001 + Math.round(b[1]));
-      var bb = D.createElement('button'); bb.type = 'button'; bb.className = 'ao-bb'; bb.dataset.bb = k; bb.hidden = true; bb.style.cssText = 'left:' + b[0] + 'px;top:' + (b[1] - b[2] * .52) + 'px;z-index:' + (3002 + Math.round(b[1]));
+      var bb = D.createElement('button'); bb.type = 'button'; bb.className = 'ao-bb'; bb.dataset.bb = k; bb.hidden = true; bb.style.cssText = 'left:' + lx(b[0], 1) + 'px;top:' + (b[1] - b[2] * .52) + 'px;z-index:' + (3002 + Math.round(b[1]));
       R.world.appendChild(pl); R.world.appendChild(up); R.world.appendChild(bb); R.items[k] = { im: im, pl: pl, up: up, bb: bb, src: '' };
     })(k);
     // oba işleri (sol sütun)
