@@ -37,3 +37,9 @@ Geçerli ChatGPT görsel istemleri: `GORSEL-ISTEMLERI.md` (`GORSEL-LISTESI.md` e
 ## Bekleyen (kullanıcı müdahalesi gerekli; sorduğunda hatırlat)
 - Supabase proje adresi + anon anahtarı (bulut kayıt, giriş, hile koruması, klan).
 - Ödeme (iyzico/Stripe), Google Play hesabı, premium fiyatı, topluluk kanal linki.
+- **Bekleyen görseller** (istemler `GORSEL-ISTEMLERI.md` sonunda; kullanıcı müsait olunca ChatGPT'den getirecek, gelince yeşil zemini temizle, WebP yap, yerine koy):
+  1. `zemin_cimen.webp` (seamless çimen dokusu) — oba zemininde kodla çizilen çimenin yerine (en büyük etki)
+  2. `zemin_toprak.webp` (seamless toprak yol) — yollar ve yapı zeminleri
+  3. `dekor_cam_1/2.webp`, `dekor_kayin_1.webp`, `dekor_cali_1.webp` — ağaç/çalı çeşitleri (şu an dekor_agac_1/2/3 renk varyasyonu)
+  4. Alt menü simgeleri: `ikon_miğfer`, `ikon_canta`, `ikon_mektup`, `ikon_kalkan`, `ikon_harita` (şu an düz SVG)
+  5. `alp_boy.webp` — Alp profili büyük boydan resmi (kod hazır: varsa onu, yoksa alp.webp gösterir)
