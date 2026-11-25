@@ -1,0 +1,1 @@
+Kahraman ses replikleri: <anahtar>_1.mp3, _2.mp3, _3.mp3 (anahtar HHK listesinden, ör. mete_1.mp3). Dosya yoksa oyun sessiz geçer.

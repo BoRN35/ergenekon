@@ -1,0 +1,166 @@
+{
+ "buildings": {
+  "yurt": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/yurt-sv1.webp",
+     "width": 5,
+     "rotationY": -1.5707963267948966,
+     "version": "c23e43ce5737"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/yurt-sv5.webp",
+     "width": 5.75,
+     "rotationY": -1.5707963267948966,
+     "version": "9e65d40f660c"
+    }
+   }
+  },
+  "odunluk": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/odunluk-sv1.webp",
+     "width": 5,
+     "rotationY": -1.5707963267948966,
+     "version": "919a5075126c"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/odunluk-sv5.webp",
+     "width": 5.75,
+     "rotationY": -1.5707963267948966,
+     "version": "82ce22ea069d"
+    }
+   }
+  },
+  "avci": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/avci-sv1.webp",
+     "width": 5,
+     "rotationY": -1.5707963267948966,
+     "version": "6af36bce5913"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/avci-sv5.webp",
+     "width": 5.75,
+     "rotationY": -1.5707963267948966,
+     "version": "6303359ed1c4"
+    }
+   }
+  },
+  "demirci": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/demirci-sv1.webp",
+     "width": 5.5,
+     "rotationY": -1.5707963267948966,
+     "version": "f54c3a5bff22"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/demirci-sv5.webp",
+     "width": 6.324999999999999,
+     "rotationY": -1.5707963267948966,
+     "version": "05f918f6a48b"
+    }
+   }
+  },
+  "sifa": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/sifa-sv1.webp",
+     "width": 5.5,
+     "rotationY": -1.5707963267948966,
+     "version": "1395f38c6c6c"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/sifa-sv5.webp",
+     "width": 6.324999999999999,
+     "rotationY": -1.5707963267948966,
+     "version": "aafb9f78b46f"
+    }
+   }
+  },
+  "kisla": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/kisla-sv1.webp",
+     "width": 6.5,
+     "rotationY": -1.5707963267948966,
+     "version": "b8c746962eb8"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/kisla-sv5.webp",
+     "width": 7.475,
+     "rotationY": -1.5707963267948966,
+     "version": "d01a7c0ca254"
+    }
+   }
+  },
+  "sur": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/sur-sv1.webp",
+     "width": 8,
+     "rotationY": 1.5707963267948966,
+     "version": "738abbc2802b"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/sur-sv5.webp",
+     "width": 9.2,
+     "rotationY": 1.5707963267948966,
+     "version": "eb3e60cdccdc"
+    }
+   }
+  },
+  "ambar": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/ambar-sv1.webp",
+     "width": 5.5,
+     "rotationY": -1.5707963267948966,
+     "version": "6afe49c6a963"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/ambar-sv5.webp",
+     "width": 6.324999999999999,
+     "rotationY": -1.5707963267948966,
+     "version": "0051717bdfac"
+    }
+   }
+  },
+  "gozcu": {
+   "models": {
+    "1": {
+     "status": "off",
+     "preview": "building-previews/gozcu-sv1.webp",
+     "width": 4,
+     "rotationY": -1.5707963267948966,
+     "version": "792bea2266b4"
+    },
+    "5": {
+     "status": "off",
+     "preview": "building-previews/gozcu-sv5.webp",
+     "width": 4.6,
+     "rotationY": -1.5707963267948966,
+     "version": "1f66bcbf767a"
+    }
+   }
+  }
+ }
+}

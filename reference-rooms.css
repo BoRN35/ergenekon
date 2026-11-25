@@ -1,0 +1,53 @@
+/* Illustrated rooms share the research screen's scale, warm gilding and dark woven material. */
+html body .room-painted-art{display:block;width:100%;height:100%;min-height:0;border-radius:inherit;flex:none;filter:drop-shadow(0 3px 3px #000b)}
+html body .room-resource-icon{display:inline-block;width:28px;height:28px;vertical-align:middle;margin:0 3px 0 1px;line-height:1}
+html body .game-page-emblem{border:3px double #e0b871;box-shadow:0 0 0 2px #302013,inset 0 0 0 3px #101819,0 5px 12px #0009;background:radial-gradient(#77603a,#172328 75%);padding:4px;overflow:hidden}
+html body .game-page-emblem>.room-painted-art{width:100%;height:100%}
+html body .roster-rail,html body .roster-stage,html body .roster-detail,html body .mgmt-deck{background-color:#0c191e;background-image:radial-gradient(ellipse at 50% 0,#52665a22,transparent 65%),var(--reference-leather,none);background-size:auto,200px 200px}
+html body .roster-rail-title{font-size:22px!important;letter-spacing:.025em}
+html body .roster-rail-list{gap:11px;padding-top:6px}
+html body .roster-stage{padding:25px 22px 24px;box-shadow:inset 1px 0 #a0804044,inset -1px 0 #a0804044}
+html body .roster-stage-caption{border-bottom:1px solid #b8944a66;width:100%;padding-bottom:16px;margin-bottom:13px;position:relative}
+html body .roster-stage-caption:after{content:'◆';position:absolute;bottom:-9px;left:calc(50% - 12px);width:24px;text-align:center;background:#132127;color:#d1ac62;font-size:12px}
+html body .roster-stage-kicker{font-size:10px;letter-spacing:.17em;color:#c2a473}
+html body .roster-stage-title{font-size:clamp(28px,2.5vw,40px)!important;color:#f1d59b!important;font-weight:600;text-shadow:0 2px 2px #000,0 0 20px #b9963b18}
+html body .roster-hero-portrait{filter:drop-shadow(0 12px 14px #0008)}
+html body .roster-hero-portrait:before{border:5px double #d6ad61;box-shadow:0 0 0 3px #211b12,inset 0 0 0 4px #b18a3b55,0 0 24px #cc9c2833}
+html body .roster-hero-portrait:after{border-color:#dfb65366;box-shadow:inset 0 0 12px #aa843122}
+html body .roster-medallion,html body .roster-small-medallion{border:3px double #dfb46a;box-shadow:0 0 0 2px #241a10,0 5px 8px #0009,inset 0 0 0 2px #93703788;background:radial-gradient(#69553b,#1e2a2b 72%)}
+html body .roster-army-art>.room-painted-art{width:100%;height:100%;filter:drop-shadow(0 7px 7px #000a)}
+html body .roster-workspace button.roster-army-choice{min-height:150px;padding-block:14px;font-size:15px!important}
+html body .roster-small-medallion{width:80px;height:80px;padding:3px}
+html body .roster-detail .roster-source-heading{font-size:21px!important}
+html body .roster-detail .roster-live-card>b,html body .roster-detail .hrow>div>b{font-size:28px!important;color:#efd29a!important}
+html body .roster-detail .roster-live-card p{font-size:15px!important;line-height:1.8!important}
+html body .roster-detail .roster-live-card button:not(.inf){font-size:17px!important;border:2px solid #bc8c3d!important;box-shadow:inset 0 0 0 2px #3b2514,inset 0 0 0 3px #f0c57566,0 3px 8px #0009!important}
+html body .mgmt-navigation{background-image:linear-gradient(90deg,#8d693011,transparent),var(--reference-leather,none)}
+html body .management-workspace button.mgmt-category{font-size:17px;min-height:78px;box-shadow:inset 0 0 0 3px #0c1416,inset 0 0 0 4px #cca85b22,0 4px 8px #0008!important}
+html body .management-workspace button.mgmt-category.is-active{box-shadow:inset 0 0 0 2px #0f3537,inset 0 0 14px #42e7cb33,0 0 13px #3bdebf33!important}
+html body .management-workspace .mgmt-category .mgmt-medallion{width:43px;height:43px;flex-basis:43px;border:0;outline:0;padding:0;background:transparent;box-shadow:none;overflow:visible}
+html body .management-workspace .mgmt-medallion{border:4px double #dbb16a;outline:2px solid #5c3d20;outline-offset:2px;background:radial-gradient(#6d5a3e,#19282b 74%);box-shadow:inset 0 0 0 3px #332818,0 7px 12px #0009}
+html body .management-workspace .mgmt-mail-detail>.mgmt-medallion{width:148px;height:148px}
+html body .management-workspace .mgmt-room-heading h3{font-size:28px;color:#f0d198;margin:8px 0 5px}
+html body .management-workspace .mgmt-room-heading small{color:#c3a975;font-size:10px;letter-spacing:.16em}
+html body .management-workspace--p .md p{font-size:16px;line-height:1.9}
+html body .management-workspace--p .mx b{font:600 17px Georgia,serif;color:#e6cca0}
+html body .management-workspace--p .mx small{font-size:13px}
+html body .management-workspace--a .mgmt-alliance-crest{width:190px;height:190px;outline-offset:5px}
+html body .management-workspace--y .mgmt-arena-detail>.mgmt-arena-crest{width:155px;height:155px;margin:2px auto 24px}
+html body .management-workspace--y button.mgmt-opponent{min-height:97px;background:linear-gradient(115deg,#253332,#14242a)!important;border-color:#9b7d47}
+html body .management-workspace--y button.mgmt-opponent.is-active{background:linear-gradient(115deg,#225b53,#112f35)!important;box-shadow:inset 0 0 0 2px #133f3d,0 0 14px #4bd5bc33!important}
+html body .management-workspace--y .mgmt-opponent-copy b{font:600 21px Georgia,serif;color:#ead09a}
+html body .management-workspace .mgmt-opponent>.mgmt-medallion{width:62px;height:62px;flex-basis:62px}
+html body .city-context,html body .map-journal{background-image:radial-gradient(ellipse at 50% 10%,#4d64502e,transparent 70%),var(--reference-leather,none)!important;background-color:#0c191f!important}
+html body .city-hearth-medallion{width:185px;height:185px;border:6px double #e0b567;box-shadow:inset 0 0 0 3px #3c2c15,inset 0 0 0 5px #b88d3e66,0 0 0 2px #34200f,0 7px 14px #0009}
+html body .city-building-detail>.ph+div[style*="text-align"]{width:176px;height:176px;border:6px double #d7ae63;box-shadow:inset 0 0 0 4px #47321d,0 6px 14px #0009}
+html body .city-building-detail>.ph+div[style*="text-align"] img{width:155px!important;height:155px!important}
+html body .city-overview-title h3{font-size:29px}
+html body .city-building-detail>p,html body .city-building-detail .pr{font-size:13px;line-height:1.8}
+html body .city-building-detail>.row button{min-height:46px}
+@media(min-width:1500px){html body .management-workspace button.mgmt-category{font-size:18px}html body .management-workspace .card{font-size:15px}html body .city-context-header h2,html body .map-journal-header h2{font-size:29px}}
+@media(max-width:1000px){html body .management-workspace button.mgmt-category{font-size:15px}html body .management-workspace .mgmt-category .mgmt-medallion{width:34px;height:34px;flex-basis:34px}html body .roster-small-medallion{width:68px;height:68px}html body .roster-workspace button.roster-army-choice{font-size:13px!important}}
+@media(max-width:760px){html body .management-workspace button.mgmt-category{min-height:58px;font-size:13px}html body .management-workspace .mgmt-category .mgmt-medallion{width:28px;height:28px;flex-basis:28px}html body .management-workspace .mgmt-room-heading h3{font-size:24px}html body .management-workspace .mgmt-mail-detail>.mgmt-medallion{width:110px;height:110px}html body .management-workspace--p .mx b{font-size:15px}html body .management-workspace--p .mx small{font-size:12px}html body .management-workspace--p .md p{font-size:14px}html body .management-workspace .mgmt-opponent>.mgmt-medallion{width:52px;height:52px;flex-basis:52px}html body .management-workspace--y .mgmt-opponent-copy b{font-size:18px}}
+@media(max-width:560px){html body .roster-stage{padding:21px 17px 18px}html body .roster-stage-title{font-size:29px!important}html body .roster-detail .roster-source-heading{font-size:18px!important}html body .roster-detail .roster-live-card p{font-size:14px!important}html body .roster-workspace button.roster-army-choice{min-height:130px;font-size:13px!important}html body .roster-small-medallion{width:66px;height:66px}html body .roster-stage-caption{padding-bottom:14px;margin-bottom:12px}}
+@media(max-width:700px){html body .city-hearth-medallion{width:114px;height:114px;border-width:4px}html body .city-overview-title h3{font-size:25px}html body .city-building-detail>.ph+div[style*="text-align"]{width:150px;height:150px}html body .city-building-detail>.ph+div[style*="text-align"] img{width:130px!important;height:130px!important}html body .city-building-detail .pr{font-size:13px}}
