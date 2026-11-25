@@ -447,7 +447,7 @@
      1) Taşan pencere gövdesi ekrana sığana dek küçülür (zoom, en az %72).
      2) Uzun listeler (arena sırası, koleksiyon, çanta…) kaydırılmaz; ‹ 1/3 › sayfa düğmeleriyle gezilir.
      MutationObserver mikro görevinde çalışır: boyamadan önce, yanıp sönme olmaz. */
-  var FIT = '#aw>.tf,.ek-ov>.tf,.wrap>.ovp,#ek-yapi .ya-body,.np-win .np-body,.ek-ov .yk-card:not(.ya-card):not(.np-card),.ek-ov .np-card,.ek-ov .ek-modal';
+  var FIT = '.research-tree-scroll.ah-rts,#aw>.tf,.ek-ov>.tf,.wrap>.ovp,#ek-yapi .ya-body,.np-win .np-body,.ek-ov .yk-card:not(.ya-card):not(.np-card),.ek-ov .np-card,.ek-ov .ek-modal';
   var LIST = '.ar-list,.ab-grid,.kt-list,.rk-list,.tg-grid,.ci-grid,.bf-list,.ach-list,.ah-gv-list';
   var PG = {};
   function fitZoom(el) {
@@ -457,9 +457,32 @@
     // zoom kabın kendisine değil çocuklarına: kabın yüksekliği (max-height) zoom ile birlikte küçülmesin
     var kids = [].filter.call(el.children, function (c) { return !c.classList.contains('yk-head') && !c.classList.contains('np-tabs'); });
     kids.forEach(function (c) { if (c.style.zoom) c.style.zoom = ''; }); var z = 1;
+    if (el.classList.contains('ya-body')) { yaTabs(el); kids = [].slice.call(el.children); }
     for (var i = 0; i < 5; i++) { var sh = el.scrollHeight, ch = el.clientHeight; if (sh <= ch + 2 || z <= .66) break; z = Math.max(.66, z * (ch / sh) - .01); kids.forEach(function (c) { c.style.zoom = z.toFixed(3); }); }
     el.__fz = el.textContent.length + '|' + el.childElementCount + '|' + el.clientHeight + '|' + innerHeight;
   }
+  /* kalabalık bina penceresi: küçültmek yerine iki sekme — Yükseltme (gereksinim + maliyet) | Kazanç (sonraki seviye + ödüller) */
+  var YT = {}, YSH = /\b(ek-prod|dg-burn|ya-run|yk-foot|rm-row|ah-yt)\b/;
+  function yaTabs(el) {
+    var kids = [].slice.call(el.children), bar = el.querySelector(':scope>.ah-yt');
+    kids.forEach(function (c) { if (c.dataset.ahg && c.style.display === 'none') c.style.display = ''; });
+    if (bar) bar.style.display = 'none';
+    if (el.scrollHeight <= el.clientHeight + 2) { if (bar) bar.remove(); return; }
+    var g = '', has = { y: 0, g: 0 };
+    kids.forEach(function (c) {
+      if (c.classList.contains('ya-sec')) g = /Sonraki|Ödül/i.test(c.textContent) ? 'g' : 'y';
+      if (YSH.test(c.className) || !g) { delete c.dataset.ahg; return; }
+      c.dataset.ahg = g; has[g]++;
+    });
+    if (!has.y || !has.g) { if (bar) bar.remove(); kids.forEach(function (c) { delete c.dataset.ahg; }); return; }
+    var k = (D.getElementById('ek-yapi') || {}).dataset ? D.getElementById('ek-yapi').dataset.k : '', cur = YT[k] || 'y';
+    if (!bar) { bar = D.createElement('div'); bar.className = 'ah-yt'; el.insertBefore(bar, el.firstChild); }
+    bar.style.display = '';
+    var h = '<button type="button" data-yt="y" class="' + (cur === 'y' ? 'on' : '') + '">Yükseltme</button><button type="button" data-yt="g" class="' + (cur === 'g' ? 'on' : '') + '">Kazanç</button>';
+    if (bar.__ah !== h) { bar.__ah = h; bar.innerHTML = h; } bar.__k = k;
+    kids.forEach(function (c) { if (c.dataset.ahg && c.dataset.ahg !== cur) c.style.display = 'none'; });
+  }
+  D.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.ah-yt [data-yt]'); if (!b) return; ev.stopPropagation(); YT[b.parentNode.__k] = b.dataset.yt; var body = b.closest('.ya-body'); if (body) { body.__fz = ''; fitZoom(body); } }, true);
   function pageList(el, sel) {
     if (!el.offsetHeight) return;
     var items = [].filter.call(el.children, function (c) { return !c.classList.contains('ah-pgr'); });
@@ -483,8 +506,28 @@
     bar.__key = key; bar.__n = n; bar.__el = el; bar.__sel = sel;
     el.__pgs = key + '|' + el.textContent.length + '|' + el.clientHeight + '|' + pg + '|' + innerHeight; el.__pgn = n;
   }
+  /* 25 Kasım: araştırma ağacı kaydırılmaz — her dalda I…VII kat sekmeleri, seçili katın araştırmaları ızgarada */
+  var RT = {};
+  var ROM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  function rtier(n) { var t = (n.querySelector('.research-node-name') || {}).textContent || '', m = t.trim().match(/ ([IVX]+)$/); var i = m ? ROM.indexOf(m[1]) : 0; return i < 0 ? 0 : i; }
+  function researchTiers() {
+    var tr = D.getElementById('tr'), cv = tr && tr.offsetHeight && tr.querySelector('.research-tree-canvas'); if (!cv) return;
+    var sc = cv.parentElement, nodes = [].slice.call(cv.querySelectorAll('.research-node')); if (!nodes.length) return;
+    var br = ((tr.querySelector('.research-tree-toolbar span') || {}).textContent || '') + nodes.length;
+    var tiers = nodes.map(rtier), max = Math.max.apply(null, tiers);
+    if (RT[br] == null) { var sel = cv.querySelector('.research-node.is-selected'); RT[br] = sel ? rtier(sel) : 0; }
+    var cur = Math.min(max, RT[br]);
+    cv.classList.add('ah-rtg'); sc.classList.add('ah-rts'); if (sc.scrollTop) sc.scrollTop = 0;
+    nodes.forEach(function (n, i) { var hide = tiers[i] !== cur; if ((n.style.display === 'none') !== hide) n.style.display = hide ? 'none' : ''; var o = String(parseInt(n.style.top, 10) || 0); if (n.style.order !== o) n.style.order = o; });
+    var bar = sc.previousElementSibling && sc.previousElementSibling.classList.contains('ah-rtb') ? sc.previousElementSibling : null;
+    if (!bar) { bar = D.createElement('div'); bar.className = 'ah-rtb'; sc.parentNode.insertBefore(bar, sc); }
+    var h = ''; for (var t = 0; t <= max; t++) { var done = nodes.every(function (n, i) { return tiers[i] !== t || n.classList.contains('is-complete'); }); h += '<button type="button" data-rt="' + t + '" class="' + (t === cur ? 'on' : '') + (done ? ' ok' : '') + '">' + ROM[t] + '</button>'; }
+    if (bar.__ah !== h) { bar.__ah = h; bar.innerHTML = h; } bar.__br = br;
+  }
+  D.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.ah-rtb [data-rt]'); if (!b) return; ev.stopPropagation(); RT[b.parentNode.__br] = +b.dataset.rt; researchTiers(); }, true);
   function fitAll() {
     try {
+      researchTiers();
       D.querySelectorAll(LIST).forEach(function (el) { var m = LIST.split(',').filter(function (q) { return el.matches(q); })[0]; pageList(el, m); });
       D.querySelectorAll(FIT).forEach(fitZoom);
       D.querySelectorAll(LIST).forEach(function (el) { var m = LIST.split(',').filter(function (q) { return el.matches(q); })[0]; pageList(el, m); });

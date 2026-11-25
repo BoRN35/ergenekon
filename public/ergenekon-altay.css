@@ -782,3 +782,25 @@ html.ah-on.ah-oba #qp{display:none!important}
   html body #ek-yapi .ya-bar{padding:7px 12px calc(7px + env(safe-area-inset-bottom))}
   html body #ek-yapi .ya-bar .yk-main{height:50px!important}
 }
+
+/* 25 Kasım: araştırma kat sekmeleri — ağaç yerine ızgara, kaydırma yok */
+.ah-rtb{display:flex;gap:5px;justify-content:center;padding:6px 8px 2px;flex:none}
+.ah-rtb button{flex:1;max-width:46px;height:30px;border-radius:8px;border:1.5px solid #8a6a36;background:linear-gradient(180deg,#2c2a20,#141a1a);color:#cdb98a;font:800 13px Nunito,sans-serif;padding:0}
+.ah-rtb button.ok{color:#8fe0b8;border-color:#4f8f6c}
+.ah-rtb button.on{background:linear-gradient(180deg,#ffe39a,#c98a2a);color:#3a1d04;border-color:#6b3f0e}
+html body .research-screen .research-tree-scroll.ah-rts{overflow:hidden!important;touch-action:manipulation!important}
+html body .research-screen .research-tree-canvas.ah-rtg{height:auto!important;width:100%!important;max-width:420px;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 4px;padding:8px 4px;box-sizing:border-box;align-content:start;--research-medallion-size:60px!important}
+html body .research-screen .research-tree-canvas.ah-rtg>svg{display:none!important}
+html body .research-screen .research-tree-canvas.ah-rtg button.research-node{position:static!important;width:auto!important;height:auto!important;min-height:0!important;left:auto!important;top:auto!important}
+html body .research-screen .research-tree-canvas.ah-rtg .research-node-name{min-height:30px!important;max-height:34px!important;font-size:10px!important;line-height:1.15!important;padding:2px!important}
+html body .research-screen .research-tree-canvas.ah-rtg .research-node>small{font-size:9px!important;margin-top:2px!important}
+@media (max-height:760px){
+  html body .research-screen .research-tree-canvas.ah-rtg{--research-medallion-size:46px!important;gap:4px 3px;padding:4px}
+  html body .research-screen .research-tree-canvas.ah-rtg .research-node-name{min-height:26px!important;font-size:9.5px!important}
+  html body .research-screen .research-tree-canvas.ah-rtg .research-node>small{display:none!important}
+}
+.ah-yt{display:flex;gap:6px;padding:8px 12px 2px;flex:none;order:-3}
+.ah-yt button{flex:1;height:32px;border-radius:9px;border:1.5px solid #b98a43;background:#e6d5ae;color:#5a3a1c;font:800 13px Nunito,sans-serif}
+.ah-yt button.on{background:linear-gradient(180deg,#ffe39a,#e2a93a);color:#3a1d04;border-color:#8a5a22}
+html body #ek-yapi .ah-yt button{background:#e6d5ae!important;color:#5a3a1c!important;border:1.5px solid #b98a43!important;box-shadow:none!important;text-shadow:none!important}
+html body #ek-yapi .ah-yt button.on{background:linear-gradient(180deg,#ffe39a,#e2a93a)!important;color:#3a1d04!important;border-color:#8a5a22!important}
