@@ -53,6 +53,35 @@
     list.push({ k: 'ocak', lv: oc + 1, cur: oc, done: false, main: true });
     return { n: oc, list: list, done: list.filter(function (t) { return t.done; }).length };
   }
+  /* sıradaki en mantıklı yapı: bölümün ilk eksik ve yapılabilir hedefi; yoksa yükseltilebilen en düşük seviyeli yapı; yoksa Ocak */
+  function nextTarget() {
+    var c = chapter(), s = S(), can = function (k) { try { return !W.buildQueue(k) && W.can(k); } catch (e) { return false; } };
+    var t = c.list.filter(function (x) { return !x.done && can(x.k); })[0] || c.list.filter(function (x) { return !x.done; })[0];
+    if (t && can(t.k)) return t.k;
+    var B = W.B || {}, best = null; Object.keys(B).forEach(function (k) { var L = (s.l && s.l[k]) || 0; if (L > 0 && can(k) && (!best || L < best[1])) best = [k, L]; });
+    return best ? best[0] : t ? t.k : 'ocak';
+  }
+  W.ekNextTarget = nextTarget;
+  D.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('#ek-yapi .ya-up'); if (!b || b.disabled) return; var k = b.dataset.k;
+    setTimeout(function () { var q = null; try { q = W.buildQueue(k); } catch (e) {} if (!q) return;
+      if (W.ergenekonYapi && W.ergenekonYapi.close) W.ergenekonYapi.close(); toast('🔨 ' + bname(k) + ' yapımı başladı'); }, 80);
+  }, true);
+  /* eğitim / iyileştirme başlayınca pencere kapanır (oyuncu obaya döner, kışlada süre görünür) */
+  D.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.ek-ov [data-tn],.ek-ov [data-promote],.ek-ov [data-hlx]'); if (!b || b.disabled) return;
+    var ov = b.closest('.ek-ov'), s0 = S(), tq0 = s0.tq, hq0 = s0.hq;
+    setTimeout(function () { var s = S(); if ((s.tq && s.tq !== tq0) || (s.hq && s.hq !== hq0)) { if (ov && ov.isConnected) ov.remove(); toast(s.tq && s.tq !== tq0 ? '⚔ Eğitim başladı' : '🩹 İyileştirme başladı'); } }, 120);
+  }, true);
+  /* açılışta (ilk 20 sn) gelen eski savaş raporu pencere değil kısa bildirim olsun: girişte fazladan kapatma yok */
+  (function () { var mo = new MutationObserver(function () { var r = D.getElementById('ek-rep'); if (!r) return; if (performance.now() > 20000) { mo.disconnect(); return; }
+    var t = r.querySelector('.yk-head h2'), w = r.querySelector('.rp-res b'); r.remove(); setTimeout(function () { toast('⚔ ' + (t ? t.textContent : 'Savaş') + (w ? ' · ' + w.textContent : '')); }, 300); });
+    mo.observe(D.body || D.documentElement, { childList: true }); setTimeout(function () { mo.disconnect(); }, 21000); })();
+  /* girişte tek düğme: "Topla" çevrim dışı gelir + giriş hediyesi + günlük sandık birlikte (ayrı sandık penceresi çıkmaz) */
+  D.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('#aw [data-awy]'); if (!b || b.dataset.t) return;
+    try { if (W.ekChest && W.ekChest.due()) { var got = W.ekChest.claim(); if (got && got.length) setTimeout(function () { toast('🎁 Günlük sandık: ' + got.map(function (x) { return x[0] + ' ' + nf(x[1]); }).join(' · ')); }, 400); } } catch (e) {}
+  }, true);
   function gorevHtml() {
     var c = chapter(), pct = Math.round(c.done / c.list.length * 100);
     return '<div class="gv-ban"><b>' + c.n + '. BÖLÜM</b><span>Ocağı ' + (c.n + 1) + '. seviyeye çıkar</span><u><i style="width:' + pct + '%"></i></u><small>' + c.done + '/' + c.list.length + '</small></div>' +
@@ -523,12 +552,12 @@
     // sol: boştaki işler
     R.left = el('div', 'ah-left');
     // sağ üst ve sağ alt
-    R.right = el('div', 'ah-right', '', '<button type="button" data-ah="rtog" class="ah-rtog"><i><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#3a2410" stroke="#c8923a" stroke-width="3"/><path d="M15 15l9 9 9-9M15 25l9 9 9-9" fill="none" stroke="#f3d68e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><em class="ah-hil" hidden></em></button>' + [['gorev', 'Görevler'], ['hediye', 'Hediyeler'], ['bina', 'Binalar'], ['etkinlik', 'Etkinlik'], ['ayar', 'Ayarlar']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
+    R.right = el('div', 'ah-right', '', [['hediye', 'Hediyeler'], ['bina', 'Binalar'], ['etkinlik', 'Etkinlik']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
     R.act = el('div', 'ah-act', '', '<button type="button" data-ah="yardim"><i>' + I.yardim + '</i><b>Yardım et</b><em class="ah-bd" hidden></em></button><button type="button" data-ah="topla"><i>' + I.topla + '</i><b>Tümünü topla</b></button>');
     R.pw = el('div', 'ah-pw', '', '<span class="ah-pwv"><i>' + I.guc + '</i><b></b></span><span class="ah-er"><img src="./assets/img/ikon_erime.webp" alt=""><em></em></span>');
     R.toast = el('div', 'ah-toast'); R.toast.hidden = true;
     R.r2 = el('div', 'ah-r2', '', '<span class="r2-pw"><i>' + I.guc + '</i><b></b></span><span class="r2-er"><img src="./assets/img/ikon_erime.webp" alt=""><b></b></span><span class="r2-en"><img src="./assets/img/ikon_enerji.webp" alt=""><u><i></i></u><b></b></span><span class="r2-tm"></span>');
-    try { if (localStorage.getItem('ah_rc') !== '0') R.right.classList.add('ah-rc'); } catch (e) { R.right.classList.add('ah-rc'); }
+
     var host = D.querySelector('.wrap') || D.body; [R.nav, R.strip, R.left, R.right, R.act, R.r2].forEach(function (x) { host.appendChild(x); }); var top = D.getElementById('top'), rs = D.getElementById('res'); if (top && rs) top.insertBefore(R.pw, rs); else host.appendChild(R.pw); D.body.appendChild(R.toast);
     D.body.addEventListener('click', onClick, true);
     return true;
@@ -559,7 +588,7 @@
     else if (k.indexOf('job:') === 0) jobGo(k.slice(4));
   }
   function jobGo(j) {
-    if (j === 'usta') uqToggle();
+    if (j === 'usta') { var bq = []; try { bq = W.buildQueues() || []; } catch (e) {} var nb = 1; try { nb = W.builders(); } catch (e) {} if (bq.length < nb) openBld(nextTarget()); else uqToggle(); }
     else if (j === 'ilim') tabGo('r');
     else if (j === 'egitim') yapiPanel('kisla');
     else if (j === 'is') { var L = W.ekParcelList ? W.ekParcelList() : [], p = L.filter(function (x) { return !x.t && x.kind !== 'field' && !x.dim; })[0] || L[0]; if (p && W.ekOpenParcel) W.ekOpenParcel(p.id); }
@@ -568,7 +597,7 @@
     var b = ev.target.closest && ev.target.closest('#ah-nav [data-ah],#ah-right [data-ah],#ah-act [data-ah],#ah-left [data-ah]'); 
     if (b) { ev.stopPropagation(); ev.preventDefault(); act(b.dataset.ah); return; }
     if (ev.target.closest && ev.target.closest('#ah-q i')) { ev.stopPropagation(); gorevOpen(); return; }
-    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); gorevOpen(); return; }
+    if (ev.target.closest && ev.target.closest('#ah-q')) { ev.stopPropagation(); openBld(nextTarget()); return; }
     if (ev.target.closest && ev.target.closest('#ah-chat')) { ev.stopPropagation(); var c = D.querySelector('#tabs>button[title="Sohbet"]') || D.querySelector('#cp [data-ct="x"]'); if (c) c.click(); }
   }
   function bd(e, n) { var b = e && e.querySelector('.ah-bd'); if (!b) return; var t = n ? String(n) : ''; b.hidden = !t; if (b.textContent !== t) b.textContent = t; }
