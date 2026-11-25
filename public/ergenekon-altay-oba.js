@@ -12,23 +12,31 @@
   /* King of Altay düzeni: telefon genişliğinde dikey şehir, basamaklı yaylalar (kaya duvarlarıyla ayrılır), yalnız yukarı-aşağı kaydırma */
   /* 25 Kasım: King of Altay şehir düzeni — saray (Boy Obası) en üst yaylada, iki yanında Kurultay ve Boy Meclisi;
      aşağı indikçe her yaylada sol·orta·sağ sıkı 3'lü sıralar; sur en altta, dışında Sefer/Arena/Ağıl. Boş çayır yok. */
-  var WW = 1700, WH = 4500, CX = 850, CY = 1000;
-  var CLIFF = [1290, 2360, 3430];
+  /* 26 Kasım: King of Altay ekran görüntülerine göre (kullanıcının gönderdiği 20 görüntü):
+     tepe: maden (Kömürlük) + ana yapı Kutsal Ocak ("Kale") + Gözcü · 2. yayla: Akın Tuğu ("Duyuru Tahtası"), Boy Obası, Kurultay ("Kahraman Salonu")
+     · 3. yayla: Boy Meclisi ("Elçilik"), Bilgelik ("Akademi"), Harp Ocağı, Demirci/Ambar ("Demirhane/Depo") · 4. yayla: Kışla, Arena ("Eğitim Alanı"),
+     Ağıl/Sefer, Yurt/Şifahane · Sur ("Şehir Duvarı") · sur dışı: Odunluk ("Kereste", nehir kıyısı) ve Avcı Çadırı ("Çiftlik", tarlalar). */
+  var WW = 1700, WH = 5400, CX = 850, CY = 1000;
+  var CLIFF = [1330, 2420, 3520];
+  var WALLY = 4700; // sur (şehir duvarı) çizgisi
   // bina yuvaları: [x, y(taban), genişlik, görsel] — ekran ~1000 birim gösterir (x 350..1350)
   var SL = {
-    oba: [850, 1060, 520, 'kale'],
-    yurt: [490, 1700, 310, 'bina_yurt'], ocak: [850, 1660, 420, 'bina_ocak'], sifa: [1215, 1700, 310, 'bina_sifa'],
-    komurluk: [490, 2190, 300, 'bina_odunluk'], bilgelik: [850, 2170, 300, 'bina_yurt'], gozcu: [1215, 2170, 240, 'bina_gozcu'],
-    odunluk: [490, 2780, 330, 'bina_odunluk'], demirci: [850, 2760, 340, 'bina_demirci'], avci: [1215, 2780, 330, 'bina_avci'],
-    kisla: [490, 3260, 340, 'bina_kisla'], ambar: [850, 3250, 310, 'bina_ambar'], harpakademi: [1215, 3260, 330, 'bina_kisla'],
-    sur: [850, 3880, 500, 'bina_sur']
+    komurluk: [470, 860, 300, 'maden_demir'], ocak: [850, 1180, 470, 'bina_ocak'], gozcu: [1240, 880, 230, 'bina_gozcu'],
+    oba: [860, 1820, 440, 'kale'],
+    yurt: [470, 2270, 280, 'bina_yurt'], sifa: [1230, 2270, 300, 'bina_sifa'],
+    bilgelik: [470, 2780, 300, 'bina_yurt'], harpakademi: [1230, 2780, 320, 'bina_kisla'],
+    demirci: [480, 3320, 340, 'bina_demirci'], ambar: [1220, 3320, 310, 'bina_ambar'],
+    kisla: [480, 3880, 340, 'bina_kisla'],
+    sur: [850, 4740, 520, 'bina_sur'],
+    odunluk: [470, 5170, 340, 'bina_odunluk'], avci: [1240, 5170, 330, 'bina_avci']
   };
   // NPC yerleri: [x, y, genişlik, görsel, ad, simge]
   var NP = {
-    kurultay: [480, 1050, 280, 'bina_yurt', 'Kurultay', 'crown'], ocak: [1225, 1050, 260, 'dekor_cadir', 'Boy Meclisi', 'fire'],
-    tug: [1080, 1215, 150, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'],
-    kurt: [620, 1225, 150, 'pet_bozkurt_yavrusu', 'Kurt İni', 'paw'], kam: [1050, 1885, 120, 'npc_kam', 'Kam', 'book'],
-    sefer: [480, 4330, 270, 'kafile', 'Sefer', 'compass'], arena: [850, 4350, 200, 'npc_alper', 'Arena', 'swords'], agil: [1225, 4330, 230, 'npc_atli', 'Ağıl', 'horse']
+    tug: [470, 1760, 170, 'dekor_bayrak_kirmizi', 'Akın Tuğu', 'flag'], kurultay: [1240, 1800, 300, 'bina_yurt', 'Kurultay', 'crown'],
+    kurt: [1230, 1250, 140, 'pet_bozkurt_yavrusu', 'Kurt İni', 'paw'], kam: [640, 2240, 115, 'npc_kam', 'Kam', 'book'],
+    ocak: [850, 2900, 300, 'dekor_cadir', 'Boy Meclisi', 'fire'],
+    arena: [1230, 3860, 210, 'npc_alper', 'Arena', 'swords'],
+    agil: [480, 4400, 230, 'npc_atli', 'Ağıl', 'horse'], sefer: [1230, 4400, 270, 'kafile', 'Sefer', 'compass']
   };
   function roadX(y) { return 850 + 70 * Math.sin(y / 520); }
   var ICON = {
@@ -101,7 +109,17 @@
       g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(wx, bot + 4, 46, 14, 0, 0, 7); g.fill();
     });
     // dış çit (sur önü)
-    g.strokeStyle = '#6a4526'; g.lineWidth = 8; g.beginPath(); g.moveTo(140, 3920); g.lineTo(560, 3920); g.moveTo(1140, 3920); g.lineTo(1600, 3920); g.stroke();
+    // şehir duvarı: kapının iki yanında kazık çit (KoA "Şehir Duvarı")
+    var wy = WALLY - 40;
+    g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(0, wy + 6, WW, 26);
+    g.fillStyle = '#8a8478'; g.fillRect(0, wy - 8, WW, 22);
+    for (x = 0; x < WW; x += 26) { if (Math.abs(x - SL.sur[0]) < 210) continue; var hh = 74 + rnd(x) * 10; g.fillStyle = '#6a4526'; g.fillRect(x, wy - hh, 22, hh); g.fillStyle = '#9a6a3a'; g.fillRect(x + 3, wy - hh, 6, hh); g.fillStyle = '#4a2e16'; g.beginPath(); g.moveTo(x, wy - hh); g.lineTo(x + 11, wy - hh - 16); g.lineTo(x + 22, wy - hh); g.fill(); }
+    // çiftlik tarlaları (Avcı Çadırı çevresi) ve sebze bahçesi
+    [[1240, 5440, 380, 120], [960, 5330, 200, 150]].forEach(function (f, j) {
+      g.save(); g.translate(f[0], f[1]); g.fillStyle = j ? '#6f8f3a' : '#d9b24a'; g.beginPath(); g.ellipse(0, 0, f[2] / 2, f[3] / 2, 0, 0, 7); g.fill();
+      g.strokeStyle = 'rgba(120,90,30,.45)'; g.lineWidth = 3; for (var t2 = -f[2] / 2; t2 < f[2] / 2; t2 += 14) { g.beginPath(); g.moveTo(t2, -f[3] / 2 + 8); g.lineTo(t2 + 20, f[3] / 2 - 8); g.stroke(); }
+      g.strokeStyle = '#8a8478'; g.lineWidth = 6; g.beginPath(); g.ellipse(0, 0, f[2] / 2, f[3] / 2, 0, 0, 7); g.stroke(); g.restore();
+    });
     // arena kum çemberi, ağıl
     var A = NP.arena; g.fillStyle = '#dcc48c'; g.beginPath(); g.ellipse(A[0], A[1] - 30, 150, 64, 0, 0, 7); g.fill(); g.strokeStyle = '#7a5230'; g.lineWidth = 5; g.stroke();
   }
@@ -134,7 +152,7 @@
   function fit(keep) {
     var host = R.el; if (!host) return; var w = host.clientWidth, h = host.clientHeight, ox = R.x, oy = R.y;
     R.s = w < 700 ? w / 1000 : Math.max(w / WW, Math.min(.68, Math.max(.5, (w - 160) / 1000)));
-    if (keep && R.built) { R.x = ox; R.y = oy; } else { R.x = w / 2 - CX * R.s; R.y = -(SL.oba[1] - SL.oba[2] * .9 - 140) * R.s + 60; }
+    if (keep && R.built) { R.x = ox; R.y = oy; } else { R.x = w / 2 - CX * R.s; R.y = -(SL.ocak[1] - SL.ocak[2] * .9 - 170) * R.s + 60; }
     clamp(); apply();
   }
   function clamp() { var w0 = R.el.clientWidth; if (w0 && WW * R.s < w0) R.s = w0 / WW; var w = R.el.clientWidth, h = R.el.clientHeight, ww = WW * R.s, wh = WH * R.s; R.x = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, R.x)); R.y = Math.min(62, Math.max(h - wh - 96, R.y)); }
@@ -152,12 +170,12 @@
     R.el.appendChild(R.world); cv.insertBefore(R.el, cv.firstChild);
     // süs: kenarlarda ağaçlar, yollarda köylüler
     var occ = []; for (var q in SL) occ.push(SL[q]); for (q in NP) occ.push(NP[q]);
-    function free(x, y, r) { if (Math.abs(x - roadX(y)) < 90) return false; if (x < 130) return false; for (var j = 0; j < occ.length; j++) { var o = occ[j]; if (Math.abs(x - o[0]) < o[2] * .55 + r && y > o[1] - o[2] * .9 - r * .5 && y < o[1] + 60 + r * .3) return false; } for (j = 0; j < CLIFF.length; j++) if (y > CLIFF[j] - 70 && y < CLIFF[j] + 140) return false; return y > 470; }
+    function free(x, y, r) { if (Math.abs(x - roadX(y)) < 90) return false; if (Math.abs(y - WALLY + 60) < 120) return false; if (y > 5230 && x > 800) return false; if (x < 130) return false; for (var j = 0; j < occ.length; j++) { var o = occ[j]; if (Math.abs(x - o[0]) < o[2] * .55 + r && y > o[1] - o[2] * .9 - r * .5 && y < o[1] + 60 + r * .3) return false; } for (j = 0; j < CLIFF.length; j++) if (y > CLIFF[j] - 70 && y < CLIFF[j] + 140) return false; return y > 470; }
     for (var i = 0; i < 380; i++) { var x = 120 + rnd(i * 4.4) * (WW - 140), y = 480 + rnd(i * 2.2) * (WH - 520), sz = 110 + rnd(i) * 80; if (free(x, y, sz * .4)) sprite(IMGP + 'dekor_agac_yaz.webp', x, y, sz, 'ao-dec'); }
     // kaya kümeleri (Tripo modelinden, 25 Kasım)
     for (i = 0; i < 90; i++) { x = 140 + rnd(i * 6.7 + 11) * (WW - 180); y = 500 + rnd(i * 3.9 + 5) * (WH - 560); sz = 70 + rnd(i * 1.9 + 3) * 60; if (free(x, y, sz * .5)) { var kim = sprite(IMGP + 'dekor_kaya_' + (1 + (i % 2)) + '.webp', x, y, sz, 'ao-dec'); if (rnd(i * 2.3) < .5) kim.style.transform = 'scaleX(-1)'; } }
-    [[690, 1150, 'dekor_bayrak_mavi', 100], [1010, 1150, 'dekor_bayrak_mavi', 100], [700, 3950, 'dekor_bayrak_kirmizi', 100], [1000, 3950, 'dekor_bayrak_kirmizi', 100], [660, 1840, 'dekor_saman_fici', 85], [1560, 2300, 'dekor_cit_odun', 110], [1060, 3360, 'dekor_saman_fici', 95], [1530, 2900, 'dekor_cit_odun', 120], [160, 3300, 'dekor_saman_fici', 100]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
-    [[1110, 2020, 'npc_koylu_erkek', 85], [740, 1900, 'npc_koylu_kadin', 82], [640, 2950, 'npc_oduncu', 85], [1060, 2950, 'npc_avci', 85], [1050, 2870, 'npc_demirci', 82], [660, 2290, 'npc_koylu_erkek', 85], [700, 3420, 'npc_okcu', 82], [1520, 1250, 'npc_koylu_erkek', 85], [200, 1900, 'npc_koylu_kadin', 82]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
+    [[300, 760, 'dekor_kaya_1', 150], [630, 720, 'dekor_kaya_2', 130], [250, 960, 'dekor_kaya_2', 120], [660, 960, 'dekor_kaya_1', 110], [380, 640, 'dekor_kaya_2', 100], [700, 1260, 'dekor_bayrak_mavi', 100], [1000, 1260, 'dekor_bayrak_mavi', 100], [640, 4790, 'dekor_bayrak_kirmizi', 100], [1060, 4790, 'dekor_bayrak_kirmizi', 100], [660, 2330, 'dekor_saman_fici', 85], [1040, 3420, 'dekor_saman_fici', 90], [1560, 2330, 'dekor_cit_odun', 110], [680, 5250, 'dekor_cit_odun', 120], [1010, 5440, 'dekor_saman_fici', 95], [1060, 4000, 'dekor_saman_fici', 90]].forEach(function (d) { sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec'); });
+    [[960, 1990, 'npc_koylu_erkek', 82], [760, 2120, 'npc_koylu_kadin', 80], [660, 5300, 'npc_oduncu', 85], [1080, 5260, 'npc_avci', 85], [660, 3420, 'npc_demirci', 82], [780, 3020, 'npc_koylu_erkek', 82], [700, 4040, 'npc_okcu', 82], [1500, 1400, 'npc_koylu_erkek', 82], [880, 4560, 'npc_koylu_kadin', 80], [820, 4950, 'npc_koylu_erkek', 80]].forEach(function (d, j) { var im = sprite(IMGP + d[2] + '.webp', d[0], d[1], d[3], 'ao-dec ao-walk'); im.style.animationDelay = (j * .7) + 's'; });
     // NPC otağları
     for (var id in NP) (function (id) {
       var n = NP[id], im = sprite(IMGP + n[3] + '.webp', n[0], n[1], n[2], 'ao-npc'); im.dataset.npc = id;
@@ -256,7 +274,7 @@
   function bubble(it, b) {
     var bb = it.bb; if (!bb) return;
     if (!b) { if (!bb.hidden) bb.hidden = true; return; }
-    var h = '<span class="ao-bbi ao-bb-' + b[0] + '">' + b[1] + '</span>';
+    var h = b[0] === 'idle' ? '<span class="ao-zz">Zz</span>' : '<span class="ao-bbi ao-bb-' + b[0] + '">' + b[1] + '</span>';
     if (bb.__aoh !== h) { bb.__aoh = h; bb.innerHTML = h; bb.dataset.kind = b[0]; bb.setAttribute('aria-label', b[2]); }
     if (bb.hidden) bb.hidden = false;
   }
@@ -277,9 +295,10 @@
     for (var k in SL) {
       var it = R.items[k]; if (!it) continue; var L = (s.l && s.l[k]) || 0, def = B[k];
       var show = !!def && (L > 0 || reqOk(k)), lock = !!def && !show;
-      if (it.im.hidden === (show || lock)) { it.im.hidden = it.pl.hidden = !(show || lock); }
+      it.im.hidden = !show; it.pl.hidden = !(show || lock); // değer aynıysa DOM'a dokunulmaz (index.html koruması)
       it.im.classList.toggle('ao-lock', lock);
-      if (lock) { var ol = unlockAt(k), lh = '<span class="ao-n ao-lk">' + svg('lock', 13) + ' ' + (def.n.length > 14 ? def.n.split(' ')[0] : def.n) + (ol ? ' · Ocak ' + ol : '') + '</span>'; var ls = IMGP + 'dekor_cit_odun.webp'; if (it.src !== ls) { it.src = ls; it.im.src = ls; it.im.classList.add('ao-plot'); } if (it.pl.__aoh !== lh) { it.pl.__aoh = lh; it.pl.innerHTML = lh; } bubble(it, null); if (!it.up.hidden) it.up.hidden = true; continue; }
+      if (lock) { var ol = unlockAt(k), lh = '<span class="ao-lks"><b class="ao-lkc">' + svg('crown', 12) + (ol || '') + '</b><span class="ao-lkb">' + svg('lock', 30) + '</span><small>' + (def.n.length > 14 ? def.n.split(' ')[0] : def.n) + '</small></span>'; if (it.pl.__aoh !== lh) { it.pl.__aoh = lh; it.pl.innerHTML = lh; } var lt = (SL[k][1] - SL[k][2] * .42) + 'px'; if (it.pl.style.top !== lt) it.pl.style.top = lt; bubble(it, null); if (!it.up.hidden) it.up.hidden = true; continue; }
+      var nt = (SL[k][1] + 6) + 'px'; if (it.pl.style.top !== nt) it.pl.style.top = nt;
       if (!show) { if (!it.up.hidden) it.up.hidden = true; bubble(it, null); continue; }
       var src = L > 0 ? art(k, L) : IMGP + 'dekor_cit_odun.webp'; if (it.src !== src) { it.src = src; it.im.src = src; it.im.classList.toggle('ao-plot', !L); }
       var q = null, can = false; try { q = W.buildQueue(k); can = !q && L > 0 && W.can(k); } catch (e) {}
@@ -294,6 +313,7 @@
       var x = R.items['npc:' + id]; if (!x) continue; var src2 = D.querySelector('#ek-npcs [data-npc="' + id + '"]');
       var hil = !!(src2 && src2.querySelector('.np-hil')), lk = !!(src2 && src2.classList.contains('lk'));
       if (id === 'kurt') { lk = ((s.l && s.l.ocak) || 0) < 4; hil = !lk && wolfReady(); }
+      if (id === 'ocak') { var hq = (s.al && s.al.hq) || 0, hb = x.md.querySelector('.ao-help'); if (hq && !hb) { hb = D.createElement('i'); hb.className = 'ao-help'; x.md.insertBefore(hb, x.md.firstChild); } if (hb) { if (!hq) hb.remove(); else { var ht = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l5-5 4 3 4-3 7 6-6 5-4-2-4 2z"/></svg><em>' + hq + '</em>'; if (hb.__h !== ht) { hb.__h = ht; hb.innerHTML = ht; } } } }
       if (id === 'kam') { var tg = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'); hil = !!tg; lk = false; }
       x.md.classList.toggle('hil', hil); x.md.classList.toggle('lk', lk); x.im.classList.toggle('lk', lk);
     }
