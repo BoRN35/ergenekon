@@ -127,3 +127,8 @@ Sheet 1536x1024, 4 columns x 3 rows, transparent background, same style: pine tr
 ```
 Sheet 1536x1024, 3 columns x 2 rows, transparent background, same style. Full-body characters standing, front view: woodcutter with an axe, hunter with a bow, blacksmith with a hammer, village woman carrying a basket, horse rider, young warrior with a spear and round shield.
 ```
+
+## Alp — boydan resim (profil "Hükümdar Bilgisi" için, 26 Kasım 2026)
+Dosya adı: `alp_boy.webp` (dikey, 600x900, şeffaf ya da #00FF00 zemin)
+
+> Yarı gerçekçi, elle boyanmış dijital resim; karikatür değil. Genç bir Göktürk savaşçı beyi (Alp Tonga), tam boy, ayakta, hafif yandan önden duruş. Kürk yakalı koyu kahve deri kaftan, üstünde lamel zırh, belde kemer ve kılıç, omzunda yay. Başında kürklü sivri tolga (miğfer). Kendinden emin, ciddi yüz; uzun saçlar örgülü. Işık soldan sıcak altın tonlarda. Zemin düz #00FF00 yeşil (sonradan temizlenecek). Yazı, logo, imza yok.

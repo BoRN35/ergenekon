@@ -235,7 +235,7 @@ Maliyet/süre tabloları: `public/upgrade-balance.js` (`ERGENEKON_UPGRADE_BALANC
 - **Günlük görevler** `s.ek.gg` (5): 5 canavar avla · haritadan `800 × 1,25^Ocak` topla · 1 yükseltme başlat · 3 boydaşa yardım · 1 arena düellosu. 5/5 sandık: her kaynaktan `1500 × 1,25^Ocak` + 1 kağıt + küçük iksir + küçük kum saati.
 - **Günlük meydan** `s.x6.dq` (3 görev, kaynak + toz + şan; üçü bitince 40 toz, 2 güveç, 1 kitap).
 - **Emek Defteri** `s.ek.ed` (haftalık 6 hedef, 2/4/6 ödül).
-- **Giriş ödülü** `lgClaim`: 7 günlük döngü, `200 × 1,4^Ocak × gün`.
+- **Giriş ödülü (28 Günlük Hediyeler)** `lgClaim` (26 Kasım 2026, kullanıcı onayıyla 7 → 28 gün): `s.lg.n` 1–28, gün atlanırsa 1'e döner. Haftanın günü d7 = (n−1)%7+1, hafta w = ⌈n/7⌉. Her gün odun/et/demir/kömür `200 × 1,4^Ocak × d7 × (1 + 0,25·(w−1))` (depo sınırına kadar), sezon puanı `5 × d7`, enerji iksiri 1 (d7 = 7 iken 3); d7 = 7 günlerinde eşya (Ocak+3 seviye); 28. gün ek olarak rastgele bir kahramana 30 kart ve rastgele bir Bilge'ye 3 parça. Altın/satın alma yok. Pencere: sağ sütunda Hediyeler (W.ekHediyeler), haftalar sekmeli.
 - **Başarımlar** `AC` → unvanlar `TI`.
 - Görev satırına dokunmak ilgili ekranı açar (`W.ekGo`).
 

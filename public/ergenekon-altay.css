@@ -1492,3 +1492,86 @@ html body #tg .ah-setg .asg-grid>button>b{color:#e8e2d4!important;font:900 12px 
 #aw.aw-koa .ek-awbar,#aw.aw-koa .ek-awbar *{color:#f1dfb6!important}
 #aw.aw-koa .ek-awbar small{color:#7fe0d0!important}
 html body .mgmt-navigation{overflow-y:hidden!important}
+/* 26 Kasım: 28 Günlük Hediyeler */
+html body .ek-ov.ah-lg .yk-card{display:flex!important;flex-direction:column!important;max-height:calc(100dvh - 24px)!important}
+html body .ek-ov.ah-lg .lg-body{padding:8px 10px 12px!important;overflow:hidden!important;background:linear-gradient(180deg,#2a2218,#1a140c)!important}
+html body .ek-ov.ah-lg .lg-note{padding:7px 10px!important;border-radius:8px!important;background:#1c2430!important;border:1.5px solid #c8923a!important;color:#f1dfb6!important;font:800 12px/1.35 'Nunito',sans-serif!important;text-align:center!important}
+html body .ek-ov.ah-lg .lg-tabs{display:flex!important;gap:5px!important;margin:8px 0!important}
+html body .ek-ov.ah-lg .lg-tabs button{flex:1!important;height:32px!important;min-height:0!important;border-radius:8px!important;background:#2a323a!important;border:1.5px solid #5a6a7a!important;color:#d8d0c0!important;font:900 12px 'Nunito',sans-serif!important;padding:0!important;box-shadow:none!important}
+html body .ek-ov.ah-lg .lg-tabs button.on{background:linear-gradient(180deg,#ffe39a,#c98a2a)!important;color:#3a1d04!important;border-color:#6b3f0e!important}
+html body .ek-ov.ah-lg .lg-g{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+html body .ek-ov.ah-lg .lg-d{position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;gap:4px!important;padding:5px 2px 6px!important;border-radius:9px!important;background:#1c2430!important;border:1.5px solid #3a4a5a!important;min-width:0!important}
+html body .ek-ov.ah-lg .lg-d.big{grid-column:1/-1!important;background:linear-gradient(180deg,#4a3a1c,#2e2410)!important;border-color:#c8923a!important}
+html body .ek-ov.ah-lg .lg-d small{color:#c8c0b0!important;font:800 11px 'Nunito',sans-serif!important}
+html body .ek-ov.ah-lg .lg-d span{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:3px!important}
+html body .ek-ov.ah-lg .lg-d i{display:flex!important;flex-direction:column!important;align-items:center!important;width:40px!important;padding:2px 0 0!important;border-radius:6px!important;background:#efe2c4!important;font-style:normal!important}
+html body .ek-ov.ah-lg .lg-d i img{width:26px!important;height:26px!important;max-width:26px!important;object-fit:contain!important}
+html body .ek-ov.ah-lg .lg-d i b{width:100%!important;border-radius:0 0 6px 6px!important;background:#3a2a18!important;color:#fff!important;font:800 9px/1.5 'Nunito',sans-serif!important;text-align:center!important;white-space:nowrap!important;overflow:hidden!important}
+html body .ek-ov.ah-lg .lg-d.ok{opacity:.55!important}
+html body .ek-ov.ah-lg .lg-d.ok em{position:absolute!important;inset:0!important;display:grid!important;place-items:center!important;color:#3fc9b4!important;font:900 34px/1 'Nunito',sans-serif!important;font-style:normal!important;text-shadow:0 2px 3px #000!important}
+html body .ek-ov.ah-lg .lg-d.now{border-color:#3fc9b4!important;box-shadow:0 0 0 2px rgba(63,201,180,.35)!important}
+html body .ek-ov.ah-lg .lg-get{margin-top:2px!important;padding:3px 16px!important;border-radius:7px!important;background:linear-gradient(180deg,#9ff3e6,#1f9a88)!important;border:1.5px solid #e9fffa!important;color:#06302a!important;font:900 12px 'Nunito',sans-serif!important;min-height:0!important;height:auto!important;width:auto!important}
+html body .ek-ov.ah-lg .lg-next{margin-top:8px!important;padding:9px!important;border-radius:8px!important;background:#1a140c!important;border:1.5px solid #c8923a!important;color:#f3d68e!important;font:900 13px 'Nunito',sans-serif!important;text-align:center!important}
+/* 26 Kasım: Boy merkezi (KoA İttifak) */
+html body #ta.ah-hub-on>#ah-pg,html body #ta.ah-hub-on>.management-workspace,html body #ta.ah-hub-on>*:not(.game-page-header):not(#ah-boyhub):not(.reference-frame-corners){display:none!important}
+html body #ah-boyhub[hidden]{display:none!important}
+html body #ah-boyhub{display:flex;flex-direction:column;gap:10px;padding:10px;background:#e8d8b4;border-radius:8px;font-family:'Nunito',sans-serif}
+#ah-boyhub .hb-top{display:flex;gap:10px;align-items:stretch}
+#ah-boyhub .hb-ban{flex:none;width:84px;height:118px;display:grid;place-items:center;background:linear-gradient(180deg,#b8281c,#7a160c);clip-path:polygon(0 0,100% 0,100% 82%,50% 100%,0 82%);border-top:6px solid #e2a93a;color:#f3d68e}
+#ah-boyhub .hb-ban b{font:900 40px Georgia,serif}
+#ah-boyhub .hb-ban svg{stroke:#f3d68e;stroke-width:2.6}
+#ah-boyhub .hb-inf{flex:1;min-width:0}
+#ah-boyhub .hb-inf h3{margin:0;color:#2a1a08;font:900 19px 'Nunito',sans-serif}
+#ah-boyhub .hb-inf small{color:#7a5a30;font:700 12px 'Nunito',sans-serif}
+#ah-boyhub .hb-tb{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;margin-top:6px;padding:7px 10px;border-radius:8px;background:#fbf3df;border:1.5px solid #c9a56a;font:800 12.5px 'Nunito',sans-serif;color:#3a2610}
+#ah-boyhub .hb-tb span{display:flex;align-items:center;gap:5px;color:#5a4020}
+#ah-boyhub .hb-tb i{font-style:normal;width:16px;text-align:center}
+#ah-boyhub .hb-tb b{text-align:right;color:#2a1a08}
+#ah-boyhub .hb-g{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#ah-boyhub .hb-g button{position:relative;display:flex!important;align-items:center;height:64px;padding:0!important;border-radius:9px!important;overflow:hidden;background:#6b4426!important;border:2px solid #b98a43!important;box-shadow:0 3px 0 #3a2410!important;min-width:0}
+#ah-boyhub .hb-g button span{flex:none;width:64px;height:100%;display:grid;place-items:center;background:#f4ead2;clip-path:polygon(0 0,100% 0,82% 100%,0 100%)}
+#ah-boyhub .hb-g button img{width:42px;height:42px;object-fit:contain}
+#ah-boyhub .hb-g button b{flex:1;text-align:center;color:#fbe9c0;font:900 15px 'Nunito',sans-serif;text-shadow:0 1px 2px #000;padding-right:6px}
+#ah-boyhub .hb-g button em{position:absolute;top:3px;right:4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#e2a93a;color:#3a1d04;font:900 11px/20px 'Nunito',sans-serif;font-style:normal;text-align:center}
+#ah-boyhub .hb-bot{display:flex;justify-content:space-around;padding-top:2px}
+#ah-boyhub .hb-bot button{display:flex!important;flex-direction:column;align-items:center;gap:3px;background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+#ah-boyhub .hb-bot i{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 40% 35%,#2c4f7a,#0f2240);border:3px solid #e2a93a;font-size:24px;font-style:normal}
+#ah-boyhub .hb-bot b{color:#2a1a08;font:900 12.5px 'Nunito',sans-serif}
+html body #ah-pg>#ah-hubbk{flex:none!important;width:34px!important;min-width:34px!important;border-radius:50%!important;background:radial-gradient(circle at 40% 35%,#4a2a14,#1c0e06)!important;border:2px solid #e2a93a!important;color:#f3d68e!important;font:900 22px/1 Georgia,serif!important;padding:0!important}
+html body #ta #ah-boyhub .hb-inf h3{color:#2a1a08!important;-webkit-text-fill-color:#2a1a08!important;text-shadow:none!important;letter-spacing:0!important;background:none!important}
+/* 26 Kasım: Alp profili KoA "Hükümdar Bilgisi" */
+html body #pop .pb.ah-pf.ah-hk-on>.card,html body #pop .pb.ah-pf.ah-hk-on>.ek-vt{display:none!important}
+html body #pop .pb.ah-pf>.ph{position:relative!important;justify-content:center!important;margin:-1px -1px 8px!important;padding:12px 56px!important;background:var(--ared,linear-gradient(180deg,#a8281c,#6b140a))!important;border-bottom:3px solid #d9a441!important}
+html body #pop .pb.ah-pf>.ph>b{color:#fbe9c0!important;font:900 19px 'Nunito',sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase}
+html body #pop .pb.ah-pf>.ph>button{position:absolute!important;left:10px!important;top:50%!important;transform:translateY(-50%)!important;width:40px!important;height:40px!important;min-width:0!important;padding:0!important;border-radius:50%!important;font-size:0!important;color:transparent!important;background:radial-gradient(circle at 40% 35%,#4a2a14,#1c0e06)!important;border:2.5px solid #e2a93a!important;display:grid!important;place-items:center!important}
+html body #pop .pb.ah-pf>.ph>button::before{content:'‹';font:900 30px/1 Georgia,serif;color:#f3d68e;margin-top:-4px}
+#pop .ah-hk{display:flex;flex-direction:column;gap:8px;font-family:'Nunito',sans-serif}
+#pop .ah-hk .hk-id{display:flex;gap:8px;padding:8px;border-radius:8px;background:linear-gradient(180deg,#f7ecd2,#e9d6ac);border:2px solid #b98a43}
+#pop .ah-hk .hk-av{position:relative;flex:none;width:76px;height:84px;border-radius:6px;overflow:hidden;background:#1c1208;border:2px solid #8a5a22}
+#pop .ah-hk .hk-av img{width:100%;height:100%;object-fit:cover}
+#pop .ah-hk .hk-av b{position:absolute;left:3px;bottom:3px;min-width:24px;height:24px;border-radius:12px;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#ffe39a,#c98a2a);color:#3a1d04;font:900 12px 'Nunito',sans-serif;border:1.5px solid #6b3f0e}
+#pop .ah-hk .hk-tb{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-content:center;font:800 13px 'Nunito',sans-serif}
+#pop .ah-hk .hk-tb h4{grid-column:1/-1;margin:0 0 3px!important;color:#2a1a08!important;font:900 17px 'Nunito',sans-serif!important}
+#pop .ah-hk .hk-tb span{color:#7a5a30}
+#pop .ah-hk .hk-tb b{color:#2a1a08;text-align:right}
+#pop .ah-hk .hk-mid{display:flex;gap:6px;align-items:stretch}
+#pop .ah-hk .hk-eq{flex:none;display:grid;grid-template-columns:repeat(2,64px);gap:7px}
+#pop .ah-hk .hk-sl{position:relative;width:64px!important;height:64px!important;min-height:0!important;padding:0!important;display:grid!important;place-items:center!important;border-radius:9px!important;background:radial-gradient(circle at 50% 40%,#2c3a48,#141c24)!important;border:2px solid #8a6a36!important;color:#5a6a7a!important;box-shadow:inset 0 0 0 2px #0a0e12!important}
+#pop .ah-hk .hk-sl.on{border-color:var(--rc)!important;color:var(--rc)!important;box-shadow:inset 0 0 12px color-mix(in srgb,var(--rc) 45%,transparent)!important}
+#pop .ah-hk .hk-sl i{position:absolute;right:4px;bottom:3px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:#1c2430;border:1.5px solid #8a96a2;color:#e8e2d4;font:900 13px/1 'Nunito',sans-serif;font-style:normal}
+#pop .ah-hk .hk-sl em{position:absolute;left:0;right:0;bottom:2px;text-align:center;color:#fff;font:900 10px 'Nunito',sans-serif;font-style:normal;text-shadow:0 1px 2px #000}
+#pop .ah-hk .hk-art{flex:1;min-width:0;display:grid;place-items:end center;border-radius:9px;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,rgba(226,169,58,.25),transparent 70%),linear-gradient(180deg,#2a1a0c,#140c06);border:1.5px solid #5a3a1a}
+#pop .ah-hk .hk-art img{width:100%;max-width:220px;height:auto;object-fit:contain;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent);mask-image:linear-gradient(180deg,#000 75%,transparent)}
+#pop .ah-hk .hk-bar{display:flex;align-items:center;gap:6px}
+#pop .ah-hk .hk-xi{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 40% 35%,#2c4f7a,#0f2240);border:2px solid #e2a93a;font-style:normal}
+#pop .ah-hk .hk-xi svg,#pop .ah-hk .hk-xi img{width:26px;height:26px}
+#pop .ah-hk .hk-bar span{position:relative;flex:1;height:26px;border-radius:5px;background:#1a1208;border:2px solid #c8923a;overflow:hidden}
+#pop .ah-hk .hk-bar u{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(180deg,#7fb0f0,#2a5aa8);text-decoration:none}
+#pop .ah-hk .hk-bar.en u{background:linear-gradient(180deg,#9ff3e6,#1f9a88)}
+#pop .ah-hk .hk-bar b{position:relative;display:block;text-align:center;color:#fff;font:900 13px/22px 'Nunito',sans-serif;text-shadow:0 1px 2px #000}
+#pop .ah-hk .hk-bt{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding-top:2px}
+#pop .ah-hk .hk-bt button{display:flex!important;flex-direction:column!important;align-items:center!important;gap:3px!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;min-height:0!important;height:auto!important}
+#pop .ah-hk .hk-bt i{font-size:30px;font-style:normal;line-height:1.1;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+#pop .ah-hk .hk-bt b{color:#f1dfb6;font:900 12px 'Nunito',sans-serif}
+html body #pop .ah-hk button.hk-sl.hk-sl{border:2px solid #4a5a6a!important}
+html body #pop .ah-hk button.hk-sl.hk-sl.on{border:2.5px solid var(--rc)!important}

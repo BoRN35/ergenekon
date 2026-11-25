@@ -29,6 +29,7 @@
     ayar: '<svg viewBox="0 0 48 48"><path d="M24 6l4 5 6-2 1 6 6 2-3 6 3 5-6 2-1 6-6-2-4 5-4-5-6 2-1-6-6-2 3-5-3-6 6-2 1-6 6 2z" fill="#c9a25a" stroke="#4a3010" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="#4a3010"/></svg>',
     yardim: '<svg viewBox="0 0 48 48"><path d="M4 26l10-9 9 5 9-5 12 9-12 10-8-4-7 4z" fill="#c3ccd4" stroke="#2c343c" stroke-width="2" stroke-linejoin="round"/><path d="M14 17l4 12M34 17l-4 12" stroke="#2c343c" stroke-width="1.5"/></svg>',
     topla: '<svg viewBox="0 0 48 48"><path d="M12 18c0-5 24-5 24 0l5 18c0 7-34 7-34 0z" fill="#c49a5a" stroke="#4a2a10" stroke-width="2"/><path d="M17 15c3-6 11-6 14 0" stroke="#4a2a10" stroke-width="2.6" fill="none"/><path d="M14 12l6 5M30 8l2 8M20 8l3 8" stroke="#d6a640" stroke-width="3" stroke-linecap="round"/></svg>',
+    hediye: '<svg viewBox="0 0 48 48"><path d="M8 20h32v20H8z" fill="#2c4f7a" stroke="#0f2240" stroke-width="2"/><path d="M6 14h36v7H6z" fill="#3a6a9a" stroke="#0f2240" stroke-width="2"/><path d="M24 14v26" stroke="#e2a93a" stroke-width="4"/><path d="M24 14c-4-8-12-6-10-1s10 1 10 1zm0 0c4-8 12-6 10-1s-10 1-10 1z" fill="#e2a93a" stroke="#6b3f0e" stroke-width="1.5"/></svg>',
     bina: '<svg viewBox="0 0 48 48"><path d="M6 24L24 9l18 15v16H6z" fill="#efe0c2" stroke="#6b4a1e" stroke-width="2"/><path d="M18 40V28h12v12" fill="#b5652a" stroke="#4a2410" stroke-width="2"/><path d="M3 25L24 7l21 18" fill="none" stroke="#8a5a22" stroke-width="3" stroke-linecap="round"/></svg>',
     guc: '<svg viewBox="0 0 48 48"><path d="M8 40L34 12M30 8l10 10M40 40L14 12M18 8L8 18" stroke="#f3e3c0" stroke-width="4.4" stroke-linecap="round"/></svg>'
   };
@@ -100,6 +101,113 @@
     D.body.appendChild(o);
   }
   W.ekBinalar = binaOpen;
+  /* 26 Kasım: 28 Günlük Hediyeler (KoA gibi): 4 hafta, her 7. gün geniş kutu, alınanlar işaretli, sıradaki için geri sayım */
+  function ymdL(t) { var d = new Date(t); return d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0' : '') + (d.getMonth() + 1) + '-' + (d.getDate() < 10 ? '0' : '') + d.getDate(); }
+  function lgState() {
+    var s = S(), lg = s.lg || {}, dk = W.dayk ? W.dayk() : ymdL(Date.now()), y = W.ymd ? W.ymd(Date.now() - 864e5) : ymdL(Date.now() - 864e5);
+    var got = lg.d === dk, cont = got || lg.d === y, cur = cont ? (lg.n || 0) : 0, nx = got ? 0 : (cont ? (lg.n || 0) % 28 + 1 : 1);
+    return { got: got, cur: cur, nx: nx, open: ((s.l && s.l.ocak) || 1) >= 2 };
+  }
+  function lgItems(n) {
+    var d7 = (n - 1) % 7 + 1, it = [], g = 0; try { g = W.lgRes ? W.lgRes(n) : 0; } catch (e) {}
+    it.push(['./assets/img/ikon_odun.webp', nf(g)]); it.push(['./assets/img/ikon_et.webp', nf(g)]);
+    it.push(['./assets/img/ikon_enerji.webp', d7 === 7 ? 3 : 1]);
+    if (d7 === 7) it.push(['./assets/interface/painted/t/toolbox.webp', 'Eşya']);
+    if (n === 28) it.push(['./assets/img/alp.webp', '30 kart']);
+    return it;
+  }
+  function lgHtml() {
+    var st = lgState(), h = '<div class="lg-note">Her gün gel, bir hediye al. Her yedinci gün eşya, 28. gün bir kahraman için 30 kart.</div>';
+    var ww = R.lgw != null ? R.lgw : Math.min(3, Math.floor(((st.nx || st.cur || 1) - 1) / 7));
+    h += '<div class="lg-tabs">' + [0, 1, 2, 3].map(function (i) { return '<button type="button" data-lgw="' + i + '" class="' + (i === ww ? 'on' : '') + '">' + (i + 1) + '. Hafta</button>'; }).join('') + '</div>';
+    for (var w = ww; w <= ww; w++) {
+      h += '<div class="lg-g">';
+      for (var d = 1; d <= 7; d++) {
+        var n = w * 7 + d, done = n <= st.cur, now = n === st.nx;
+        h += '<div class="lg-d' + (d === 7 ? ' big' : '') + (done ? ' ok' : '') + (now ? ' now' : '') + '"><small>' + n + '. Gün</small><span>' + lgItems(n).map(function (x) { return '<i><img src="' + x[0] + '" alt=""><b>' + x[1] + '</b></i>'; }).join('') + '</span>' + (done ? '<em>✓</em>' : '') + (now ? '<button type="button" class="lg-get">Al</button>' : '') + '</div>';
+      }
+      h += '</div>';
+    }
+    if (st.got) { var sec = Math.floor((864e5 - Date.now() % 864e5) / 1000); /* gün UTC gece yarısı değişir */ h += '<div class="lg-next">Sonraki hediye ' + Math.floor(sec / 3600) + ':' + ('0' + Math.floor(sec % 3600 / 60)).slice(-2) + ':' + ('0' + sec % 60).slice(-2) + ' sonra</div>'; }
+    else if (!st.open) h += '<div class="lg-next">Kutsal Ocak Sv 2’de açılır</div>';
+    return h;
+  }
+  function lgOpen() {
+    closeOv(); R.lgw = null;
+    var o = D.createElement('div'); o.className = 'ek-ov yk-ov ah-lg';
+    o.innerHTML = '<div class="yk-card"><div class="yk-head"><h2>28 Günlük Hediyeler</h2><button type="button" class="yk-x" aria-label="Kapat">✕</button></div><div class="lg-body"></div></div>';
+    var body = o.querySelector('.lg-body'), fill = function () { var h = lgHtml(); if (body.__ah !== h) { body.__ah = h; body.innerHTML = h; } };
+    fill(); var iv = setInterval(function () { if (!o.isConnected) { clearInterval(iv); return; } fill(); }, 1000);
+    o.addEventListener('click', function (ev) {
+      if (ev.target === o || ev.target.closest('.yk-x')) { o.remove(); return; }
+      var wb = ev.target.closest('[data-lgw]'); if (wb) { R.lgw = +wb.dataset.lgw; fill(); return; }
+      if (ev.target.closest('.lg-get') && W.lgClaim && lgState().open) { W.lgClaim(); try { W.save(); } catch (e) {} fill(); }
+    });
+    D.body.appendChild(o);
+  }
+  W.ekHediyeler = lgOpen;
+  /* 26 Kasım: Alp profili Genel sekmesi KoA "Hükümdar Bilgisi" gibi: bilgi kartı, eşya yuvaları + büyük Alp resmi, çubuklar, 4 düğme */
+  var HKS = [['b', 'Kafa', 'M12 3c-5 0-8 4-8 9v4h16v-4c0-5-3-9-8-9z'], ['w', 'Silah', 'M5 19L17 7M14 5l5 5M4 20l2-2'], ['g', 'Göğüs', 'M6 4l6 3 6-3 2 6-3 2v8H7v-8l-3-2z'], ['f', 'Ayak', 'M8 3v11l-4 4v2h10v-4l-1-2V3z'], ['e0', 'Küpe', 'M12 4a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM12 10v4M9 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0'], ['y0', 'Yüzük', 'M12 8a6 6 0 1 0 0 12 6 6 0 1 0 0-12zM9 4h6l-3 4z']];
+  function hkHtml(pop) {
+    var s = S(), ch = s.ch || {}, eq = ch.eq || {}, RC = W.RCOL || ['#8a97a3', '#2f8f5b', '#7b61ff', '#e0922b', '#e0473e'];
+    var h3 = pop.querySelector('.card h3'), nm = h3 ? h3.textContent.replace(/^[^A-Za-zÇĞİÖŞÜçğıöşü]+/, '').replace(/[^A-Za-z0-9ÇĞİÖŞÜçğıöşü' .\-]+$/, '').trim() : 'Alp';
+    var pw = 0; try { pw = W.power(); } catch (e) {}
+    var boy = (s.ek && s.ek.boy && s.ek.boy.n) || '—', lv = ch.lv || 1, xp = ch.xp || 0, xn = 1; try { xn = W.xpn(lv); } catch (e) { xn = Math.floor(40 * Math.pow(1.27, lv)); }
+    var en = s.en || {}, mx = W.EN_MAX || 200, ev = Math.floor(en.v || 0);
+    var slots = HKS.map(function (x) { var it = eq[x[0]], c = it ? RC[it.r || 0] : '#3a4a5a';
+      return '<button type="button" class="hk-sl' + (it ? ' on' : '') + '" data-hk="esya" style="--rc:' + c + '"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + x[2] + '"/></svg>' + (it ? '<em>Sv ' + (it.L || 1) + (it.p ? ' +' + it.p : '') + '</em>' : '<i>+</i>') + '</button>'; }).join('');
+    return '<div class="hk-id"><div class="hk-av"><img src="./assets/img/alp.webp" alt=""><b>' + lv + '</b></div><div class="hk-tb"><h4>' + nm + '</h4><span>Boy</span><b>' + boy + '</b><span>Kutsal Ocak</span><b>Sv ' + ((s.l && s.l.ocak) || 1) + '</b><span>Güç</span><b>' + nf(pw) + '</b></div></div>' +
+      '<div class="hk-mid"><div class="hk-eq">' + slots + '</div><div class="hk-art"><img src="./assets/img/alp_boy.webp" onerror="this.onerror=null;this.src=\'./assets/img/alp.webp\'" alt=""></div></div>' +
+      '<div class="hk-bar"><i class="hk-xi">' + I.kitap + '</i><span><u style="width:' + Math.min(100, Math.round(xp / Math.max(1, xn) * 100)) + '%"></u><b>Tecrübe ' + nf(xp) + '/' + nf(xn) + '</b></span></div>' +
+      '<div class="hk-bar en"><i class="hk-xi"><img src="./assets/img/ikon_enerji.webp" alt=""></i><span><u style="width:' + Math.min(100, Math.round(ev / mx * 100)) + '%"></u><b>Enerji ' + ev + '/' + mx + '</b></span></div>' +
+      '<div class="hk-bt"><button type="button" data-hk="gelisim"><i>⚔️</i><b>Yetenekler</b></button><button type="button" data-hk="sira"><i>🏆</i><b>Sıralama</b></button><button type="button" data-hk="basari"><i>🏅</i><b>Başarılar</b></button><button type="button" data-hk="ayar"><i>⚙️</i><b>Ayarlar</b></button></div>';
+  }
+  function hkGo(k, pop) {
+    var tb = pop.querySelectorAll('.ptb button');
+    if (k === 'esya' && tb[1]) tb[1].click(); else if (k === 'gelisim' && tb[2]) tb[2].click();
+    else if (k === 'basari') { var a = pop.querySelector('.vt-acts button'); if (a) a.click(); else if (W.rAch) W.rAch(); }
+    else if (k === 'sira') { closeOv(); var x = pop.querySelector('[data-pcl]'); if (x) x.click(); if (W.ekNpcOpen) W.ekNpcOpen('tug', 3); }
+    else if (k === 'ayar') { var y = pop.querySelector('[data-pcl]'); if (y) y.click(); tabGo('g'); }
+  }
+  function hukumdar() {
+    var pop = D.querySelector('#pop .pb.ah-pf'); if (!pop) return;
+    var gen = pop.classList.contains('ah-pf-gen'), box = pop.querySelector(':scope>.ah-hk');
+    pop.classList.toggle('ah-hk-on', gen);
+    if (!gen) { if (box) box.remove(); return; }
+    if (!box) { box = el('div', '', 'ah-hk'); var tbs = pop.querySelector('.ptb'); if (tbs) tbs.insertAdjacentElement('afterend', box); else pop.appendChild(box);
+      box.addEventListener('click', function (ev) { var x = ev.target.closest('[data-hk]'); if (x) { ev.stopPropagation(); hkGo(x.dataset.hk, pop); } }); }
+    var h = hkHtml(pop); if (box.__ah !== h) { box.__ah = h; box.innerHTML = h; }
+  }
+  /* 26 Kasım: Boy sayfası KoA "İttifak" merkezi — sancak + bilgi, 8 büyük düğme (mevcut bölümlere gider), altta 3 yuvarlak düğme */
+  var HUBB = [['fetih', 'Fetih', './assets/interface/painted/t/bow.webp'], ['yardim', 'Dayanışma', './assets/img/ikon_halk.webp'], ['yapi', 'Yapılar', './assets/img/ikon_boy_obasi.webp'], ['ilim', 'Ocak İlimleri', './assets/interface/painted/t/astrolabe.webp'],
+    ['sira', 'Sıralama', './assets/img/ikon_guc.webp'], ['katki', 'Katkı', './assets/interface/painted/t/toolbox.webp'], ['sohbet', 'Sohbet', './assets/interface/painted/t/banner.webp'], ['tamga', 'Tamga', './assets/img/ikon_kutsal_yer.webp']];
+  function hubHtml() {
+    var s = S(), b = (s.ek && s.ek.boy) || { n: 'Kök Böri', tg: -1, rank: 'han' }, al = s.al || {}, mem = []; try { mem = W.ekBoy.members(); } catch (e) {}
+    var RKN = { han: 'Han', bey: 'Bey', alp: 'Alp', er: 'Er' }, lead = b.rank === 'han' ? 'Sen' : (mem[0] || '—'), tg = ''; try { tg = b.tg >= 0 ? W.ergenekonBoy.tamga(b.tg, 34) : ''; } catch (e) {}
+    var hq = al.hq || 0;
+    return '<div class="hb-top"><div class="hb-ban">' + (tg || '<b>' + (b.n || 'B').charAt(0) + '</b>') + '</div><div class="hb-inf"><h3>' + (b.n || 'Boy') + '</h3><small>Rütben: ' + (RKN[b.rank] || 'Er') + '</small>' +
+      '<div class="hb-tb"><span><i>👑</i>Boy Başı</span><b>' + lead + '</b><span><i>⚔</i>Güç</span><b>' + nf(al.pow || 0) + '</b><span><i>👥</i>Üyeler</span><b>' + (mem.length + 1) + '</b><span><i>⛰</i>Toprak</span><b>' + (Array.isArray(al.terr) ? al.terr.length : typeof al.terr === 'object' && al.terr ? Object.keys(al.terr).length : (al.terr || 0)) + '</b></div></div></div>' +
+      '<div class="hb-g">' + HUBB.map(function (x) { var bd = x[0] === 'yardim' && hq ? '<em>' + hq + '</em>' : ''; return '<button type="button" data-hb="' + x[0] + '"><span><img src="' + x[2] + '" alt=""></span><b>' + x[1] + '</b>' + bd + '</button>'; }).join('') + '</div>' +
+      '<div class="hb-bot"><button type="button" data-hb="uye"><i>👥</i><b>Üyeler</b></button><button type="button" data-hb="bul"><i>🔎</i><b>Boy Bul</b></button><button type="button" data-hb="ayr"><i>📜</i><b>Ayrıntılar</b></button></div>';
+  }
+  function hubGo(k) {
+    var pg = { fetih: 1, yardim: 2, yapi: 3, sohbet: 4, uye: 0, ayr: 0 }[k], B = W.ergenekonBoy || {};
+    if (pg != null) { R.hub = false; boyHub(); var b = D.querySelector('#ah-pg [data-pg="' + pg + '"]'); if (b) b.click(); return; }
+    if (k === 'ilim') { if (W.ekOpenTech) W.ekOpenTech(); }
+    else if (k === 'sira' && B.openRanks) B.openRanks(); else if (k === 'katki' && B.openKatki) B.openKatki(); else if (k === 'tamga' && B.openTamga) B.openTamga(); else if (k === 'bul' && B.openFind) B.openFind();
+  }
+  function boyHub() {
+    var ta = D.getElementById('ta'); if (!ta) return;
+    if (W.tab !== 'a') { R.hub = null; return; }
+    if (R.hub == null) R.hub = true;
+    var on = !!R.hub, hb = D.getElementById('ah-boyhub');
+    ta.classList.toggle('ah-hub-on', on);
+    if (!on) { if (hb) hb.hidden = true; var bk = D.getElementById('ah-hubbk'); var pgb = D.getElementById('ah-pg'); if (pgb && !bk) { bk = el('button', 'ah-hubbk', '', '‹'); bk.type = 'button'; pgb.insertBefore(bk, pgb.firstChild); } return; }
+    if (!hb || hb.parentNode !== ta) { hb = el('div', 'ah-boyhub'); var hd = ta.querySelector('.game-page-header'); if (hd) hd.insertAdjacentElement('afterend', hb); else ta.insertBefore(hb, ta.firstChild);
+      hb.addEventListener('click', function (ev) { var x = ev.target.closest('[data-hb]'); if (x) { ev.stopPropagation(); hubGo(x.dataset.hb); } }); }
+    hb.hidden = false; var h = hubHtml(); if (hb.__ah !== h) { hb.__ah = h; hb.innerHTML = h; }
+  }
+  D.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('#ah-hubbk')) { ev.stopPropagation(); R.hub = true; boyHub(); } }, true);
   /* 25 Kasım: Kutsal Ocak yükselince tek seferlik kutlama (sonsuz animasyon yok) */
   function ocakParty() {
     var s = S(); if (!s || !s.l) return; s.ek = s.ek || {}; var L = s.l.ocak || 1;
@@ -412,7 +520,7 @@
     // sol: boştaki işler
     R.left = el('div', 'ah-left');
     // sağ üst ve sağ alt
-    R.right = el('div', 'ah-right', '', '<button type="button" data-ah="rtog" class="ah-rtog"><i><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#3a2410" stroke="#c8923a" stroke-width="3"/><path d="M15 15l9 9 9-9M15 25l9 9 9-9" fill="none" stroke="#f3d68e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><em class="ah-hil" hidden></em></button>' + [['gorev', 'Görevler'], ['bina', 'Binalar'], ['etkinlik', 'Etkinlik'], ['ayar', 'Ayarlar']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
+    R.right = el('div', 'ah-right', '', '<button type="button" data-ah="rtog" class="ah-rtog"><i><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#3a2410" stroke="#c8923a" stroke-width="3"/><path d="M15 15l9 9 9-9M15 25l9 9 9-9" fill="none" stroke="#f3d68e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><em class="ah-hil" hidden></em></button>' + [['gorev', 'Görevler'], ['hediye', 'Hediyeler'], ['bina', 'Binalar'], ['etkinlik', 'Etkinlik'], ['ayar', 'Ayarlar']].map(function (x) { return '<button type="button" data-ah="' + x[0] + '"><i>' + I[x[0]] + '</i><b>' + x[1] + '</b><em class="ah-hil" hidden></em></button>'; }).join(''));
     R.act = el('div', 'ah-act', '', '<button type="button" data-ah="yardim"><i>' + I.yardim + '</i><b>Yardım et</b><em class="ah-bd" hidden></em></button><button type="button" data-ah="topla"><i>' + I.topla + '</i><b>Tümünü topla</b></button>');
     R.pw = el('div', 'ah-pw', '', '<span class="ah-pwv"><i>' + I.guc + '</i><b></b></span><span class="ah-er"><img src="./assets/img/ikon_erime.webp" alt=""><em></em></span>');
     R.toast = el('div', 'ah-toast'); R.toast.hidden = true;
@@ -435,6 +543,7 @@
     else if (k === 'rtog') { var c = !R.right.classList.contains('ah-rc'); R.right.classList.toggle('ah-rc', c); try { localStorage.setItem('ah_rc', c ? '1' : '0'); } catch (e) {} }
     else if (k === 'gorev') gorevOpen();
     else if (k === 'bina') binaOpen();
+    else if (k === 'hediye') lgOpen();
     else if (k === 'etkinlik') tabGo('e');
     else if (k === 'ayar') tabGo('g');
     else if (k === 'yardim') { var n = (s.al && s.al.hq) || 0, h = D.getElementById('ek-hand'); if (n && h) { h.click(); toast('🤝 ' + n + ' boydaşa yardım edildi'); } else toast('Yardım bekleyen boydaş yok'); }
@@ -494,6 +603,7 @@
     H.classList.toggle('ah-main', main);
     if (tab === 'm') { monWatch(); if (D.getElementById('mapi') && !D.getElementById('mapi').classList.contains('ah-mon')) R.tak = false; }
     if (tab !== 'c' && tab !== 'm') { pgWatch(); pager(); }
+    boyHub(); hukumdar();
     profTidy(); ocakParty();
     if (tab === 'u') { if (!R.uOpen) R.uOpen = Date.now(); heroNav(); heroQuote(); } else R.uOpen = 0;
     uqFill(); if (R.uq && !R.uq.hidden && !main) R.uq.hidden = true;
@@ -520,7 +630,8 @@
     if (R.left.__ah !== h) { R.left.__ah = h; R.left.innerHTML = h; }
     bd(R.act.querySelector('[data-ah="yardim"]'), (s.al && s.al.hq) || '');
     var tg = D.querySelector('#ek-npcs [data-npc="tug"] .np-hil'), gh = R.right.querySelector('[data-ah="gorev"] .ah-hil'); if (gh) gh.hidden = !tg;
-    var th = R.right.querySelector('[data-ah="rtog"] .ah-hil'); if (th) th.hidden = !(tg && R.right.classList.contains('ah-rc'));
+    var lgh = R.right.querySelector('[data-ah="hediye"] .ah-hil'), lgw = false; try { var ls = lgState(); lgw = ls.open && !ls.got; } catch (e) {} if (lgh) lgh.hidden = !lgw;
+    var th = R.right.querySelector('[data-ah="rtog"] .ah-hil'); if (th) th.hidden = !((tg || lgw) && R.right.classList.contains('ah-rc'));
   }
   /* 25 Kasım: TEK EKRAN — pencerelerde kaydırma yok.
      1) Taşan pencere gövdesi ekrana sığana dek küçülür (zoom, en az %72).
